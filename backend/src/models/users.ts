@@ -1,0 +1,24 @@
+import mongoose from 'mongoose'
+
+const Schema = mongoose.Schema; 
+
+let User = new Schema({ //sva polja koja postoje u users semi
+    firstname:{
+        type:String
+    },
+    lastname:{
+        type:String
+    },
+    username:{
+        type:String
+    },
+    password:{
+        type:String
+    },
+    type:{
+        type:Number
+    },
+})
+
+export default mongoose.model("User", User, "users");// (1)Dodeljuje promenjivoj "User" , za semu (2)User koju smo gore definisali kako izgleda,
+                                                     // za kolekciju koja dolazi iz (3)"users" collection iz baze

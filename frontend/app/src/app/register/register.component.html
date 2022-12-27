@@ -1,0 +1,77 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-4">&nbsp;</div>
+        <div class="col-4">
+
+            <ul class="nav nav-tabs" style="width: fit-content; padding-top: 40px; border-bottom: black;">
+                <li class="nav-item tabs" style="background-color: transparent;">
+                  <button class=" rounded-top" style="padding: 9px; top: 13px; position: relative; margin: 0px; background-color: rgb(28, 108, 16);"  routerLink="../login">Login</button>
+                </li> 
+                <li class="nav-item tabs tabbs">
+        
+                  <button class=" rounded-top btn-xs" style="margin: 0px; background-color: rgb(19,98,7);" routerLink="../register">Register</button>
+                </li>
+              </ul>
+
+            <form class="page scrollbar scrollbar-default" style="width: 100%; height: 600px;">
+                <div class="picture-container">
+                    <div class="picture">
+                        <img src={{profile_photo_name}} style="width: 100px; height: 100px;" alt="Avatar"
+                            class="avatar">
+                        <input type="file" id="wizard-picture" class="" (change)="onFileSelected($event)">
+                    </div>
+                    <h6 class="">Choose Picture</h6>
+                </div>
+
+                <div class="container">
+
+                    <label for="firstname"><b>*Firstname:</b></label>
+                    <input type="text" placeholder="Enter Firstname" name="firstname" [(ngModel)]="firstname" required>
+                    <br />
+
+                    <label for="lastname"><b>*Lastname:</b></label>
+                    <input type="text" placeholder="Enter Lastname" name="lastname" [(ngModel)]="lastname" required>
+                    <br />
+
+                    <label for="username"><b>*Username:</b></label>
+                    <input type="text" placeholder="Enter Username" name="username" [(ngModel)]="username" required>
+                    <br />
+
+                    <label for="password"><b>*Password:</b></label>
+                    <input type="password" placeholder="Enter Password" name="password" [(ngModel)]="password" required>
+                    <br />
+
+                    <label for="type"><b>*Type:</b></label>
+
+                    <select class="form-select" [(ngModel)]="type" name="type" required>
+                        <option value="participant">Participant</option>
+                        <option value="oranizer">Oranizer</option>
+                    </select>
+
+                    <button style="background-color: rgb(19,98,7);" (click)="register()">Register</button>
+                </div>
+
+            </form>
+
+        </div>
+        <div class="col-4">&nbsp;</div>
+    </div>
+</div>
+<script>
+$(document).ready(function(){
+    // Prepare the preview for profile picture
+        $("#wizard-picture").change(function(){
+            readURL(this);
+        });
+    });
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+    
+            reader.onload = function (e) {
+                $('#wizardPicturePreview').attr('src', e.target.result).fadeIn('slow');
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    </script>

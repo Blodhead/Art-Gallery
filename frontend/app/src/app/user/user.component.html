@@ -1,0 +1,9 @@
+<h2>add Cimment</h2>
+
+Caption: <select [(ngModel)]="Myid">
+    <option *ngFor="let n of news" value="{{n.Myid}}">{{n.caption}}</option>
+</select>
+<br/>
+<textarea name="comment" [(ngModel)]="comment"></textarea>
+<br/>
+<button (click)="add()">Add</button>

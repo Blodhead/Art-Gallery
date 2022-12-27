@@ -1,0 +1,23 @@
+<table>
+
+    <tr>
+
+        <th>Id</th>
+        <th>Caption</th>
+        <th>Comments</th>
+
+    </tr>
+
+    <tr *ngFor="let n of news">
+        <td>{{n.Myid}}</td>
+        <td>{{n.caption}}</td>
+        <td>
+            <ul>
+                <li *ngFor="let comm of n.comments">
+                    {{comm.text}}
+                </li>
+            </ul>
+        </td>
+    </tr>
+
+</table>

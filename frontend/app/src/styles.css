@@ -1,0 +1,15 @@
+.page{
+    background-color: white;
+    border-radius: 25px;
+    border-top-left-radius: 0px;
+    border: 2px solid rgb(19,98,7);
+    padding: 20px;
+}
+.tabs{
+    background-color: white;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border: 2px;
+}
+
+

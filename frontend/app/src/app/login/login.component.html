@@ -1,0 +1,37 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-4">&nbsp;</div>
+    <div class="col-4">
+
+      <ul class="nav nav-tabs" style="width: fit-content; padding-top: 40px; border-bottom: black;">
+        <li class="nav-item tabs tabbs">
+          <button class=" rounded-top" style="margin: 0px; background-color: rgb(19,98,7);" routerLink="../login">Login</button>
+        </li> 
+        <li class="nav-item tabs" style="background-color: transparent;">
+
+          <button class=" rounded-top btn-xs" style="padding: 9px; top: 13px; position: relative; margin: 0px; background-color: rgb(28, 108, 16);" routerLink="../register">Register</button>
+        </li>
+      </ul>
+
+      <form class="page">
+        <div class="imgcontainer">
+          <img src="../../assets/images/img_avatar2.png" style="width: 100px; height: 100px;" alt="Avatar" class="avatar">
+        </div>
+
+        <div class="container">
+          <label for="username"><b>Username</b></label>
+          <input type="text" placeholder="Enter Username" name="username" [(ngModel)]="username" required>
+
+          <label for="password"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="password" [(ngModel)]="password" required>
+          <button style="background-color: rgb(19,98,7);" (click)="login()">Login</button>
+
+          <div class="psw" style="text-align: center;">Forgot <a href="#">password?</a></div>
+        </div>
+
+      </form>
+
+    </div>
+    <div class="col-4">&nbsp;</div>
+  </div>
+</div>
