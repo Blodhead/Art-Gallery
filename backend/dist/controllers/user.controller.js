@@ -8,11 +8,19 @@ const users_1 = __importDefault(require("../models/users"));
 class UserController {
     constructor() {
         this.register = (req, res) => {
-            let user = new users_1.default({ firstname: req.body.firstname,
+            let user = new users_1.default({
+                profile_photo_name: req.body.profile_photo_name,
+                firstname: req.body.firstname,
                 lastname: req.body.lastname,
                 username: req.body.username,
                 password: req.body.password,
-                type: req.body.type
+                type: req.body.type,
+                state: req.body.state,
+                city: req.body.city,
+                postal_code: req.body.postal_code,
+                street: req.body.street,
+                number: req.body.number,
+                pib: req.body.pib,
             });
             user.save().then(user => {
                 res.status(200).json({ "message": "user added" });

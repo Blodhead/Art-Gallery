@@ -16,7 +16,26 @@ firstname:string;
 lastname:string;
 username:string;
 password:string;
-type:number;
+type:string;
+
+confirm_password:string;
+
+
+//OPTIONAL DATA FOR ORGANIZOR
+
+state:string;
+city:string;
+postal_code: string;
+street:string;
+number:number;
+pib:string;
+
+getType():boolean{
+  if(this.type == "organizer") return true;
+  else return false;
+}
+
+org_name:string;
 
   ngOnInit(): void {
     this.profile_photo_name = "../../assets/images/img_avatar2.png";
@@ -28,7 +47,8 @@ type:number;
   }
 
   register(){
-    this.service.register(this.firstname, this.lastname, this.username, this.password, this.type).subscribe((res)=>{
+    this.service.register(this.profile_photo_name, this.firstname, this.lastname, this.username, this.password, this.type,
+       this.org_name, this.state, this.city, this.postal_code,this.street, this.number, this.pib).subscribe((res)=>{
         if(res["message"] == "user added") alert("OK");
         else alert("ERROR");
     });
