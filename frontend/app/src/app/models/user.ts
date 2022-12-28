@@ -3,8 +3,9 @@ export class User {          //definisanje strukture
     lastname: string;
     username: string;
     password: string;
+    phone:string;
+    mail:string;
     type: number;
-
     profile_photo_name:string;
     state: string;
     city: string;
@@ -12,4 +13,9 @@ export class User {          //definisanje strukture
     street: string;
     number: number;
     pib: string;
+}
+
+export class Temp_Data{
+    username: string;
+    mail:string;
 }

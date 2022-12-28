@@ -9,8 +9,8 @@ const userRouter = express_1.default.Router(); //dodeljivanje rutera
 userRouter.route("/login").post(//ako dodje "/login" ruta on obradjuje POST zahtev, za GET ne zna sta da radi, jer nije definisano
 (req, res) => new user_controller_1.UserController().login(req, res) //poziva se UserController i njegova login metoda
 );
-userRouter.route("/register/getUser").post(//ako dodje "/login" ruta on obradjuje POST zahtev, za GET ne zna sta da radi, jer nije definisano
-(req, res) => new user_controller_1.UserController().getUser(req, res) //poziva se UserController i njegova login metoda
+userRouter.route("/getTempData").get(//ako dodje "/login" ruta on obradjuje POST zahtev, za GET ne zna sta da radi, jer nije definisano
+(req, res) => new user_controller_1.UserController().getTempData(req, res) //poziva se UserController i njegova login metoda
 );
 userRouter.route("/register").post((req, res) => new user_controller_1.UserController().register(req, res));
 exports.default = userRouter; //eksportuj ruter da se moze koristiti negde drugde

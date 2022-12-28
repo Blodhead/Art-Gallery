@@ -21,6 +21,12 @@ let User = new Schema({
     password: {
         type: String
     },
+    phone: {
+        type: String
+    },
+    mail: {
+        type: String
+    },
     type: {
         type: String
     },

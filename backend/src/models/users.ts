@@ -18,6 +18,12 @@ let User = new Schema({ //sva polja koja postoje u users semi
     password:{
         type:String
     },
+    phone:{
+        type:String
+    },
+    mail:{
+        type:String
+    },
     type:{
         type:String
     },

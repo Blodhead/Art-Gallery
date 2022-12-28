@@ -7,8 +7,8 @@ userRouter.route("/login").post( //ako dodje "/login" ruta on obradjuje POST zah
     (req,res)=>new UserController().login(req,res)//poziva se UserController i njegova login metoda
 )
 
-userRouter.route("/register/getUser").post( //ako dodje "/login" ruta on obradjuje POST zahtev, za GET ne zna sta da radi, jer nije definisano
-    (req,res)=>new UserController().getUser(req,res)//poziva se UserController i njegova login metoda
+userRouter.route("/getTempData").get( //ako dodje "/login" ruta on obradjuje POST zahtev, za GET ne zna sta da radi, jer nije definisano
+    (req,res)=>new UserController().getTempData(req,res)//poziva se UserController i njegova login metoda
 )
 
 userRouter.route("/register").post(

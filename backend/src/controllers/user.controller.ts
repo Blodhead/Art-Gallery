@@ -8,8 +8,10 @@ export class UserController {
     register = (req: express.Request, res: express.Response) => {
         let user = new User({
             profile_photo_name: req.body.profile_photo_name,
-            org_name:req.body.org_name,
+            org_name: req.body.org_name,
             firstname: req.body.firstname,
+            phone: req.body.phone,
+            mail: req.body.mail,
             lastname: req.body.lastname,
             username: req.body.username,
             password: req.body.password,
@@ -40,12 +42,11 @@ export class UserController {
         })                                                                    //"login" dobija vrednost korisnika koji se vraca iz lambda izraza
     }
 
-    getUser = (req: express.Request, res: express.Response)=> { //req se koristi za Requests, a povratna vrednost je res, tj. Response
-        let username = req.body.username; //dohvata usernamer iz tela
-        console.log(username);
-        User.findOne({"username": username}, (err, user) => {//findOne vraca jednu instancu sa parametrima username i password
-            if (err) console.log(err);                                         //izvrsava Querry i vraca instancu na takav nacin da je prvo error
-            else res.json(user)                                               //a zatim trazeni korisnik. Ako korisnik ne postoji, err ce imati vrednost error poruke
-        })                                                                    //"login" dobija vrednost korisnika koji se vraca iz lambda izraza
+    getTempData = (req: express.Request, res: express.Response) => {
+        User.find({}, (err, data) => {
+            if (err) console.log(err);
+            else {console.log(res);res.json(data);}
+        }
+        )
     }
 }

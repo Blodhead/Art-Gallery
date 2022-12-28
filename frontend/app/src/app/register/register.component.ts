@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import * as _ from 'lodash';
-import { User } from "../models/user"
+import { User, Temp_Data } from "../models/user"
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
+
+
+
 export class RegisterComponent implements OnInit {
 
   constructor(private service: UserService) { }
@@ -19,20 +22,19 @@ export class RegisterComponent implements OnInit {
   username: string;
   password: string;
   type: string;
-
   confirm_password: string;
-
-
-  //OPTIONAL DATA FOR ORGANIZOR
-
   state: string;
   city: string;
   postal_code: string;
   street: string;
   number: number;
   pib: string;
+  phone:string;
+  mail:string;
 
 
+  temp_usernames: Array<string> = [];
+  temp_mails: Array<string> = [];
 
   getType(): boolean {
     if (this.type == "organizer") return true;
@@ -43,11 +45,28 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.profile_photo_name = "../../assets/images/img_avatar2.png";
+    this.getTempData();
+  }
+
+  getTempData() {
+    this.service.getTempData().subscribe((temp_data: Temp_Data[]) => { //subscribe je cekanje odgovora, tj. nna return pozvane funkcije
+       if (temp_data) {
+        alert("Error get All data");
+      }
+      else {
+        for (var i = 0; i < temp_data.length; i++) {
+          this.temp_usernames[i] = temp_data[i].username;
+          this.temp_mails[i] = temp_data[i].mail;
+        }
+
+      }
+    });
   }
 
   imageError: string;
   cardImageBase64: string;
   isImageSaved: boolean;
+
   onFileSelected(event) {
     const allowed_types = ['image/png', 'image/jpeg'];
     const max_height = 300;
@@ -133,33 +152,44 @@ export class RegisterComponent implements OnInit {
       this.Error_message += "Must choose type\n"
     }
 
-    if (this.username == null) {
-      this.Error_message += "Missing Username\n"
-    } else if (this.getOne(this.username) == true) {
-      
+    if (this.phone == null) {
+      this.Error_message += "Missing phone number\n"
     }
 
-  }
-
-  getOne(_username): any {
-    this.service.getUser(_username).subscribe((user: User) => { //subscribe je cekanje odgovora, tj. nna return pozvane funkcije
-      if (user) {
-        this.Error_message += "Username already in use\n"
+    if (this.username == null) {
+      this.Error_message += "Missing Username\n"
+    } else {
+      for (var i = 0; i < this.temp_usernames.length; i++) {
+        if (this.temp_usernames[i] == this.username) {
+          this.Error_message += "Username is taken\n";
+          break;
+        }
       }
-      if (this.Error_message != "Input error:\n") { alert(this.Error_message); return; }
-      this.update();
-      return;
-    });
-    return;
-  }
+    }
 
-  update(){
-  
-    this.service.register(this.profile_photo_name, this.firstname, this.lastname, this.username, this.password, this.type,
+    if (this.mail == null) {
+      this.Error_message += "Missing Mail\n"
+    } else {
+      for (var i = 0; i < this.temp_mails.length; i++) {
+        if (this.temp_mails[i] == this.mail) {
+          this.Error_message += "E-mail is taken\n";
+          break;
+        }
+      }
+    }
+
+    if (this.Error_message != "Input error:\n") {
+      alert(this.Error_message);
+      return;
+    }
+
+    this.service.register(this.profile_photo_name, this.firstname, this.lastname, this.username, this.password, this.mail, this.phone, this.type,
       this.org_name, this.state, this.city, this.postal_code, this.street, this.number, this.pib).subscribe((res) => {
         if (res["message"] == "user added") alert("OK");
         else alert("ERROR");
       });
+
+
   }
 
 }
