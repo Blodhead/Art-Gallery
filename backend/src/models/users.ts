@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 let User = new Schema({ //sva polja koja postoje u users semi
     profile_photo_name:{
-        profile_photo_name:String
+        type:String
     },
     firstname:{
         type:String
@@ -22,25 +22,25 @@ let User = new Schema({ //sva polja koja postoje u users semi
         type:String
     },
     org_name:{
-        org_name:String
+        type:String
     },
     state:{
-        state:String
+        type:String
     },
     city:{
-        city:String
+        type:String
     },
     postal_code:{
-        postal_code:String
+        type:String
     },
     street:{
-        street:String
+        type:String
     },
     number:{
-        number:Number
+        type:Number
     },
     pib:{
-        pib:String
+        type:String
     }
 })
 
