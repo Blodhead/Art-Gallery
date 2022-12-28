@@ -39,4 +39,8 @@ export class UserService {
 
     return this.http.post(`${this.url}/users/register`, data);
   }
+
+  getUser(username: string) {
+    return this.http.post(`${this.url}/users/register/getUser`, username);
+  }
 }

@@ -39,6 +39,16 @@ class UserController {
                     res.json(user); //a zatim trazeni korisnik. Ako korisnik ne postoji, err ce imati vrednost error poruke
             }); //"login" dobija vrednost korisnika koji se vraca iz lambda izraza
         };
+        this.getUser = (req, res) => {
+            let username = req.body.username; //dohvata usernamer iz tela
+            console.log(username);
+            users_1.default.findOne({ "username": username }, (err, user) => {
+                if (err)
+                    console.log(err); //izvrsava Querry i vraca instancu na takav nacin da je prvo error
+                else
+                    res.json(user); //a zatim trazeni korisnik. Ako korisnik ne postoji, err ce imati vrednost error poruke
+            }); //"login" dobija vrednost korisnika koji se vraca iz lambda izraza
+        };
     }
 }
 exports.UserController = UserController;

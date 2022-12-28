@@ -4,6 +4,7 @@ import { ParsedQs } from "qs";
 import User from "../models/users"
 
 export class UserController {
+
     register = (req: express.Request, res: express.Response) => {
         let user = new User({
             profile_photo_name: req.body.profile_photo_name,
@@ -34,6 +35,15 @@ export class UserController {
         let password = req.body.password; //dohvata possword iz tela
 
         User.findOne({ "username": username, "password": password }, (err, user) => {//findOne vraca jednu instancu sa parametrima username i password
+            if (err) console.log(err);                                         //izvrsava Querry i vraca instancu na takav nacin da je prvo error
+            else res.json(user)                                               //a zatim trazeni korisnik. Ako korisnik ne postoji, err ce imati vrednost error poruke
+        })                                                                    //"login" dobija vrednost korisnika koji se vraca iz lambda izraza
+    }
+
+    getUser = (req: express.Request, res: express.Response)=> { //req se koristi za Requests, a povratna vrednost je res, tj. Response
+        let username = req.body.username; //dohvata usernamer iz tela
+        console.log(username);
+        User.findOne({"username": username}, (err, user) => {//findOne vraca jednu instancu sa parametrima username i password
             if (err) console.log(err);                                         //izvrsava Querry i vraca instancu na takav nacin da je prvo error
             else res.json(user)                                               //a zatim trazeni korisnik. Ako korisnik ne postoji, err ce imati vrednost error poruke
         })                                                                    //"login" dobija vrednost korisnika koji se vraca iz lambda izraza
