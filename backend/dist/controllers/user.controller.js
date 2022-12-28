@@ -10,6 +10,7 @@ class UserController {
         this.register = (req, res) => {
             let user = new users_1.default({
                 profile_photo_name: req.body.profile_photo_name,
+                org_name: req.body.org_name,
                 firstname: req.body.firstname,
                 lastname: req.body.lastname,
                 username: req.body.username,

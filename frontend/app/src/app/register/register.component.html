@@ -16,9 +16,9 @@
             <form class="page scrollbar scrollbar-default" style="width: 100%; height: 600px;">
                 <div class="picture-container">
                     <div class="picture">
-                        <img src={{profile_photo_name}} style="width: 100px; height: 100px;" alt="Avatar"
+                        <img src={{profile_photo_name}}  style="width: 100px; height: 100px;" alt="Avatar"
                             class="avatar">
-                        <input type="file" id="wizard-picture" class="" (change)="onFileSelected($event)">
+                        <input type="file" id="wizard-picture"  class="" name="profile_photo_name" (change)="onFileSelected($event)">
                     </div>
                     <h6 class="">Choose Picture</h6>
                 </div>
@@ -67,31 +67,31 @@
                 <div class="container">
 
                     <label for="org_name"><b>Organisation name:</b></label>
-                    <input type="text" placeholder="Enter Organisation name" value="" name="org_name" [(ngModel)]="org_name" required>
+                    <input type="text" placeholder="Enter Organisation name" name="org_name" [(ngModel)]="org_name" required>
                     <br />
 
                     <label for="state"><b>State:</b></label>
-                    <input type="text" placeholder="Enter Organisation State" value="" name="state" [(ngModel)]="state" required>
+                    <input type="text" placeholder="Enter Organisation State" name="state" [(ngModel)]="state" required>
                     <br />
 
                     <label for="city"><b>City:</b></label>
-                    <input type="text" placeholder="Enter Organisation City"  value="" name="city" [(ngModel)]="city" required>
+                    <input type="text" placeholder="Enter Organisation City"  name="city" [(ngModel)]="city" required>
                     <br />
 
                     <label for="postal_code"><b>Enter Postal Code:</b></label>
-                    <input type="text" placeholder="Enter Organisation Postal Code" value="" name="postal_code" [(ngModel)]="postal_code" required>
+                    <input type="text" placeholder="Enter Organisation Postal Code" name="postal_code" [(ngModel)]="postal_code" required>
                     <br />
 
                     <label for="street"><b>Street:</b></label>
-                    <input type="text" placeholder="Enter Organisation Street" value="" name="street" [(ngModel)]="street" required>
+                    <input type="text" placeholder="Enter Organisation Street" name="street" [(ngModel)]="street" required>
                     <br />
 
                     <label for="number"><b>Number:</b></label>
-                    <input type="text" placeholder="Enter Organisation Number" value="" name="number" [(ngModel)]="number" required>
+                    <input type="text" placeholder="Enter Organisation Number" name="number" [(ngModel)]="number" required>
                     <br />
 
                     <label for="pib"><b>PIB:</b></label>
-                    <input type="text" placeholder="Enter Organisation PIB" value="" name="pib" [(ngModel)]="pib" required>
+                    <input type="text" placeholder="Enter Organisation PIB" name="pib" [(ngModel)]="pib" required>
                     <br />
 
                 </div>

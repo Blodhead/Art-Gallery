@@ -7,6 +7,7 @@ export class UserController {
     register = (req: express.Request, res: express.Response) => {
         let user = new User({
             profile_photo_name: req.body.profile_photo_name,
+            org_name:req.body.org_name,
             firstname: req.body.firstname,
             lastname: req.body.lastname,
             username: req.body.username,

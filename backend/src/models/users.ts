@@ -19,7 +19,7 @@ let User = new Schema({ //sva polja koja postoje u users semi
         type:String
     },
     type:{
-        type:Number
+        type:String
     },
     org_name:{
         org_name:String
