@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { News } from '../models/news';
-import { NewsService } from '../news.service';
+import { User } from '../models/user';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-admin',
@@ -11,20 +11,21 @@ import { NewsService } from '../news.service';
 export class AdminComponent implements OnInit {
 
 
-  constructor(private service:NewsService){}
+  constructor(private service: UserService){}
 
 active_tab:boolean = true;
 
   ngOnInit(): void {
-    this.service.getAllNews().subscribe((data: News[])=>{
-      this.news = data;
+    this.service.getTempData().subscribe((data: User[])=>{
+      
+      for(var i = 0; i < data.length ; i++){
+        if(data[i].type != "admin")
+        this.allUsers.push(data[i]);
+      }
     })
   }
 
-  news: News[] = []
-
-
-
+  allUsers: User[] = []
 
   getTab():boolean{
     return this.active_tab;

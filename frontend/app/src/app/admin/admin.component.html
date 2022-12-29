@@ -1,28 +1,6 @@
-<table>
 
-  <tr>
 
-    <th>Id</th>
-    <th>Caption</th>
-    <th>Comments</th>
-
-  </tr>
-
-  <tr *ngFor="let n of news">
-    <td>{{n.Myid}}</td>
-    <td>{{n.caption}}</td>
-    <td>
-      <ul>
-        <li *ngFor="let comm of n.comments">
-          {{comm.text}}
-        </li>
-      </ul>
-    </td>
-  </tr>
-
-</table>
-
-<div class="container">
+<div class="container" style="padding-top: 30px;">
 
   <div class="row">
 
@@ -51,9 +29,27 @@
     </div>
 
     <div class="col-12 shadow context" *ngIf="!getTab()">
+      
+      <table>
+        <tr>
+          <th>Firstname:</th>
+          <th>Lastname:</th>
+          <th>Username:</th>
+          <th>Phone:</th>
+          <th>Mail:</th>
+          <th>Type:</th>
+        </tr>
 
-      What is Lorem Ipsum?
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+        <tr *ngFor="let user of allUsers">
+            <td>{{user.firstname}}</td>
+            <td>{{user.lastname}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.phone}}</td>
+            <td>{{user.mail}}</td>
+            <td>{{user.type}}</td>
+        </tr>
+      </table>
+
     </div>
 
     <div class="col-12 shadow context" *ngIf="getTab()">
