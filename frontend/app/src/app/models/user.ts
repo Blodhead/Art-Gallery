@@ -5,7 +5,7 @@ export class User {          //definisanje strukture
     password: string;
     phone:string;
     mail:string;
-    type: number;
+    type: string;
     profile_photo_name:string;
     state: string;
     city: string;

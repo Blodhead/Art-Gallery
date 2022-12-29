@@ -1,0 +1,14 @@
+.admin_tabs{
+    cursor: pointer;
+}
+.uls{
+    margin-bottom: 0rem!important;
+}
+
+.context{
+    border-radius: 15px;
+}
+.shadow {
+    box-shadow: 5px 5px 10px 0px rgba(0,0,0,.8)!important;
+    border-top-color: transparent;
+}

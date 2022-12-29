@@ -7,8 +7,14 @@ import { NewsService } from '../news.service';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
+
 export class AdminComponent implements OnInit {
+
+
   constructor(private service:NewsService){}
+
+active_tab:boolean = true;
+
   ngOnInit(): void {
     this.service.getAllNews().subscribe((data: News[])=>{
       this.news = data;
@@ -16,4 +22,15 @@ export class AdminComponent implements OnInit {
   }
 
   news: News[] = []
+
+
+
+
+  getTab():boolean{
+    return this.active_tab;
+  }
+
+  setTab(input){
+    this.active_tab = input;
+  }
 }

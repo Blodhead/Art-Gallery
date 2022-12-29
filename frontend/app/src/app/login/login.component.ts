@@ -21,9 +21,9 @@ export class LoginComponent implements OnInit {
   login() {
     this.userService.login(this.username, this.password).subscribe((user: User) => { //subscribe je cekanje odgovora, tj. nna return pozvane funkcije
       if (user) {
-        if(user.type == 0){
-          this.router.navigate(["/user"]);
-        }else this.router.navigate(["/admin"]);
+        if(user.type == "admin"){
+          this.router.navigate(["/admin"]);
+        }else this.router.navigate(["/user"]);
       }
       else alert("Password and username don't match");
       //this.message="bad data"
