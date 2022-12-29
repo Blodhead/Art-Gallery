@@ -1,6 +1,23 @@
+.bg{
+    background-image: url("../../assets/images/admin_bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+}
 .admin_tabs{
     cursor: pointer;
 }
+
+.nav-link{
+    background-color: white;
+}
+
+.active{
+    background-color: lightgray !important;
+}
+
 .uls{
     margin-bottom: 0rem!important;
 }
@@ -12,3 +29,17 @@
     box-shadow: 5px 5px 10px 0px rgba(0,0,0,.8)!important;
     border-top-color: transparent;
 }
+
+.card{
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+  }
+  .imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+  }
