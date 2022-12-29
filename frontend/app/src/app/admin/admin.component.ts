@@ -24,10 +24,10 @@ requests: User[] = [];
       
       for(var i = 0; i < data.length ; i++){
         
-        if(data[i].status == "wainting")
+        if(data[i].status == "waiting")
           this.requests.push(data[i]);
           else if(data[i].type == "participant") this.participants.push(data[i]);
-          else if(data[i].type == "organisers") this.organisers.push(data[i]);
+          else if(data[i].type == "organizer") this.organisers.push(data[i]);
 
       }
     })

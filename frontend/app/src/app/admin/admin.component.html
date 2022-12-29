@@ -5,6 +5,7 @@
     <div class="row">
 
       <div class="col-12">
+
         <div class="" *ngIf="getTab() == 'Organizers'" style="width: fit-content;">
           <ul class="nav nav-tabs mb-3 uls" role="tablist">
             <li class="nav-item admin_tabs" role="presentation">
@@ -12,6 +13,12 @@
             </li>
             <li class="nav-item admin_tabs" role="presentation">
               <a class="nav-link" (click)="setTab('Participants')">Participants</a>
+            </li>
+            <li class="nav-item admin_tabs" role="presentation">
+              <a class="nav-link" (click)="setTab('Workshops')">Workshops</a>
+            </li>
+            <li class="nav-item admin_tabs" role="presentation">
+              <a class="nav-link" (click)="setTab('Requests')">Requests</a>
             </li>
           </ul>
         </div>
@@ -24,20 +31,62 @@
             <li class="nav-item admin_tabs" role="presentation">
               <a class="nav-link active" (click)="setTab('Participants')">Participants</a>
             </li>
+            <li class="nav-item admin_tabs" role="presentation">
+              <a class="nav-link" (click)="setTab('Workshops')">Workshops</a>
+            </li>
+            <li class="nav-item admin_tabs" role="presentation">
+              <a class="nav-link" (click)="setTab('Requests')">Requests</a>
+            </li>
           </ul>
         </div>
+
+        <div class="" *ngIf="getTab() == 'Workshops'" style="width: fit-content;">
+          <ul class="nav nav-tabs mb-3 uls" role="tablist">
+            <li class="nav-item admin_tabs" role="presentation">
+              <a class="nav-link" (click)="setTab('Organizers')">Organizers</a>
+            </li>
+            <li class="nav-item admin_tabs" role="presentation">
+              <a class="nav-link" (click)="setTab('Participants')">Participants</a>
+            </li>
+            <li class="nav-item admin_tabs" role="presentation">
+              <a class="nav-link active" (click)="setTab('Workshops')">Workshops</a>
+            </li>
+            <li class="nav-item admin_tabs" role="presentation">
+              <a class="nav-link" (click)="setTab('Requests')">Requests</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="" *ngIf="getTab() == 'Requests'" style="width: fit-content;">
+          <ul class="nav nav-tabs mb-3 uls" role="tablist">
+            <li class="nav-item admin_tabs" role="presentation">
+              <a class="nav-link" (click)="setTab('Organizers')">Organizers</a>
+            </li>
+            <li class="nav-item admin_tabs" role="presentation">
+              <a class="nav-link" (click)="setTab('Participants')">Participants</a>
+            </li>
+            <li class="nav-item admin_tabs" role="presentation">
+              <a class="nav-link" (click)="setTab('Workshops')">Workshops</a>
+            </li>
+            <li class="nav-item admin_tabs" role="presentation">
+              <a class="nav-link active" (click)="setTab('Requests')">Requests</a>
+            </li>
+          </ul>
+        </div>
+        
       </div>
 
       <div class="col-12 shadow context" style="background-color: #136207;" *ngIf="getTab()=='Organizers'">
 
-        <div class="card container-fluid shadow" *ngFor="let user of participants">
+        <div class="card container-fluid shadow" *ngFor="let user of organisers">
 
           <div class="row">
 
             <div class="col-2" style="text-align: center;">
 
               <div class="imgcontainer">
-                <img src="{{user.profile_photo_name}}" style="width: 100px; height: 100px;" alt="Avatar" class="avatar shadow">
+                <img src="{{user.profile_photo_name}}" style="width: 100px; height: 100px;" alt="Avatar"
+                  class="avatar shadow">
               </div>
               <h6>{{user.username}}</h6>
 
@@ -69,10 +118,10 @@
             </div>
 
             <div class="col-3">
-              <br/>
+              <br />
               <button type="button" class="btn btn-warning">Edit User</button>
-              <br/>
-              <br/>
+              <br />
+              <br />
               <button type="button" class="btn btn-danger">Delete User</button>
             </div>
 
@@ -82,17 +131,116 @@
 
       </div>
 
-      <div class="col-12 shadow context" *ngIf="getTab() == 'Participants'" style="background-color: white;">
+      <div class="col-12 shadow context" style="background-color: #136207;" *ngIf="getTab()=='Participants'">
 
-        Whasdasffqwfqwfw?
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-        standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-        a
-        type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-        remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
-        Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum
+        <div class="card container-fluid shadow" *ngFor="let user of participants">
+
+          <div class="row">
+
+            <div class="col-2" style="text-align: center;">
+
+              <div class="imgcontainer">
+                <img src="{{user.profile_photo_name}}" style="width: 100px; height: 100px;" alt="Avatar"
+                  class="avatar shadow">
+              </div>
+              <h6>{{user.username}}</h6>
+
+
+            </div>
+
+            <div class="col-7 ">
+              <table>
+                <tr>
+                  <th>Firstname:</th>
+                  <td>{{user.firstname}}</td>
+                </tr>
+
+                <tr>
+                  <th>Lastname:</th>
+                  <td>{{user.lastname}}</td>
+                </tr>
+
+                <tr>
+                  <th>Phone:</th>
+                  <td>{{user.phone}}</td>
+                </tr>
+                <tr>
+                  <th>Mail:</th>
+                  <td>{{user.mail}}</td>
+                </tr>
+              </table>
+
+            </div>
+
+            <div class="col-3">
+              <br />
+              <button type="button" class="btn btn-warning">Edit User</button>
+              <br />
+              <br />
+              <button type="button" class="btn btn-danger">Delete User</button>
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
+
+      <div class="col-12 shadow context" style="background-color: #136207;" *ngIf="getTab()=='Requests'">
+
+        <div class="card container-fluid shadow" *ngFor="let user of requests">
+
+          <div class="row">
+
+            <div class="col-2" style="text-align: center;">
+
+              <div class="imgcontainer">
+                <img src="{{user.profile_photo_name}}" style="width: 100px; height: 100px;" alt="Avatar"
+                  class="avatar shadow">
+              </div>
+              <h6>{{user.username}}</h6>
+
+
+            </div>
+
+            <div class="col-7 ">
+              <table>
+                <tr>
+                  <th>Firstname:</th>
+                  <td>{{user.firstname}}</td>
+                </tr>
+
+                <tr>
+                  <th>Lastname:</th>
+                  <td>{{user.lastname}}</td>
+                </tr>
+
+                <tr>
+                  <th>Phone:</th>
+                  <td>{{user.phone}}</td>
+                </tr>
+                <tr>
+                  <th>Mail:</th>
+                  <td>{{user.mail}}</td>
+                </tr>
+              </table>
+
+            </div>
+
+            <div class="col-3">
+              <br />
+              <button type="button" class="btn btn-warning">Edit User</button>
+              <br />
+              <br />
+              <button type="button" class="btn btn-danger">Delete User</button>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
 
     </div>
 
