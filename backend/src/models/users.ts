@@ -47,6 +47,9 @@ let User = new Schema({ //sva polja koja postoje u users semi
     },
     pib:{
         type:String
+    },
+    status:{
+        type:String
     }
 })
 

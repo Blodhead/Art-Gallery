@@ -20,7 +20,7 @@ export class UserService {
     // i slozenim objektom "data"(2) koji sadrzi username i password
   }
 
-  register(profile_photo_name, firstname, lastname, username, password, mail, phone, type, org_name, state, city, postal_code,street, number, pib) {
+  register(profile_photo_name, firstname, lastname, username, password, mail, phone, type, org_name, state, city, postal_code,street, number, pib,status) {
     const data = {
       profile_photo_name:profile_photo_name,
       firstname: firstname,
@@ -36,8 +36,10 @@ export class UserService {
       number:number,
       pib:pib, 
       mail:mail, 
-      phone:phone
+      phone:phone,
+      status:status
     }
+    data.status = "waiting";
 
     return this.http.post(`${this.url}/users/register`, data);
   }

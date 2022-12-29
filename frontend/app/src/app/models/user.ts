@@ -13,6 +13,7 @@ export class User {          //definisanje strukture
     street: string;
     number: number;
     pib: string;
+    status:string;
 }
 
 export class Temp_Data{

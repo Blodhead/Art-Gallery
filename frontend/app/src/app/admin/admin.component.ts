@@ -13,7 +13,11 @@ export class AdminComponent implements OnInit {
 
   constructor(private service: UserService){}
 
-active_tab:boolean = true;
+active_tab:number = 1;
+allUsers: User[] = [];
+organisers: User[] = [];
+participants: User[] = [];
+requests: User[] = [];
 
   ngOnInit(): void {
     this.service.getTempData().subscribe((data: User[])=>{
@@ -25,9 +29,7 @@ active_tab:boolean = true;
     })
   }
 
-  allUsers: User[] = []
-
-  getTab():boolean{
+  getTab():number{
     return this.active_tab;
   }
 

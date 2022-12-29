@@ -50,6 +50,9 @@ let User = new Schema({
     },
     pib: {
         type: String
+    },
+    status: {
+        type: String
     }
 });
 exports.default = mongoose_1.default.model("User", User, "users"); // (1)Dodeljuje promenjivoj "User" , za semu (2)User koju smo gore definisali kako izgleda,

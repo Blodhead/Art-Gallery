@@ -1,36 +1,36 @@
 <div class="bg">
 
-  <div class="container" style="padding-top: 30px;">
+  <div class="container" style="padding-top: 30px; padding-bottom: 30px;">
 
     <div class="row">
 
       <div class="col-12">
-        <div class="" *ngIf="getTab()">
+        <div class="" *ngIf="getTab()" style="width: fit-content;">
           <ul class="nav nav-tabs mb-3 uls" role="tablist">
             <li class="nav-item admin_tabs" role="presentation">
-              <a class="nav-link active" (click)="setTab(true)">Users</a>
+              <a class="nav-link active" (click)="setTab(1)">Organizers</a>
             </li>
             <li class="nav-item admin_tabs" role="presentation">
-              <a class="nav-link" (click)="setTab(false)">Workshops</a>
+              <a class="nav-link" (click)="setTab(2)">Participants</a>
             </li>
           </ul>
         </div>
 
-        <div class="" *ngIf="!getTab()">
+        <div class="" *ngIf="!getTab()" style="width: fit-content;">
           <ul class="nav nav-tabs mb-3 uls" role="tablist">
             <li class="nav-item admin_tabs" role="presentation">
-              <a class="nav-link" (click)="setTab(true)">Users</a>
+              <a class="nav-link" (click)="setTab(1)">Organizers</a>
             </li>
             <li class="nav-item admin_tabs" role="presentation">
-              <a class="nav-link active" (click)="setTab(false)">Workshops</a>
+              <a class="nav-link active" (click)="setTab(2)">Participants</a>
             </li>
           </ul>
         </div>
       </div>
 
-      <div class="col-12 shadow context" style="background-color: white;" *ngIf="getTab()">
+      <div class="col-12 shadow context" style="background-color: #136207;" *ngIf="getTab()">
 
-        <div class="card container-fluid" *ngFor="let user of allUsers">
+        <div class="card container-fluid shadow" *ngFor="let user of allUsers">
 
           <div class="row">
 
@@ -44,7 +44,7 @@
 
             </div>
 
-            <div class="col-6 ">
+            <div class="col-7 ">
               <table>
                 <tr>
                   <th>Firstname:</th>
@@ -72,6 +72,14 @@
                 </tr>
               </table>
 
+            </div>
+
+            <div class="col-3">
+              <br/>
+              <button type="button" class="btn btn-warning">Edit User</button>
+              <br/>
+              <br/>
+              <button type="button" class="btn btn-danger">Delete User</button>
             </div>
 
           </div>

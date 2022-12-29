@@ -24,6 +24,7 @@ class UserController {
                 street: req.body.street,
                 number: req.body.number,
                 pib: req.body.pib,
+                status: "waiting"
             });
             user.save().then(user => {
                 res.status(200).json({ "message": "user added" });

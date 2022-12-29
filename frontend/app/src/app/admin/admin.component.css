@@ -15,7 +15,11 @@
 }
 
 .active{
-    background-color: lightgray !important;
+    background-color: #136207 !important;
+    color: black!important;
+    border-color: antiquewhite !important;
+    border:5px !important;
+    margin-bottom: -2px!important;
 }
 
 .uls{
@@ -32,7 +36,8 @@
 
 .card{
     margin-top: 10px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    background-color: antiquewhite;
 }
 
 img.avatar {
