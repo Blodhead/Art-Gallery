@@ -186,7 +186,7 @@ export class RegisterComponent implements OnInit {
 
     this.service.register(this.profile_photo_name, this.firstname, this.lastname, this.username, this.password, this.mail, this.phone, this.type,
       this.org_name, this.state, this.city, this.postal_code, this.street, this.number, this.pib, this.status).subscribe((res) => {
-        if (res["message"] == "user added") alert("OK");
+        if (res["message"] == "user added") {alert("Register acknowledged"); location.reload();}
         else alert("ERROR");
       });
 
