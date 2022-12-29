@@ -48,6 +48,10 @@ export class UserService {
     return this.http.post(`${this.url}/users/updateStatus`, user);
   }
 
+  deleteUser(user:User){
+    return this.http.post(`${this.url}/users/deleteUser`, user);
+  }
+
   getTempData() {
     return this.http.get(`${this.url}/users/getTempData`);
   }

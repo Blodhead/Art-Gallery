@@ -52,6 +52,12 @@ export class UserController {
 
     }
 
+    deleteUser = (req: express.Request, res: express.Response) => {
+        let username = req.body.username;
+        User.collection.deleteOne({"username":username});
+        res.json(req.body);
+    }
+
     getTempData = (req: express.Request, res: express.Response) => {
         User.find({}, (err, data) => {
             

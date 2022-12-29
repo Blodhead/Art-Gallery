@@ -48,6 +48,11 @@ class UserController {
             let status = req.body.status;
             users_1.default.collection.updateOne({ "username": username }, { $set: { "status": status } });
         };
+        this.deleteUser = (req, res) => {
+            let username = req.body.username;
+            users_1.default.collection.deleteOne({ "username": username });
+            res.json(req.body);
+        };
         this.getTempData = (req, res) => {
             users_1.default.find({}, (err, data) => {
                 if (err)

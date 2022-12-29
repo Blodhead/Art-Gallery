@@ -15,6 +15,10 @@ userRouter.route("/register").post(
     (req,res)=>new UserController().register(req,res)
 )
 
+userRouter.route("/deleteUser").post(
+    (req,res)=>new UserController().deleteUser(req,res)
+)
+
 userRouter.route("/updateStatus").post(
     (req,res)=>new UserController().updateStatus(req,res)
 )

@@ -80,4 +80,16 @@ requests: User[] = [];
   setTab(input){
     this.active_tab = input;
   }
+
+
+  delete(username){
+    let user = new User();
+    user.username = username.toString();
+    this.service.deleteUser(user).subscribe((user)=>{
+      user = null;
+      location.reload();
+    });
+    
+
+  }
 }
