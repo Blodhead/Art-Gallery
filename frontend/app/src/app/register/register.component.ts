@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
 
   getTempData() {
     this.service.getTempData().subscribe((temp_data: Temp_Data[]) => { //subscribe je cekanje odgovora, tj. nna return pozvane funkcije
-       if (temp_data) {
+       if (!temp_data) {
         alert("Error get All data");
       }
       else {

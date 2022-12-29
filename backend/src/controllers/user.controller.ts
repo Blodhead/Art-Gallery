@@ -44,8 +44,9 @@ export class UserController {
 
     getTempData = (req: express.Request, res: express.Response) => {
         User.find({}, (err, data) => {
+            
             if (err) console.log(err);
-            else {console.log(res);res.json(data);}
+            else {res.json(data); return data;}
         }
         )
     }

@@ -46,8 +46,8 @@ class UserController {
                 if (err)
                     console.log(err);
                 else {
-                    console.log(res);
                     res.json(data);
+                    return data;
                 }
             });
         };

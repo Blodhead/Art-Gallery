@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(["/user"]);
         }else this.router.navigate(["/admin"]);
       }
-      else alert("Bad data");
+      else alert("Password and username don't match");
       //this.message="bad data"
     });
   }
