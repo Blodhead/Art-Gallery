@@ -6,6 +6,7 @@ import User from "../models/users"
 export class UserController {
 
     register = (req: express.Request, res: express.Response) => {
+        let stat:string = "waiting";
         let user = new User({
             profile_photo_name: req.body.profile_photo_name,
             org_name: req.body.org_name,
@@ -22,7 +23,7 @@ export class UserController {
             street: req.body.street,
             number: req.body.number,
             pib: req.body.pib,
-            
+            status: stat
 
         })
 
