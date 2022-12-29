@@ -43,6 +43,11 @@ class UserController {
                     res.json(user); //a zatim trazeni korisnik. Ako korisnik ne postoji, err ce imati vrednost error poruke
             }); //"login" dobija vrednost korisnika koji se vraca iz lambda izraza
         };
+        this.updateStatus = (req, res) => {
+            let username = req.body.username;
+            let status = req.body.status;
+            users_1.default.collection.updateOne({ "username": username }, { $set: { "status": status } });
+        };
         this.getTempData = (req, res) => {
             users_1.default.find({}, (err, data) => {
                 if (err)

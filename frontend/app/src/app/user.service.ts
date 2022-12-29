@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http" //importuj da bi backend i frontend komunicirali preko HTTP zahteva
+import { User } from './models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-
   constructor(private http: HttpClient) { }//servisu se preko injection-a prosledjuje HttpClient da bismo ga mogli koristiti
 
   url = "http://localhost:4000";
@@ -42,6 +42,10 @@ export class UserService {
     data.status = "waiting";
 
     return this.http.post(`${this.url}/users/register`, data);
+  }
+
+  updateStatus(user: User) {
+    return this.http.post(`${this.url}/users/updateStatus`, user);
   }
 
   getTempData() {

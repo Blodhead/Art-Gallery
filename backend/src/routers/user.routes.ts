@@ -15,4 +15,8 @@ userRouter.route("/register").post(
     (req,res)=>new UserController().register(req,res)
 )
 
+userRouter.route("/updateStatus").post(
+    (req,res)=>new UserController().updateStatus(req,res)
+)
+
 export default userRouter; //eksportuj ruter da se moze koristiti negde drugde

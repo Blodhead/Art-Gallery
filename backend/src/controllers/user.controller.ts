@@ -44,6 +44,14 @@ export class UserController {
         })                                                                    //"login" dobija vrednost korisnika koji se vraca iz lambda izraza
     }
 
+    updateStatus = (req: express.Request, res: express.Response)=>{
+
+        let username = req.body.username;
+        let status = req.body.status;
+        User.collection.updateOne({"username":username}, {$set: {"status":status}});
+
+    }
+
     getTempData = (req: express.Request, res: express.Response) => {
         User.find({}, (err, data) => {
             

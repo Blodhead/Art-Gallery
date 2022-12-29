@@ -23,6 +23,9 @@ requests: User[] = [];
     this.service.getTempData().subscribe((data: User[])=>{
       
       for(var i = 0; i < data.length ; i++){
+
+        if(data[i].type != "admin")
+        this.allUsers.push(data[i]);
         
         if(data[i].status == "waiting")
           this.requests.push(data[i]);
@@ -31,6 +34,43 @@ requests: User[] = [];
 
       }
     })
+  }
+
+  accept(username, password){
+    
+    var user:User;
+
+    for(var i = 0; i < this.allUsers.length; i++){
+      if(this.allUsers[i].username == username){
+        user = this.allUsers[i];
+        break;
+      }
+    }
+
+    user.status = "approved";
+
+    if(!user) alert("Something is wery wrong");
+
+    this.service.updateStatus(user).subscribe();
+    location.reload();
+  }
+
+  reject(username, password){
+    var user:User;
+
+    for(var i = 0; i < this.allUsers.length; i++){
+      if(this.allUsers[i].username == username){
+        user = this.allUsers[i];
+        break;
+      }
+    }
+
+    user.status = "rejected";
+
+    if(!user) alert("Something is wery wrong");
+
+    this.service.updateStatus(user).subscribe();
+    location.reload();
   }
 
   getTab():string{

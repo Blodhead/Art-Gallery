@@ -13,5 +13,6 @@ userRouter.route("/getTempData").get(//ako dodje "/login" ruta on obradjuje POST
 (req, res) => new user_controller_1.UserController().getTempData(req, res) //poziva se UserController i njegova login metoda
 );
 userRouter.route("/register").post((req, res) => new user_controller_1.UserController().register(req, res));
+userRouter.route("/updateStatus").post((req, res) => new user_controller_1.UserController().updateStatus(req, res));
 exports.default = userRouter; //eksportuj ruter da se moze koristiti negde drugde
 //# sourceMappingURL=user.routes.js.map

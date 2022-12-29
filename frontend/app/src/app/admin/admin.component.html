@@ -73,7 +73,7 @@
             </li>
           </ul>
         </div>
-        
+
       </div>
 
       <div class="col-12 shadow context" style="background-color: #136207;" *ngIf="getTab()=='Organizers'">
@@ -93,7 +93,7 @@
 
             </div>
 
-            <div class="col-3" style="padding-top: 3%;">
+            <div class="col-3">
               <table>
                 <tr>
                   <th>Firstname:</th>
@@ -112,6 +112,14 @@
                 <tr>
                   <th>Mail:</th>
                   <td>{{user.mail}}</td>
+                </tr>
+                <tr>
+                  <th>Password:</th>
+                  <td>{{user.password}}</td>
+                </tr>
+                <tr>
+                  <th>Status:</th>
+                  <td>{{user.status}}</td>
                 </tr>
               </table>
 
@@ -189,7 +197,7 @@
 
             </div>
 
-            <div class="col-7"  style="padding-top: 3%;">
+            <div class="col-7">
               <table>
                 <tr>
                   <th>Firstname:</th>
@@ -208,6 +216,14 @@
                 <tr>
                   <th>Mail:</th>
                   <td>{{user.mail}}</td>
+                </tr>
+                <tr>
+                  <th>Password:</th>
+                  <td>{{user.password}}</td>
+                </tr>
+                <tr>
+                  <th>Status:</th>
+                  <td>{{user.status}}</td>
                 </tr>
               </table>
 
@@ -244,7 +260,7 @@
 
             </div>
 
-            <div class="col-7 ">
+            <div class="col-7">
               <table>
                 <tr>
                   <th>Firstname:</th>
@@ -264,16 +280,24 @@
                   <th>Mail:</th>
                   <td>{{user.mail}}</td>
                 </tr>
+                <tr>
+                  <th>Password:</th>
+                  <td>{{user.password}}</td>
+                </tr>
+                <tr>
+                  <th>Status:</th>
+                  <td>{{user.status}}</td>
+                </tr>
               </table>
 
             </div>
 
             <div class="col-3">
               <br />
-              <button type="button" class="btn btn-warning">Edit User</button>
+              <button type="button" class="btn btn-success" (click)="accept(user.username,user.password)">Accept</button>
               <br />
               <br />
-              <button type="button" class="btn btn-danger">Delete User</button>
+              <button type="button" class="btn btn-danger" (click)="reject(user.username,user.password)">Reject</button>
             </div>
 
           </div>
