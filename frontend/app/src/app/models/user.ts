@@ -7,6 +7,7 @@ export class User {          //definisanje strukture
     mail:string;
     type: string;
     profile_photo_name:string;
+    org_name:String;
     state: string;
     city: string;
     postal_code: string;
