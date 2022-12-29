@@ -5,39 +5,39 @@
     <div class="row">
 
       <div class="col-12">
-        <div class="" *ngIf="getTab()" style="width: fit-content;">
+        <div class="" *ngIf="getTab() == 'Organizers'" style="width: fit-content;">
           <ul class="nav nav-tabs mb-3 uls" role="tablist">
             <li class="nav-item admin_tabs" role="presentation">
-              <a class="nav-link active" (click)="setTab(1)">Organizers</a>
+              <a class="nav-link active" (click)="setTab('Organizers')">Organizers</a>
             </li>
             <li class="nav-item admin_tabs" role="presentation">
-              <a class="nav-link" (click)="setTab(2)">Participants</a>
+              <a class="nav-link" (click)="setTab('Participants')">Participants</a>
             </li>
           </ul>
         </div>
 
-        <div class="" *ngIf="!getTab()" style="width: fit-content;">
+        <div class="" *ngIf="getTab() == 'Participants'" style="width: fit-content;">
           <ul class="nav nav-tabs mb-3 uls" role="tablist">
             <li class="nav-item admin_tabs" role="presentation">
-              <a class="nav-link" (click)="setTab(1)">Organizers</a>
+              <a class="nav-link" (click)="setTab('Organizers')">Organizers</a>
             </li>
             <li class="nav-item admin_tabs" role="presentation">
-              <a class="nav-link active" (click)="setTab(2)">Participants</a>
+              <a class="nav-link active" (click)="setTab('Participants')">Participants</a>
             </li>
           </ul>
         </div>
       </div>
 
-      <div class="col-12 shadow context" style="background-color: #136207;" *ngIf="getTab()">
+      <div class="col-12 shadow context" style="background-color: #136207;" *ngIf="getTab()=='Organizers'">
 
-        <div class="card container-fluid shadow" *ngFor="let user of allUsers">
+        <div class="card container-fluid shadow" *ngFor="let user of participants">
 
           <div class="row">
 
             <div class="col-2" style="text-align: center;">
 
               <div class="imgcontainer">
-                <img src="{{user.profile_photo_name}}" style="width: 100px; height: 100px;" alt="Avatar" class="avatar">
+                <img src="{{user.profile_photo_name}}" style="width: 100px; height: 100px;" alt="Avatar" class="avatar shadow">
               </div>
               <h6>{{user.username}}</h6>
 
@@ -63,12 +63,6 @@
                 <tr>
                   <th>Mail:</th>
                   <td>{{user.mail}}</td>
-
-                </tr>
-
-                <tr>
-                  <th>Type:</th>
-                  <td>{{user.type}}</td>
                 </tr>
               </table>
 
@@ -88,7 +82,7 @@
 
       </div>
 
-      <div class="col-12 shadow context" *ngIf="!getTab()" style="background-color: white;">
+      <div class="col-12 shadow context" *ngIf="getTab() == 'Participants'" style="background-color: white;">
 
         Whasdasffqwfqwfw?
         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's

@@ -13,7 +13,7 @@ export class AdminComponent implements OnInit {
 
   constructor(private service: UserService){}
 
-active_tab:number = 1;
+active_tab:string = "Organizers";
 allUsers: User[] = [];
 organisers: User[] = [];
 participants: User[] = [];
@@ -23,13 +23,17 @@ requests: User[] = [];
     this.service.getTempData().subscribe((data: User[])=>{
       
       for(var i = 0; i < data.length ; i++){
-        if(data[i].type != "admin")
-        this.allUsers.push(data[i]);
+        
+        if(data[i].status == "wainting")
+          this.requests.push(data[i]);
+          else if(data[i].type == "participant") this.participants.push(data[i]);
+          else if(data[i].type == "organisers") this.organisers.push(data[i]);
+
       }
     })
   }
 
-  getTab():number{
+  getTab():string{
     return this.active_tab;
   }
 
