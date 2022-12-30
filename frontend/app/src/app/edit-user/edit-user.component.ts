@@ -2,13 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import * as _ from 'lodash';
 import { User, Temp_Data } from "../models/user"
+import { Router } from '@angular/router';
+
+
 @Component({
   selector: 'app-edit-user',
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.css']
 })
 export class EditUserComponent implements OnInit {
-  constructor(private service: UserService) { }
+  constructor(private service: UserService, private _router:Router) { }
 
   profile_photo = null;
   profile_photo_name: string;
@@ -57,7 +60,6 @@ export class EditUserComponent implements OnInit {
     this.mail = this.sent_user.mail;
     this.status = this.sent_user.status;
     this.org_name = this.sent_user.org_name.toString();
-
   }
 
   onFileSelected(event) {
@@ -126,12 +128,39 @@ export class EditUserComponent implements OnInit {
   }
 
   cancel() {
+    localStorage.removeItem("sent_user");
 
+    if(this.current_user.type == "admin"){
+      this._router.navigate(["admin"]);
+    }
+    else if(this.current_user.type == "organizer"){
+      this._router.navigate(["user"]);
+    }
+    else if(this.current_user.type == "participant"){
+      this._router.navigate(["user"]);
+    }
 
   }
 
   save() {
 
+    this.service.deleteUser(this.sent_user).subscribe((user) => {
+        user = null;
+      });
+
+    this.service.register(this.profile_photo_name, this.firstname, this.lastname, this.username, this.password, this.mail, this.phone, this.type,
+      this.org_name, this.state, this.city, this.postal_code, this.street, this.number, this.pib, this.status).subscribe((res) => {
+        if (res["message"] == "user added") {
+          alert("Data successfully modified");
+          this.cancel();
+        }
+        else {
+          alert("ERROR");
+          this.cancel();
+        }
+
+      });
+    
   }
 
 }

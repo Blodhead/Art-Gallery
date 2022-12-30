@@ -1,88 +1,112 @@
-<form class="page scrollbar scrollbar-default" style="width: 100%; height: 600px;">
-    <div class="picture-container">
-        <div class="picture">
-            <img src={{profile_photo_name}}  style="width: 100px; height: 100px;" alt="Avatar"
-                class="avatar">
-            <input type="file" id="wizard-picture"  class="" name="profile_photo_name" (change)="onFileSelected($event)">
-        </div>
-        <h6 class="">Choose Picture</h6>
-    </div>
-
+<div class="wrapper">
     <div class="container">
 
-        <label for="firstname"><b>*Firstname:</b></label>
-        <input type="text" placeholder="Enter Firstname" name="firstname" [(ngModel)]="firstname">
-        <br />
+        <div class="row">
+            <div class="col-1">&nbsp;</div>
+            <div class="col-4">
 
-        <label for="lastname"><b>*Lastname:</b></label>
-        <input type="text" placeholder="Enter Lastname" name="lastname" [(ngModel)]="lastname">
-        <br />
+                <form class="page scrollbar scrollbar-default" style="width: 100%; height: 600px;">
+                    <div class="picture-container">
+                        <div class="picture">
+                            <img src={{profile_photo_name}} style="width: 100px; height: 100px;" alt="Avatar"
+                                class="avatar">
+                            <input type="file" id="wizard-picture" class="" name="profile_photo_name"
+                                (change)="onFileSelected($event)">
+                        </div>
+                        <h6 class="">Choose Picture</h6>
+                    </div>
 
-        <label for="username"><b>*Username:</b></label>
-        <input type="text" placeholder="Enter Username" name="username" [(ngModel)]="username">
-        <br />
+                    <div class="container">
 
-        <label for="password"><b>*Password:</b></label>
-        <input type="password" placeholder="Enter Password" name="password" [(ngModel)]="password">
-        <br />
+                        <label for="firstname"><b>*Firstname:</b></label>
+                        <input type="text" placeholder="Enter Firstname" name="firstname" [(ngModel)]="firstname">
+                        <br />
 
-        <label for="password"><b>*Confirm Password:</b></label>
-        <input type="password" placeholder="Confirm Password" name="confirm_password" [(ngModel)]="confirm_password">
-        <br />
+                        <label for="lastname"><b>*Lastname:</b></label>
+                        <input type="text" placeholder="Enter Lastname" name="lastname" [(ngModel)]="lastname">
+                        <br />
 
-        <label for="phone"><b>*Phone number:</b></label>
-        <input type="text" placeholder={{phone}} name="phone" [(ngModel)]="phone">
-        <br />
+                        <label for="username"><b>*Username:</b></label>
+                        <input type="text" placeholder="Enter Username" name="username" [(ngModel)]="username">
+                        <br />
 
-        <label for="mail"><b>*Mail:</b></label>
-        <input type="text" placeholder="Enter Mail" name="mail" [(ngModel)]="mail">
-        <br />
+                        <label for="password"><b>*Password:</b></label>
+                        <input type="password" placeholder="Enter Password" name="password" [(ngModel)]="password">
+                        <br />
 
-        <label for="type"><b>*Type:</b></label>
+                        <label for="phone"><b>*Phone number:</b></label>
+                        <input type="text" placeholder="Enter phone" name="phone" [(ngModel)]="phone">
+                        <br />
 
-        <select class="form-select" [(ngModel)]="type" name="type">
-            <option value="participant">Participant</option>
-            <option value="organizer">Organizer</option>
-        </select>
+                        <label for="mail"><b>*Mail:</b></label>
+                        <input type="text" placeholder="Enter Mail" name="mail" [(ngModel)]="mail">
+                        <br />
+
+                        <label for="type"><b>*Type:</b></label>
+
+                        <select class="form-select" [(ngModel)]="type" name="type">
+                            <option value="participant">Participant</option>
+                            <option value="organizer">Organizer</option>
+                        </select>
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="col-1">&nbsp;</div>
+            <div class="col-1">&nbsp;</div>
+
+            <div class="col-4">
+
+                <form form class="page scrollbar scrollbar-default" style="width: 100%; height: 600px;">
+                    <h4>-Organisation optional information-</h4>
+                    <div class="container">
+
+                        <label for="org_name"><b>Organisation name:</b></label>
+                        <input type="text" placeholder="Enter Organisation name" name="org_name" [(ngModel)]="org_name">
+                        <br />
+
+                        <label for="state"><b>State:</b></label>
+                        <input type="text" placeholder="Enter Organisation State" name="state" [(ngModel)]="state">
+                        <br />
+
+                        <label for="city"><b>City:</b></label>
+                        <input type="text" placeholder="Enter Organisation City" name="city" [(ngModel)]="city">
+                        <br />
+
+                        <label for="postal_code"><b>Enter Postal Code:</b></label>
+                        <input type="text" placeholder="Enter Organisation Postal Code" name="postal_code"
+                            [(ngModel)]="postal_code">
+                        <br />
+
+                        <label for="street"><b>Street:</b></label>
+                        <input type="text" placeholder="Enter Organisation Street" name="street" [(ngModel)]="street">
+                        <br />
+
+                        <label for="number"><b>Number:</b></label>
+                        <input type="text" placeholder="Enter Organisation Number" name="number" [(ngModel)]="number">
+                        <br />
+
+                        <label for="pib"><b>PIB:</b></label>
+                        <input type="text" placeholder="{{pib}}" name="pib" [(ngModel)]="pib">
+                        <br />
+
+                    </div>
+                </form>
+
+            </div>
+            <div class="col-1">&nbsp;</div>
+
+            <div class="row">
+                <div class="col-6">
+                    <button style="background-color: rgb(19,98,7);" (click)="save()">Save</button>
+                </div>
+                <div class="col-6">
+                    <button style="background-color: rgb(201, 13, 13);" (click)="cancel()">Cancel</button>
+                </div>
+            </div>
+
+        </div>
+
     </div>
-
-</form>
-<form class="page scrollbar scrollbar-default" style="width: 100%; height: 600px; margin-top: 20%; border-top-left-radius: 5%;" *ngIf="getType()">
-
-    <h4>-Organisation optional information-</h4>
-
-<div class="container">
-
-    <label for="org_name"><b>Organisation name:</b></label>
-    <input type="text" placeholder="Enter Organisation name" name="org_name" [(ngModel)]="org_name">
-    <br />
-
-    <label for="state"><b>State:</b></label>
-    <input type="text" placeholder="Enter Organisation State" name="state" [(ngModel)]="state">
-    <br />
-
-    <label for="city"><b>City:</b></label>
-    <input type="text" placeholder="Enter Organisation City"  name="city" [(ngModel)]="city">
-    <br />
-
-    <label for="postal_code"><b>Enter Postal Code:</b></label>
-    <input type="text" placeholder="Enter Organisation Postal Code" name="postal_code" [(ngModel)]="postal_code">
-    <br />
-
-    <label for="street"><b>Street:</b></label>
-    <input type="text" placeholder="Enter Organisation Street" name="street" [(ngModel)]="street">
-    <br />
-
-    <label for="number"><b>Number:</b></label>
-    <input type="text" placeholder="Enter Organisation Number" name="number" [(ngModel)]="number">
-    <br />
-
-    <label for="pib"><b>PIB:</b></label>
-    <input type="text" placeholder="{{pib}}" name="pib" [(ngModel)]="pib">
-    <br />
-
 </div>
-
-<button style="background-color: rgb(19,98,7);" (click)="save()">Register</button>
-
-</form>

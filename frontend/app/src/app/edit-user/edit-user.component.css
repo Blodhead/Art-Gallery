@@ -9,6 +9,7 @@ form {border: 5px solid black;}
   width: 100%;
   overflow: scroll;
   overflow-x: hidden;
+  border-radius: 10px;
 }
 
 .tabbs{
@@ -160,6 +161,16 @@ span.psw {
 .content.ct-wizard-red .picture:hover{
   border-color: #ff3b30;
 }
+
+.wrapper{
+  background-image: url('../../assets/images/edit_user_bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
 .picture input[type="file"] {
   cursor: pointer;
   display: block;
