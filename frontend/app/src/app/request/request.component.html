@@ -1,0 +1,54 @@
+<div class="row">
+
+    <div class="col-2" style="text-align: center;">
+
+      <div class="imgcontainer">
+        <img src="{{myUser.profile_photo_name}}" style="width: 100px; height: 100px;" alt="Avatar"
+          class="avatar shadow">
+      </div>
+      <h6>{{myUser.username}}</h6>
+
+
+    </div>
+
+    <div class="col-7">
+      <table>
+        <tr>
+          <th>Firstname:</th>
+          <td>{{myUser.firstname}}</td>
+        </tr>
+
+        <tr>
+          <th>Lastname:</th>
+          <td>{{myUser.lastname}}</td>
+        </tr>
+
+        <tr>
+          <th>Phone:</th>
+          <td>{{myUser.phone}}</td>
+        </tr>
+        <tr>
+          <th>Mail:</th>
+          <td>{{myUser.mail}}</td>
+        </tr>
+        <tr>
+          <th>Password:</th>
+          <td>{{myUser.password}}</td>
+        </tr>
+        <tr>
+          <th>Status:</th>
+          <td>{{myUser.status}}</td>
+        </tr>
+      </table>
+
+    </div>
+
+    <div class="col-3">
+      <br />
+      <button type="button" class="btn btn-success" (click)="accept(myUser.username,'Request')">Accept</button>
+      <br />
+      <br />
+      <button type="button" class="btn btn-danger" (click)="reject(myUser.username,'Request')">Reject</button>
+    </div>
+
+  </div>

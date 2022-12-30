@@ -1,15 +1,29 @@
-.page{
+.page {
     background-color: white;
     border-radius: 25px;
     border-top-left-radius: 0px;
-    border: 2px solid rgb(19,98,7);
+    border: 2px solid rgb(19, 98, 7);
     padding: 20px;
 }
-.tabs{
+
+.tabs {
     background-color: white;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     border: 2px;
 }
 
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+}
 
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
+.shadow {
+    box-shadow: 5px 5px 10px 0px rgba(0,0,0,.8)!important;
+    border-top-color: transparent;
+}

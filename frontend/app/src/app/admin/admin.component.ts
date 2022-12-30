@@ -43,44 +43,6 @@ export class AdminComponent implements OnInit {
     })
   }
 
-  accept(username, type) {
-
-    localStorage.setItem("type", type);
-
-    var user: User;
-
-    for (var i = 0; i < this.allUsers.length; i++) {
-      if (this.allUsers[i].username == username) {
-        user = this.allUsers[i];
-        break;
-      }
-    }
-
-    user.status = "approved";
-
-    if (!user) alert("Something is wery wrong");
-
-    this.service.updateStatus(user).subscribe();
-    location.reload();
-  }
-
-  reject(username, type) {
-    var user: User;
-    localStorage.setItem("type", type);
-    for (var i = 0; i < this.allUsers.length; i++) {
-      if (this.allUsers[i].username == username) {
-        user = this.allUsers[i];
-        break;
-      }
-    }
-
-    user.status = "rejected";
-
-    if (!user) alert("Something is wery wrong");
-
-    this.service.updateStatus(user).subscribe();
-    location.reload();
-  }
 
   getTab(): string {
     return this.active_tab;
@@ -101,7 +63,7 @@ export class AdminComponent implements OnInit {
     user.username = username.toString();
     this.service.deleteUser(user).subscribe((user) => {
       user = null;
-      location.reload();
+      //location.reload();
     });
 
 

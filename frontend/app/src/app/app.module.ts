@@ -10,6 +10,9 @@ import { RegisterComponent } from './register/register.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OrganizerComponent } from './organizer/organizer.component';
+import { ParticipantComponent } from './participant/participant.component';
+import { RequestComponent } from './request/request.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LoginComponent,
     UserComponent,
     AdminComponent,
-    RegisterComponent
+    RegisterComponent,
+    OrganizerComponent,
+    ParticipantComponent,
+    RequestComponent
   ],
   imports: [
     BrowserModule,
