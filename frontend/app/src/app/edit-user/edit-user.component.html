@@ -42,7 +42,15 @@
                         <input type="text" placeholder="Enter Mail" name="mail" [(ngModel)]="mail">
                         <br />
 
-                        <label for="type"><b>*Type:</b></label>
+                        <label for="mail"><b>Status:</b></label>
+                        <select class="form-select" [(ngModel)]="status" name="status">
+                            <option value="approved">approved</option>
+                            <option value="rejected">rejected</option>
+                            <option value="waiting">waiting</option>
+                        </select>
+                        <br />
+
+                        <label for="type"><b>Type:</b></label>
 
                         <select class="form-select" [(ngModel)]="type" name="type">
                             <option value="participant">Participant</option>
