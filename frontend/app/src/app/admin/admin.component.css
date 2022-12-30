@@ -28,6 +28,7 @@
 
 .context{
     border-radius: 15px;
+    min-height: 50px!important;
 }
 .shadow {
     box-shadow: 5px 5px 10px 0px rgba(0,0,0,.8)!important;

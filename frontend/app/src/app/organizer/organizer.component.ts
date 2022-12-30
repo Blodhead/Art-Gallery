@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from '../models/user';
 import { UserService } from '../user.service';
+
 
 @Component({
   selector: 'app-organizer',
@@ -9,7 +11,7 @@ import { UserService } from '../user.service';
 })
 export class OrganizerComponent {
 
-  constructor(private service: UserService) {}
+  constructor(private service: UserService, private _router:Router) {}
 
   @Input() myUser: User;
 
@@ -22,7 +24,10 @@ export class OrganizerComponent {
       user = null;
       location.reload();
     });
+  }
 
-
+  edit(user){
+    localStorage.setItem("sent_user",(JSON.stringify(user)));
+    this._router.navigate(["admin/edit_user"]);
   }
 }

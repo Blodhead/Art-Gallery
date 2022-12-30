@@ -28,10 +28,11 @@ export class RegisterComponent implements OnInit {
   postal_code: string;
   street: string;
   number: number;
-  pib: string;
+  pib: string = "Enter pib";
   phone:string;
   mail:string;
   status:string = "waiting";
+  org_name: string;
   current_user:User;
 
   temp_usernames: Array<string> = [];
@@ -42,7 +43,7 @@ export class RegisterComponent implements OnInit {
     else return false;
   }
 
-  org_name: string;
+ 
 
   ngOnInit(): void {
     this.profile_photo_name = "../../assets/images/img_avatar2.png";
