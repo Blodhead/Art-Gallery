@@ -43,7 +43,9 @@ export class AdminComponent implements OnInit {
     })
   }
 
-  accept(username, password) {
+  accept(username, type) {
+
+    localStorage.setItem("type", type);
 
     var user: User;
 
@@ -62,9 +64,9 @@ export class AdminComponent implements OnInit {
     location.reload();
   }
 
-  reject(username, password) {
+  reject(username, type) {
     var user: User;
-
+    localStorage.setItem("type", type);
     for (var i = 0; i < this.allUsers.length; i++) {
       if (this.allUsers[i].username == username) {
         user = this.allUsers[i];
@@ -88,6 +90,10 @@ export class AdminComponent implements OnInit {
     this.active_tab = input;
   }
 
+  promote(){}
+
+
+  demote(){}
 
   delete(username, type) {
     let user = new User();
