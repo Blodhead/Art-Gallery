@@ -13,6 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrganizerComponent } from './organizer/organizer.component';
 import { ParticipantComponent } from './participant/participant.component';
 import { RequestComponent } from './request/request.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { RequestComponent } from './request/request.component';
     RegisterComponent,
     OrganizerComponent,
     ParticipantComponent,
-    RequestComponent
+    RequestComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,

@@ -39,7 +39,6 @@ export class UserService {
       phone:phone,
       status:status
     }
-    data.status = "waiting";
 
     return this.http.post(`${this.url}/users/register`, data);
   }

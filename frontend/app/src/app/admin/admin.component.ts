@@ -26,7 +26,7 @@ export class AdminComponent implements OnInit {
         const str = localStorage.getItem("type");
         const str2 = str.charAt(0).toUpperCase() + str.slice(1) +"s";
         this.active_tab = str2;
-        localStorage.clear();
+        localStorage.removeItem("type");
       }
 
       for (var i = 0; i < data.length; i++) {

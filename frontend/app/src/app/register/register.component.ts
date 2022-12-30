@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
   phone:string;
   mail:string;
   status:string = "waiting";
-
+  current_user:User;
 
   temp_usernames: Array<string> = [];
   temp_mails: Array<string> = [];
@@ -47,6 +47,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.profile_photo_name = "../../assets/images/img_avatar2.png";
     this.getTempData();
+    this.current_user = JSON.parse(localStorage.getItem("current_user"));
   }
 
   getTempData() {
@@ -62,6 +63,12 @@ export class RegisterComponent implements OnInit {
 
       }
     });
+  }
+
+  isAdmin():boolean{
+    if(this.current_user.type == "admin")
+    return true;
+    else return false;
   }
 
   imageError: string;
@@ -184,9 +191,20 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
+
+    if(this.current_user != null)
+    if(this.current_user.type == "admin")
+      this.status = "approved";
+
     this.service.register(this.profile_photo_name, this.firstname, this.lastname, this.username, this.password, this.mail, this.phone, this.type,
       this.org_name, this.state, this.city, this.postal_code, this.street, this.number, this.pib, this.status).subscribe((res) => {
-        if (res["message"] == "user added") {alert("Register acknowledged"); location.reload();}
+        if (res["message"] == "user added") {
+          if(this.current_user.type == "admin")
+          alert("User added");
+          else
+          alert("Register acknowledged"); 
+          location.reload();
+        }
         else alert("ERROR");
       });
 

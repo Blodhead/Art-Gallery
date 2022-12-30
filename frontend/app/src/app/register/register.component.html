@@ -4,7 +4,7 @@
         <div class="col-4">
 
             <ul class="nav nav-tabs" style="width: fit-content; padding-top: 40px; border-bottom: black;">
-                <li class="nav-item tabs" style="background-color: transparent;">
+                <li class="nav-item tabs" *ngIf="!isAdmin()" style="background-color: transparent;">
                   <button class=" rounded-top" style="padding: 9px; top: 13px; position: relative; margin: 0px; background-color: rgb(28, 108, 16);"  routerLink="../login">Login</button>
                 </li> 
                 <li class="nav-item tabs tabbs">
