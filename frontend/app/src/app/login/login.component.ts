@@ -15,7 +15,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
 
     //localStorage.removeItem("current_user");//temporary
-
   }
 
   username: string;

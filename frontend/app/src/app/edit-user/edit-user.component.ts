@@ -214,11 +214,6 @@ export class EditUserComponent implements OnInit {
       return;
     }
 
-
-    if(this.current_user != null)
-    if(this.current_user.type == "admin")
-      this.status = "approved";
-
     if (this.sent_user != null)
       this.service.deleteUser(this.sent_user).subscribe((user) => {
         user = null;

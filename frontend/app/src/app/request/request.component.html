@@ -1,17 +1,16 @@
-<div class="row">
+<div class="row flexbox" style="display: flex; justify-content: center;">
 
-    <div class="col-2" style="text-align: center;">
+  <div class="col-sm-2 col-md-3 col-lg-3" style="text-align: center;">
 
       <div class="imgcontainer">
-        <img src="{{myUser.profile_photo_name}}" style="width: 100px; height: 100px;" alt="Avatar"
-          class="avatar shadow">
+        <img src="{{myUser.profile_photo_name}}" style="width: 100px; height: 100px;" alt="Avatar" class="avatar shadow">
       </div>
       <h6>{{myUser.username}}</h6>
 
 
     </div>
 
-    <div class="col-7">
+    <div class="col-md-4 col-lg-3 flexcol-editor" style="display: flex; justify-content: center;">
       <table>
         <tr>
           <th>Firstname:</th>
@@ -43,12 +42,58 @@
 
     </div>
 
-    <div class="col-3">
+    <div class="col-md-4 flexcol-preview clearfix" *ngIf="myUser.type=='organizer'" style="padding-bottom: 10px;display: flex; justify-content: center;">
+      <div>
+        <table>
+          <tr>
+            <th>Organization info:</th>
+            <td>
+  
+            </td>
+          </tr>
+  
+          <tr>
+            <th>•Name:</th>
+            <td>{{myUser.org_name}}</td>
+          </tr>
+  
+          <tr>
+            <th>•State:</th>
+            <td>{{myUser.state}}</td>
+          </tr>
+  
+          <tr>
+            <th>•City:</th>
+            <td>{{myUser.city}}</td>
+          </tr>
+  
+          <tr>
+            <th>•Postal code:</th>
+            <td>{{myUser.postal_code}}</td>
+          </tr>
+  
+          <tr>
+            <th>•Adress:</th>
+            <td>{{myUser.street}}/{{myUser.number}}</td>
+          </tr>
+          <tr>
+            <th>•PIB:</th>
+            <td>{{myUser.pib}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="col-lg-4" *ngIf="myUser.type!='organizer'">&nbsp;</div>
+
+    <div class="col-md-2 flexcol-errors" style="text-align: center;">
       <br />
       <button type="button" class="btn btn-success" (click)="accept(myUser.username,'Request')">Accept</button>
       <br />
       <br />
       <button type="button" class="btn btn-danger" (click)="reject(myUser.username,'Request')">Reject</button>
     </div>
+
+
+
 
   </div>

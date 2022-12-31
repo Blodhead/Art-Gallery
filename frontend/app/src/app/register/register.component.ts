@@ -29,11 +29,11 @@ export class RegisterComponent implements OnInit {
   street: string;
   number: number;
   pib: string = "Enter pib";
-  phone:string;
-  mail:string;
-  status:string = "waiting";
+  phone: string;
+  mail: string;
+  status: string = "waiting";
   org_name: string;
-  current_user:User;
+  current_user: User;
 
   temp_usernames: Array<string> = [];
   temp_mails: Array<string> = [];
@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
     else return false;
   }
 
- 
+
 
   ngOnInit(): void {
     this.profile_photo_name = "../../assets/images/img_avatar2.png";
@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
 
   getTempData() {
     this.service.getTempData().subscribe((temp_data: Temp_Data[]) => { //subscribe je cekanje odgovora, tj. nna return pozvane funkcije
-       if (!temp_data) {
+      if (!temp_data) {
         alert("Error get All data");
       }
       else {
@@ -66,10 +66,11 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  isAdmin():boolean{
-    if(this.current_user.type == "admin")
-    return true;
-    else return false;
+  isAdmin(): boolean {
+    if (this.current_user != null)
+      if (this.current_user.type == "admin")
+        return true;
+    return false;
   }
 
   imageError: string;
@@ -193,17 +194,17 @@ export class RegisterComponent implements OnInit {
     }
 
 
-    if(this.current_user != null)
-    if(this.current_user.type == "admin")
-      this.status = "approved";
+    if (this.current_user != null)
+      if (this.current_user.type == "admin")
+        this.status = "approved";
 
     this.service.register(this.profile_photo_name, this.firstname, this.lastname, this.username, this.password, this.mail, this.phone, this.type,
       this.org_name, this.state, this.city, this.postal_code, this.street, this.number, this.pib, this.status).subscribe((res) => {
         if (res["message"] == "user added") {
-          if(this.current_user.type == "admin")
-          alert("User added");
+          if (this.current_user.type == "admin")
+            alert("User added");
           else
-          alert("Register acknowledged"); 
+            alert("Register acknowledged");
           location.reload();
         }
         else alert("ERROR");
