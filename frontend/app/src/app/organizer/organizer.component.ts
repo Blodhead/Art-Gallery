@@ -11,7 +11,7 @@ import { UserService } from '../user.service';
 })
 export class OrganizerComponent {
 
-  constructor(private service: UserService, private _router:Router) {}
+  constructor(private service: UserService, private _router: Router) { }
 
   @Input() myUser: User;
 
@@ -26,8 +26,8 @@ export class OrganizerComponent {
     });
   }
 
-  edit(user){
-    localStorage.setItem("sent_user",(JSON.stringify(user)));
+  edit(user) {
+    localStorage.setItem("sent_user", (JSON.stringify(user)));
     this._router.navigate(["admin/edit_user"]);
   }
 }

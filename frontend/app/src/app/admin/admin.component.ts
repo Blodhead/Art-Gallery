@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user';
 import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -11,7 +12,7 @@ import { UserService } from '../user.service';
 export class AdminComponent implements OnInit {
 
 
-  constructor(private service: UserService) { }
+  constructor(private service: UserService, private _router: Router) { }
 
   active_tab: string = "Organizers";
   allUsers: User[] = [];
@@ -24,7 +25,7 @@ export class AdminComponent implements OnInit {
 
       if (localStorage.getItem("type") != null) {
         const str = localStorage.getItem("type");
-        const str2 = str.charAt(0).toUpperCase() + str.slice(1) +"s";
+        const str2 = str.charAt(0).toUpperCase() + str.slice(1) + "s";
         this.active_tab = str2;
         localStorage.removeItem("type");
       }
@@ -52,10 +53,10 @@ export class AdminComponent implements OnInit {
     this.active_tab = input;
   }
 
-  promote(){}
-
-
-  demote(){}
+  add_User() {
+    localStorage.setItem("sent_user", (null));
+    this._router.navigate(["admin/edit_user"]);
+  };
 
   delete(username, type) {
     let user = new User();

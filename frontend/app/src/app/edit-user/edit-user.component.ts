@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./edit-user.component.css']
 })
 export class EditUserComponent implements OnInit {
-  constructor(private service: UserService, private _router:Router) { }
+  constructor(private service: UserService, private _router: Router) { }
 
   profile_photo = null;
   profile_photo_name: string;
@@ -38,28 +38,47 @@ export class EditUserComponent implements OnInit {
   isImageSaved: boolean;
 
   sent_user: User;
+  temp_usernames: Array<string> = [];
+  temp_mails: Array<string> = [];
 
   ngOnInit() {
     this.profile_photo_name = "../../assets/images/img_avatar2.png";
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
     this.sent_user = JSON.parse(localStorage.getItem("sent_user"));
 
-    this.username = this.sent_user.username;
-    this.firstname = this.sent_user.firstname
-    this.lastname = this.sent_user.lastname;
-    this.profile_photo_name = this.sent_user.profile_photo_name;
-    this.password = this.sent_user.password;
-    this.type = this.sent_user.type;
-    this.state = this.sent_user.state;
-    this.city = this.sent_user.city;
-    this.postal_code = this.sent_user.postal_code;
-    this.street = this.sent_user.street;
-    this.number = this.sent_user.number;
-    this.pib = this.sent_user.pib;
-    this.phone = this.sent_user.phone;
-    this.mail = this.sent_user.mail;
-    this.status = this.sent_user.status;
-    this.org_name = this.sent_user.org_name.toString();
+    this.service.getTempData().subscribe((temp_data: Temp_Data[]) => { //subscribe je cekanje odgovora, tj. nna return pozvane funkcije
+      if (!temp_data) {
+       alert("Error get All data");
+     }
+     else {
+       for (var i = 0; i < temp_data.length; i++) {
+         this.temp_usernames[i] = temp_data[i].username;
+         this.temp_mails[i] = temp_data[i].mail;
+       }
+
+     }
+   });
+
+    if (this.sent_user != null) {
+
+      this.username = this.sent_user.username;
+      this.firstname = this.sent_user.firstname
+      this.lastname = this.sent_user.lastname;
+      this.profile_photo_name = this.sent_user.profile_photo_name;
+      this.password = this.sent_user.password;
+      this.type = this.sent_user.type;
+      this.state = this.sent_user.state;
+      this.city = this.sent_user.city;
+      this.postal_code = this.sent_user.postal_code;
+      this.street = this.sent_user.street;
+      this.number = this.sent_user.number;
+      this.pib = this.sent_user.pib;
+      this.phone = this.sent_user.phone;
+      this.mail = this.sent_user.mail;
+      this.status = this.sent_user.status;
+      this.org_name = this.sent_user.org_name.toString();
+
+    }
   }
 
   onFileSelected(event) {
@@ -130,21 +149,78 @@ export class EditUserComponent implements OnInit {
   cancel() {
     localStorage.removeItem("sent_user");
 
-    if(this.current_user.type == "admin"){
+    if (this.current_user.type == "admin") {
       this._router.navigate(["admin"]);
     }
-    else if(this.current_user.type == "organizer"){
+    else if (this.current_user.type == "organizer") {
       this._router.navigate(["user"]);
     }
-    else if(this.current_user.type == "participant"){
+    else if (this.current_user.type == "participant") {
       this._router.navigate(["user"]);
     }
 
   }
 
+  Error_message:String;
+
   save() {
 
-    this.service.deleteUser(this.sent_user).subscribe((user) => {
+    this.Error_message = "Input error:\n";
+
+    if (this.firstname == null) {
+      this.Error_message += "Missing Firstname\n"
+    }
+
+    if (this.lastname == null) {
+      this.Error_message += "Missing Lastname\n"
+    }
+
+    if (this.password == null) {
+      this.Error_message += "Missing Password\n"
+    }
+
+    if (this.type == null) {
+      this.Error_message += "Must choose type\n"
+    }
+
+    if (this.phone == null) {
+      this.Error_message += "Missing phone number\n"
+    }
+
+    if (this.username == null) {
+      this.Error_message += "Missing Username\n"
+    } else {
+      for (var i = 0; i < this.temp_usernames.length; i++) {
+        if (this.temp_usernames[i] == this.username) {
+          this.Error_message += "Username is taken\n";
+          break;
+        }
+      }
+    }
+
+    if (this.mail == null) {
+      this.Error_message += "Missing Mail\n"
+    } else {
+      for (var i = 0; i < this.temp_mails.length; i++) {
+        if (this.temp_mails[i] == this.mail) {
+          this.Error_message += "E-mail is taken\n";
+          break;
+        }
+      }
+    }
+
+    if (this.Error_message != "Input error:\n") {
+      alert(this.Error_message);
+      return;
+    }
+
+
+    if(this.current_user != null)
+    if(this.current_user.type == "admin")
+      this.status = "approved";
+
+    if (this.sent_user != null)
+      this.service.deleteUser(this.sent_user).subscribe((user) => {
         user = null;
       });
 
@@ -160,7 +236,7 @@ export class EditUserComponent implements OnInit {
         }
 
       });
-    
+
   }
 
 }
