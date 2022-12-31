@@ -48,16 +48,16 @@ export class EditUserComponent implements OnInit {
 
     this.service.getTempData().subscribe((temp_data: Temp_Data[]) => { //subscribe je cekanje odgovora, tj. nna return pozvane funkcije
       if (!temp_data) {
-       alert("Error get All data");
-     }
-     else {
-       for (var i = 0; i < temp_data.length; i++) {
-         this.temp_usernames[i] = temp_data[i].username;
-         this.temp_mails[i] = temp_data[i].mail;
-       }
+        alert("Error get All data");
+      }
+      else {
+        for (var i = 0; i < temp_data.length; i++) {
+          this.temp_usernames[i] = temp_data[i].username;
+          this.temp_mails[i] = temp_data[i].mail;
+        }
 
-     }
-   });
+      }
+    });
 
     if (this.sent_user != null) {
 
@@ -161,57 +161,60 @@ export class EditUserComponent implements OnInit {
 
   }
 
-  Error_message:String;
+  Error_message: String;
 
   save() {
 
-    this.Error_message = "Input error:\n";
+    if (this.sent_user == null) {
+      this.Error_message = "Input error:\n";
 
-    if (this.firstname == null) {
-      this.Error_message += "Missing Firstname\n"
-    }
+      if (this.firstname == null) {
+        this.Error_message += "Missing Firstname\n"
+      }
 
-    if (this.lastname == null) {
-      this.Error_message += "Missing Lastname\n"
-    }
+      if (this.lastname == null) {
+        this.Error_message += "Missing Lastname\n"
+      }
 
-    if (this.password == null) {
-      this.Error_message += "Missing Password\n"
-    }
+      if (this.password == null) {
+        this.Error_message += "Missing Password\n"
+      }
 
-    if (this.type == null) {
-      this.Error_message += "Must choose type\n"
-    }
+      if (this.type == null) {
+        this.Error_message += "Must choose type\n"
+      }
 
-    if (this.phone == null) {
-      this.Error_message += "Missing phone number\n"
-    }
+      if (this.phone == null) {
+        this.Error_message += "Missing phone number\n"
+      }
 
-    if (this.username == null) {
-      this.Error_message += "Missing Username\n"
-    } else {
-      for (var i = 0; i < this.temp_usernames.length; i++) {
-        if (this.temp_usernames[i] == this.username) {
-          this.Error_message += "Username is taken\n";
-          break;
+      if (this.username == null) {
+        this.Error_message += "Missing Username\n"
+      } else {
+        for (var i = 0; i < this.temp_usernames.length; i++) {
+          if (this.temp_usernames[i] == this.username) {
+            this.Error_message += "Username is taken\n";
+            break;
+          }
         }
       }
-    }
 
-    if (this.mail == null) {
-      this.Error_message += "Missing Mail\n"
-    } else {
-      for (var i = 0; i < this.temp_mails.length; i++) {
-        if (this.temp_mails[i] == this.mail) {
-          this.Error_message += "E-mail is taken\n";
-          break;
+      if (this.mail == null) {
+        this.Error_message += "Missing Mail\n"
+      } else {
+        for (var i = 0; i < this.temp_mails.length; i++) {
+          if (this.temp_mails[i] == this.mail) {
+            this.Error_message += "E-mail is taken\n";
+            break;
+          }
         }
       }
-    }
 
-    if (this.Error_message != "Input error:\n") {
-      alert(this.Error_message);
-      return;
+      if (this.Error_message != "Input error:\n") {
+        alert(this.Error_message);
+        return;
+      }
+
     }
 
     if (this.sent_user != null)
@@ -222,7 +225,11 @@ export class EditUserComponent implements OnInit {
     this.service.register(this.profile_photo_name, this.firstname, this.lastname, this.username, this.password, this.mail, this.phone, this.type,
       this.org_name, this.state, this.city, this.postal_code, this.street, this.number, this.pib, this.status).subscribe((res) => {
         if (res["message"] == "user added") {
-          alert("Data successfully modified");
+          if (this.sent_user != null)
+            alert("Data successfully modified");
+          else {
+            alert("New user added");
+          }
           this.cancel();
         }
         else {
