@@ -55,3 +55,7 @@ img.avatar {
 .scrollbar-default {
   scrollbar-color:  rgb(19,98,7) #F5F5F5;
 }
+
+.context{
+  text-align: start;
+}
