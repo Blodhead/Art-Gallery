@@ -8,12 +8,13 @@ import { UserComponent } from './user/user.component';
 
 
 const routes: Routes = [
-  {path:'', component: LoginComponent}, //ako je ruta prazna ucitaj LoginComponent
+  //{path:'', component: LoginComponent}, //ako je ruta prazna ucitaj LoginComponent
   {path:'login', component: LoginComponent},
   {path:'admin', component: AdminComponent},
   {path:'admin/edit_user', component: EditUserComponent},
   {path:'user', component: UserComponent},
-  {path:'register', component: RegisterComponent}
+  {path:'register', component: RegisterComponent},
+  {path:'login/admin', component: LoginComponent},
 ];
 
 @NgModule({

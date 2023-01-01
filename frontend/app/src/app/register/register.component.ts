@@ -62,7 +62,6 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-
   imageError: string;
   cardImageBase64: string;
   isImageSaved: boolean;
@@ -131,6 +130,62 @@ export class RegisterComponent implements OnInit {
     this.isImageSaved = false;
   }
 
+  isLetter(): boolean {
+    let arr = this.password;
+
+    if(this.containsSpecialChars(arr.charAt(0)) == true) return false;
+    if (Number.isNaN(Number(arr.charAt(0))))
+    return true;
+    else return false;
+  }
+
+  containsSpecialChars(str): boolean {
+    let arr = str;
+    const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+    return specialChars.test(arr);
+  }
+
+  hasANumber(): boolean {
+
+    let arr = this.password;
+
+    for (let i = 0; i < this.password.length; i++) {
+      if(!Number.isNaN(Number(arr.charAt(i))))
+      if (Number(arr.charAt(i)) >= 0 || Number(arr.charAt(i)) <= 9) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  hasACapital(): boolean {
+    let character: String;
+    for (let i = 0; i < this.password.length; i++) {
+
+      character = this.password.charAt(i);
+      if(this.containsSpecialChars(character.charAt(i)) == true) continue;
+
+      if (!isNaN(Number(character) * 1)) {
+
+      } else {
+        if (character == character.toUpperCase()) {
+          return true;
+        }
+        if (character == character.toLowerCase()) {
+
+        }
+      }
+
+    }
+    return false;
+  }
+
+  hasLength(): boolean {
+    if (this.password.length < 8 || this.password.length > 16)
+      return false;
+    return true;
+  }
+
   Error_message: string;
 
   register() {
@@ -146,7 +201,10 @@ export class RegisterComponent implements OnInit {
 
     if (this.password == null) {
       this.Error_message += "Missing Password\n"
-    } else if (this.password != this.confirm_password) { this.Error_message += "Passwords must match!\n" }
+    } else if (!this.hasLength() || !this.hasACapital() || !this.hasANumber() || !this.containsSpecialChars(this.password) || !this.isLetter())
+      this.Error_message += "Invalid password";
+
+    if (this.password != this.confirm_password) { this.Error_message += "Passwords must match!\n" }
 
     if (this.type == null) {
       this.Error_message += "Must choose type\n"
