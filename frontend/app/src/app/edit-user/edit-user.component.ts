@@ -31,7 +31,7 @@ export class EditUserComponent implements OnInit {
   mail: string;
   status: string = "waiting";
   current_user: User;
-  org_name: string;
+  org_name: String;
 
   imageError: string;
   cardImageBase64: string;
@@ -76,7 +76,7 @@ export class EditUserComponent implements OnInit {
       this.phone = this.sent_user.phone;
       this.mail = this.sent_user.mail;
       this.status = this.sent_user.status;
-      this.org_name = this.sent_user.org_name.toString();
+      this.org_name = this.sent_user.org_name;
 
     }
   }
@@ -161,32 +161,68 @@ export class EditUserComponent implements OnInit {
 
   }
 
+
+  isLetter(): boolean {
+    let arr = this.password;
+
+    if (this.containsSpecialChars(arr.charAt(0)) == true) return false;
+    if (Number.isNaN(Number(arr.charAt(0))))
+      return true;
+    else return false;
+  }
+
+  containsSpecialChars(str): boolean {
+    let arr = str;
+    const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+    return specialChars.test(arr);
+  }
+
+  hasANumber(): boolean {
+
+    let arr = this.password;
+
+    for (let i = 0; i < this.password.length; i++) {
+      if (!Number.isNaN(Number(arr.charAt(i))))
+        if (Number(arr.charAt(i)) >= 0 || Number(arr.charAt(i)) <= 9) {
+          return true;
+        }
+    }
+    return false;
+  }
+
+  hasACapital(): boolean {
+    let character: String;
+    for (let i = 0; i < this.password.length; i++) {
+
+      character = this.password.charAt(i);
+      if (this.containsSpecialChars(character) == false) {
+
+        if (!isNaN(Number(character) * 1)) {
+
+        } else {
+          if (character == character.toUpperCase()) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  hasLength(): boolean {
+    if (this.password.length < 8 || this.password.length > 16)
+      return false;
+    return true;
+  }
+
   Error_message: String;
 
   save() {
 
+    this.Error_message = "Input error:\n";
+
     if (this.sent_user == null) {
-      this.Error_message = "Input error:\n";
 
-      if (this.firstname == null) {
-        this.Error_message += "Missing Firstname\n"
-      }
-
-      if (this.lastname == null) {
-        this.Error_message += "Missing Lastname\n"
-      }
-
-      if (this.password == null) {
-        this.Error_message += "Missing Password\n"
-      }
-
-      if (this.type == null) {
-        this.Error_message += "Must choose type\n"
-      }
-
-      if (this.phone == null) {
-        this.Error_message += "Missing phone number\n"
-      }
 
       if (this.username == null) {
         this.Error_message += "Missing Username\n"
@@ -210,11 +246,41 @@ export class EditUserComponent implements OnInit {
         }
       }
 
-      if (this.Error_message != "Input error:\n") {
-        alert(this.Error_message);
-        return;
-      }
+    }
 
+    if (this.username == null) {
+      this.Error_message += "Missing Username\n"
+    }
+
+    if (this.mail == null) {
+      this.Error_message += "Missing Mail\n"
+    }
+
+    if (this.firstname == null) {
+      this.Error_message += "Missing Firstname\n"
+    }
+
+    if (this.lastname == null) {
+      this.Error_message += "Missing Lastname\n"
+    }
+
+    if (this.password == null) {
+      this.Error_message += "Missing Password\n"
+    } else if (!this.hasLength() || !this.hasACapital() || !this.hasANumber() || !this.containsSpecialChars(this.password) || !this.isLetter())
+      this.Error_message += "Invalid password";
+
+    if (this.type == null) {
+      this.Error_message += "Must choose type\n"
+    }
+
+    if (this.phone == null) {
+      this.Error_message += "Missing phone number\n"
+    }
+
+
+    if (this.Error_message != "Input error:\n") {
+      alert(this.Error_message);
+      return;
     }
 
     if (this.sent_user != null)

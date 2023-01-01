@@ -163,7 +163,7 @@ export class RegisterComponent implements OnInit {
     for (let i = 0; i < this.password.length; i++) {
 
       character = this.password.charAt(i);
-      if(this.containsSpecialChars(character.charAt(i)) == true) continue;
+      if(this.containsSpecialChars(character) == true) continue;
 
       if (!isNaN(Number(character) * 1)) {
 

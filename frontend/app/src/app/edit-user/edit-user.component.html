@@ -31,6 +31,12 @@
 
                         <label for="password"><b>*Password:</b></label>
                         <input type="password" placeholder="Enter Password" name="password" [(ngModel)]="password">
+                        <label for="password" *ngIf="!isLetter()" style="color: red;">•Password must start with a letter</label>
+                        <label for="password" *ngIf="!hasLength()" style="color: red;">•Password must contain between 8 and 16 letters</label>
+                        <label for="password" *ngIf="!containsSpecialChars(password)" style="color: red;">•Password must contain special characters</label>
+                        <label for="password" *ngIf="!hasANumber()" style="color: red;">•Password must contain a number</label>
+                        <label for="password" *ngIf="!hasACapital()" style="color: red;">•Password must contain at least one capital letter</label>
+                        
                         <br />
 
                         <label for="phone"><b>*Phone number:</b></label>
