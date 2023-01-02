@@ -5,10 +5,11 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserComponent } from './user/user.component';
+import { WorkshopComponent } from './workshop/workshop.component';
 
 
 const routes: Routes = [
-  //{path:'', component: LoginComponent}, //ako je ruta prazna ucitaj LoginComponent
+  {path:'', component: WorkshopComponent},
   {path:'login', component: LoginComponent},
   {path:'admin', component: AdminComponent},
   {path:'admin/edit_user', component: EditUserComponent},

@@ -1,18 +1,18 @@
 import * as express from "express";
-import News from "../models/news"
+import Workshops from "../models/workshop"
 
 
-export class NewsController {
+export class WorkshopController {
 
-    getAllNews = (req: express.Request, res: express.Response) => {
-        News.find({}, (err, news) => {
+    getAllWorkshops = (req: express.Request, res: express.Response) => {
+        Workshops.find({}, (err, news) => {
             if (err) console.log(err);
             else res.json(news);
         }
         )
     }
 
-    addComment = (req: express.Request, res: express.Response) => {
+    /*addComment = (req: express.Request, res: express.Response) => {
         let Myid = req.body.Myid;
         let comm = req.body.comm;
 
@@ -26,5 +26,5 @@ export class NewsController {
                 res.json({"message":"OK"});
             }
         })
-    }
+    }*/
 }

@@ -1,0 +1,41 @@
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-12" style="display: flex; justify-content: center;">
+
+            <table>
+                <tr>
+                    <td><h6>Search by:</h6></td>
+                    <td><input type="text" placeholder="name..." (keyup)="searchName()"></td>
+                    <td><h6>or/and</h6></td>
+                    <td><input type="text" placeholder="location..." (keyup)="searchLocation()"></td>
+                </tr>
+                <tr *ngIf="searchFlag==true">
+                    <td><h5>Sort by:</h5></td>
+                    <td *ngIf="toggle1 == true"><button class="btn btn-success btn-xs"
+                            style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortName()">Name ↑</button></td>
+                    <td *ngIf="toggle1 == false"><button class="btn btn-success btn-xs"
+                            style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortName()">Name ↓</button></td>
+                    <td *ngIf="toggle2 == true"><button class="btn btn-success btn-xs"
+                            style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortDate()">Date ↑</button></td>
+                    <td *ngIf="toggle2 == false"><button class="btn btn-success btn-xs"
+                            style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortDate()">Date ↓</button></td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-10" *ngFor="let workshop of filtered_workshops">
+
+            <app-workshop-details [myWorkshopDetail]="workshop"></app-workshop-details>
+
+        </div>
+
+        <div class="col-2">Top 5</div>
+
+    </div>
+
+</div>

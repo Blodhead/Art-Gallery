@@ -14,6 +14,8 @@ import { OrganizerComponent } from './organizer/organizer.component';
 import { ParticipantComponent } from './participant/participant.component';
 import { RequestComponent } from './request/request.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { WorkshopComponent } from './workshop/workshop.component';
+import { WorkshopDetailsComponent } from './workshop-details/workshop-details.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     OrganizerComponent,
     ParticipantComponent,
     RequestComponent,
-    EditUserComponent
+    EditUserComponent,
+    WorkshopComponent,
+    WorkshopDetailsComponent
   ],
   imports: [
     BrowserModule,
