@@ -7,9 +7,9 @@ import { WorkshopService } from '../workshop.service';
   templateUrl: './workshop.component.html',
   styleUrls: ['./workshop.component.css']
 })
-export class WorkshopComponent implements OnInit{
+export class WorkshopComponent implements OnInit {
 
-  constructor(private workshop_service:WorkshopService){}
+  constructor(private workshop_service: WorkshopService) { }
 
   ngOnInit(): void {
     this.getAllWorkshops();
@@ -20,35 +20,58 @@ export class WorkshopComponent implements OnInit{
   searchFlag: boolean = false;
 
   filtered_workshops: WorkshopDetails[];
-  allWorkshops:WorkshopDetails[];
-  index:number[] = [1];
+  allWorkshops: WorkshopDetails[];
+  index: number[] = [1];
 
-  getAllWorkshops(){
-    this.workshop_service.getAllWorkshops().subscribe((workshops: WorkshopDetails[])=>{
-      if(!workshops) alert("Error");
-      else{
+  getAllWorkshops() {
+    this.workshop_service.getAllWorkshops().subscribe((workshops: WorkshopDetails[]) => {
+      if (!workshops) alert("Error");
+      else {
         this.allWorkshops = workshops;
         this.filtered_workshops = this.allWorkshops;
-        for(var i = 0; i < this.filtered_workshops.length; i++){
+        for (var i = 0; i < this.filtered_workshops.length; i++) {
           this.index[i] = i;
         }
       }
     });
   }
 
-  sortName(){
-
+  sortName() {
+    if (this.toggle1 == false) {
+      this.filtered_workshops.sort((a, b) => {
+        return a.name.localeCompare(b.name);
+      });
+      this.toggle1 = true;
+    }else if(this.toggle1 == true){
+      this.filtered_workshops.sort((a, b) => {
+        return b.name.localeCompare(a.name);
+      });
+      this.toggle1 = false;
+    }
   }
 
-  sortDate(){
+  sortDate() {
 
+    if(this.toggle2 == false){
+      this.filtered_workshops.sort((a, b) => {
+        return new Date(b.date).getTime() - new Date(a.date).getTime()
+      });
+      this.toggle2 = true;
+    }else if(this.toggle2 == true){
+      this.filtered_workshops.sort((a, b) => {
+        return new Date(a.date).getTime() - new Date(b.date).getTime()
+      });
+      this.toggle2 = false;
+    }
   }
-
-  searchName(){
-
+  str1: string;
+  searchName(param) {
+    this.filtered_workshops = this.allWorkshops.filter(workshop => workshop.name.includes(param));
+    this.searchFlag = true;
   }
-
-  searchLocation(){
-
+  str2: string;
+  searchLocation(param) {
+    this.filtered_workshops = this.allWorkshops.filter(workshop => workshop.location.includes(param));
+    this.searchFlag = true;
   }
 }

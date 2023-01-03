@@ -13,4 +13,5 @@ export class WorkshopService {
   getAllWorkshops(){
     return this.http.get(`${this.url}/workshop/getAllWorkshops`);
   }
+
 }

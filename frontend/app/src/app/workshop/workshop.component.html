@@ -6,19 +6,24 @@
 
             <div class="row">
                 <div class="col-12 middle">
-                    <h4 class="border border-success rounded" style="background-color: white;text-align: center; width: fit-content;">FEEL CREATIVE BUT CANT GET IT OUT?</h4>
+                    <h4 class="border border-success rounded"
+                        style="background-color: white;text-align: center; width: fit-content;">FEEL CREATIVE BUT CANT
+                        GET IT OUT?</h4>
                 </div>
 
                 <div class="col-12 middle">
-                    <h1 class="border border-success rounded" style="background-color: white; text-align: center; width: fit-content;">UNLEASH YOUR INNER ARTIST!</h1>
+                    <h1 class="border border-success rounded"
+                        style="background-color: white; text-align: center; width: fit-content;">UNLEASH YOUR INNER
+                        ARTIST!</h1>
                 </div>
 
                 <div class="col-12 middle">
-                    <h6 class="middle border border-success rounded" style="text-align: center; background-color: white;">
+                    <h6 class="middle border border-success rounded"
+                        style="text-align: center; background-color: white;">
                         Choose any of our workshops that peek your interest, sign up and have fun with our wonderful
                         staff that will be "holding your hand" the entire time. Thrive in supportive environment and
                         achieve your dreams!
-                    </h6>                
+                    </h6>
                 </div>
 
             </div>
@@ -34,28 +39,29 @@
                     <td>
                         <h6>Search by:</h6>
                     </td>
-                    <td><input type="text" placeholder="name..." (keyup)="searchName()"></td>
+                    <td><input type="text" placeholder="name..." (keyup)="searchName(str1)" [(ngModel)]="str1"></td>
                     <td>
                         <h6>or/and</h6>
                     </td>
-                    <td><input type="text" placeholder="location..." (keyup)="searchLocation()"></td>
+                    <td><input type="text" placeholder="location..." (keyup)="searchLocation(str2)" [(ngModel)]="str2">
+                    </td>
                 </tr>
                 <tr *ngIf="searchFlag==true">
                     <td>
                         <h5>Sort by:</h5>
                     </td>
-                    <td *ngIf="toggle1 == true"><button class="btn btn-success btn-xs"
+
+                    <td>
+                        <button *ngIf="toggle1 == true" class="btn btn-success btn-xs"
                             style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortName()">Name ↑</button>
-                    </td>
-                    <td *ngIf="toggle1 == false"><button class="btn btn-success btn-xs"
+                        <button *ngIf="toggle1 == false" class="btn btn-success btn-xs"
                             style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortName()">Name ↓</button>
-                    </td>
-                    <td *ngIf="toggle2 == true"><button class="btn btn-success btn-xs"
+                        <button *ngIf="toggle2 == true" class="btn btn-success btn-xs"
                             style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortDate()">Date ↑</button>
-                    </td>
-                    <td *ngIf="toggle2 == false"><button class="btn btn-success btn-xs"
+                        <button *ngIf="toggle2 == false" class="btn btn-success btn-xs"
                             style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortDate()">Date ↓</button>
                     </td>
+
                 </tr>
             </table>
 
