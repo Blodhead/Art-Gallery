@@ -22,6 +22,13 @@ export class WorkshopComponent implements OnInit {
   filtered_workshops: WorkshopDetails[];
   allWorkshops: WorkshopDetails[];
   index: number[] = [1];
+  top5: String[] = [];
+
+  getTop5() {
+    this.filtered_workshops.sort((a, b) => {
+      return a.likes - b.likes;
+    });
+  }
 
   getAllWorkshops() {
     this.workshop_service.getAllWorkshops().subscribe((workshops: WorkshopDetails[]) => {
@@ -31,6 +38,11 @@ export class WorkshopComponent implements OnInit {
         this.filtered_workshops = this.allWorkshops;
         for (var i = 0; i < this.filtered_workshops.length; i++) {
           this.index[i] = i;
+        }
+        this.getTop5();
+        for (let i = 0; i < 5 && i < this.filtered_workshops.length; i++) {
+          if (this.top5.indexOf(workshops[i].name) === -1)
+            this.top5.push(workshops[i].name)
         }
       }
     });
@@ -42,7 +54,7 @@ export class WorkshopComponent implements OnInit {
         return a.name.localeCompare(b.name);
       });
       this.toggle1 = true;
-    }else if(this.toggle1 == true){
+    } else if (this.toggle1 == true) {
       this.filtered_workshops.sort((a, b) => {
         return b.name.localeCompare(a.name);
       });
@@ -52,12 +64,12 @@ export class WorkshopComponent implements OnInit {
 
   sortDate() {
 
-    if(this.toggle2 == false){
+    if (this.toggle2 == false) {
       this.filtered_workshops.sort((a, b) => {
         return new Date(b.date).getTime() - new Date(a.date).getTime()
       });
       this.toggle2 = true;
-    }else if(this.toggle2 == true){
+    } else if (this.toggle2 == true) {
       this.filtered_workshops.sort((a, b) => {
         return new Date(a.date).getTime() - new Date(b.date).getTime()
       });
@@ -66,12 +78,12 @@ export class WorkshopComponent implements OnInit {
   }
   str1: string;
   searchName(param) {
-    this.filtered_workshops = this.allWorkshops.filter(workshop => workshop.name.includes(param));
+    this.filtered_workshops = this.allWorkshops.filter(workshop => workshop.name.toLowerCase().includes(param.toLowerCase()));
     this.searchFlag = true;
   }
   str2: string;
   searchLocation(param) {
-    this.filtered_workshops = this.allWorkshops.filter(workshop => workshop.location.includes(param));
+    this.filtered_workshops = this.allWorkshops.filter(workshop => workshop.location.toLowerCase().includes(param.toLowerCase()));
     this.searchFlag = true;
   }
 }

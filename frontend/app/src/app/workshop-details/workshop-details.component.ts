@@ -11,12 +11,12 @@ export class WorkshopDetailsComponent {
 
   @Input() myWorkshopDetail: WorkshopDetails;
   @Input() myIndex: number;
-  
+
   Toggle(): boolean {
 
-    if(this.myIndex % 2 == 0)
+    if (this.myIndex % 2 == 0)
       return true;
-      else return false; 
+    else return false;
 
   }
 }

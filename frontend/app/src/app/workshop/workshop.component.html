@@ -48,7 +48,7 @@
                 </tr>
                 <tr *ngIf="searchFlag==true">
                     <td>
-                        <h5>Sort by:</h5>
+                        <h6>Sort by:</h6>
                     </td>
 
                     <td>
@@ -72,12 +72,26 @@
         <div class="col-2">&nbsp;</div>
 
         <div class="col-8">
-            <div *ngFor="let workshop of filtered_workshops; let i = index">
+            <div *ngFor="let workshop of filtered_workshops; let i = index;">
                 <app-workshop-details [myWorkshopDetail]="workshop" [myIndex]="i"></app-workshop-details>
             </div>
         </div>
 
-        <div class="col-2">Top 5</div>
+        <div class="col-2 ">
+
+            <table>
+                <th> <h4>Top 5:</h4> <hr/></th>
+                
+                <tr>
+                    <ol type="1">
+                        <h6><li *ngFor="let i of top5;">{{i}}</li></h6>
+                    </ol>
+                </tr>
+
+            </table>
+
+
+        </div>
 
     </div>
 
