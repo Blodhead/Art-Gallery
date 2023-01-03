@@ -5,5 +5,4 @@ export class WorkshopDetails{
     location:string;
     description:string;
     likes:number;
-
 }

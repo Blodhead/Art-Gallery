@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
+import { WorkshopDetails } from '../models/workshop-details'
+import { WorkshopService } from '../workshop.service';
 
 @Component({
   selector: 'app-admin',
@@ -12,13 +14,15 @@ import { Router } from '@angular/router';
 export class AdminComponent implements OnInit {
 
 
-  constructor(private service: UserService, private _router: Router) { }
+  constructor(private service: UserService, private workshop_service:WorkshopService, private _router: Router) { }
 
   active_tab: string = "Organizers";
   allUsers: User[] = [];
   organisers: User[] = [];
   participants: User[] = [];
   requests: User[] = [];
+  workshops: WorkshopDetails[];
+  index:number[] = [1];
 
   ngOnInit(): void {
     this.service.getTempData().subscribe((data: User[]) => {
@@ -42,6 +46,16 @@ export class AdminComponent implements OnInit {
 
       }
     })
+
+    this.workshop_service.getAllWorkshops().subscribe((workshops: WorkshopDetails[]) => {
+      if (!workshops) alert("Error");
+      else {
+        this.workshops = workshops;
+        for (var i = 0; i < workshops.length; i++) {
+          this.index[i] = i;
+        }
+      }
+    });
   }
 
 

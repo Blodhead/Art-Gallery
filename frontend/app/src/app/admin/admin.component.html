@@ -101,6 +101,16 @@
 
       </div>
 
+      <div class="col-12 shadow context" style="background-color: #136207;" *ngIf="getTab()=='Workshops'">
+
+        <div class="card container-fluid shadow" *ngFor="let workshop of workshops; let i = index">
+
+          <app-workshop-details [myWorkshopDetail]="workshop" [myIndex]="i"></app-workshop-details>
+
+        </div>
+
+      </div>
+
       <div class="col-12 shadow context" style="background-color: #136207;" *ngIf="getTab()=='Requests'">
 
         <div class="card container-fluid shadow" *ngFor="let user of requests">
