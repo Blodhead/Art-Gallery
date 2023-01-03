@@ -34,6 +34,8 @@ export class RegisterComponent implements OnInit {
   status: string = "waiting";
   org_name: string;
 
+  boot:boolean = false;
+
   temp_usernames: Array<string> = [];
   temp_mails: Array<string> = [];
 
@@ -45,6 +47,10 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.profile_photo_name = "../../assets/images/img_avatar2.png";
     this.getTempData();
+  }
+
+  unlock(){
+    this.boot = true;
   }
 
   getTempData() {
@@ -131,6 +137,7 @@ export class RegisterComponent implements OnInit {
   }
 
   isLetter(): boolean {
+    if(this.boot==false) return true;
     let arr = this.password;
 
     if(this.containsSpecialChars(arr.charAt(0)) == true) return false;
@@ -140,13 +147,14 @@ export class RegisterComponent implements OnInit {
   }
 
   containsSpecialChars(str): boolean {
+    if(this.boot==false) return true;
     let arr = str;
     const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
     return specialChars.test(arr);
   }
 
   hasANumber(): boolean {
-
+    if(this.boot==false) return true;
     let arr = this.password;
 
     for (let i = 0; i < this.password.length; i++) {
@@ -159,6 +167,7 @@ export class RegisterComponent implements OnInit {
   }
 
   hasACapital(): boolean {
+    if(this.boot==false) return true;
     let character: String;
     for (let i = 0; i < this.password.length; i++) {
 
@@ -181,6 +190,7 @@ export class RegisterComponent implements OnInit {
   }
 
   hasLength(): boolean {
+    if(this.boot==false) return true;
     if (this.password.length < 8 || this.password.length > 16)
       return false;
     return true;

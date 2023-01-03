@@ -36,6 +36,7 @@ export class EditUserComponent implements OnInit {
   imageError: string;
   cardImageBase64: string;
   isImageSaved: boolean;
+  boot:boolean = false;
 
   sent_user: User;
   temp_usernames: Array<string> = [];
@@ -55,9 +56,10 @@ export class EditUserComponent implements OnInit {
           this.temp_usernames[i] = temp_data[i].username;
           this.temp_mails[i] = temp_data[i].mail;
         }
-
       }
     });
+
+    this.type = "participant";
 
     if (this.sent_user != null) {
 
@@ -142,6 +144,7 @@ export class EditUserComponent implements OnInit {
 
 
   getType(): boolean {
+    if(this.boot==false) return true;
     if (this.type == "organizer") return true;
     else return false;
   }
@@ -161,8 +164,12 @@ export class EditUserComponent implements OnInit {
 
   }
 
+  unlock(){
+    this.boot = true;
+  }
 
   isLetter(): boolean {
+    if(this.boot==false) return true;
     let arr = this.password;
 
     if (this.containsSpecialChars(arr.charAt(0)) == true) return false;
@@ -172,13 +179,14 @@ export class EditUserComponent implements OnInit {
   }
 
   containsSpecialChars(str): boolean {
+    if(this.boot==false) return true;
     let arr = str;
     const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
     return specialChars.test(arr);
   }
 
   hasANumber(): boolean {
-
+    if(this.boot==false) return true;
     let arr = this.password;
 
     for (let i = 0; i < this.password.length; i++) {
@@ -191,6 +199,7 @@ export class EditUserComponent implements OnInit {
   }
 
   hasACapital(): boolean {
+    if(this.boot==false) return true;
     let character: String;
     for (let i = 0; i < this.password.length; i++) {
 
@@ -210,6 +219,7 @@ export class EditUserComponent implements OnInit {
   }
 
   hasLength(): boolean {
+        if(this.boot==false) return true;
     if (this.password.length < 8 || this.password.length > 16)
       return false;
     return true;
@@ -218,6 +228,7 @@ export class EditUserComponent implements OnInit {
   Error_message: String;
 
   save() {
+    
 
     this.Error_message = "Input error:\n";
 

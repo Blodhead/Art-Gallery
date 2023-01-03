@@ -2,3 +2,8 @@
     margin-top: 20px !important;
     margin-bottom: 40px !important;
 }
+
+.border{
+    border: solid !important;
+    border-color: rgb(19,98,7) !important;
+}
