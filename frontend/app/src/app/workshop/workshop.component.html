@@ -1,25 +1,60 @@
 <div class="container-fluid">
 
+    <div class="row bg">
+        <div class="col-2">&nbsp;</div>
+        <div class="col-8 intro middle">
+            <table>
+                <tr class="middle">
+                    <td>
+                        <h4 style="background-color: white;text-align: center; width: fit-content;">FEEL CREATIVE BUT CANT GET IT OUT?</h4>
+                    </td>
+                </tr>
+                <tr class="middle">
+                    <td>
+                        <h1 style="background-color: white; text-align: center; width: fit-content; margin: 40px; margin-bottom: 90px;">UNLEASH YOUR INNER ARTIST!</h1>
+                    </td>
+                </tr>
+
+                <h6 class="middle" style="text-align: center; background-color: white;">
+                    Choose any of our workshops that peek your interest, sign up and have fun with our wonderful
+                    staff that will be "holding your hand" the entire time. Thrive in supportive environment and
+                    achieve your dreams!
+                </h6>
+            </table>
+        </div>
+        <div class="col-2">&nbsp;</div>
+    </div>
+
     <div class="row">
-        <div class="col-12" style="display: flex; justify-content: center;">
+        <div class="col-12 intro">
 
             <table>
                 <tr>
-                    <td><h6>Search by:</h6></td>
+                    <td>
+                        <h6>Search by:</h6>
+                    </td>
                     <td><input type="text" placeholder="name..." (keyup)="searchName()"></td>
-                    <td><h6>or/and</h6></td>
+                    <td>
+                        <h6>or/and</h6>
+                    </td>
                     <td><input type="text" placeholder="location..." (keyup)="searchLocation()"></td>
                 </tr>
                 <tr *ngIf="searchFlag==true">
-                    <td><h5>Sort by:</h5></td>
+                    <td>
+                        <h5>Sort by:</h5>
+                    </td>
                     <td *ngIf="toggle1 == true"><button class="btn btn-success btn-xs"
-                            style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortName()">Name ↑</button></td>
+                            style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortName()">Name ↑</button>
+                    </td>
                     <td *ngIf="toggle1 == false"><button class="btn btn-success btn-xs"
-                            style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortName()">Name ↓</button></td>
+                            style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortName()">Name ↓</button>
+                    </td>
                     <td *ngIf="toggle2 == true"><button class="btn btn-success btn-xs"
-                            style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortDate()">Date ↑</button></td>
+                            style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortDate()">Date ↑</button>
+                    </td>
                     <td *ngIf="toggle2 == false"><button class="btn btn-success btn-xs"
-                            style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortDate()">Date ↓</button></td>
+                            style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortDate()">Date ↓</button>
+                    </td>
                 </tr>
             </table>
 
@@ -27,11 +62,12 @@
     </div>
 
     <div class="row">
+        <div class="col-2">&nbsp;</div>
 
-        <div class="col-10" *ngFor="let workshop of filtered_workshops">
-
-            <app-workshop-details [myWorkshopDetail]="workshop"></app-workshop-details>
-
+        <div class="col-8">
+            <div *ngFor="let workshop of filtered_workshops">
+                <app-workshop-details [myWorkshopDetail]="workshop"></app-workshop-details>
+            </div>
         </div>
 
         <div class="col-2">Top 5</div>
