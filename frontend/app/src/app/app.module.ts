@@ -34,8 +34,9 @@ import { WorkshopDetailsComponent } from './workshop-details/workshop-details.co
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule, //naglasavamo aplikaciji da importujemo HttpClientModule negde u projektu
-    FormsModule, NgbModule
+    HttpClientModule,
+    FormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

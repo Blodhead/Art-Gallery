@@ -4,6 +4,7 @@
     background-image: url('../../assets/images/t2.jpg');
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
 }
 
 .intro{
@@ -14,6 +15,8 @@
 
 .middle{
     display: flex !important; 
-    justify-content: center !important; 
-    
+    justify-content: start !important; 
+    height: fit-content;
+    margin-top: 20px;
+    margin-bottom: 25px;
 }

@@ -19,9 +19,9 @@ export class WorkshopComponent implements OnInit{
   toggle2: boolean = true;
   searchFlag: boolean = false;
 
-  filtered_workshops: WorkshopDetails[] = [];
+  filtered_workshops: WorkshopDetails[];
   allWorkshops:WorkshopDetails[];
-
+  index:number[] = [1];
 
   getAllWorkshops(){
     this.workshop_service.getAllWorkshops().subscribe((workshops: WorkshopDetails[])=>{
@@ -29,6 +29,9 @@ export class WorkshopComponent implements OnInit{
       else{
         this.allWorkshops = workshops;
         this.filtered_workshops = this.allWorkshops;
+        for(var i = 0; i < this.filtered_workshops.length; i++){
+          this.index[i] = i;
+        }
       }
     });
   }

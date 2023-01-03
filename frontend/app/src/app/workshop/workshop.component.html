@@ -3,30 +3,31 @@
     <div class="row bg">
         <div class="col-2">&nbsp;</div>
         <div class="col-8 intro middle">
-            <table>
-                <tr class="middle">
-                    <td>
-                        <h4 style="background-color: white;text-align: center; width: fit-content;">FEEL CREATIVE BUT CANT GET IT OUT?</h4>
-                    </td>
-                </tr>
-                <tr class="middle">
-                    <td>
-                        <h1 style="background-color: white; text-align: center; width: fit-content; margin: 40px; margin-bottom: 90px;">UNLEASH YOUR INNER ARTIST!</h1>
-                    </td>
-                </tr>
 
-                <h6 class="middle" style="text-align: center; background-color: white;">
-                    Choose any of our workshops that peek your interest, sign up and have fun with our wonderful
-                    staff that will be "holding your hand" the entire time. Thrive in supportive environment and
-                    achieve your dreams!
-                </h6>
-            </table>
+            <div class="row">
+                <div class="col-12 middle">
+                    <h4 class="border border-success rounded" style="background-color: white;text-align: center; width: fit-content;">FEEL CREATIVE BUT CANT GET IT OUT?</h4>
+                </div>
+
+                <div class="col-12 middle">
+                    <h1 class="border border-success rounded" style="background-color: white; text-align: center; width: fit-content;">UNLEASH YOUR INNER ARTIST!</h1>
+                </div>
+
+                <div class="col-12 middle">
+                    <h6 class="middle border border-success rounded" style="text-align: center; background-color: white;">
+                        Choose any of our workshops that peek your interest, sign up and have fun with our wonderful
+                        staff that will be "holding your hand" the entire time. Thrive in supportive environment and
+                        achieve your dreams!
+                    </h6>                
+                </div>
+
+            </div>
         </div>
         <div class="col-2">&nbsp;</div>
     </div>
 
     <div class="row">
-        <div class="col-12 intro">
+        <div class="col-12 intro middle" style="justify-content: center !important;">
 
             <table>
                 <tr>
@@ -65,8 +66,8 @@
         <div class="col-2">&nbsp;</div>
 
         <div class="col-8">
-            <div *ngFor="let workshop of filtered_workshops">
-                <app-workshop-details [myWorkshopDetail]="workshop"></app-workshop-details>
+            <div *ngFor="let workshop of filtered_workshops; let i = index">
+                <app-workshop-details [myWorkshopDetail]="workshop" [myIndex]="i"></app-workshop-details>
             </div>
         </div>
 
