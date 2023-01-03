@@ -1,6 +1,6 @@
-<div class="row flexbox" style="display: flex; justify-content: center;">
+<div class="row">
 
-  <div class="col-md-3 col-sm-4" style="text-align: center;">
+  <div class="col-md-12 col-lg-2 col-sm-12 " style="text-align: center;">
 
     <div class="imgcontainer">
       <img src="{{myUser.profile_photo_name}}" style="width: 100px; height: 100px;" alt="Avatar" class="avatar shadow">
@@ -10,84 +10,89 @@
 
   </div>
 
-  <div class="col-md-4 col-lg-3 flexcol-editor" style="display: flex; justify-content: center;">
+  <div class="col-md-12 col-lg-4">
 
-    <div>
-      <table>
-        <tr>
-          <th>Firstname:</th>
-          <td>{{myUser.firstname}}</td>
-        </tr>
+    <div class="row">
 
-        <tr>
-          <th>Lastname:</th>
-          <td>{{myUser.lastname}}</td>
-        </tr>
+      <div class="col-md-4 d-none d-md-block d-lg-none"></div>
+      <div class="col-sm-3 d-none d-sm-block d-md-none"></div> 
 
-        <tr>
-          <th>Phone:</th>
-          <td>{{myUser.phone}}</td>
-        </tr>
-        <tr>
-          <th>Mail:</th>
-          <td>{{myUser.mail}}</td>
-        </tr>
-        <tr>
-          <th>Password:</th>
-          <td>{{myUser.password}}</td>
-        </tr>
-        <tr>
-          <th>Status:</th>
-          <td>{{myUser.status}}</td>
-        </tr>
-      </table>
+      <div class="col-lg-12 col-sm-9 col-md-8">
+        <div class="row">
+          <div class="col-5"><b> Firstname:</b></div>
+          <div class="col-7">{{myUser.firstname}}</div>
+        </div>
+
+        <div class="row">
+          <div class="col-5"><b>Lastname:</b></div>
+          <div class="col-7">{{myUser.lastname}}</div>
+        </div>
+
+        <div class="row">
+          <div class="col-5"><b>Phone:</b></div>
+          <div class="col-7">{{myUser.phone}}</div>
+        </div>
+        <div class="row">
+          <div class="col-5"><b>Mail:</b></div>
+          <div class="col-7">{{myUser.mail}}</div>
+        </div>
+        <div class="row">
+          <div class="col-5"><b>Password:</b></div>
+          <div class="col-7">{{myUser.password}}</div>
+        </div>
+        <div class="row">
+          <div class="col-5"><b>Status:</b></div>
+          <div class="col-7">{{myUser.status}}</div>
+        </div>
+      </div>
     </div>
 
   </div>
 
-  <div class="col-md-4 flexcol-preview clearfix" style="padding-bottom: 10px;display: flex; justify-content: center;">
-    <div>
-      <table>
-        <tr>
-          <th>Organization info:</th>
-          <td>
+  <div class="col-md-12 col-lg-4">
+    <div class="row">
 
-          </td>
-        </tr>
+      <div class="col-md-4 d-none d-md-block d-lg-none"></div>
+      <div class="col-sm-3 d-none d-sm-block d-md-none"></div> 
 
-        <tr>
-          <th>•Name:</th>
-          <td>{{myUser.org_name}}</td>
-        </tr>
+      <div class="col-lg-12 col-sm-9 col-md-8">
+        <div class="row">
+           <b> Organization info:</b>
+        </div>
 
-        <tr>
-          <th>•State:</th>
-          <td>{{myUser.state}}</td>
-        </tr>
+        <div class="row">
+          <div class="col-5"><b>•Name:</b></div>
+          <div class="col-7">{{myUser.org_name}}</div>
+        </div>
 
-        <tr>
-          <th>•City:</th>
-          <td>{{myUser.city}}</td>
-        </tr>
+        <div class="row">
+          <div class="col-5"><b>•State:</b></div>
+          <div class="col-7">{{myUser.state}}</div>
+        </div>
 
-        <tr>
-          <th>•Postal code:</th>
-          <td>{{myUser.postal_code}}</td>
-        </tr>
+        <div class="row">
+          <div class="col-5"><b>•City:</b></div>
+          <div class="col-7">{{myUser.city}}</div>
+        </div>
 
-        <tr>
-          <th>•Adress:</th>
-          <td>{{myUser.street}}/{{myUser.number}}</td>
-        </tr>
-        <tr>
-          <th>•PIB:</th>
-          <td>{{myUser.pib}}</td>
-        </tr>
-      </table>
+        <div class="row">
+          <div class="col-5"><b>•Postal code:</b></div>
+          <div class="col-7">{{myUser.postal_code}}</div>
+        </div>
+
+        <div class="row">
+          <div class="col-5"><b>•Adress:</b></div>
+          <div class="col-7">{{myUser.street}}/{{myUser.number}}</div>
+        </div>
+        <div class="row">
+          <div class="col-5"><b>•PIB:</b></div>
+          <div class="col-7">{{myUser.pib}}</div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="col-md-2 flexcol-errors" style="text-align: center;">
+  <div class="col-md-12 col-lg-2" style="text-align: center;">
     <br />
     <button type="button" class="btn btn-warning" (click)="edit(myUser)">Edit User</button>
     <br />
