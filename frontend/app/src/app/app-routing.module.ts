@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserComponent } from './user/user.component';
 import { WorkshopComponent } from './workshop/workshop.component';
+import { EditWorkshopComponent } from './edit-workshop/edit-workshop.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path:'login', component: LoginComponent},
   {path:'admin', component: AdminComponent},
   {path:'admin/edit_user', component: EditUserComponent},
+  {path:'admin/edit_workshop', component: EditWorkshopComponent},
   {path:'user', component: UserComponent},
   {path:'register', component: RegisterComponent},
   {path:'login/admin', component: LoginComponent},

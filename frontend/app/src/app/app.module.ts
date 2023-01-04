@@ -16,6 +16,7 @@ import { RequestComponent } from './request/request.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { WorkshopComponent } from './workshop/workshop.component';
 import { WorkshopDetailsComponent } from './workshop-details/workshop-details.component';
+import { EditWorkshopComponent } from './edit-workshop/edit-workshop.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { WorkshopDetailsComponent } from './workshop-details/workshop-details.co
     RequestComponent,
     EditUserComponent,
     WorkshopComponent,
-    WorkshopDetailsComponent
+    WorkshopDetailsComponent,
+    EditWorkshopComponent
   ],
   imports: [
     BrowserModule,

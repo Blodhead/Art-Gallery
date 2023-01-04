@@ -1,0 +1,8 @@
+.name{
+    width: fit-content; 
+    min-width: 300PX;
+    text-align: center;
+    border: none !important;
+    border-color: transparent !important;
+    background-color: transparent;
+}

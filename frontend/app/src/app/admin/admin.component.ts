@@ -47,12 +47,21 @@ export class AdminComponent implements OnInit {
       }
     })
 
+    this.getAllWorkshops();
+  }
+
+
+  getAllWorkshops() {
     this.workshop_service.getAllWorkshops().subscribe((workshops: WorkshopDetails[]) => {
       if (!workshops) alert("Error");
       else {
         this.workshops = workshops;
-        for (var i = 0; i < workshops.length; i++) {
+        for (var i = 0; i < this.workshops.length; i++) {
           this.index[i] = i;
+          let t1 = new String(this.workshops[i].date);
+          const [month, day, year] = t1.toString().split('.');
+          let temp = new Date(+year, +month - 1, +day);
+          this.workshops[i].date = temp;
         }
       }
     });
@@ -71,6 +80,11 @@ export class AdminComponent implements OnInit {
     localStorage.setItem("sent_user", (null));
     this._router.navigate(["admin/edit_user"]);
   };
+
+  add_Workshop(){
+    localStorage.setItem("sent_workshop", (null));
+    this._router.navigate(["admin/edit_workshop"]);
+  }
 
   delete(username, type) {
     let user = new User();
