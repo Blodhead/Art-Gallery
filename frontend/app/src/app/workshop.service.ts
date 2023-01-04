@@ -5,7 +5,7 @@ import { HttpClient } from "@angular/common/http"
   providedIn: 'root'
 })
 export class WorkshopService {
-  save(name: string, image: string, description: string, date: string, location: string, likes:String[]) {
+  save(name: string, image: string, description: string, date: Date, location: string, likes:String[]) {
 
     const data = {
       name: name,

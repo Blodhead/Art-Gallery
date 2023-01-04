@@ -14,7 +14,7 @@ import { WorkshopService } from '../workshop.service';
 export class AdminComponent implements OnInit {
 
 
-  constructor(private service: UserService, private workshop_service:WorkshopService, private _router: Router) { }
+  constructor(private service: UserService, private workshop_service: WorkshopService, private _router: Router) { }
 
   active_tab: string = "Organizers";
   allUsers: User[] = [];
@@ -22,7 +22,7 @@ export class AdminComponent implements OnInit {
   participants: User[] = [];
   requests: User[] = [];
   workshops: WorkshopDetails[];
-  index:number[] = [1];
+  index: number[] = [1];
 
   ngOnInit(): void {
     this.service.getTempData().subscribe((data: User[]) => {
@@ -50,7 +50,6 @@ export class AdminComponent implements OnInit {
     this.getAllWorkshops();
   }
 
-
   getAllWorkshops() {
     this.workshop_service.getAllWorkshops().subscribe((workshops: WorkshopDetails[]) => {
       if (!workshops) alert("Error");
@@ -58,10 +57,11 @@ export class AdminComponent implements OnInit {
         this.workshops = workshops;
         for (var i = 0; i < this.workshops.length; i++) {
           this.index[i] = i;
-          let t1 = new String(this.workshops[i].date);
-          const [month, day, year] = t1.toString().split('.');
-          let temp = new Date(+year, +month - 1, +day);
-          this.workshops[i].date = temp;
+
+        }
+
+        for (let j = 0; j < this.workshops.length; j++) {
+          this.workshops[j].date = new Date(this.workshops[j].date);
         }
       }
     });
@@ -81,7 +81,7 @@ export class AdminComponent implements OnInit {
     this._router.navigate(["admin/edit_user"]);
   };
 
-  add_Workshop(){
+  add_Workshop() {
     localStorage.setItem("sent_workshop", (null));
     this._router.navigate(["admin/edit_workshop"]);
   }

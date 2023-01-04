@@ -95,7 +95,7 @@ export class EditWorkshopComponent implements OnInit {
     this.mydate = (this.date.getMonth()+1)+" "+this.date.getDate()+" "+ this.date.getFullYear();
 
     if(JSON.parse(localStorage.getItem("sent_workshop")) == null)
-    this.service.save(this.name, this.image, this.description, this.mydate, this.location, this.likes).subscribe((workshop) => {
+    this.service.save(this.name, this.image, this.description, this.date, this.location, this.likes).subscribe((workshop) => {
       if (workshop != null) {
         alert("Register acknowledged");
         this.cancel();
