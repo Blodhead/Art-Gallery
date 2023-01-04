@@ -17,6 +17,9 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { WorkshopComponent } from './workshop/workshop.component';
 import { WorkshopDetailsComponent } from './workshop-details/workshop-details.component';
 import { EditWorkshopComponent } from './edit-workshop/edit-workshop.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material/material.module';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +41,9 @@ import { EditWorkshopComponent } from './edit-workshop/edit-workshop.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
