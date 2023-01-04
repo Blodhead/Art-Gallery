@@ -13,7 +13,7 @@
                 </tr>
                 <tr>
                     <blockquote class="blockquote">
-                        <h6><td class="mb-0">{{myWorkshopDetail.date}}</td></h6>
+                        <h5><td class="mb-0">{{myWorkshopDetail.date.getDate()}}. {{toMonthName(myWorkshopDetail.date.getMonth()+1)}} {{myWorkshopDetail.date.getFullYear()}}</td></h5>
                         <footer class="blockquote-footer">{{myWorkshopDetail.location}}</footer>
                     </blockquote>
                 </tr>
@@ -39,7 +39,7 @@
                 </tr>
                 <tr>
                     <blockquote class="blockquote">
-                        <h6><td class="mb-0">{{myWorkshopDetail.date}}</td></h6>
+                        <h5><td class="mb-0">{{myWorkshopDetail.date.getDate()}}. {{toMonthName(myWorkshopDetail.date.getMonth()+1)}} {{myWorkshopDetail.date.getFullYear()}}</td></h5>
                         <footer class="blockquote-footer">{{myWorkshopDetail.location}}</footer>
                     </blockquote>
                 </tr>

@@ -38,6 +38,10 @@ export class WorkshopComponent implements OnInit {
         this.filtered_workshops = this.allWorkshops;
         for (var i = 0; i < this.filtered_workshops.length; i++) {
           this.index[i] = i;
+          let t1 = new String(this.allWorkshops[i].date);
+          const [month, day, year] = t1.toString().split('.');
+          let temp = new Date(+year, +month - 1, +day);
+          this.allWorkshops[i].date = temp;
         }
         this.getTop5();
         for (let i = 0; i < 5 && i < this.filtered_workshops.length; i++) {
@@ -66,7 +70,9 @@ export class WorkshopComponent implements OnInit {
 
     if (this.toggle2 == false) {
       this.filtered_workshops.sort((a, b) => {
-        return new Date(b.date).getTime() - new Date(a.date).getTime()
+        let g = new Date(b.date).getTime();
+        let h = new Date(a.date).getTime();
+        return  g - h
       });
       this.toggle2 = true;
     } else if (this.toggle2 == true) {
