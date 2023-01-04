@@ -7,6 +7,30 @@ exports.WorkshopController = void 0;
 const workshop_1 = __importDefault(require("../models/workshop"));
 class WorkshopController {
     constructor() {
+        this.update = (req, res) => {
+            let original_name = req.body._name;
+            let workshop = new workshop_1.default({
+                name: req.body.name,
+                image: req.body.image,
+                description: req.body.description,
+                date: req.body.date,
+                location: req.body.location,
+                likes: req.body.likes
+            });
+            workshop_1.default.updateOne({ "name": original_name }, { $set: {
+                    "name": workshop.name,
+                    "image": workshop.image,
+                    "description": workshop.description,
+                    "date": workshop.date,
+                    "location": workshop.location,
+                    "likes": workshop.likes
+                } }, (err, news) => {
+                if (err)
+                    console.log(err);
+                else
+                    console.log(news);
+            });
+        };
         this.getAllWorkshops = (req, res) => {
             workshop_1.default.find({}, (err, news) => {
                 if (err)

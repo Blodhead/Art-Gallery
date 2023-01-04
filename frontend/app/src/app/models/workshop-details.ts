@@ -5,4 +5,6 @@ export class WorkshopDetails{
     location:string;
     description:string;
     likes:string[];
+    owner:string;
+    status:string;
 }

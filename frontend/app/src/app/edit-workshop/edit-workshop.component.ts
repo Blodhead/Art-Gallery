@@ -34,6 +34,14 @@ export class EditWorkshopComponent implements OnInit {
   ngOnInit(): void {
     this.current_user = localStorage.getItem("current_user");
     this.sent_workshop = JSON.parse(localStorage.getItem("sent_workshop"));
+
+    if(this.sent_workshop != null){
+      this.name = this.sent_workshop.name;
+      this.date = new Date(this.sent_workshop.date);
+      this.image = this.sent_workshop.image;
+      this.location = this.sent_workshop.location;
+      this.description = this.sent_workshop.description;
+    }
   }
 
   onFileSelected(event) {
@@ -94,7 +102,7 @@ export class EditWorkshopComponent implements OnInit {
 
     this.mydate = (this.date.getMonth()+1)+" "+this.date.getDate()+" "+ this.date.getFullYear();
 
-    if(JSON.parse(localStorage.getItem("sent_workshop")) == null)
+    if(this.sent_workshop == null)
     this.service.save(this.name, this.image, this.description, this.date, this.location, this.likes).subscribe((workshop) => {
       if (workshop != null) {
         alert("Register acknowledged");
@@ -102,9 +110,14 @@ export class EditWorkshopComponent implements OnInit {
       }
       else alert("ERROR");
     });
-    else if(JSON.parse(localStorage.getItem("sent_workshop")) != null){
-      //update
-      console.log("update needed");
+    else if(this.sent_workshop != null){
+      this.service.update(this.sent_workshop.name,this.name, this.image, this.description, this.date, this.location, this.likes).subscribe((workshop) => {
+        if (workshop != null) {
+          alert("Register acknowledged");
+          this.cancel();
+        }
+        else alert("ERROR");
+      });
     }
 
 

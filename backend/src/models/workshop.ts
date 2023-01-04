@@ -20,6 +20,12 @@ let Workshops = new Schema({ //sva polja koja postoje u users semi
     },
     likes:{
         type:Array
+    },
+    owner:{
+        type:String
+    },
+    status:{
+        type:String
     }
 
 })

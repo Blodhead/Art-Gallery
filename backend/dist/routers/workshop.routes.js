@@ -9,6 +9,9 @@ const workshopRouter = express_1.default.Router(); //dodeljivanje rutera
 workshopRouter.route("/save").post(//ako dodje "/login" ruta on obradjuje POST zahtev, za GET ne zna sta da radi, jer nije definisano
 (req, res) => new workshop_controller_1.WorkshopController().save(req, res) //poziva se UserController i njegova login metoda
 );
+workshopRouter.route("/update").post(//ako dodje "/login" ruta on obradjuje POST zahtev, za GET ne zna sta da radi, jer nije definisano
+(req, res) => new workshop_controller_1.WorkshopController().update(req, res) //poziva se UserController i njegova login metoda
+);
 workshopRouter.route("/getAllWorkshops").get(//ako dodje "/login" ruta on obradjuje POST zahtev, za GET ne zna sta da radi, jer nije definisano
 (req, res) => new workshop_controller_1.WorkshopController().getAllWorkshops(req, res) //poziva se UserController i njegova login metoda
 );

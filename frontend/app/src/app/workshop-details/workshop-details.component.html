@@ -2,18 +2,29 @@
 
     <div class="row border border-success rounded" *ngIf="Toggle()">
         <div class="col-4" style="padding: 0px !important;">
-            <img class="rounded" src="{{myWorkshopDetail.image}}" style=" object-fit: cover; border-right: solid !important; border-color:rgb(19,98,7) !important;" width="100%" height="100%">
+            <img class="rounded" src="{{myWorkshopDetail.image}}"
+                style=" object-fit: cover; border-right: solid !important; border-color:rgb(19,98,7) !important;"
+                width="100%" height="100%">
         </div>
 
         <div class="col-8">
             <table>
 
                 <tr>
-                    <h2><td>{{myWorkshopDetail.name}}</td></h2>
+                    <h2>
+                        <td>{{myWorkshopDetail.name}}</td>
+                    </h2>
+                    <td *ngIf="current_user.type=='admin'">
+                        <button class="btn btn-success btn-sm" (click)="add_Workshop()">Edit</button>
+                    </td>
                 </tr>
                 <tr>
                     <blockquote class="blockquote">
-                        <h5><td class="mb-0">{{myWorkshopDetail.date.getDate()}}. {{toMonthName(myWorkshopDetail.date.getMonth()+1)}} {{myWorkshopDetail.date.getFullYear()}}</td></h5>
+                        <h5>
+                            <td class="mb-0">{{myWorkshopDetail.date.getDate()}}.
+                                {{toMonthName(myWorkshopDetail.date.getMonth()+1)}}
+                                {{myWorkshopDetail.date.getFullYear()}}.</td>
+                        </h5>
                         <footer class="blockquote-footer">{{myWorkshopDetail.location}}</footer>
                     </blockquote>
                 </tr>
@@ -35,11 +46,21 @@
             <table>
 
                 <tr>
-                    <h2><td>{{myWorkshopDetail.name}}</td></h2>
+                    <h2>
+                        <td>{{myWorkshopDetail.name}}</td>
+                    </h2>
+                    <td *ngIf="current_user.type=='admin'">
+                        <button class="btn btn-success btn-sm" (click)="add_Workshop()">Edit</button>
+                    </td>
+
                 </tr>
                 <tr>
                     <blockquote class="blockquote">
-                        <h5><td class="mb-0">{{myWorkshopDetail.date.getDate()}}. {{toMonthName(myWorkshopDetail.date.getMonth()+1)}} {{myWorkshopDetail.date.getFullYear()}}</td></h5>
+                        <h5>
+                            <td class="mb-0">{{myWorkshopDetail.date.getDate()}}.
+                                {{toMonthName(myWorkshopDetail.date.getMonth()+1)}}
+                                {{myWorkshopDetail.date.getFullYear()}}</td>
+                        </h5>
                         <footer class="blockquote-footer">{{myWorkshopDetail.location}}</footer>
                     </blockquote>
                 </tr>
@@ -53,7 +74,9 @@
         </div>
 
         <div class="col-4" style="padding: 0px !important;">
-            <img class="rounded" src="{{myWorkshopDetail.image}}" style="object-fit: cover; border-left: solid !important; border-color:rgb(19,98,7) !important;" width="100%" height="100%">
+            <img class="rounded" src="{{myWorkshopDetail.image}}"
+                style="object-fit: cover; border-left: solid !important; border-color:rgb(19,98,7) !important;"
+                width="100%" height="100%">
         </div>
 
     </div>

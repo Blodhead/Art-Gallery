@@ -5,6 +5,19 @@ import { HttpClient } from "@angular/common/http"
   providedIn: 'root'
 })
 export class WorkshopService {
+  update(_name:string,name: string, image: string, description: string, date: Date, location: string, likes: string[]) {
+    const data = {
+      _name:_name,
+      name: name,
+      image: image,
+      description: description,
+      date: date,
+      location: location,
+      likes:likes
+    }
+
+    return this.http.post(`${this.url}/workshop/update`, data);
+  }
   save(name: string, image: string, description: string, date: Date, location: string, likes:String[]) {
 
     const data = {

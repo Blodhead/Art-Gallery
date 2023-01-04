@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { User } from '../models/user';
 import { WorkshopDetails } from '../models/workshop-details';
 
 
@@ -7,10 +9,18 @@ import { WorkshopDetails } from '../models/workshop-details';
   templateUrl: './workshop-details.component.html',
   styleUrls: ['./workshop-details.component.css']
 })
-export class WorkshopDetailsComponent {
+export class WorkshopDetailsComponent implements OnInit{
 
   @Input() myWorkshopDetail: WorkshopDetails;
   @Input() myIndex: number;
+
+  constructor(private _router: Router){}
+
+  current_user:User;
+
+  ngOnInit(): void {
+    this.current_user = JSON.parse(localStorage.getItem("current_user"));
+  }
 
   Toggle(): boolean {
 
@@ -18,6 +28,11 @@ export class WorkshopDetailsComponent {
       return true;
     else return false;
 
+  }
+
+  add_Workshop() {
+    localStorage.setItem("sent_workshop", JSON.stringify(this.myWorkshopDetail));
+    this._router.navigate(["admin/edit_workshop"]);
   }
 
   toMonthName(monthNumber):string {
