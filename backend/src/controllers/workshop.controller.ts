@@ -29,7 +29,7 @@ export class WorkshopController {
                 "likes":workshop.likes
             }},(err, news)=>{
                 if (err) console.log(err);
-            else console.log(news);
+            else res.json(news);
             });
             
     }

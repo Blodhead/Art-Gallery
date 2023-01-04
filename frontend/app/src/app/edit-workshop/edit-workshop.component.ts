@@ -18,24 +18,24 @@ export class EditWorkshopComponent implements OnInit {
   sent_workshop: WorkshopDetails;
   Error_message: string;
 
-  imageError:string;
+  imageError: string;
   cardImageBase64: string;
   isImageSaved: boolean;
 
-  name:string;
+  name: string;
   choosen_Date: Date;
-  date:Date;
-  image:string;
-  location:string;
-  description:string;
+  date: Date;
+  image: string;
+  location: string;
+  description: string;
 
-  likes:string[] = [];
+  likes: string[] = [];
 
   ngOnInit(): void {
     this.current_user = localStorage.getItem("current_user");
     this.sent_workshop = JSON.parse(localStorage.getItem("sent_workshop"));
 
-    if(this.sent_workshop != null){
+    if (this.sent_workshop != null) {
       this.name = this.sent_workshop.name;
       this.date = new Date(this.sent_workshop.date);
       this.image = this.sent_workshop.image;
@@ -58,20 +58,13 @@ export class EditWorkshopComponent implements OnInit {
   }
 
   cancel() {
-    localStorage.removeItem("sent_user");
+    localStorage.removeItem("sent_workshop");
 
-    if (this.current_user == "admin") {
-      this._router.navigate(["admin"]);
-    }
-    else if (this.current_user == "organizer") {
-      this._router.navigate(["user"]);
-    }
-    else if (this.current_user == "participant") {
-      this._router.navigate(["user"]);
-    }
+    this._router.navigate([""]);
+
 
   }
-  mydate:string;
+  mydate: string;
 
   save() {
     this.Error_message = "Input error:\n";
@@ -100,23 +93,24 @@ export class EditWorkshopComponent implements OnInit {
       return;
     }
 
-    this.mydate = (this.date.getMonth()+1)+" "+this.date.getDate()+" "+ this.date.getFullYear();
+    this.mydate = (this.date.getMonth() + 1) + " " + this.date.getDate() + " " + this.date.getFullYear();
 
-    if(this.sent_workshop == null)
-    this.service.save(this.name, this.image, this.description, this.date, this.location, this.likes).subscribe((workshop) => {
-      if (workshop != null) {
-        alert("Register acknowledged");
-        this.cancel();
-      }
-      else alert("ERROR");
-    });
-    else if(this.sent_workshop != null){
-      this.service.update(this.sent_workshop.name,this.name, this.image, this.description, this.date, this.location, this.likes).subscribe((workshop) => {
+    if (this.sent_workshop == null)
+      this.service.save(this.name, this.image, this.description, this.date, this.location, this.likes).subscribe((workshop) => {
         if (workshop != null) {
           alert("Register acknowledged");
           this.cancel();
         }
         else alert("ERROR");
+      });
+    else if (this.sent_workshop != null) {
+      this.service.update(this.sent_workshop.name, this.name, this.image, this.description, this.date, this.location, this.likes).subscribe((workshop) => {
+        if (workshop != null) {
+          alert("Changes made");
+          this.cancel();
+        }
+        else alert("ERROR");
+        
       });
     }
 

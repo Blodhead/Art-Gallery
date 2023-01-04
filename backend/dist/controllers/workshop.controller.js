@@ -28,7 +28,7 @@ class WorkshopController {
                 if (err)
                     console.log(err);
                 else
-                    console.log(news);
+                    res.json(news);
             });
         };
         this.getAllWorkshops = (req, res) => {
