@@ -1,11 +1,121 @@
-import { Component } from '@angular/core';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { User } from '../models/user';
+import { WorkshopDetails } from '../models/workshop-details';
+import { WorkshopService } from '../workshop.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-edit-workshop',
   templateUrl: './edit-workshop.component.html',
   styleUrls: ['./edit-workshop.component.css']
 })
-export class EditWorkshopComponent {
+export class EditWorkshopComponent implements OnInit {
 
+  constructor(private service: WorkshopService, private _router: Router) { }
+
+  current_user: string;
+  sent_workshop: WorkshopDetails;
+  Error_message: string;
+
+  imageError:string;
+  cardImageBase64: string;
+  isImageSaved: boolean;
+
+  name:string;
+  choosen_Date: Date;
+  image:string;
+  location:string;
+  description:string;
+
+  ngOnInit(): void {
+    this.current_user = localStorage.getItem("current_user");
+    this.sent_workshop = JSON.parse(localStorage.getItem("sent_workshop"));
+  }
+
+  onFileSelected(event) {
+    const allowed_types = ['image/png', 'image/jpeg'];
+
+    if (!_.includes(allowed_types, event.target.files[0].type)) {
+      this.imageError = 'Only Images are allowed ( JPG | PNG )';
+      alert(this.imageError);
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const image = new Image();
+      image.src = e.target.result;
+      image.onload = rs => {
+        const img_height = rs.currentTarget['height'];
+        const img_width = rs.currentTarget['width'];
+
+        console.log(img_height, img_width);
+          const imgBase64Path = e.target.result;
+          this.cardImageBase64 = imgBase64Path;
+          this.isImageSaved = true;
+          // this.previewImagePath = imgBase64Path;
+      };
+    };
+    reader.readAsDataURL(event.target.files[0]);
+    this.sent_workshop.image = "../../assets/images/" + event.target.files[0].name;
+  }
+
+  cancel() {
+    localStorage.removeItem("sent_user");
+
+    if (this.current_user == "admin") {
+      this._router.navigate(["admin"]);
+    }
+    else if (this.current_user == "organizer") {
+      this._router.navigate(["user"]);
+    }
+    else if (this.current_user == "participant") {
+      this._router.navigate(["user"]);
+    }
+
+  }
+
+  save() {
+    this.Error_message = "Input error:\n";
+
+    if (this.sent_workshop.name == null) {
+      this.Error_message += "Workshop name missing\n"
+    }
+
+    if (this.sent_workshop.location == null) {
+      this.Error_message += "Workshop location missing\n"
+    }
+
+    if (this.sent_workshop.image == null) {
+      this.Error_message += "Workshop image missing\n"
+    }
+
+    if (this.sent_workshop.date == null) {
+      this.Error_message += "Workshop date missing\n"
+    }
+    if (this.sent_workshop.description == null) {
+      this.Error_message += "Workshop description missing\n"
+    }
+
+    if (this.Error_message != "Input error:\n") {
+      alert(this.Error_message);
+      return;
+    }
+
+    if(JSON.parse(localStorage.getItem("sent_workshop")) == null)
+    this.service.save(this.sent_workshop.name, this.sent_workshop.image, this.sent_workshop.description, this.sent_workshop.date, this.sent_workshop.location).subscribe((workshop) => {
+      if (workshop != null) {
+        alert("Register acknowledged");
+        this.cancel();
+      }
+      else alert("ERROR");
+    });
+    else if(JSON.parse(localStorage.getItem("sent_workshop")) != null){
+      //update
+      console.log("update needed");
+    }
+
+
+  }
 }

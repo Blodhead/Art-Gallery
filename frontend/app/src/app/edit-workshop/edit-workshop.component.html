@@ -1,29 +1,54 @@
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <div class="card text-center" style="margin-top: 10%;">
-                <div class="card-header">
-                    <input type="text" class="name" placeholder="Enter Name of the Workshop" name="name">
-                    <br/>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Choose a date</mat-label>
-                        <input matInput [matDatepicker]="picker">
-                        <mat-hint>MM/DD/YYYY</mat-hint>
-                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                      </mat-form-field>
-                <br/>
-                    
+<div class="wrapper">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 d-none d-lg-block d-xl-none"></div>
+            <div class="col-xl-2 d-none d-xl-block"></div>
+
+            <div class="col-12 col-lg-8 col-xl-8">
+                <div class="card text-center" style="margin-top: 15%;">
+                    <div class="card-header">
+                        <input type="text" class="name" placeholder="Enter Name of the Workshop" [(ngModel)]="name">
+                        <br />
+
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">
+                            <form>
+                                <div class="form-group">
+                                    <input type="file" class="form-control-file" (change)="onFileSelected($event)">
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="card-text form-group">
+                            <textarea class="form-control"
+                                placeholder="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+                                rows="7"></textarea>
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <input type="text" class="name" placeholder="Enter location of the Workshop" [(ngModel)]="location">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Choose a date</mat-label>
+                            <input matInput [matDatepicker]="picker">
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </mat-form-field>
+                    </div>
                 </div>
-                <div class="card-body">
-                  <h5 class="card-title">Special title treatment</h5>
-                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-                <div class="card-footer text-muted">
-                    <input type="text" class="name" placeholder="Enter location of the Workshop" name="name">
-                </div>
-              </div>
+            </div>
+
+            <div class="col-lg-2 d-none d-lg-block d-xl-none"></div>
+            <div class="col-xl-2 d-none d-xl-block"></div>
+        </div>
+        <div class="row">
+            <div class="col-12" style=" text-align: center; padding-top: 20px;">
+                <button class="btn btn-success rounded" style="background-color: rgb(19,98,7);"
+                    (click)="save()">Save</button>
+            </div>
         </div>
     </div>
+
 </div>

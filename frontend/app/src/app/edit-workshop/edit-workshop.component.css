@@ -6,3 +6,11 @@
     border-color: transparent !important;
     background-color: transparent;
 }
+.wrapper{
+    background-image: url('../../assets/images/edit_workshop_bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+}
