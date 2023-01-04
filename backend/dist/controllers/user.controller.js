@@ -26,7 +26,6 @@ class UserController {
                 pib: req.body.pib,
                 status: req.body.status
             });
-            console.log(req.body);
             user.save().then(user => {
                 res.status(200).json({ "message": "user added" });
             }).catch(err => {

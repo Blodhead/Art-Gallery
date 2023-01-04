@@ -24,9 +24,12 @@ export class EditWorkshopComponent implements OnInit {
 
   name:string;
   choosen_Date: Date;
+  date:Date;
   image:string;
   location:string;
   description:string;
+
+  likes:string[] = [];
 
   ngOnInit(): void {
     this.current_user = localStorage.getItem("current_user");
@@ -41,24 +44,9 @@ export class EditWorkshopComponent implements OnInit {
       alert(this.imageError);
       return;
     }
-
     const reader = new FileReader();
-    reader.onload = (e: any) => {
-      const image = new Image();
-      image.src = e.target.result;
-      image.onload = rs => {
-        const img_height = rs.currentTarget['height'];
-        const img_width = rs.currentTarget['width'];
-
-        console.log(img_height, img_width);
-          const imgBase64Path = e.target.result;
-          this.cardImageBase64 = imgBase64Path;
-          this.isImageSaved = true;
-          // this.previewImagePath = imgBase64Path;
-      };
-    };
     reader.readAsDataURL(event.target.files[0]);
-    this.sent_workshop.image = "../../assets/images/" + event.target.files[0].name;
+    this.image = "../../assets/images/" + event.target.files[0].name;
   }
 
   cancel() {
@@ -75,26 +63,27 @@ export class EditWorkshopComponent implements OnInit {
     }
 
   }
+  mydate:string;
 
   save() {
     this.Error_message = "Input error:\n";
 
-    if (this.sent_workshop.name == null) {
+    if (this.name == null) {
       this.Error_message += "Workshop name missing\n"
     }
 
-    if (this.sent_workshop.location == null) {
+    if (this.location == null) {
       this.Error_message += "Workshop location missing\n"
     }
 
-    if (this.sent_workshop.image == null) {
+    if (this.image == null) {
       this.Error_message += "Workshop image missing\n"
     }
 
-    if (this.sent_workshop.date == null) {
+    if (this.date == null) {
       this.Error_message += "Workshop date missing\n"
     }
-    if (this.sent_workshop.description == null) {
+    if (this.description == null) {
       this.Error_message += "Workshop description missing\n"
     }
 
@@ -103,8 +92,10 @@ export class EditWorkshopComponent implements OnInit {
       return;
     }
 
+    this.mydate = (this.date.getMonth()+1)+" "+this.date.getDate()+" "+ this.date.getFullYear();
+
     if(JSON.parse(localStorage.getItem("sent_workshop")) == null)
-    this.service.save(this.sent_workshop.name, this.sent_workshop.image, this.sent_workshop.description, this.sent_workshop.date, this.sent_workshop.location).subscribe((workshop) => {
+    this.service.save(this.name, this.image, this.description, this.mydate, this.location, this.likes).subscribe((workshop) => {
       if (workshop != null) {
         alert("Register acknowledged");
         this.cancel();

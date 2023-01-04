@@ -4,22 +4,22 @@ const Schema = mongoose.Schema;
 
 let Workshops = new Schema({ //sva polja koja postoje u users semi
     name:{
-        name:String
+        type:String
     },
     image:{
-        image:String
+        type:String
     },
     date:{
-        date:Date
+        type:Date
     },
-    place:{
-        place:String
+    location:{
+        type:String
     },
     description:{
-        description:String
+        type:String
     },
     likes:{
-        likes:Number
+        type:Array
     }
 
 })

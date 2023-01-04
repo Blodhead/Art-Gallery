@@ -4,5 +4,5 @@ export class WorkshopDetails{
     date:Date;
     location:string;
     description:string;
-    likes:number;
+    likes:string[];
 }

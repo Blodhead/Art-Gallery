@@ -7,22 +7,22 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const Schema = mongoose_1.default.Schema;
 let Workshops = new Schema({
     name: {
-        name: String
+        type: String
     },
     image: {
-        image: String
+        type: String
     },
     date: {
-        date: Date
+        type: Date
     },
-    place: {
-        place: String
+    location: {
+        type: String
     },
     description: {
-        description: String
+        type: String
     },
     likes: {
-        likes: Number
+        type: Array
     }
 });
 exports.default = mongoose_1.default.model("Workshops", Workshops, "workshops"); // (1)Dodeljuje promenjivoj "User" , za semu (2)User koju smo gore definisali kako izgleda,

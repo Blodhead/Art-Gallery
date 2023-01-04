@@ -16,7 +16,7 @@
                         <div class="card-title">
                             <form>
                                 <div class="form-group">
-                                    <input type="file" class="form-control-file" (change)="onFileSelected($event)">
+                                    <input type="file" name="image" (change)="onFileSelected($event)">
                                 </div>
                             </form>
                         </div>
@@ -24,14 +24,14 @@
                         <div class="card-text form-group">
                             <textarea class="form-control"
                                 placeholder="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-                                rows="7"></textarea>
+                                rows="7"[(ngModel)]="description" ></textarea>
                         </div>
                     </div>
                     <div class="card-footer text-muted">
                         <input type="text" class="name" placeholder="Enter location of the Workshop" [(ngModel)]="location">
                         <mat-form-field appearance="fill">
                             <mat-label>Choose a date</mat-label>
-                            <input matInput [matDatepicker]="picker">
+                            <input matInput [matDatepicker]="picker" [(ngModel)]="date">
                             <mat-hint>MM/DD/YYYY</mat-hint>
                             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>

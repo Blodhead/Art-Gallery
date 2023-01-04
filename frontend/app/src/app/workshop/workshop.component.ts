@@ -25,9 +25,9 @@ export class WorkshopComponent implements OnInit {
   top5: String[] = [];
 
   getTop5() {
-    this.filtered_workshops.sort((a, b) => {
+  /*this.filtered_workshops.sort((a, b) => {
       return a.likes - b.likes;
-    });
+    });*/
   }
 
   getAllWorkshops() {

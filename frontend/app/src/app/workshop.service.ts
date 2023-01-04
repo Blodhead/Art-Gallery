@@ -5,14 +5,15 @@ import { HttpClient } from "@angular/common/http"
   providedIn: 'root'
 })
 export class WorkshopService {
-  save(name: string, image: string, description: string, date: Date, location: string) {
+  save(name: string, image: string, description: string, date: string, location: string, likes:String[]) {
 
     const data = {
       name: name,
       image: image,
       description: description,
       date: date,
-      location: location
+      location: location,
+      likes:likes
     }
 
     return this.http.post(`${this.url}/workshop/save`, data);
