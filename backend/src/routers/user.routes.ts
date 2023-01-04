@@ -11,6 +11,10 @@ userRouter.route("/getTempData").get( //ako dodje "/login" ruta on obradjuje POS
     (req,res)=>new UserController().getTempData(req,res)//poziva se UserController i njegova login metoda
 )
 
+userRouter.route("/update").post(
+    (req,res)=>new UserController().update(req,res)
+)
+
 userRouter.route("/register").post(
     (req,res)=>new UserController().register(req,res)
 )

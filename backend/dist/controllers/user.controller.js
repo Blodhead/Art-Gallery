@@ -32,6 +32,50 @@ class UserController {
                 res.status(400).json({ "message": "error" });
             });
         };
+        this.update = (req, res) => {
+            let curr_sent = req.body.curr_sent;
+            let user = new users_1.default({
+                profile_photo_name: req.body.profile_photo_name,
+                org_name: req.body.org_name,
+                firstname: req.body.firstname,
+                phone: req.body.phone,
+                mail: req.body.mail,
+                lastname: req.body.lastname,
+                username: req.body.username,
+                password: req.body.password,
+                type: req.body.type,
+                state: req.body.state,
+                city: req.body.city,
+                postal_code: req.body.postal_code,
+                street: req.body.street,
+                number: req.body.number,
+                pib: req.body.pib,
+                status: req.body.status
+            });
+            users_1.default.updateOne({ "username": curr_sent }, { $set: {
+                    "profile_photo_name": user.profile_photo_name,
+                    "org_name": user.org_name,
+                    "firstname": user.firstname,
+                    "phone": user.phone,
+                    "mail": user.mail,
+                    "lastname": user.lastname,
+                    "username": user.username,
+                    "password": user.password,
+                    "type": user.type,
+                    "state": user.state,
+                    "city": user.city,
+                    "postal_code": user.postal_code,
+                    "street": user.street,
+                    "number": user.number,
+                    "pib": user.pib,
+                    "status": user.status
+                } }, (err, users) => {
+                if (err)
+                    console.log(err);
+                else
+                    res.json(user);
+            });
+        };
         this.login = (req, res) => {
             let username = req.body.username; //dohvata usernamer iz tela
             let password = req.body.password; //dohvata possword iz tela

@@ -20,24 +20,24 @@ export class UserService {
     // i slozenim objektom "data"(2) koji sadrzi username i password
   }
 
-  register(profile_photo_name, firstname, lastname, username, password, mail, phone, type, org_name, state, city, postal_code,street, number, pib,status) {
+  register(profile_photo_name, firstname, lastname, username, password, mail, phone, type, org_name, state, city, postal_code, street, number, pib, status) {
     const data = {
-      profile_photo_name:profile_photo_name,
+      profile_photo_name: profile_photo_name,
       firstname: firstname,
       lastname: lastname,
       username: username,
       password: password,
       type: type,
-      org_name:org_name,
-      state:state,
-      city:city,
-      postal_code:postal_code,
-      street:street,
-      number:number,
-      pib:pib, 
-      mail:mail, 
-      phone:phone,
-      status:status
+      org_name: org_name,
+      state: state,
+      city: city,
+      postal_code: postal_code,
+      street: street,
+      number: number,
+      pib: pib,
+      mail: mail,
+      phone: phone,
+      status: status
     }
 
     return this.http.post(`${this.url}/users/register`, data);
@@ -47,10 +47,33 @@ export class UserService {
     return this.http.post(`${this.url}/users/updateStatus`, user);
   }
 
+  update(curr_sent, profile_photo_name, firstname, lastname, username, password, mail, phone, type, org_name, state, city, postal_code, street, number, pib, status) {
+    const data = {
+      curr_sent: curr_sent,
+      profile_photo_name: profile_photo_name,
+      firstname: firstname,
+      lastname: lastname,
+      username: username,
+      password: password,
+      type: type,
+      org_name: org_name,
+      state: state,
+      city: city,
+      postal_code: postal_code,
+      street: street,
+      number: number,
+      pib: pib,
+      mail: mail,
+      phone: phone,
+      status: status
+    }
+
+    return this.http.post(`${this.url}/users/update`, data);
+  }
+
   deleteUser(user:User){
     return this.http.post(`${this.url}/users/deleteUser`, user);
   }
-
   getTempData() {
     return this.http.get(`${this.url}/users/getTempData`);
   }

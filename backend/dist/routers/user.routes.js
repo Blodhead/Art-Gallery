@@ -12,6 +12,7 @@ userRouter.route("/login").post(//ako dodje "/login" ruta on obradjuje POST zaht
 userRouter.route("/getTempData").get(//ako dodje "/login" ruta on obradjuje POST zahtev, za GET ne zna sta da radi, jer nije definisano
 (req, res) => new user_controller_1.UserController().getTempData(req, res) //poziva se UserController i njegova login metoda
 );
+userRouter.route("/update").post((req, res) => new user_controller_1.UserController().update(req, res));
 userRouter.route("/register").post((req, res) => new user_controller_1.UserController().register(req, res));
 userRouter.route("/deleteUser").post((req, res) => new user_controller_1.UserController().deleteUser(req, res));
 userRouter.route("/updateStatus").post((req, res) => new user_controller_1.UserController().updateStatus(req, res));
