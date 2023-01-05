@@ -16,9 +16,6 @@ export class HeaderComponent implements OnInit{
   }
   current_user:User = null;
 
-  login(){
-    this._router.navigate(["login"]);
-  }
 
   logout(){
     localStorage.setItem("reload", "true");
