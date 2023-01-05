@@ -10,8 +10,14 @@ import { WorkshopService } from '../workshop.service';
 export class WorkshopComponent implements OnInit {
 
   constructor(private workshop_service: WorkshopService) { }
-
+  reload :string;
   ngOnInit(): void {
+
+    this.reload = localStorage.getItem("reload");
+    if (this.reload == "true") {
+      localStorage.removeItem("reload");
+      location.reload();
+    }
     this.getAllWorkshops();
   }
 

@@ -2,14 +2,21 @@
 
   <div class="container" style="padding-top: 30px; padding-bottom: 30px;">
 
-    <div class="row" style="text-align: end;">
-      <div>
-        <button type="button" class="btn btn-primary" (click)="add_User()">Add User</button>
-      </div>
-      <div>
-        <button type="button" class="btn btn-primary" (click)="add_Workshop()">Add Workshop</button>
+    <div class="row" >
+
+      <div class="col-12" style="display: flex;
+      justify-content: flex-end;">
+        <div>
+          <button type="button" class="btn btn-primary" (click)="add_User()">Add User</button>
+        </div>
+        <div>
+          <button type="button" class="btn btn-primary" (click)="add_Workshop()">Add Workshop</button>
+        </div>
       </div>
 
+    </div>
+
+    <div class="row" style="text-align: end;">
       <div class="col-12">
 
         <div class="" *ngIf="getTab() == 'Organizers'" style="width: fit-content;">

@@ -23,8 +23,17 @@ export class AdminComponent implements OnInit {
   requests: User[] = [];
   workshops: WorkshopDetails[];
   index: number[] = [1];
+  current_user: User;
+  reload: string;
 
   ngOnInit(): void {
+    this.current_user = JSON.parse(localStorage.getItem("current_user"));
+    this.reload = localStorage.getItem("reload");
+    if (this.reload == "true") {
+      localStorage.removeItem("reload");
+      location.reload();
+    }
+    if (this.current_user == null) this._router.navigate(["login"]);
     this.service.getTempData().subscribe((data: User[]) => {
 
       if (localStorage.getItem("type") != null) {

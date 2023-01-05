@@ -17,9 +17,13 @@ export class WorkshopDetailsComponent implements OnInit{
   constructor(private _router: Router){}
 
   current_user:User;
+  type :string = null;
 
   ngOnInit(): void {
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
+    if(this.current_user != null){
+      this.type = this.current_user.type;
+    }
   }
 
   Toggle(): boolean {

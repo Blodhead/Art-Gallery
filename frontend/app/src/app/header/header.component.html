@@ -1,9 +1,10 @@
 <div class="topnav">
-    <a class="active" href="#home" routerLink="">Home</a>
-    <a href="#news" routerLink="">News</a>
-    <a href="#contact">Contact</a>
-    <div class="topnav-right">
-      <a href="#search" routerLink="login">Sign In</a>
-      <a href="#about" routerLink="register">Sign Up</a>
-    </div>
+  <a class="active" href="#home" routerLink="">Home</a>
+  <!--    <a href="#news" routerLink="">News</a>
+    <a href="#contact">Contact</a>-->
+  <div class="topnav-right">
+    <a *ngIf="current_user==null" (click)="login()">Login</a>
+    <button *ngIf="current_user!=null" (click)="logout()">Logout</button>
+    <a *ngIf="current_user==null" routerLink="register">Register</a>
   </div>
+</div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import * as _ from 'lodash';
 import { User, Temp_Data } from "../models/user"
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,7 @@ import { User, Temp_Data } from "../models/user"
 
 export class RegisterComponent implements OnInit {
 
-  constructor(private service: UserService) { }
+  constructor(private service: UserService,private _router: Router) { }
 
   profile_photo = null;
   profile_photo_name: string;
@@ -39,6 +40,8 @@ export class RegisterComponent implements OnInit {
   temp_usernames: Array<string> = [];
   temp_mails: Array<string> = [];
 
+
+  current_user:User;
   getType(): boolean {
     if (this.type == "organizer") return true;
     else return false;
@@ -47,6 +50,12 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.profile_photo_name = "../../assets/images/img_avatar2.png";
     this.getTempData();
+
+    this.current_user = JSON.parse(localStorage.getItem("current_user"));
+    if(this.current_user != null){
+      localStorage.removeItem("current_user");
+      this._router.navigate([""]);
+    }
   }
 
   unlock(){
@@ -256,7 +265,7 @@ export class RegisterComponent implements OnInit {
         if (res["message"] == "user added") {
 
           alert("Register acknowledged");
-          location.reload();
+          this._router.navigate([""]);
         }
         else alert("ERROR");
       });

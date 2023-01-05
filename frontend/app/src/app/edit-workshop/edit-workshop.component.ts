@@ -14,7 +14,7 @@ export class EditWorkshopComponent implements OnInit {
 
   constructor(private service: WorkshopService, private _router: Router) { }
 
-  current_user: string;
+  current_user: User;
   sent_workshop: WorkshopDetails;
   Error_message: string;
 
@@ -32,7 +32,7 @@ export class EditWorkshopComponent implements OnInit {
   likes: string[] = [];
 
   ngOnInit(): void {
-    this.current_user = localStorage.getItem("current_user");
+    this.current_user = JSON.parse(localStorage.getItem("current_user"));
     this.sent_workshop = JSON.parse(localStorage.getItem("sent_workshop"));
 
     if (this.sent_workshop != null) {
