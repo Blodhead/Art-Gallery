@@ -46,13 +46,18 @@
         <div class="row">
             <div class="col-1">&nbsp;</div>
             <div class="col-2" style=" text-align: center; padding-top: 20px;">
+                <div class="">
+                    <div class="picture">
+                        
+                        <button type="button" class="btn btn-info" style="width: 128px !important;"><p>Upload Template</p><input style="width: -webkit-fill-available;" src={{selectedFile}} type="file" id="wizard-picture"  class="avatar" name="json" (change)="onFileChanged($event)"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2" style=" text-align: center; padding-top: 20px;">
                 <button class="btn btn-primary rounded" (click)="saveAsTemplate()"><a class="btn btn-clear"
                         style="color: white;" title="Download JSON" [href]="downloadJsonHref"
                         download="download.json">Save as Template</a></button>
 
-            </div>
-            <div class="col-2" style=" text-align: center; padding-top: 20px;">
-                <input type="file" name="json" (change)="onFileChanged($event)">
             </div>
             <div class="col-2" style=" text-align: center; padding-top: 20px;">
                 <button class="btn btn-success rounded" style="background-color: rgb(19,98,7);" (click)="save()">Save

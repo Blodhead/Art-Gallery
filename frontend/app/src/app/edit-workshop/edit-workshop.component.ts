@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Data, Router } from '@angular/router';
 import { User } from '../models/user';
 import { WorkshopDetails } from '../models/workshop-details';
 import { WorkshopService } from '../workshop.service';
 import * as _ from 'lodash';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { HttpClient } from "@angular/common/http";
+
 
 @Component({
   selector: 'app-edit-workshop',
@@ -13,7 +15,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 })
 export class EditWorkshopComponent implements OnInit {
 
-  constructor(private service: WorkshopService, private _router: Router, private sanitizer: DomSanitizer) { }
+  constructor(private service: WorkshopService, private _router: Router, private sanitizer: DomSanitizer, private httpClient: HttpClient) { }
 
   current_user: User;
   sent_workshop: WorkshopDetails;
@@ -157,10 +159,7 @@ export class EditWorkshopComponent implements OnInit {
 
   }
 
-  selectedFile: string;
-  jsonerror: string;
-
-  onFileChanged(event) {
+  /*onFileChanged(event) {
 
     const allowed_types = ['script/json'];
     if (!_.includes(allowed_types, event.target.files[0].type)) {
@@ -171,5 +170,52 @@ export class EditWorkshopComponent implements OnInit {
     const reader = new FileReader();
     reader.readAsDataURL(event.target.files[0]);
     this.selectedFile =  event.target.files[0].name;
+  }*/
+
+  selectedFile: string;
+  jsonerror: string;
+  products: any;
+
+  onFileChanged(event) {
+    const allowed_types = ['application/json'];
+
+    if (!_.includes(allowed_types, event.target.files[0].type)) {
+      this.jsonerror = 'Only Sripts are allowed ( JSON )';
+      alert(this.jsonerror);
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const image = new Image();
+      image.src = e.target.result;
+      image.onload = rs => {
+
+        const imgBase64Path = e.target.result;
+        this.cardImageBase64 = imgBase64Path;
+        this.isImageSaved = true;
+        // this.previewImagePath = imgBase64Path;
+
+      };
+    };
+    reader.readAsDataURL(event.target.files[0]);
+
+    this.selectedFile = event.target.files[0].name;
+    this.httpClient.get("assets/" + this.selectedFile).subscribe(data => {
+      console.log(data);
+      this.products = data;
+      localStorage.setItem("sent_workshop",JSON.stringify(this.products[0]));
+      location.reload();
+    });
+
+
   }
+
+
+
+
+
+
+
+
 }

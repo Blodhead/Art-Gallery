@@ -1,13 +1,19 @@
-<div class="container">
+<div class="wrapper">
+    <div class="container">
 
-    <div class="row">
+        <div class="row">
 
-        <div class="col-12">
-            <div *ngFor="let workshop of allWorkshops; let i = index;">
-                <app-workshop-details [myWorkshopDetail]="workshop" [myIndex]="i"></app-workshop-details>
+            <div class="col-12" style="display: flex; justify-content: end; padding-top: 20px;">
+                <button type="button" class="btn btn-primary" routerLink="/admin/edit_workshop">Add workshop</button>
             </div>
+
+            <div class="col-12">
+                <div *ngFor="let workshop of allWorkshops; let i = index;">
+                    <app-workshop-details [myWorkshopDetail]="workshop" [myIndex]="i"></app-workshop-details>
+                </div>
+            </div>
+
         </div>
 
     </div>
-
 </div>
