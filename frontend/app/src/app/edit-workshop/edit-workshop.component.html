@@ -10,7 +10,6 @@
                     <div class="card-header">
                         <input type="text" class="name" placeholder="Enter Name of the Workshop" [(ngModel)]="name">
                         <br />
-
                     </div>
                     <div class="card-body">
                         <div class="card-title">
@@ -45,19 +44,27 @@
             <div class="col-xl-2 d-none d-xl-block"></div>
         </div>
         <div class="row">
-            <div class="col-3" style=" text-align: center; padding-top: 20px;">
-                <button class="btn btn-primary rounded" (click)="saveAsTemplate()">Save as Template</button>
+            <div class="col-1">&nbsp;</div>
+            <div class="col-2" style=" text-align: center; padding-top: 20px;">
+                <button class="btn btn-primary rounded" (click)="saveAsTemplate()"><a class="btn btn-clear"
+                        style="color: white;" title="Download JSON" [href]="downloadJsonHref"
+                        download="download.json">Save as Template</a></button>
+
             </div>
-            <div class="col-3" style=" text-align: center; padding-top: 20px;">
-                <button class="btn btn-success rounded" style="background-color: rgb(19,98,7);"
-                    (click)="save()">Save changes</button>
+            <div class="col-2" style=" text-align: center; padding-top: 20px;">
+                <input type="file" name="json" (change)="onFileChanged($event)">
             </div>
-            <div class="col-3" style=" text-align: center; padding-top: 20px;">
+            <div class="col-2" style=" text-align: center; padding-top: 20px;">
+                <button class="btn btn-success rounded" style="background-color: rgb(19,98,7);" (click)="save()">Save
+                    changes</button>
+            </div>
+            <div class="col-2" style=" text-align: center; padding-top: 20px;">
                 <button class="btn btn-warning rounded" (click)="remove()">Delete worksop</button>
             </div>
-            <div class="col-3" style=" text-align: center; padding-top: 20px;">
+            <div class="col-2" style=" text-align: center; padding-top: 20px;">
                 <button class="btn btn-danger rounded" (click)="cancel()">Cancel changes</button>
             </div>
+            <div class="col-1">&nbsp;</div>
         </div>
     </div>
 

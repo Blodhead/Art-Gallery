@@ -4,6 +4,7 @@ import { User } from '../models/user';
 import { WorkshopDetails } from '../models/workshop-details';
 import { WorkshopService } from '../workshop.service';
 import * as _ from 'lodash';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-workshop',
@@ -12,7 +13,7 @@ import * as _ from 'lodash';
 })
 export class EditWorkshopComponent implements OnInit {
 
-  constructor(private service: WorkshopService, private _router: Router) { }
+  constructor(private service: WorkshopService, private _router: Router, private sanitizer: DomSanitizer) { }
 
   current_user: User;
   sent_workshop: WorkshopDetails;
@@ -46,7 +47,6 @@ export class EditWorkshopComponent implements OnInit {
 
   onFileSelected(event) {
     const allowed_types = ['image/png', 'image/jpeg'];
-
     if (!_.includes(allowed_types, event.target.files[0].type)) {
       this.imageError = 'Only Images are allowed ( JPG | PNG )';
       alert(this.imageError);
@@ -64,7 +64,7 @@ export class EditWorkshopComponent implements OnInit {
   mydate: string;
 
 
-  check(){
+  check() {
     this.Error_message = "Input error:\n";
 
     if (this.name == null) {
@@ -113,24 +113,29 @@ export class EditWorkshopComponent implements OnInit {
           this.cancel();
         }
         else alert("ERROR");
-        
+
       });
     }
 
 
   }
 
-  remove(){
+  remove() {
+    if (this.sent_workshop == null) { alert("There is nothing to delete!"); return; }
 
-    if(this.sent_workshop == null){alert("There is nothing to delete!"); return;}
+    //alert all subscribed users
+
     this.service.delete(this.sent_workshop).subscribe((statement) => {
-      if(statement != null) this.cancel();
+      if (statement != null) this.cancel();
       else alert("Error while deleting");
     });
-    
+
   }
 
-  saveAsTemplate(){
+  downloadJsonHref: SafeUrl;
+  uri: SafeUrl;
+
+  saveAsTemplate() {
 
     this.check();
 
@@ -138,5 +143,33 @@ export class EditWorkshopComponent implements OnInit {
       alert(this.Error_message);
       return;
     }
+
+    let temp = new WorkshopDetails;
+    temp.name = this.name;
+    temp.date = this.date;
+    temp.description = this.description;
+    temp.image = this.image;
+    temp.location = this.location;
+
+    var theJSON = JSON.stringify(temp);
+    this.uri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));
+    this.downloadJsonHref = this.uri;
+
+  }
+
+  selectedFile: string;
+  jsonerror: string;
+
+  onFileChanged(event) {
+
+    const allowed_types = ['script/json'];
+    if (!_.includes(allowed_types, event.target.files[0].type)) {
+      this.jsonerror = 'Only JSON scripts are allowed ( JSON )';
+      alert(this.jsonerror);
+      return;
+    }
+    const reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    this.selectedFile =  event.target.files[0].name;
   }
 }
