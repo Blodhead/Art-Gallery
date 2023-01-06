@@ -35,6 +35,7 @@ export class UserComponent implements OnInit{
         for(let j = 0; j < this.allWorkshops.length; j++){
           this.allWorkshops[j].date = new Date(this.allWorkshops[j].date);
         }
+        //show only if he's on the list of participants
       }
     });
   }
