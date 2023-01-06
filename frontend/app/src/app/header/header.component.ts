@@ -10,12 +10,14 @@ import { User } from '../models/user';
 export class HeaderComponent implements OnInit{
 
   constructor( private _router: Router){}
-
+  current_user:User = null;
+  type:string = "";
   ngOnInit(): void {
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
+    if(this.current_user != null){
+      this.type = this.current_user.type;
+    }
   }
-  current_user:User = null;
-
 
   logout(){
     localStorage.setItem("reload", "true");

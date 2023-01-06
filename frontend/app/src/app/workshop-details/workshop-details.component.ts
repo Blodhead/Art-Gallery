@@ -17,7 +17,7 @@ export class WorkshopDetailsComponent implements OnInit{
   constructor(private _router: Router){}
 
   current_user:User;
-  type :string = null;
+  type :string = "";
 
   ngOnInit(): void {
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
