@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http"
+import { WorkshopDetails } from './models/workshop-details';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,10 @@ export class WorkshopService {
     }
 
     return this.http.post(`${this.url}/workshop/save`, data);
+  }
+
+  delete(sent_workshop: WorkshopDetails) {
+    return this.http.post(`${this.url}/workshop/deleteWorkshop`, sent_workshop);
   }
 
   constructor(private http: HttpClient) { }

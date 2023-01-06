@@ -15,4 +15,8 @@ workshopRouter.route("/getAllWorkshops").get( //ako dodje "/login" ruta on obrad
     (req,res)=>new WorkshopController().getAllWorkshops(req,res)//poziva se UserController i njegova login metoda
 )
 
+workshopRouter.route("/deleteWorkshop").post(
+    (req,res)=>new WorkshopController().deleteWorkshop(req,res)
+)
+
 export default workshopRouter;

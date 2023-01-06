@@ -20,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { UserOrganizerComponent } from './user-organizer/user-organizer.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { FooterComponent } from './footer/footer.component';
     WorkshopDetailsComponent,
     EditWorkshopComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    UserOrganizerComponent
   ],
   imports: [
     BrowserModule,

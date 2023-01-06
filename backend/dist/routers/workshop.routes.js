@@ -15,5 +15,6 @@ workshopRouter.route("/update").post(//ako dodje "/login" ruta on obradjuje POST
 workshopRouter.route("/getAllWorkshops").get(//ako dodje "/login" ruta on obradjuje POST zahtev, za GET ne zna sta da radi, jer nije definisano
 (req, res) => new workshop_controller_1.WorkshopController().getAllWorkshops(req, res) //poziva se UserController i njegova login metoda
 );
+workshopRouter.route("/deleteWorkshop").post((req, res) => new workshop_controller_1.WorkshopController().deleteWorkshop(req, res));
 exports.default = workshopRouter;
 //# sourceMappingURL=workshop.routes.js.map

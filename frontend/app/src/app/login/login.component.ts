@@ -37,7 +37,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("current_user", JSON.stringify(user));
         if (user.type == "admin" && this.current_path == "admin") {
           this._router.navigate(["/admin"]);
-        } else if(user.type != "admin") this._router.navigate(["/user"]);
+        } else if(user.type == "organizer" && this.current_path != "admin") this._router.navigate(["/user_organizer"]);
+        else if(user.type == "participant" && this.current_path != "admin") this._router.navigate(["/user"]);
         else
         alert("User does not exist");
       }

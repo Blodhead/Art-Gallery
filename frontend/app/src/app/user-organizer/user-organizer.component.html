@@ -1,0 +1,13 @@
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-12">
+            <div *ngFor="let workshop of allWorkshops; let i = index;">
+                <app-workshop-details [myWorkshopDetail]="workshop" [myIndex]="i"></app-workshop-details>
+            </div>
+        </div>
+
+    </div>
+
+</div>

@@ -14,7 +14,7 @@
                     <h2>
                         <td>{{myWorkshopDetail.name}}</td>
                     </h2>
-                    <td *ngIf="type=='admin'">
+                    <td *ngIf="type=='admin'|| myWorkshopDetail.owner==current_user.username">
                         <button class="btn btn-success btn-sm" (click)="add_Workshop()">Edit</button>
                     </td>
                 </tr>
@@ -49,7 +49,7 @@
                     <h2>
                         <td>{{myWorkshopDetail.name}}</td>
                     </h2>
-                    <td *ngIf="type=='admin'">
+                    <td *ngIf="type=='admin'|| myWorkshopDetail.owner==current_user.username">
                         <button class="btn btn-success btn-sm" (click)="add_Workshop()">Edit</button>
                     </td>
 

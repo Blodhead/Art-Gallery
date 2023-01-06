@@ -59,14 +59,12 @@ export class EditWorkshopComponent implements OnInit {
 
   cancel() {
     localStorage.removeItem("sent_workshop");
-
     this._router.navigate([""]);
-
-
   }
   mydate: string;
 
-  save() {
+
+  check(){
     this.Error_message = "Input error:\n";
 
     if (this.name == null) {
@@ -87,6 +85,11 @@ export class EditWorkshopComponent implements OnInit {
     if (this.description == null) {
       this.Error_message += "Workshop description missing\n"
     }
+  }
+
+  save() {
+
+    this.check();
 
     if (this.Error_message != "Input error:\n") {
       alert(this.Error_message);
@@ -115,5 +118,25 @@ export class EditWorkshopComponent implements OnInit {
     }
 
 
+  }
+
+  remove(){
+
+    if(this.sent_workshop == null){alert("There is nothing to delete!"); return;}
+    this.service.delete(this.sent_workshop).subscribe((statement) => {
+      if(statement != null) this.cancel();
+      else alert("Error while deleting");
+    });
+    
+  }
+
+  saveAsTemplate(){
+
+    this.check();
+
+    if (this.Error_message != "Input error:\n") {
+      alert(this.Error_message);
+      return;
+    }
   }
 }

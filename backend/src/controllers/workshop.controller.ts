@@ -57,6 +57,13 @@ export class WorkshopController {
         })
     }
 
+
+    deleteWorkshop = (req: express.Request, res: express.Response) => {
+        let _name = req.body.name;
+        Workshops.collection.deleteOne({"name": _name});
+        res.json(req.body);
+    }
+
     /*addComment = (req: express.Request, res: express.Response) => {
         let Myid = req.body.Myid;
         let comm = req.body.comm;

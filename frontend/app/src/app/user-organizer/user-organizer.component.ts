@@ -4,13 +4,11 @@ import { WorkshopDetails } from '../models/workshop-details';
 import { WorkshopService } from '../workshop.service';
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  selector: 'app-user-organizer',
+  templateUrl: './user-organizer.component.html',
+  styleUrls: ['./user-organizer.component.css']
 })
-export class UserComponent implements OnInit{
-
-  
+export class UserOrganizerComponent implements OnInit{
   constructor(private workshop_service:WorkshopService){}
 
   current_user :User;
@@ -24,6 +22,7 @@ export class UserComponent implements OnInit{
       localStorage.removeItem("reload");
       location.reload();
     }
+    this.getAllWorkshops();
   }
 
   getAllWorkshops() {
@@ -38,5 +37,4 @@ export class UserComponent implements OnInit{
       }
     });
   }
-
 }

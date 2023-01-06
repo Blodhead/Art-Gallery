@@ -53,6 +53,11 @@ class WorkshopController {
                 res.status(400).json({ "message": "error" });
             });
         };
+        this.deleteWorkshop = (req, res) => {
+            let _name = req.body.name;
+            workshop_1.default.collection.deleteOne({ "name": _name });
+            res.json(req.body);
+        };
         /*addComment = (req: express.Request, res: express.Response) => {
             let Myid = req.body.Myid;
             let comm = req.body.comm;
