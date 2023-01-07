@@ -21,6 +21,7 @@ import { MaterialModule } from './material/material.module';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { UserOrganizerComponent } from './user-organizer/user-organizer.component';
+import { VerifyComponent } from './verify/verify.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { UserOrganizerComponent } from './user-organizer/user-organizer.componen
     EditWorkshopComponent,
     HeaderComponent,
     FooterComponent,
-    UserOrganizerComponent
+    UserOrganizerComponent,
+    VerifyComponent
   ],
   imports: [
     BrowserModule,
