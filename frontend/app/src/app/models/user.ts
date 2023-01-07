@@ -21,3 +21,9 @@ export class Temp_Data{
     username: string;
     mail:string;
 }
+
+export class Token {
+    temp_pass:string;
+    time: Date;
+    expires: 1800;
+}

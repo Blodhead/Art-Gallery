@@ -4,30 +4,33 @@
     <div class="col-4">
 
       <ul class="nav nav-tabs" style="width: fit-content; padding-top: 40px; border-bottom: black;">
-        <li class="nav-item tabs tabbs">
+        <li *ngIf="show==false" class="nav-item tabs tabbs">
           <button class=" rounded-top" style="margin: 0px; background-color: rgb(19,98,7);" routerLink="../login">Login</button>
         </li> 
-        <li class="nav-item tabs" *ngIf="current_path != 'admin'" style="background-color: transparent;">
+        <li  class="nav-item tabs" *ngIf="current_path != 'admin'" style="background-color: transparent;">
 
-          <button class=" rounded-top btn-xs" style="padding: 9px; top: 13px; position: relative; margin: 0px; background-color: rgb(28, 108, 16);" routerLink="../register">Register</button>
+          <button *ngIf="show==false" class=" rounded-top btn-xs" style="padding: 9px; top: 13px; position: relative; margin: 0px; background-color: rgb(28, 108, 16);" routerLink="../register">Register</button>
         </li>
       </ul>
 
       <form class="page">
-        <div class="imgcontainer">
+        <div *ngIf="show==false" class="imgcontainer">
           <img *ngIf="current_path != 'admin'" src="../../assets/images/img_avatar2.png" style="width: 100px; height: 100px;" alt="Avatar" class="avatar">
           <img *ngIf="current_path == 'admin'" src="../../assets/images/admin.png" style="width: 100px; height: 100px;" alt="Avatar" class="avatar">
         </div>
 
         <div class="container">
-          <label for="username"><b>Username</b></label>
-          <input type="text" placeholder="Enter Username" name="username" [(ngModel)]="username" required>
+          <label *ngIf="show==false" for="username"><b>Username</b></label>
+          <input *ngIf="show==false" type="text" placeholder="Enter Username" name="username" [(ngModel)]="username" required>
 
-          <label for="password"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" name="password" [(ngModel)]="password" required>
-          <button style="background-color: rgb(19,98,7);" (click)="login()">Login</button>
+          <label *ngIf="show==false" for="password"><b>Password</b></label>
+          <input *ngIf="show==false" type="password" placeholder="Enter Password" name="password" [(ngModel)]="password" required>
+          <button *ngIf="show==false" style="background-color: rgb(19,98,7);" (click)="login()">Login</button>
 
-          <div class="psw" style="text-align: center;">Forgot <a href="#">password?</a></div>
+          <div *ngIf="show==true"><h3><a (click)="rr()">←</a></h3></div>
+          <div *ngIf="show==false" class="psw" style="text-align: center;">Forgot <a (click)="change()">password?</a></div>
+          <div *ngIf="show==true" class="psw" style="text-align: center;"><label for="pp">Password Recovery</label></div>
+          <div *ngIf="show==true" class="psw" style="text-align: center;"><input type="text" placeholder="Enter your user mail" name="recovery" [(ngModel)]="recovery"> <button class="btn btn-dark" style="background-color: rgb(19,98,7);" (click)="reload()">Send</button></div>
         </div>
 
       </form>
