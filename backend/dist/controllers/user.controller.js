@@ -110,12 +110,11 @@ class UserController {
         };
         this.sendMail = (req, res) => {
             var nodemailer = require('nodemailer');
-            console.log(req.body);
             var transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
                     user: 'cirkovic32.mi@gmail.com',
-                    pass: 'MEDALJA987'
+                    pass: 'lriyeiguroelkawg'
                 }
             });
             var mailOptions = {
@@ -124,8 +123,9 @@ class UserController {
                 subject: 'Sending Email using Node.js',
                 text: 'That was easy!'
             };
-            transporter.sendMail(mailOptions, function (error, info) {
+            transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
+                    console.log(error);
                     res.json("NIJE POSLATO");
                 }
                 else {
