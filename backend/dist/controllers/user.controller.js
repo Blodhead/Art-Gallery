@@ -52,7 +52,8 @@ class UserController {
                 pib: req.body.pib,
                 status: req.body.status
             });
-            users_1.default.updateOne({ "username": curr_sent }, { $set: {
+            users_1.default.updateOne({ "username": curr_sent }, {
+                $set: {
                     "profile_photo_name": user.profile_photo_name,
                     "org_name": user.org_name,
                     "firstname": user.firstname,
@@ -69,7 +70,8 @@ class UserController {
                     "number": user.number,
                     "pib": user.pib,
                     "status": user.status
-                } }, (err, users) => {
+                }
+            }, (err, users) => {
                 if (err)
                     console.log(err);
                 else
@@ -103,6 +105,32 @@ class UserController {
                 else {
                     res.json(data);
                     return data;
+                }
+            });
+        };
+        this.sendMail = (req, res) => {
+            var nodemailer = require('nodemailer');
+            console.log(req.body);
+            var transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'cirkovic32.mi@gmail.com',
+                    pass: 'MEDALJA987'
+                }
+            });
+            var mailOptions = {
+                from: 'cirkovic32.mi@gmail.com',
+                to: 'cirkovic32.mi@gmail.com',
+                subject: 'Sending Email using Node.js',
+                text: 'That was easy!'
+            };
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    res.json("NIJE POSLATO");
+                }
+                else {
+                    console.log('Email sent: ' + info.response);
+                    res.json("POSLATO");
                 }
             });
         };

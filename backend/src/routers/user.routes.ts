@@ -27,4 +27,8 @@ userRouter.route("/updateStatus").post(
     (req,res)=>new UserController().updateStatus(req,res)
 )
 
+userRouter.route("/sendMail").post(
+    (req,res)=>new UserController().sendMail(req,res)
+)
+
 export default userRouter; //eksportuj ruter da se moze koristiti negde drugde

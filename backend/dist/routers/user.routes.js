@@ -16,5 +16,6 @@ userRouter.route("/update").post((req, res) => new user_controller_1.UserControl
 userRouter.route("/register").post((req, res) => new user_controller_1.UserController().register(req, res));
 userRouter.route("/deleteUser").post((req, res) => new user_controller_1.UserController().deleteUser(req, res));
 userRouter.route("/updateStatus").post((req, res) => new user_controller_1.UserController().updateStatus(req, res));
+userRouter.route("/sendMail").post((req, res) => new user_controller_1.UserController().sendMail(req, res));
 exports.default = userRouter; //eksportuj ruter da se moze koristiti negde drugde
 //# sourceMappingURL=user.routes.js.map

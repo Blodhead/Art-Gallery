@@ -1,5 +1,6 @@
 import * as express from "express";
 import { Request, Response } from "express-serve-static-core";
+import { appendFile } from "fs";
 import { ParsedQs } from "qs";
 import User from "../models/users"
 
@@ -55,27 +56,29 @@ export class UserController {
 
         })
 
-        User.updateOne({ "username": curr_sent},
-            {$set:{
-                "profile_photo_name": user.profile_photo_name,
-                "org_name": user.org_name,
-                "firstname": user.firstname,
-                "phone": user.phone,
-                "mail": user.mail,
-                "lastname": user.lastname,
-                "username": user.username,
-                "password": user.password,
-                "type": user.type,
-                "state": user.state,
-                "city": user.city,
-                "postal_code": user.postal_code,
-                "street": user.street,
-                "number": user.number,
-                "pib": user.pib,
-                "status": user.status
-            }},(err, users)=>{
+        User.updateOne({ "username": curr_sent },
+            {
+                $set: {
+                    "profile_photo_name": user.profile_photo_name,
+                    "org_name": user.org_name,
+                    "firstname": user.firstname,
+                    "phone": user.phone,
+                    "mail": user.mail,
+                    "lastname": user.lastname,
+                    "username": user.username,
+                    "password": user.password,
+                    "type": user.type,
+                    "state": user.state,
+                    "city": user.city,
+                    "postal_code": user.postal_code,
+                    "street": user.street,
+                    "number": user.number,
+                    "pib": user.pib,
+                    "status": user.status
+                }
+            }, (err, users) => {
                 if (err) console.log(err);
-            else res.json(user);
+                else res.json(user);
             });
 
     }
@@ -90,26 +93,57 @@ export class UserController {
         })                                                                    //"login" dobija vrednost korisnika koji se vraca iz lambda izraza
     }
 
-    updateStatus = (req: express.Request, res: express.Response)=>{
+    updateStatus = (req: express.Request, res: express.Response) => {
 
         let username = req.body.username;
         let status = req.body.status;
-        User.collection.updateOne({"username":username}, {$set: {"status":status}});
+        User.collection.updateOne({ "username": username }, { $set: { "status": status } });
 
     }
 
     deleteUser = (req: express.Request, res: express.Response) => {
         let username = req.body.username;
-        User.collection.deleteOne({"username":username});
+        User.collection.deleteOne({ "username": username });
         res.json(req.body);
     }
 
     getTempData = (req: express.Request, res: express.Response) => {
         User.find({}, (err, data) => {
-            
+
             if (err) console.log(err);
-            else {res.json(data); return data;}
+            else { res.json(data); return data; }
         }
         )
+    }
+
+    sendMail = (req: express.Request, res: express.Response) => {
+        var nodemailer = require('nodemailer');
+
+
+        console.log(req.body);
+
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'cirkovic32.mi@gmail.com',
+                pass: 'MEDALJA987'
+            }
+        });
+
+        var mailOptions = {
+            from: 'cirkovic32.mi@gmail.com',
+            to: 'cirkovic32.mi@gmail.com',
+            subject: 'Sending Email using Node.js',
+            text: 'That was easy!'
+        };
+
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                res.json("NIJE POSLATO");
+            } else {
+                console.log('Email sent: ' + info.response);
+                res.json("POSLATO");
+            }
+        });
     }
 }
