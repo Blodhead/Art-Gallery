@@ -116,8 +116,68 @@ export class UserController {
         )
     }
 
+    getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
+    }
+
+    shuffle(str: String) {
+        var a = (str.toString()).split(""),
+            n = a.length;
+        //console.log(a);
+        for (var i = n - 1; i > 0; i--) {
+            var j = this.getRandomInt(0, n);
+            var tmp = a[i];
+            a[i] = a[j];
+
+            a[j] = tmp;
+        }
+        //console.log(a);
+        return a.join("");
+    }
+
     sendMail = (req: express.Request, res: express.Response) => {
         var nodemailer = require('nodemailer');
+        var randomWords = require('random-words');
+        var special = "!\"§$%&/()=?\u{20ac}";
+
+        let temp_password = randomWords({ exactly: 1, maxLength: 8 });
+        let ceil = this.getRandomInt(3, 4);
+
+        temp_password = this.shuffle(temp_password);
+
+        var a = (temp_password.toString()).split("");
+
+        for (let i = temp_password.length - 1; i > temp_password.length - ceil - 1; i--) {
+            a[i] = this.getRandomInt(0, 9) + "";
+        }
+
+        temp_password = a;
+
+        let suff_numb = 0;
+
+        if (temp_password.length - ceil > ceil) {
+            suff_numb = this.getRandomInt(ceil, temp_password.length - ceil);
+        } else {
+            suff_numb = this.getRandomInt(temp_password.length - ceil, ceil);
+        }
+
+        for (let j = 0; j < suff_numb; j++) {
+            temp_password[j] = temp_password[j].toUpperCase();
+        }
+
+        let spec_char1 = this.getRandomInt(1, (special.length - 1));
+        let spec_char2 = this.getRandomInt(1, (special.length - 1));
+
+        temp_password[0] = special[spec_char1];
+        temp_password[temp_password.length - 1] = special[spec_char2];
+
+        temp_password = this.shuffle(temp_password);
+
+        while (Number(temp_password.charAt(0)) < 9) {
+            temp_password = this.shuffle(temp_password);
+        }
 
         var transporter = nodemailer.createTransport({
             service: 'gmail',
@@ -130,8 +190,8 @@ export class UserController {
         var mailOptions = {
             from: 'cirkovic32.mi@gmail.com',
             to: 'cirkovic32.mi@gmail.com',
-            subject: 'Sending Email using Node.js',
-            text: 'That was easy!'
+            subject: 'Password reset @no-reply',
+            text: 'Hello from Art Gallery, \n\nYour reset password is: ' + temp_password + "\n\n P.S.IF YOU DIDN'T INITIATE PASSWORD RESET, IGNORE THIS E-MAIL!"
         };
 
         transporter.sendMail(mailOptions, (error, info) => {
