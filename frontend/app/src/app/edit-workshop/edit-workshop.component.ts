@@ -153,7 +153,7 @@ export class EditWorkshopComponent implements OnInit {
     temp.image = this.image;
     temp.location = this.location;
 
-    var theJSON = JSON.stringify(temp);
+    var theJSON = JSON.stringify([temp]);
     this.uri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));
     this.downloadJsonHref = this.uri;
 
