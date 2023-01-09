@@ -166,9 +166,8 @@ class UserController {
                         temp_password: temp_password,
                         timeStamp: new Date()
                     };
-                    console.log(data);
-                    users_1.default.updateOne({ "mail": mail }, { $set: { "tempPass": data.temp_password, "timeStamp": data.timeStamp } });
-                    res.json("POSLATO");
+                    users_1.default.updateOne({ "mail": mail }, { $set: { "tempPass": data.temp_password, "timeStamp": data.timeStamp }
+                    });
                 }
             });
         };

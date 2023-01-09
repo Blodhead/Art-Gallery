@@ -207,9 +207,7 @@ export class UserController {
                     timeStamp: new Date()
                 }
 
-                User.updateOne({ "mail": mail }, { $set: { "tempPass": data.temp_password, "timeStamp": data.timeStamp } }, (err, news) => {
-                    if (err) console.log(err);
-                    else { console.log(res); }
+                User.updateOne({ "mail": mail }, { $set: { "tempPass": data.temp_password, "timeStamp": data.timeStamp } 
                 });
 
             }
