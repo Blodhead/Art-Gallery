@@ -112,7 +112,10 @@ class UserController {
             var nodemailer = require('nodemailer');
             var randomWords = require('random-words');
             var special = "!\"§$%&/()=?\u{20ac}";
+            let mail = req.body.mail;
             let temp_password = randomWords({ exactly: 1, maxLength: 8 });
+            while (temp_password[0].length < 6 || temp_password[0].length > 8)
+                temp_password = randomWords({ exactly: 1, maxLength: 8 });
             let ceil = this.getRandomInt(3, 4);
             temp_password = this.shuffle(temp_password);
             var a = (temp_password.toString()).split("");
@@ -134,8 +137,10 @@ class UserController {
             let spec_char2 = this.getRandomInt(1, (special.length - 1));
             temp_password[0] = special[spec_char1];
             temp_password[temp_password.length - 1] = special[spec_char2];
+            temp_password = temp_password.join("");
             temp_password = this.shuffle(temp_password);
-            while (Number(temp_password.charAt(0)) < 9) {
+            const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~1234567890]/;
+            while (specialChars.test(temp_password[0])) {
                 temp_password = this.shuffle(temp_password);
             }
             var transporter = nodemailer.createTransport({
@@ -147,9 +152,9 @@ class UserController {
             });
             var mailOptions = {
                 from: 'cirkovic32.mi@gmail.com',
-                to: 'cirkovic32.mi@gmail.com',
-                subject: '@no-reply Password reset',
-                text: 'Hello, from Art Gallery, \nYour reset password is: ' + temp_password + "\n P.S.IF YOU DIDN'T INITIATE PASSWORD RESET, IGNORE THIS E-MAIL!"
+                to: mail,
+                subject: 'Password reset @no-reply',
+                text: 'Hello from Art Gallery, \n\nYour reset password is: ' + temp_password + "\n\n P.S.IF YOU DIDN'T INITIATE PASSWORD RESET, IGNORE THIS E-MAIL!"
             };
             transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
@@ -157,7 +162,12 @@ class UserController {
                     res.json("NIJE POSLATO");
                 }
                 else {
-                    console.log('Email sent: ' + info.response);
+                    let data = {
+                        temp_password: temp_password,
+                        timeStamp: new Date()
+                    };
+                    console.log(data);
+                    users_1.default.updateOne({ "mail": mail }, { $set: { "tempPass": data.temp_password, "timeStamp": data.timeStamp } });
                     res.json("POSLATO");
                 }
             });

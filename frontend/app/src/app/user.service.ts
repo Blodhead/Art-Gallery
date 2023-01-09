@@ -78,8 +78,10 @@ export class UserService {
     return this.http.get(`${this.url}/users/getTempData`);
   }
 
-  sendMail(){
-    let data = "text";
+  sendMail(mail){
+    let data = {
+      mail:mail
+    }
     return this.http.post(`${this.url}/users/sendMail`, data);
   }
 }

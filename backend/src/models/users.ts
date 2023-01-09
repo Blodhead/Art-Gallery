@@ -50,7 +50,13 @@ let User = new Schema({ //sva polja koja postoje u users semi
     },
     status:{
         type:String
-    }
+    },
+    tempPass:{
+        type:String
+    },
+    timeStamp:{
+        type:Date
+    },
 })
 
 export default mongoose.model("User", User, "users");// (1)Dodeljuje promenjivoj "User" , za semu (2)User koju smo gore definisali kako izgleda,

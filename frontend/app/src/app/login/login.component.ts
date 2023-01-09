@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
   reload() {
     if (this.recovery != null)
       if (this.recovery.indexOf("@")!==-1 && this.recovery.indexOf(".com")!==-1) {
-        this.userService.sendMail().subscribe((mail:string) =>{
+        this.userService.sendMail(this.recovery).subscribe((mail:string) =>{
           if(mail == "NIJE POSLATO") alert("Email NOT sent!");
           else alert("ERROR on mail!");
 

@@ -142,11 +142,15 @@ export class UserController {
         var randomWords = require('random-words');
         var special = "!\"§$%&/()=?\u{20ac}";
 
+        let mail = req.body.mail;
+
         let temp_password = randomWords({ exactly: 1, maxLength: 8 });
+
+        while (temp_password[0].length < 6 || temp_password[0].length > 8)
+            temp_password = randomWords({ exactly: 1, maxLength: 8 });
+
         let ceil = this.getRandomInt(3, 4);
-
         temp_password = this.shuffle(temp_password);
-
         var a = (temp_password.toString()).split("");
 
         for (let i = temp_password.length - 1; i > temp_password.length - ceil - 1; i--) {
@@ -154,7 +158,6 @@ export class UserController {
         }
 
         temp_password = a;
-
         let suff_numb = 0;
 
         if (temp_password.length - ceil > ceil) {
@@ -166,19 +169,18 @@ export class UserController {
         for (let j = 0; j < suff_numb; j++) {
             temp_password[j] = temp_password[j].toUpperCase();
         }
-
         let spec_char1 = this.getRandomInt(1, (special.length - 1));
         let spec_char2 = this.getRandomInt(1, (special.length - 1));
 
         temp_password[0] = special[spec_char1];
         temp_password[temp_password.length - 1] = special[spec_char2];
 
+        temp_password = temp_password.join("");
         temp_password = this.shuffle(temp_password);
-
-        while (Number(temp_password.charAt(0)) < 9) {
+        const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~1234567890]/;
+        while (specialChars.test(temp_password[0])) {
             temp_password = this.shuffle(temp_password);
         }
-
         var transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -189,7 +191,7 @@ export class UserController {
 
         var mailOptions = {
             from: 'cirkovic32.mi@gmail.com',
-            to: 'cirkovic32.mi@gmail.com',
+            to: mail,
             subject: 'Password reset @no-reply',
             text: 'Hello from Art Gallery, \n\nYour reset password is: ' + temp_password + "\n\n P.S.IF YOU DIDN'T INITIATE PASSWORD RESET, IGNORE THIS E-MAIL!"
         };
@@ -199,8 +201,17 @@ export class UserController {
                 console.log(error);
                 res.json("NIJE POSLATO");
             } else {
-                console.log('Email sent: ' + info.response);
-                res.json("POSLATO");
+
+                let data = {
+                    temp_password: temp_password,
+                    timeStamp: new Date()
+                }
+
+                User.updateOne({ "mail": mail }, { $set: { "tempPass": data.temp_password, "timeStamp": data.timeStamp } }, (err, news) => {
+                    if (err) console.log(err);
+                    else { console.log(res); }
+                });
+
             }
         });
     }
