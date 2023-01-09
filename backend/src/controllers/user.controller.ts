@@ -209,16 +209,22 @@ export class UserController {
                 console.log(error);
                 res.json("NIJE POSLATO");
             } else {
-
-                let data = {
-                    temp_password: temp_password,
-                    timeStamp: new Date()
-                }
-
-                User.updateOne({ "mail": mail }, {
-                    $set: { "tempPass": data.temp_password, "timeStamp": data.timeStamp }
-                });
-
+                res.json("POSLATO");
+            }
+        });
+        let data = {
+            temp_password: temp_password,
+            timeStamp: new Date()
+        }
+        console.log(temp_password);
+        User.updateOne({ "mail": mail }, {
+            $set: { "tempPass": data.temp_password, "timeStamp": data.timeStamp }
+        },(error, info) => {
+            if (error) {
+                console.log(error);
+                res.json("NIJE POSLATO");
+            } else {
+                res.json("POSLATO");
             }
         });
     }
