@@ -32,6 +32,9 @@ export class LoginComponent implements OnInit {
   login() {
     this.userService.login(this.username, this.password).subscribe((user: User) => { //subscribe je cekanje odgovora, tj. nna return pozvane funkcije
       if (user) {
+
+        if(user.status == "Reset password expired"){alert("Reset password expired"); return;}
+
         localStorage.setItem("reload", "true");
         if (user.status == "waiting") { alert("Your account is yet to be approved"); return; }
         localStorage.setItem("current_user", JSON.stringify(user));
@@ -43,7 +46,7 @@ export class LoginComponent implements OnInit {
           alert("User does not exist");
       }
       else alert("Password and username don't match");
-      //this.message="bad data"
+      //if timestamp expired
     });
   }
   show: boolean = false;
@@ -53,20 +56,20 @@ export class LoginComponent implements OnInit {
   }
   reload() {
     if (this.recovery != null)
-      if (this.recovery.indexOf("@")!==-1 && this.recovery.indexOf(".com")!==-1) {
-        this.userService.sendMail(this.recovery).subscribe((mail:string) =>{
-          if(mail == "NIJE POSLATO") alert("Email NOT sent!");
+      if (this.recovery.indexOf("@") !== -1 && this.recovery.indexOf(".com") !== -1) {
+        this.userService.sendMail(this.recovery).subscribe((mail: string) => {
+          if (mail == "NIJE POSLATO") alert("Email NOT sent!");
           else alert("ERROR on mail!");
 
           this.rr();
         });
-        
+
         return;
       }
     alert("Invalid email!");
   }
 
-  rr(){
+  rr() {
     location.reload();
   }
 }

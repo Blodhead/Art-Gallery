@@ -87,10 +87,18 @@ export class UserController {
         let username = req.body.username; //dohvata usernamer iz tela
         let password = req.body.password; //dohvata possword iz tela
 
-        User.findOne({ "username": username, "password": password }, (err, user) => {//findOne vraca jednu instancu sa parametrima username i password
-            if (err) console.log(err);                                         //izvrsava Querry i vraca instancu na takav nacin da je prvo error
-            else res.json(user);                                             //a zatim trazeni korisnik. Ako korisnik ne postoji, err ce imati vrednost error poruke
-        })                                                                    //"login" dobija vrednost korisnika koji se vraca iz lambda izraza
+        User.findOne({ "username": username }, (err, user) => {
+            if (err) console.log(err);
+            else {
+                if (password == user.password) { res.json(user); return; }
+                if (password == user.tempPass) {
+                    if ((new Date()).getTime() - (user.timeStamp.getTime() + 1800000) >= 0) //30 minutes
+                        user.status = "Reset password expired";
+                    res.json(user); return;
+                }
+
+            }
+        })
     }
 
     updateStatus = (req: express.Request, res: express.Response) => {
@@ -207,7 +215,8 @@ export class UserController {
                     timeStamp: new Date()
                 }
 
-                User.updateOne({ "mail": mail }, { $set: { "tempPass": data.temp_password, "timeStamp": data.timeStamp } 
+                User.updateOne({ "mail": mail }, {
+                    $set: { "tempPass": data.temp_password, "timeStamp": data.timeStamp }
                 });
 
             }

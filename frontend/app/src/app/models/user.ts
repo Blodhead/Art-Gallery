@@ -15,6 +15,8 @@ export class User {          //definisanje strukture
     number: number;
     pib: string;
     status:string;
+    tempPass:string;
+    timeStamp:Date;
 }
 
 export class Temp_Data{
