@@ -28,7 +28,7 @@
           <button *ngIf="show==false" style="background-color: rgb(19,98,7);" (click)="login()">Login</button>
 
           <div *ngIf="show==true"><h3><a (click)="rr()">←</a></h3></div>
-          <div *ngIf="show==false" class="psw" style="text-align: center;">Forgot <a (click)="change()">password?</a></div>
+          <div *ngIf="show==false" class="psw" style="text-align: center;">Forgot <a class="link" (click)="change()">password?</a></div>
           <div *ngIf="show==true" class="psw" style="text-align: center;"><label for="pp">Password Recovery</label></div>
           <div *ngIf="show==true" class="psw" style="text-align: center;"><input type="text" placeholder="Enter your user mail" name="recovery" [(ngModel)]="recovery"> <button class="btn btn-dark" style="background-color: rgb(19,98,7);" (click)="reload()">Send</button></div>
         </div>

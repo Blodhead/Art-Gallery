@@ -158,6 +158,9 @@ class UserController {
                 auth: {
                     user: 'cirkovic32.mi@gmail.com',
                     pass: 'lriyeiguroelkawg'
+                },
+                tls: {
+                    rejectUnauthorized: false
                 }
             });
             var mailOptions = {
@@ -166,14 +169,17 @@ class UserController {
                 subject: 'Password reset @no-reply',
                 text: 'Hello from Art Gallery, \n\nYour reset password is: ' + temp_password + "\n\n P.S.IF YOU DIDN'T INITIATE PASSWORD RESET, IGNORE THIS E-MAIL!"
             };
+            let statement = false;
             transporter.sendMail(mailOptions, (error, info) => {
-                if (error) {
-                    console.log(error);
-                    res.json("NIJE POSLATO");
-                }
-                else {
-                    res.json("POSLATO");
-                }
+                if (statement == false)
+                    if (error) {
+                        console.log(error);
+                        res.json("NIJE POSLATO");
+                    }
+                    else {
+                        res.json("POSLATO");
+                    }
+                statement = true;
             });
             let data = {
                 temp_password: temp_password,
@@ -183,13 +189,16 @@ class UserController {
             users_1.default.updateOne({ "mail": mail }, {
                 $set: { "tempPass": data.temp_password, "timeStamp": data.timeStamp }
             }, (error, info) => {
-                if (error) {
-                    console.log(error);
-                    res.json("NIJE POSLATO");
-                }
-                else {
-                    res.json("POSLATO");
-                }
+                if (statement == true)
+                    if (error) {
+                        if (statement == true)
+                            console.log(error);
+                        res.json("NIJE POSLATO");
+                    }
+                    else {
+                        res.json("POSLATO");
+                    }
+                statement = false;
             });
         };
     }
