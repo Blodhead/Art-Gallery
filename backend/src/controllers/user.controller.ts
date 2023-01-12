@@ -87,8 +87,9 @@ export class UserController {
         let username = req.body.username; //dohvata usernamer iz tela
         let password = req.body.password; //dohvata possword iz tela
 
-        User.findOne({ "username": username }, (err, user) => {
-            if (err) console.log(err);
+        User.findOne({ "username": username, "password": password }, (err, user) => {
+
+            if (user == null) res.json(null);
             else {
                 if (password == user.password) { res.json(user); return; }
                 if (password == user.tempPass) {
@@ -237,6 +238,12 @@ export class UserController {
 
                 }
             statement = false;
+        });
+    }
+
+    updatePassword = (req: express.Request, res: express.Response) => {
+        User.collection.updateOne({ "username": req.body.username }, { $set: { "password": req.body.new_pass, "tempPass": null, "timeStamp": null } }, () => {
+            res.json("updated");
         });
     }
 }

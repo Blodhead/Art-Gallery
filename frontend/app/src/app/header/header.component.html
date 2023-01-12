@@ -9,7 +9,9 @@
     <a href="#contact">Contact</a>-->
   <div class="topnav-right">
     <a *ngIf="current_user==null" routerLink="login">Login</a>
-    <a  style="padding: 0; margin: 5px;"><button class="btn btn-light" *ngIf="current_user!=null" (click)="logout()">Logout</button></a>
+    <a *ngIf="type=='participant'" class="" routerLink="">Workshops</a>
+    <a *ngIf="current_user!=null" routerLink="verify">Change Password</a>
+    <a *ngIf="current_user!=null" class="link" (click)="logout()">Logout</a>
     <a *ngIf="current_user==null" routerLink="register">Register</a>
   </div>
 </div>

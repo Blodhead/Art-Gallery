@@ -71,17 +71,26 @@ export class UserService {
     return this.http.post(`${this.url}/users/update`, data);
   }
 
-  deleteUser(user:User){
+  deleteUser(user: User) {
     return this.http.post(`${this.url}/users/deleteUser`, user);
   }
   getTempData() {
     return this.http.get(`${this.url}/users/getTempData`);
   }
 
-  sendMail(mail){
+  sendMail(mail) {
     let data = {
-      mail:mail
+      mail: mail
     }
     return this.http.post(`${this.url}/users/sendMail`, data);
+  }
+
+  updatePassword(username, new_pass) {
+    let data = {
+      username: username,
+      new_pass: new_pass
+    }
+    
+    return this.http.post(`${this.url}/users/updatePassword`, data);
   }
 }

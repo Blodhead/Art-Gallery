@@ -30,3 +30,7 @@
 .topnav-right {
   float: right;
 }
+
+.link{
+  cursor: pointer;
+}

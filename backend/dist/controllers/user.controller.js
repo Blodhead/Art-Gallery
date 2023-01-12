@@ -81,9 +81,9 @@ class UserController {
         this.login = (req, res) => {
             let username = req.body.username; //dohvata usernamer iz tela
             let password = req.body.password; //dohvata possword iz tela
-            users_1.default.findOne({ "username": username }, (err, user) => {
-                if (err)
-                    console.log(err);
+            users_1.default.findOne({ "username": username, "password": password }, (err, user) => {
+                if (user == null)
+                    res.json(null);
                 else {
                     if (password == user.password) {
                         res.json(user);
@@ -199,6 +199,11 @@ class UserController {
                         res.json("POSLATO");
                     }
                 statement = false;
+            });
+        };
+        this.updatePassword = (req, res) => {
+            users_1.default.collection.updateOne({ "username": req.body.username }, { $set: { "password": req.body.new_pass, "tempPass": null, "timeStamp": null } }, () => {
+                res.json("updated");
             });
         };
     }

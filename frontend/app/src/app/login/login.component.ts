@@ -13,8 +13,13 @@ export class LoginComponent implements OnInit {
   constructor(private userService: UserService, private _router: Router) { }
 
   current_path: String;
-
+  re: string = "";
   ngOnInit(): void {
+    this.re = localStorage.getItem("reload");
+    if (this.re == "true") {
+      localStorage.removeItem("reload");
+      location.reload();
+    }
     this.current_path = this._router.url.split('/').pop();
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
     if (this.current_user != null) {
@@ -33,7 +38,7 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.username, this.password).subscribe((user: User) => { //subscribe je cekanje odgovora, tj. nna return pozvane funkcije
       if (user) {
 
-        if(user.status == "Reset password expired"){alert("Reset password expired"); return;}
+        if (user.status == "Reset password expired") { alert("Reset password expired"); return; }
 
         localStorage.setItem("reload", "true");
         if (user.status == "waiting") { alert("Your account is yet to be approved"); return; }
