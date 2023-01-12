@@ -1,0 +1,46 @@
+<div class="wrapper body">
+    <div class="container">
+    
+        <div class="row">
+
+            <div class="col-12" style="display: flex; justify-content: center;">
+            
+                <table>
+
+                    <tr colspan="2" class="imgcontainer" >
+                        <td colspan="2"><img src={{current_user.profile_photo_name}} style="width: 100px; height: 100px;" alt="Avatar" class="avatar shadow"></td>    
+                        
+                    </tr>
+
+                    <tr>
+                        <th>Username:</th>
+                        <td>{{current_user.username}}</td>
+                    </tr>
+                    <tr>
+                        <th>Firstname:</th>
+                        <td>{{current_user.firstname}}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Lastname:</th>
+                        <td>{{current_user.lastname}}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Phone:</th>
+                        <td>{{current_user.phone}}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Mail:</th>
+                        <td>{{current_user.mail}}</td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

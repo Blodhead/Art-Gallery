@@ -12,7 +12,6 @@ form {border: 5px solid black;}
     background-repeat: no-repeat;
     background-size: cover;
     width: 100vw;
-    height: 100vh;
 }
 
 input[type=text], input[type=password] {

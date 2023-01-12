@@ -8,14 +8,15 @@ import { WorkshopService } from '../workshop.service';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnInit{
+export class UserComponent implements OnInit {
 
-  
-  constructor(private workshop_service:WorkshopService){}
 
-  current_user :User;
-  reload :string;
+  constructor(private workshop_service: WorkshopService) { }
+
+  current_user: User;
+  reload: string;
   allWorkshops: WorkshopDetails[];
+  user: User;
 
   ngOnInit(): void {
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
@@ -24,6 +25,7 @@ export class UserComponent implements OnInit{
       localStorage.removeItem("reload");
       location.reload();
     }
+
   }
 
   getAllWorkshops() {
@@ -32,7 +34,7 @@ export class UserComponent implements OnInit{
       else {
         this.allWorkshops = workshops;
 
-        for(let j = 0; j < this.allWorkshops.length; j++){
+        for (let j = 0; j < this.allWorkshops.length; j++) {
           this.allWorkshops[j].date = new Date(this.allWorkshops[j].date);
         }
         //show only if he's on the list of participants

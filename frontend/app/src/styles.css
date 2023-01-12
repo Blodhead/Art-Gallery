@@ -64,8 +64,20 @@ img.avatar {
 html {height:100%;}
 
 body {
-  height: 100vh;
-  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   overflow-x: hidden;
+}
+
+.body {
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  overflow-x: hidden;
+}
+footer{
+  margin-top: auto;
 }
