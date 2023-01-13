@@ -1,31 +1,34 @@
 import mongoose from 'mongoose'
 
-const Schema = mongoose.Schema; 
+const Schema = mongoose.Schema;
 
 let Workshops = new Schema({ //sva polja koja postoje u users semi
-    name:{
-        type:String
+    name: {
+        type: String
     },
-    image:{
-        type:String
+    image: {
+        type: String
     },
-    date:{
-        type:Date
+    date: {
+        type: Date
     },
-    location:{
-        type:String
+    location: {
+        type: String
     },
-    description:{
-        type:String
+    description: {
+        type: String
     },
-    likes:{
-        type:Array
+    likes: {
+        type: Array
     },
-    owner:{
-        type:String
+    owner: {
+        type: String
     },
-    status:{
-        type:String
+    status: {
+        type: String
+    },
+    participants: {
+        type: Array
     }
 
 })

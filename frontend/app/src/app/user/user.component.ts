@@ -20,6 +20,9 @@ export class UserComponent implements OnInit {
   active_tab: string = "User";
   myWorkshops: WorkshopDetails[] = [];
   index: number[] = [];
+  toggle1: boolean = true;
+  toggle2: boolean = true;
+  toggle3: boolean = true;
 
   ngOnInit(): void {
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
@@ -34,6 +37,50 @@ export class UserComponent implements OnInit {
     this.getAllWorkshops();
   }
 
+  sortName() {
+    if (this.toggle1 == false) {
+      this.myWorkshops.sort((a, b) => {
+        return a.name.localeCompare(b.name);
+      });
+      this.toggle1 = true;
+    } else if (this.toggle1 == true) {
+      this.myWorkshops.sort((a, b) => {
+        return b.name.localeCompare(a.name);
+      });
+      this.toggle1 = false;
+    }
+  }
+
+  sortLocation() {
+    if (this.toggle3 == false) {
+      this.myWorkshops.sort((a, b) => {
+        return a.location.localeCompare(b.location);
+      });
+      this.toggle3 = true;
+    } else if (this.toggle3 == true) {
+      this.myWorkshops.sort((a, b) => {
+        return b.location.localeCompare(a.location);
+      });
+      this.toggle3 = false;
+    }
+  }
+
+  sortDate() {
+    if (this.toggle2 == false) {
+      this.myWorkshops.sort((a, b) => {
+        let g = new Date(b.date).getTime();
+        let h = new Date(a.date).getTime();
+        return g - h
+      });
+      this.toggle2 = true;
+    } else if (this.toggle2 == true) {
+      this.myWorkshops.sort((a, b) => {
+        return new Date(a.date).getTime() - new Date(b.date).getTime()
+      });
+      this.toggle2 = false;
+    }
+  }
+
   getAllWorkshops() {
     this.workshop_service.getAllWorkshops().subscribe((workshops: WorkshopDetails[]) => {
       if (!workshops) alert("Error");
@@ -43,9 +90,11 @@ export class UserComponent implements OnInit {
         for (let j = 0; j < this.allWorkshops.length; j++) {
           this.allWorkshops[j].date = new Date(this.allWorkshops[j].date);
           this.index[j] = j;
+
+          if (this.allWorkshops[j].participants != null)
+            if ((this.allWorkshops[j].participants.find((elem) => this.current_user.username == elem)) && this.allWorkshops[j].date < new Date()) //radionice koje su prosle
+              this.myWorkshops.push(this.allWorkshops[j]);
         }
-        //show only if he's on the list of participants
-        this.myWorkshops = this.allWorkshops;
       }
     });
   }

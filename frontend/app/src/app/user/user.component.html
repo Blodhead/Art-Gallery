@@ -74,7 +74,8 @@
 
             </div>
 
-            <div class="col-12 shadow context" style="background-color: #136207; max-width: 900px;" *ngIf="getTab()=='User'">
+            <div class="col-12 shadow context" style="background-color: #136207; max-width: 900px;"
+                *ngIf="getTab()=='User'">
 
                 <div class="col-12 shadow context" style="background-color: #136207; ">
 
@@ -85,18 +86,49 @@
                     </div>
 
                 </div>
-            
+
             </div>
 
-            <div class="col-12 shadow context" style="background-color: #136207;" *ngIf="getTab()=='WorkshopHistory'">
+            <div class="col-12 shadow context" style="background-color: #136207; margin-bottom: 20px;" *ngIf="getTab()=='WorkshopHistory'">
+
+                <table class="card"
+                    style="display: flex; justify-content: center; flex-wrap: wrap; align-content: center;">
+                    <tr>
+                        <td>
+                            <h6>Sort by:</h6>
+                        </td>
+
+                        <td>
+                            <button *ngIf="toggle1 == true" class="btn btn-success btn-xs"
+                                style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortName()">Name
+                                ↑</button>
+                            <button *ngIf="toggle1 == false" class="btn btn-success btn-xs"
+                                style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortName()">Name
+                                ↓</button>
+                            <button *ngIf="toggle2 == true" class="btn btn-success btn-xs"
+                                style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortDate()">Date
+                                ↑</button>
+                            <button *ngIf="toggle2 == false" class="btn btn-success btn-xs"
+                                style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortDate()">Date
+                                ↓</button>
+                            <button *ngIf="toggle3 == true" class="btn btn-success btn-xs"
+                                style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortLocation()">Location
+                                ↑</button>
+                            <button *ngIf="toggle3 == false" class="btn btn-success btn-xs"
+                                style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortLocation()">Location
+                                ↓</button>
+                        </td>
+
+                    </tr>
+                </table>
 
                 <div class="card container-fluid shadow" *ngFor="let workshop of myWorkshops; let i = index">
-        
-                  <app-workshop-details [myWorkshopDetail]="workshop" [myIndex]="i"></app-workshop-details>
-        
+
+                    <app-workshop-details [myWorkshopDetail]="workshop" [myIndex]="i"></app-workshop-details>
+
                 </div>
-        
-              </div>
+
+            </div>
 
         </div>
     </div>
