@@ -17,6 +17,7 @@ export class UserComponent implements OnInit {
   current_user: User;
   reload: string;
   allWorkshops: WorkshopDetails[] = [];
+  activeWorkshops: WorkshopDetails[] = [];
   active_tab: string = "User";
   myWorkshops: WorkshopDetails[] = [];
   index: number[] = [];

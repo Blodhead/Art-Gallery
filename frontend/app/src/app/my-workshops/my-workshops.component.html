@@ -1,0 +1,23 @@
+<div class="wrapper body">
+
+<div class="container" style="margin-top: 40px;">
+    <div class="row">
+
+        <div class="col-12 shadow context" style="background-color: #136207; max-width: 900px; margin-bottom: 20px;">
+
+        <div class="col-12 shadow context" style="background-color: #136207; ">
+
+            <div class="card container-fluid shadow" *ngFor="let workshop of myWorkshops; let i = index">
+    
+                <app-workshop-details [myWorkshopDetail]="workshop" [myIndex]="i"></app-workshop-details>
+    
+            </div>
+
+        </div>
+
+    </div>
+
+    </div>
+</div>
+
+</div>

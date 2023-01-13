@@ -9,20 +9,21 @@ import { WorkshopComponent } from './workshop/workshop.component';
 import { EditWorkshopComponent } from './edit-workshop/edit-workshop.component';
 import { UserOrganizerComponent } from './user-organizer/user-organizer.component';
 import { VerifyComponent } from './verify/verify.component';
+import { MyWorkshopsComponent } from './my-workshops/my-workshops.component';
 
 
 const routes: Routes = [
-  {path:'', component: WorkshopComponent},
-  {path:'login', component: LoginComponent},
-  {path:'admin', component: AdminComponent},
-  {path:'admin/edit_user', component: EditUserComponent},
-  {path:'admin/edit_workshop', component: EditWorkshopComponent},
-  {path:'user', component: UserComponent},
-  {path:'register', component: RegisterComponent},
-  {path:'login/admin', component: LoginComponent},
-  {path:'user_organizer', component: UserOrganizerComponent},
-  {path:'verify', component: VerifyComponent},
-  
+  { path: '', component: WorkshopComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'admin', component: AdminComponent },
+  { path: 'admin/edit_user', component: EditUserComponent },
+  { path: 'admin/edit_workshop', component: EditWorkshopComponent },
+  { path: 'user', component: UserComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'login/admin', component: LoginComponent },
+  { path: 'user_organizer', component: UserOrganizerComponent },
+  { path: 'verify', component: VerifyComponent },
+  { path: 'MyWorkshops', component: MyWorkshopsComponent },
 ];
 
 @NgModule({

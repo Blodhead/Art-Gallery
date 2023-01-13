@@ -22,6 +22,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { UserOrganizerComponent } from './user-organizer/user-organizer.component';
 import { VerifyComponent } from './verify/verify.component';
+import { MyWorkshopsComponent } from './my-workshops/my-workshops.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { VerifyComponent } from './verify/verify.component';
     HeaderComponent,
     FooterComponent,
     UserOrganizerComponent,
-    VerifyComponent
+    VerifyComponent,
+    MyWorkshopsComponent
   ],
   imports: [
     BrowserModule,
