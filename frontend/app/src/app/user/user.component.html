@@ -1,46 +1,102 @@
 <div class="wrapper body">
-    <div class="container">
-    
-        <div class="row">
+    <div class="container" style="margin-top: 40px;">
 
-            <div class="col-12" style="display: flex; justify-content: center;">
-            
-                <table>
+        <div class="row" style="text-align: end;">
+            <div class="col-12">
 
-                    <tr colspan="2" class="imgcontainer" >
-                        <td colspan="2"><img src={{current_user.profile_photo_name}} style="width: 100px; height: 100px;" alt="Avatar" class="avatar shadow"></td>    
-                        
-                    </tr>
+                <div class="" *ngIf="getTab() == 'User'" style="width: fit-content;">
+                    <ul class="nav nav-tabs mb-3 uls" role="tablist">
+                        <li class="nav-item admin_tabs" role="presentation">
+                            <a class="nav-link active" (click)="setTab('User')" routerLink="User">User</a>
+                        </li>
+                        <li class="nav-item admin_tabs" role="presentation">
+                            <a class="nav-link" (click)="setTab('WorkshopHistory')">WorkshopHistory</a>
+                        </li>
+                        <li class="nav-item admin_tabs" role="presentation">
+                            <a class="nav-link" (click)="setTab('Actions')">Actions</a>
+                        </li>
+                        <li class="nav-item admin_tabs" role="presentation">
+                            <a class="nav-link" (click)="setTab('Chats')">Chats</a>
+                        </li>
+                    </ul>
+                </div>
 
-                    <tr>
-                        <th>Username:</th>
-                        <td>{{current_user.username}}</td>
-                    </tr>
-                    <tr>
-                        <th>Firstname:</th>
-                        <td>{{current_user.firstname}}</td>
-                    </tr>
+                <div class="" *ngIf="getTab() == 'WorkshopHistory'" style="width: fit-content;">
+                    <ul class="nav nav-tabs mb-3 uls" role="tablist">
+                        <li class="nav-item admin_tabs" role="presentation">
+                            <a class="nav-link" (click)="setTab('User')">User</a>
+                        </li>
+                        <li class="nav-item admin_tabs" role="presentation">
+                            <a class="nav-link active" (click)="setTab('WorkshopHistory')">WorkshopHistory</a>
+                        </li>
+                        <li class="nav-item admin_tabs" role="presentation">
+                            <a class="nav-link" (click)="setTab('Actions')">Actions</a>
+                        </li>
+                        <li class="nav-item admin_tabs" role="presentation">
+                            <a class="nav-link" (click)="setTab('Chats')">Chats</a>
+                        </li>
+                    </ul>
+                </div>
 
-                    <tr>
-                        <th>Lastname:</th>
-                        <td>{{current_user.lastname}}</td>
-                    </tr>
+                <div class="" *ngIf="getTab() == 'Actions'" style="width: fit-content;">
+                    <ul class="nav nav-tabs mb-3 uls" role="tablist">
+                        <li class="nav-item admin_tabs" role="presentation">
+                            <a class="nav-link" (click)="setTab('User')">User</a>
+                        </li>
+                        <li class="nav-item admin_tabs" role="presentation">
+                            <a class="nav-link" (click)="setTab('WorkshopHistory')">WorkshopHistory</a>
+                        </li>
+                        <li class="nav-item admin_tabs" role="presentation">
+                            <a class="nav-link active" (click)="setTab('Actions')">Actions</a>
+                        </li>
+                        <li class="nav-item admin_tabs" role="presentation">
+                            <a class="nav-link" (click)="setTab('Chats')">Chats</a>
+                        </li>
+                    </ul>
+                </div>
 
-                    <tr>
-                        <th>Phone:</th>
-                        <td>{{current_user.phone}}</td>
-                    </tr>
-
-                    <tr>
-                        <th>Mail:</th>
-                        <td>{{current_user.mail}}</td>
-                    </tr>
-
-                </table>
+                <div class="" *ngIf="getTab() == 'Chats'" style="width: fit-content;">
+                    <ul class="nav nav-tabs mb-3 uls" role="tablist">
+                        <li class="nav-item admin_tabs" role="presentation">
+                            <a class="nav-link" (click)="setTab('User')">User</a>
+                        </li>
+                        <li class="nav-item admin_tabs" role="presentation">
+                            <a class="nav-link" (click)="setTab('WorkshopHistory')">WorkshopHistory</a>
+                        </li>
+                        <li class="nav-item admin_tabs" role="presentation">
+                            <a class="nav-link" (click)="setTab('Actions')">Actions</a>
+                        </li>
+                        <li class="nav-item admin_tabs" role="presentation">
+                            <a class="nav-link active" (click)="setTab('Chats')">Chats</a>
+                        </li>
+                    </ul>
+                </div>
 
             </div>
 
-        </div>
+            <div class="col-12 shadow context" style="background-color: #136207; max-width: 900px;" *ngIf="getTab()=='User'">
 
+                <div class="col-12 shadow context" style="background-color: #136207; ">
+
+                    <div class="card container-fluid shadow">
+
+                        <app-participant [myUser]="current_user"></app-participant>
+
+                    </div>
+
+                </div>
+            
+            </div>
+
+            <div class="col-12 shadow context" style="background-color: #136207;" *ngIf="getTab()=='WorkshopHistory'">
+
+                <div class="card container-fluid shadow" *ngFor="let workshop of myWorkshops; let i = index">
+        
+                  <app-workshop-details [myWorkshopDetail]="workshop" [myIndex]="i"></app-workshop-details>
+        
+                </div>
+        
+              </div>
+
+        </div>
     </div>
-</div>

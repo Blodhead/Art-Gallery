@@ -1,9 +1,53 @@
 .imgcontainer {
-    text-align: center;
-    margin: 24px 0 12px 0;
-  }
-  
-  img.avatar {
-    width: 40%;
-    border-radius: 50%;
-  }
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
+
+img.avatar {
+  width: 40%;
+  border-radius: 50%;
+}
+
+.wrapper {
+  background-image: url("../../assets/images/user-bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+.admin_tabs {
+  cursor: pointer;
+}
+
+.nav-link {
+  background-color: white;
+}
+
+.active {
+  background-color: #136207 !important;
+  color: black !important;
+  border-color: antiquewhite !important;
+  border: 5px !important;
+  margin-bottom: -2px !important;
+}
+
+.uls {
+  margin-bottom: 0rem !important;
+}
+
+.context {
+  border-radius: 15px;
+  min-height: 50px !important;
+}
+
+.shadow {
+  box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, .8) !important;
+  border-top-color: transparent;
+}
+
+.card {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: antiquewhite;
+}
