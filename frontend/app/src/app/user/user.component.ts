@@ -31,7 +31,7 @@ export class UserComponent implements OnInit {
       localStorage.removeItem("reload");
       location.reload();
     }
-
+    this.getAllWorkshops();
   }
 
   getAllWorkshops() {
