@@ -17,6 +17,9 @@
                     <td *ngIf="type=='admin'|| current_user!=null">
                         <button *ngIf="myWorkshopDetail.owner==current_user.username || type=='admin'" class="btn btn-success btn-sm" (click)="add_Workshop()">Edit</button>
                     </td>
+                    <td *ngIf="type=='participant'|| current_user!=null">
+                        <button *ngIf="myWorkshopDetail.owner==current_user.username || type=='admin'" class="btn btn-success btn-sm" (click)="add_Workshop()">Edit</button>
+                    </td>
                 </tr>
                 <tr>
                     <blockquote class="blockquote">
@@ -52,7 +55,9 @@
                     <td *ngIf="type=='admin'|| current_user!=null">
                         <button *ngIf="myWorkshopDetail.owner==current_user.username || type=='admin'" class="btn btn-success btn-sm" (click)="add_Workshop()">Edit</button>
                     </td>
-
+                    <td *ngIf="type=='participant'|| current_user!=null">
+                        <button *ngIf="myWorkshopDetail.owner==current_user.username || type=='admin'" class="btn btn-success btn-sm" (click)="add_Workshop()">Edit</button>
+                    </td>
                 </tr>
                 <tr>
                     <blockquote class="blockquote">

@@ -29,6 +29,9 @@ let Workshops = new Schema({
     },
     status: {
         type: String
+    },
+    participants: {
+        type: Array
     }
 });
 exports.default = mongoose_1.default.model("Workshops", Workshops, "workshops"); // (1)Dodeljuje promenjivoj "User" , za semu (2)User koju smo gore definisali kako izgleda,
