@@ -102,12 +102,12 @@ export class EditWorkshopComponent implements OnInit {
       alert(this.Error_message);
       return;
     }
-    let arr = this.time.split("");
-    this.mydate = (this.date.getMonth() + 1) + " " + this.date.getDate() + " " + this.date.getFullYear();
-
-    new Date();
+    let arr = this.time.split(":");
+    this.mydate = this.date.getFullYear()+"-"+(this.date.getMonth() + 1) + "-" + this.date.getDate();
+    let temp_date = new Date(this.mydate);
+    temp_date.setHours(Number(arr[0]),Number(arr[1]),0);
     if (this.sent_workshop == null)
-      this.service.save(this.name, this.image, this.description, this.date, this.location, this.likes).subscribe((workshop) => {
+      this.service.save(this.name, this.image, this.description, temp_date, this.location, this.likes).subscribe((workshop) => {
         if (workshop != null) {
           alert("Register acknowledged");
           this.cancel();
@@ -115,7 +115,7 @@ export class EditWorkshopComponent implements OnInit {
         else alert("ERROR");
       });
     else if (this.sent_workshop != null) {
-      this.service.update(this.sent_workshop.name, this.name, this.image, this.description, this.date, this.location, this.likes).subscribe((workshop) => {
+      this.service.update(this.sent_workshop.name, this.name, this.image, this.description, temp_date, this.location, this.likes).subscribe((workshop) => {
         if (workshop != null) {
           alert("Changes made");
           this.cancel();
