@@ -24,9 +24,7 @@
                 <tr>
                     <blockquote class="blockquote">
                         <h5>
-                            <td class="mb-0">{{myWorkshopDetail.date.getDate()}}.
-                                {{toMonthName(myWorkshopDetail.date.getMonth()+1)}}
-                                {{myWorkshopDetail.date.getFullYear()}}.</td>
+                            <td class="mb-0">{{myWorkshopDetail.date | date:'HH:mm - EEEE d. MMMM y.'}}</td>
                         </h5>
                         <footer class="blockquote-footer">{{myWorkshopDetail.location}}</footer>
                     </blockquote>
@@ -62,9 +60,7 @@
                 <tr>
                     <blockquote class="blockquote">
                         <h5>
-                            <td class="mb-0">{{myWorkshopDetail.date.getDate()}}.
-                                {{toMonthName(myWorkshopDetail.date.getMonth()+1)}}
-                                {{myWorkshopDetail.date.getFullYear()}}</td>
+                            <td class="mb-0">{{myWorkshopDetail.date | date:'HH:mm - EEEE d. MMMM y.'}}</td>
                         </h5>
                         <footer class="blockquote-footer">{{myWorkshopDetail.location}}</footer>
                     </blockquote>

@@ -26,17 +26,29 @@
                                 rows="7" [(ngModel)]="description"></textarea>
                         </div>
                     </div>
-                    <div class="card-footer text-muted">
-                        <input type="text" class="name" placeholder="Enter location of the Workshop"
-                            [(ngModel)]="location">
-                        <mat-form-field appearance="fill">
-                            <mat-label>Choose a date</mat-label>
-                            <input matInput [matDatepicker]="picker" [(ngModel)]="date">
-                            <mat-hint>MM/DD/YYYY</mat-hint>
-                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                        </mat-form-field>
+                    <div class="row card-footer text-muted">
+                        <div class="col-lg-4 col-md-4 col-sm-4" style="display: flex; align-content: center; justify-content: center;">
+                            <input type="text" class="name" placeholder="Enter location of the Workshop" style="min-width: max-content;" [(ngModel)]="location"></div>
+                        <div class="col-lg-4 col-md-4 col-sm-4" style="display: flex;"> 
+                            <mat-form-field appearance="fill">
+                                <mat-label>Choose a date</mat-label>
+                                <input matInput [matDatepicker]="picker" [(ngModel)]="date">
+                                <mat-hint>MM/DD/YYYY</mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field></div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-4" style="display: flex;"> 
+                            <mat-form-field>
+                                <mat-label>Time</mat-label>
+                                <input matInput [(ngModel)]="time">
+                                <mat-hint>HH:MM</mat-hint>
+                                <ngx-mat-timepicker #picker></ngx-mat-timepicker>
+                            </mat-form-field></div>
+
+
                     </div>
+
                 </div>
             </div>
 
@@ -48,8 +60,12 @@
             <div class="col-2" style=" text-align: center; padding-top: 20px;">
                 <div class="">
                     <div class="picture">
-                        
-                        <button type="button" class="btn btn-info" style="width: 128px !important;"><p>Upload Template</p><input style="width: -webkit-fill-available;" src={{selectedFile}} type="file" id="wizard-picture"  class="avatar" name="json" (change)="onFileChanged($event)"></button>
+
+                        <button type="button" class="btn btn-info" style="width: 128px !important;">
+                            <p>Upload Template</p><input style="width: -webkit-fill-available;" src={{selectedFile}}
+                                type="file" id="wizard-picture" class="avatar" name="json"
+                                (change)="onFileChanged($event)">
+                        </button>
                     </div>
                 </div>
             </div>

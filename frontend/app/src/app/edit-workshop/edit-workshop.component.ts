@@ -15,7 +15,7 @@ import { HttpClient } from "@angular/common/http";
 })
 export class EditWorkshopComponent implements OnInit {
 
-  constructor(private service: WorkshopService, private _router: Router, private sanitizer: DomSanitizer, private httpClient: HttpClient) { }
+  constructor(private service: WorkshopService, private _router: Router, private sanitizer: DomSanitizer, private httpClient: HttpClient) {}
 
   current_user: User;
   sent_workshop: WorkshopDetails;
@@ -31,7 +31,7 @@ export class EditWorkshopComponent implements OnInit {
   image: string;
   location: string;
   description: string;
-
+  time: string;
   likes: string[] = [];
 
   ngOnInit(): void {
@@ -84,6 +84,11 @@ export class EditWorkshopComponent implements OnInit {
     if (this.date == null) {
       this.Error_message += "Workshop date missing\n"
     }
+
+    if (this.time == null) {
+      this.Error_message += "Workshop time missing\n"
+    }
+
     if (this.description == null) {
       this.Error_message += "Workshop description missing\n"
     }
@@ -97,9 +102,10 @@ export class EditWorkshopComponent implements OnInit {
       alert(this.Error_message);
       return;
     }
-
+    let arr = this.time.split("");
     this.mydate = (this.date.getMonth() + 1) + " " + this.date.getDate() + " " + this.date.getFullYear();
 
+    new Date();
     if (this.sent_workshop == null)
       this.service.save(this.name, this.image, this.description, this.date, this.location, this.likes).subscribe((workshop) => {
         if (workshop != null) {
@@ -204,7 +210,7 @@ export class EditWorkshopComponent implements OnInit {
     this.httpClient.get("assets/" + this.selectedFile).subscribe(data => {
       console.log(data);
       this.products = data;
-      localStorage.setItem("sent_workshop",JSON.stringify(this.products[0]));
+      localStorage.setItem("sent_workshop", JSON.stringify(this.products[0]));
       location.reload();
     });
 
