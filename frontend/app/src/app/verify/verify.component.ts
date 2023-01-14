@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
+import { SharedService } from '../shared.service';
 import { UserService } from '../user.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { UserService } from '../user.service';
 })
 export class VerifyComponent implements OnInit {
 
-  constructor(private service: UserService, private _router: Router) { }
+  constructor(private service: UserService, private _router: Router, private sharedService: SharedService) { }
 
   old_pass: string = "";
   new_pass: string = "";
@@ -24,7 +25,7 @@ export class VerifyComponent implements OnInit {
     this.reload = localStorage.getItem("reload");
     if (this.reload == "true") {
       localStorage.removeItem("reload");
-      location.reload();
+      this.sharedService.sendclickEvent();
     }
   }
 

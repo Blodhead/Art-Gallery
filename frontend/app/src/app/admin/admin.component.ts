@@ -4,6 +4,7 @@ import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { WorkshopDetails } from '../models/workshop-details'
 import { WorkshopService } from '../workshop.service';
+import { SharedService } from '../shared.service';
 
 @Component({
   selector: 'app-admin',
@@ -14,7 +15,7 @@ import { WorkshopService } from '../workshop.service';
 export class AdminComponent implements OnInit {
 
 
-  constructor(private service: UserService, private workshop_service: WorkshopService, private _router: Router) { }
+  constructor(private service: UserService, private workshop_service: WorkshopService, private _router: Router, private sharedService: SharedService) { }
 
   active_tab: string = "Organizers";
   allUsers: User[] = [];
@@ -31,7 +32,9 @@ export class AdminComponent implements OnInit {
     this.reload = localStorage.getItem("reload");
     if (this.reload == "true") {
       localStorage.removeItem("reload");
-      location.reload();
+      this.sharedService.sendclickEvent();
+      //location.reload();
+
     }
     if (this.current_user == null) this._router.navigate(["login"]);
     this.service.getTempData().subscribe((data: User[]) => {

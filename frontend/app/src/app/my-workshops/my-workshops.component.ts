@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user';
 import { WorkshopDetails } from '../models/workshop-details';
+import { SharedService } from '../shared.service';
 import { UserService } from '../user.service';
 import { WorkshopService } from '../workshop.service';
 
@@ -11,7 +12,7 @@ import { WorkshopService } from '../workshop.service';
 })
 export class MyWorkshopsComponent implements OnInit {
 
-  constructor(private workshop_service: WorkshopService, private user_service: UserService) { }
+  constructor(private workshop_service: WorkshopService, private user_service: UserService, private sharedService: SharedService) { }
 
   allWorkshops: WorkshopDetails[] = [];
   myWorkshops: WorkshopDetails[] = [];
@@ -27,7 +28,7 @@ export class MyWorkshopsComponent implements OnInit {
     this.reload = localStorage.getItem("reload");
     if (this.reload == "true") {
       localStorage.removeItem("reload");
-      location.reload();
+      this.sharedService.sendclickEvent();
     }
     this.getAllWorkshops();
 

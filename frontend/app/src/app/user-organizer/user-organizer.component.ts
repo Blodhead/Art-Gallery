@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user';
 import { WorkshopDetails } from '../models/workshop-details';
+import { SharedService } from '../shared.service';
 import { WorkshopService } from '../workshop.service';
 
 @Component({
@@ -8,11 +9,11 @@ import { WorkshopService } from '../workshop.service';
   templateUrl: './user-organizer.component.html',
   styleUrls: ['./user-organizer.component.css']
 })
-export class UserOrganizerComponent implements OnInit{
-  constructor(private workshop_service:WorkshopService){}
+export class UserOrganizerComponent implements OnInit {
+  constructor(private workshop_service: WorkshopService, private sharedService: SharedService) { }
 
-  current_user :User;
-  reload :string;
+  current_user: User;
+  reload: string;
   allWorkshops: WorkshopDetails[];
 
   ngOnInit(): void {
@@ -20,7 +21,7 @@ export class UserOrganizerComponent implements OnInit{
     this.reload = localStorage.getItem("reload");
     if (this.reload == "true") {
       localStorage.removeItem("reload");
-      location.reload();
+      this.sharedService.sendclickEvent();
     }
     this.getAllWorkshops();
   }
@@ -31,7 +32,7 @@ export class UserOrganizerComponent implements OnInit{
       else {
         this.allWorkshops = workshops;
 
-        for(let j = 0; j < this.allWorkshops.length; j++){
+        for (let j = 0; j < this.allWorkshops.length; j++) {
           this.allWorkshops[j].date = new Date(this.allWorkshops[j].date);
         }
       }

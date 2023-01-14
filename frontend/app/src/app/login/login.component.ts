@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from "../models/user"
+import { SharedService } from '../shared.service';
 import { UserService } from '../user.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { UserService } from '../user.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private userService: UserService, private _router: Router) { }
+  constructor(private userService: UserService, private _router: Router, private sharedService: SharedService) { }
 
   current_path: String;
   re: string = "";
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
     this.re = localStorage.getItem("reload");
     if (this.re == "true") {
       localStorage.removeItem("reload");
-      location.reload();
+      this.sharedService.sendclickEvent();
     }
     this.current_path = this._router.url.split('/').pop();
     this.current_user = JSON.parse(localStorage.getItem("current_user"));

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
+import { SharedService } from '../shared.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +11,13 @@ import { User } from '../models/user';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private _router: Router) { }
+  clickEventSubscription: Subscription;
+
+  constructor(private _router: Router, private sharedService: SharedService) {
+    this.clickEventSubscription = this.sharedService.getEvent().subscribe(() => {
+      location.reload()
+    });
+  }
   current_user: User = null;
   type: string = "";
   ngOnInit(): void {

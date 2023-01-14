@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WorkshopDetails } from '../models/workshop-details';
+import { SharedService } from '../shared.service';
 import { WorkshopService } from '../workshop.service';
 
 @Component({
@@ -9,14 +10,14 @@ import { WorkshopService } from '../workshop.service';
 })
 export class WorkshopComponent implements OnInit {
 
-  constructor(private workshop_service: WorkshopService) { }
-  reload :string;
+  constructor(private workshop_service: WorkshopService, private sharedService: SharedService) { }
+  reload: string;
   ngOnInit(): void {
 
     this.reload = localStorage.getItem("reload");
     if (this.reload == "true") {
       localStorage.removeItem("reload");
-      location.reload();
+      this.sharedService.sendclickEvent();
     }
     this.getAllWorkshops();
   }
@@ -29,9 +30,9 @@ export class WorkshopComponent implements OnInit {
   allWorkshops: WorkshopDetails[];
   index: number[] = [1];
   top5: String[] = [];
-  temp_date : Date[] = [];
+  temp_date: Date[] = [];
   getTop5() {
-  this.filtered_workshops.sort((a, b) => {
+    this.filtered_workshops.sort((a, b) => {
       return a.likes.length - b.likes.length;
     });
   }
@@ -43,13 +44,13 @@ export class WorkshopComponent implements OnInit {
         this.allWorkshops = workshops;
         this.filtered_workshops = this.allWorkshops;
         this.getTop5();
-        
+
         for (let i = 0; i < 5 && i < this.filtered_workshops.length; i++) {
           if (this.top5.indexOf(workshops[i].name) === -1)
             this.top5.push(workshops[i].name)
         }
 
-        for(let j = 0; j < this.allWorkshops.length; j++){
+        for (let j = 0; j < this.allWorkshops.length; j++) {
           this.allWorkshops[j].date = new Date(this.allWorkshops[j].date);
         }
       }
@@ -76,7 +77,7 @@ export class WorkshopComponent implements OnInit {
       this.filtered_workshops.sort((a, b) => {
         let g = new Date(b.date).getTime();
         let h = new Date(a.date).getTime();
-        return  g - h
+        return g - h
       });
       this.toggle2 = true;
     } else if (this.toggle2 == true) {
