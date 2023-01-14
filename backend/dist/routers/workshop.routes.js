@@ -16,5 +16,6 @@ workshopRouter.route("/getAllWorkshops").get(//ako dodje "/login" ruta on obradj
 (req, res) => new workshop_controller_1.WorkshopController().getAllWorkshops(req, res) //poziva se UserController i njegova login metoda
 );
 workshopRouter.route("/deleteWorkshop").post((req, res) => new workshop_controller_1.WorkshopController().deleteWorkshop(req, res));
+workshopRouter.route("/sub").post((req, res) => new workshop_controller_1.WorkshopController().sub(req, res));
 exports.default = workshopRouter;
 //# sourceMappingURL=workshop.routes.js.map

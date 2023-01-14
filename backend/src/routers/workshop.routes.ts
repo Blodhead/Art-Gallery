@@ -19,4 +19,8 @@ workshopRouter.route("/deleteWorkshop").post(
     (req,res)=>new WorkshopController().deleteWorkshop(req,res)
 )
 
+workshopRouter.route("/sub").post(
+    (req,res)=>new WorkshopController().sub(req,res)
+)
+
 export default workshopRouter;

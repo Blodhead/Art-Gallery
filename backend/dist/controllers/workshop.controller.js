@@ -17,18 +17,31 @@ class WorkshopController {
                 location: req.body.location,
                 likes: req.body.likes
             });
-            workshop_1.default.updateOne({ "name": original_name }, { $set: {
+            workshop_1.default.updateOne({ "name": original_name }, {
+                $set: {
                     "name": workshop.name,
                     "image": workshop.image,
                     "description": workshop.description,
                     "date": workshop.date,
                     "location": workshop.location,
                     "likes": workshop.likes
-                } }, (err, news) => {
+                }
+            }, (err, news) => {
                 if (err)
                     console.log(err);
                 else
                     res.json(news);
+            });
+        };
+        this.sub = (req, res) => {
+            console.log(req.body);
+            let workshop = req.body.myWorkshopDetail;
+            let user = req.body.current_user;
+            workshop_1.default.updateOne({ "name": workshop }, { $push: { "participants": user } }, (err, _workshop) => {
+                if (err)
+                    console.log("ERROR");
+                else
+                    res.json(_workshop);
             });
         };
         this.getAllWorkshops = (req, res) => {
@@ -68,7 +81,7 @@ class WorkshopController {
                     let comment = {
                         text: comm
                     }
-                    News.collection.updateOne({ "Myid": Myid }, { $push: { "commnets": comment } });
+                    ews.collection.updateOne({ "Myid": Myid }, { $push: { "commnets": comment } });
                     res.json({"message":"OK"});
                 }
             })

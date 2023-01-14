@@ -16,23 +16,40 @@ export class WorkshopController {
             description: req.body.description,
             date: req.body.date,
             location: req.body.location,
-            likes:req.body.likes
+            likes: req.body.likes
         })
-        
+
         Workshops.updateOne({ "name": original_name },
-            {$set:{
-                "name": workshop.name,
-                "image": workshop.image,
-                "description": workshop.description,
-                "date": workshop.date,
-                "location": workshop.location,
-                "likes":workshop.likes
-            }},(err, news)=>{
+            {
+                $set: {
+                    "name": workshop.name,
+                    "image": workshop.image,
+                    "description": workshop.description,
+                    "date": workshop.date,
+                    "location": workshop.location,
+                    "likes": workshop.likes
+                }
+            }, (err, news) => {
                 if (err) console.log(err);
-            else res.json(news);
+                else res.json(news);
             });
-            
+
     }
+
+    sub = (req: express.Request, res: express.Response) => {
+
+        console.log(req.body);
+
+        let workshop = req.body.myWorkshopDetail;
+        let user = req.body.current_user;
+
+        Workshops.updateOne({ "name": workshop }, { $push: { "participants": user } }, (err, _workshop) => {
+            if (err) console.log("ERROR");
+            else res.json(_workshop);
+        });
+    }
+
+
 
     getAllWorkshops = (req: express.Request, res: express.Response) => {
         Workshops.find({}, (err, news) => {
@@ -60,7 +77,7 @@ export class WorkshopController {
 
     deleteWorkshop = (req: express.Request, res: express.Response) => {
         let _name = req.body.name;
-        Workshops.collection.deleteOne({"name": _name});
+        Workshops.collection.deleteOne({ "name": _name });
         res.json(req.body);
     }
 
@@ -74,7 +91,7 @@ export class WorkshopController {
                 let comment = {
                     text: comm
                 }
-                News.collection.updateOne({ "Myid": Myid }, { $push: { "commnets": comment } });
+                ews.collection.updateOne({ "Myid": Myid }, { $push: { "commnets": comment } });
                 res.json({"message":"OK"});
             }
         })
