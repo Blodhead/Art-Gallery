@@ -53,4 +53,13 @@ export class WorkshopService {
 
     return this.http.post(`${this.url}/workshop/sub`, data);
   }
+
+  unsub(current_user, myWorkshopDetail) {
+    let data = {
+      current_user: current_user,
+      myWorkshopDetail: myWorkshopDetail
+    }
+
+    return this.http.post(`${this.url}/workshop/unsub`, data);
+  }
 }

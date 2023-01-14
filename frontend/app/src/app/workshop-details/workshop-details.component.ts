@@ -59,7 +59,7 @@ export class WorkshopDetailsComponent implements OnInit {
   }
 
   unsub() {
-    this.workshop_Service.sub(this.current_user.username, this.myWorkshopDetail.name).subscribe((workshop) => {
+    this.workshop_Service.unsub(this.current_user.username, this.myWorkshopDetail.name).subscribe((workshop) => {
       if (workshop) { alert("Success"); location.reload(); }
       else alert("fail");
     });

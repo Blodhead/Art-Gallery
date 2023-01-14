@@ -38,8 +38,6 @@ export class WorkshopController {
 
     sub = (req: express.Request, res: express.Response) => {
 
-        console.log(req.body);
-
         let workshop = req.body.myWorkshopDetail;
         let user = req.body.current_user;
 
@@ -49,6 +47,16 @@ export class WorkshopController {
         });
     }
 
+    unsub = (req: express.Request, res: express.Response) => {
+
+        let workshop = req.body.myWorkshopDetail;
+        let user = req.body.current_user;
+
+        Workshops.updateOne({ "name": workshop }, { $pull: { "participants": user } }, (err, _workshop) => {
+            if (err) console.log("ERROR");
+            else res.json(_workshop);
+        });
+    }
 
 
     getAllWorkshops = (req: express.Request, res: express.Response) => {

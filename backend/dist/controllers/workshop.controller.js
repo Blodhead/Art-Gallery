@@ -34,10 +34,19 @@ class WorkshopController {
             });
         };
         this.sub = (req, res) => {
-            console.log(req.body);
             let workshop = req.body.myWorkshopDetail;
             let user = req.body.current_user;
             workshop_1.default.updateOne({ "name": workshop }, { $push: { "participants": user } }, (err, _workshop) => {
+                if (err)
+                    console.log("ERROR");
+                else
+                    res.json(_workshop);
+            });
+        };
+        this.unsub = (req, res) => {
+            let workshop = req.body.myWorkshopDetail;
+            let user = req.body.current_user;
+            workshop_1.default.updateOne({ "name": workshop }, { $pull: { "participants": user } }, (err, _workshop) => {
                 if (err)
                     console.log("ERROR");
                 else

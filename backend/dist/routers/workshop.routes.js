@@ -17,5 +17,6 @@ workshopRouter.route("/getAllWorkshops").get(//ako dodje "/login" ruta on obradj
 );
 workshopRouter.route("/deleteWorkshop").post((req, res) => new workshop_controller_1.WorkshopController().deleteWorkshop(req, res));
 workshopRouter.route("/sub").post((req, res) => new workshop_controller_1.WorkshopController().sub(req, res));
+workshopRouter.route("/unsub").post((req, res) => new workshop_controller_1.WorkshopController().unsub(req, res));
 exports.default = workshopRouter;
 //# sourceMappingURL=workshop.routes.js.map

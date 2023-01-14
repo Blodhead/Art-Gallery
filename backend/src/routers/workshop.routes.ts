@@ -23,4 +23,8 @@ workshopRouter.route("/sub").post(
     (req,res)=>new WorkshopController().sub(req,res)
 )
 
+workshopRouter.route("/unsub").post(
+    (req,res)=>new WorkshopController().unsub(req,res)
+)
+
 export default workshopRouter;
