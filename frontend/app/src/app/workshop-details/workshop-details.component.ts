@@ -21,12 +21,6 @@ export class WorkshopDetailsComponent implements OnInit {
   current_path: string;
   type: string = "";
 
-  isSubscribed(): boolean {
-    if ((this.myWorkshopDetail.participants.find((elem) => this.current_user.username == elem)))
-      return true;
-    else return false;
-  }
-
   ngOnInit(): void {
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
     this.current_path = this._router.url.split('/').pop();
@@ -63,4 +57,25 @@ export class WorkshopDetailsComponent implements OnInit {
       else alert("fail");
     });
   }
+
+  unsub() {
+    this.workshop_Service.sub(this.current_user.username, this.myWorkshopDetail.name).subscribe((workshop) => {
+      if (workshop) { alert("Success"); location.reload(); }
+      else alert("fail");
+    });
+  }
+
+  isSubscribed(): boolean {
+    if ((this.myWorkshopDetail.participants.find((elem) => this.current_user.username == elem)))
+      return true;
+    else return false;
+  }
+
+  isTime(): boolean {
+    if (this.isSubscribed() == false) return false;
+    else if (this.myWorkshopDetail.date.getTime() - (new Date()).getTime() > 1800000)
+      return true;
+      else return false;
+  }
+
 }
