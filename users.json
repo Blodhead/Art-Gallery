@@ -2,7 +2,7 @@
   "firstname": "Admin",
   "lastname": "admin",
   "username": "admin",
-  "password": "admin123",
+  "password": "Admin123\\",
   "type": "admin",
   "org_name": "null",
   "profile_photo_name": "../../assets/images/img_avatar2.png",
@@ -11,7 +11,9 @@
   "postal_code": "null",
   "street": "null",
   "number": "null",
-  "pib": "null"
+  "pib": "null",
+  "tempPass": null,
+  "timeStamp": null
 },{
   "profile_photo_name": "../../assets/images/img_avatar2.png",
   "firstname": "Miloš",
@@ -23,21 +25,17 @@
   "type": "participant",
   "status": "approved"
 },{
-  "profile_photo_name": "../../assets/images/img_avatar2.png",
+  "profile_photo_name": "../../assets/images/pic.jpg",
   "firstname": "Milica",
   "lastname": "Micic",
   "username": "mica",
-  "password": "mica123",
+  "password": "Mica123\\",
   "phone": "21334586",
   "mail": "mici@gmail.com",
   "type": "participant",
-  "status": "approved"
-},{
-  "profile_photo_name": "../../assets/images/img_avatar2.png",
-  "firstname": "Miloš",
-  "lastname": "Ćirković",
-  "pib": "Enter pib",
-  "status": "rejected"
+  "status": "approved",
+  "tempPass": null,
+  "timeStamp": null
 },{
   "profile_photo_name": "../../assets/images/img_avatar2.png",
   "firstname": "Bilja",
@@ -105,7 +103,7 @@
   "firstname": "Milos",
   "lastname": "Cirkovic",
   "username": "blodhead",
-  "password": "admin",
+  "password": "Milos987\\",
   "phone": "0611114552",
   "mail": "cirkovic32.mi@gmail.com",
   "type": "organizer",
@@ -116,7 +114,9 @@
   "street": "Bul. Kralja Aleksandra 56",
   "number": 2,
   "pib": "90843252980",
-  "status": "approved"
+  "status": "approved",
+  "tempPass": null,
+  "timeStamp": null
 },{
   "profile_photo_name": "../../assets/images/img_avatar2.png",
   "firstname": "Marko",
@@ -187,6 +187,17 @@
   "password": "Milos987\\",
   "phone": "876786",
   "mail": "32574632753",
+  "type": "participant",
+  "pib": "Enter pib",
+  "status": "approved"
+},{
+  "profile_photo_name": "../../assets/images/img_avatar2.png",
+  "firstname": "Pera",
+  "lastname": "Peric",
+  "username": "pera",
+  "password": "Pera123\\",
+  "phone": "0611115258",
+  "mail": "pera@gmail.com",
   "type": "participant",
   "pib": "Enter pib",
   "status": "approved"
