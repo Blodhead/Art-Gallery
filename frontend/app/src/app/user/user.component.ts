@@ -36,7 +36,6 @@ export class UserComponent implements OnInit {
       localStorage.removeItem("reload");
       this.sharedService.sendclickEvent();
     }
-    this.getAllWorkshops();
   }
 
   sortName() {
@@ -107,6 +106,7 @@ export class UserComponent implements OnInit {
 
   setTab(input) {
     this.active_tab = input;
+    if(input == "WorkshopHistory") this.getAllWorkshops();
   }
 
 }

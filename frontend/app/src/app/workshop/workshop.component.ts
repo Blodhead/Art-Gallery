@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { WorkshopDetails } from '../models/workshop-details';
 import { SharedService } from '../shared.service';
 import { WorkshopService } from '../workshop.service';
@@ -10,10 +11,10 @@ import { WorkshopService } from '../workshop.service';
 })
 export class WorkshopComponent implements OnInit {
 
-  constructor(private workshop_service: WorkshopService, private sharedService: SharedService) { }
+  constructor(private _router: Router, private workshop_service: WorkshopService, private sharedService: SharedService) { }
   reload: string;
   ngOnInit(): void {
-
+    this.current_path = this._router.url.split('/').pop();
     this.reload = localStorage.getItem("reload");
     if (this.reload == "true") {
       localStorage.removeItem("reload");
@@ -25,9 +26,9 @@ export class WorkshopComponent implements OnInit {
   toggle1: boolean = true;
   toggle2: boolean = true;
   searchFlag: boolean = false;
-
-  filtered_workshops: WorkshopDetails[];
-  allWorkshops: WorkshopDetails[];
+  current_path: string;
+  filtered_workshops: WorkshopDetails[] = [];
+  allWorkshops: WorkshopDetails[] = [];
   index: number[] = [1];
   top5: String[] = [];
   temp_date: Date[] = [];
@@ -41,17 +42,24 @@ export class WorkshopComponent implements OnInit {
     this.workshop_service.getAllWorkshops().subscribe((workshops: WorkshopDetails[]) => {
       if (!workshops) alert("Error");
       else {
-        this.allWorkshops = workshops;
+
+        let temp_arr = workshops;
+
+        for (let j = 0; j < temp_arr.length; j++) {
+          temp_arr[j].date = new Date(temp_arr[j].date);
+          if (this.current_path == "" && (temp_arr[j].date.getTime() - (new Date()).getTime()) > 0)
+            this.allWorkshops[j] = temp_arr[j];
+        }
+
+        this.allWorkshops = this.allWorkshops.filter(elements => {
+          return (elements != null && elements !== undefined);
+         });
         this.filtered_workshops = this.allWorkshops;
         this.getTop5();
 
         for (let i = 0; i < 5 && i < this.filtered_workshops.length; i++) {
           if (this.top5.indexOf(workshops[i].name) === -1)
             this.top5.push(workshops[i].name)
-        }
-
-        for (let j = 0; j < this.allWorkshops.length; j++) {
-          this.allWorkshops[j].date = new Date(this.allWorkshops[j].date);
         }
       }
     });
