@@ -52,30 +52,34 @@ export class WorkshopDetailsComponent implements OnInit {
   }
 
   sub() {
-    this.workshop_Service.sub(this.current_user.username, this.myWorkshopDetail.name).subscribe((workshop) => {
+    this.workshop_Service.sub(this.current_user.mail, this.myWorkshopDetail.name).subscribe((workshop) => {
       if (workshop) { alert("Success"); location.reload(); }
       else alert("fail");
     });
   }
 
   unsub() {
-    this.workshop_Service.unsub(this.current_user.username, this.myWorkshopDetail.name).subscribe((workshop) => {
+    this.workshop_Service.unsub(this.current_user.mail, this.myWorkshopDetail.name).subscribe((workshop) => {
       if (workshop) { alert("Success"); location.reload(); }
       else alert("fail");
     });
   }
 
   isSubscribed(): boolean {
-    if ((this.myWorkshopDetail.participants.find((elem) => this.current_user.username == elem)))
+
+    for (let i = 0; i < this.myWorkshopDetail.participants.length; i++) {
+      if(this.myWorkshopDetail.participants[i].mail == this.current_user.mail)
       return true;
-    else return false;
+    }
+    return false;
+
   }
 
   isTime(): boolean {
     if (this.isSubscribed() == false) return false;
-    else if (this.myWorkshopDetail.date.getTime() - (new Date()).getTime() > 1800000)
+    else if ((this.myWorkshopDetail.date.getTime() - (new Date()).getTime() > 1800000) && this.current_path=='MyWorkshops')
       return true;
-      else return false;
+    else return false;
   }
 
 }

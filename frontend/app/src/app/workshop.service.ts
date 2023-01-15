@@ -45,18 +45,18 @@ export class WorkshopService {
     return this.http.get(`${this.url}/workshop/getAllWorkshops`);
   }
 
-  sub(current_user, myWorkshopDetail) {
+  sub(mail, myWorkshopDetail) {
     let data = {
-      current_user: current_user,
+      mail: mail,
       myWorkshopDetail: myWorkshopDetail
     }
 
     return this.http.post(`${this.url}/workshop/sub`, data);
   }
 
-  unsub(current_user, myWorkshopDetail) {
+  unsub(mail, myWorkshopDetail) {
     let data = {
-      current_user: current_user,
+      mail: mail,
       myWorkshopDetail: myWorkshopDetail
     }
 

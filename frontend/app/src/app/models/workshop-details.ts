@@ -7,5 +7,9 @@ export class WorkshopDetails {
     likes: string[];
     owner: string;
     status: string;
-    participants: string[];
+    participants: Array<Subscription>;
+}
+export class Subscription{
+    mail: string;
+    status:string;
 }

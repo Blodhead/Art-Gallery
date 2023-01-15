@@ -29,7 +29,19 @@ let Workshops = new Schema({ //sva polja koja postoje u users semi
     },
     participants: {
         type: Array
-    }
+    },
+    comments:{
+        type: Array
+    },
+    gallery:{
+        type: Array
+    },
+    free_spaces:{
+        type: Number
+    },
+    long_desc:{
+        type: String
+    },
 
 })
 

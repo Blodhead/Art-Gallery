@@ -35,8 +35,11 @@ class WorkshopController {
         };
         this.sub = (req, res) => {
             let workshop = req.body.myWorkshopDetail;
-            let user = req.body.current_user;
-            workshop_1.default.updateOne({ "name": workshop }, { $push: { "participants": user } }, (err, _workshop) => {
+            let subscription = {
+                mail: req.body.mail,
+                status: "waiting"
+            };
+            workshop_1.default.updateOne({ "name": workshop }, { $push: { "participants": subscription } }, (err, _workshop) => {
                 if (err)
                     console.log("ERROR");
                 else
@@ -45,8 +48,15 @@ class WorkshopController {
         };
         this.unsub = (req, res) => {
             let workshop = req.body.myWorkshopDetail;
-            let user = req.body.current_user;
-            workshop_1.default.updateOne({ "name": workshop }, { $pull: { "participants": user } }, (err, _workshop) => {
+            let subscription1 = {
+                mail: req.body.mail,
+                status: "waiting"
+            };
+            let subscription2 = {
+                mail: req.body.mail,
+                status: "waiting"
+            };
+            workshop_1.default.updateOne({ "name": workshop }, { $pull: { "participants": subscription1, subscription2 } }, (err, _workshop) => {
                 if (err)
                     console.log("ERROR");
                 else

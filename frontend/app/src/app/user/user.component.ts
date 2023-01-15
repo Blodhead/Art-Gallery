@@ -92,9 +92,15 @@ export class UserComponent implements OnInit {
           this.allWorkshops[j].date = new Date(this.allWorkshops[j].date);
           this.index[j] = j;
 
-          if (this.allWorkshops[j].participants != null)
-            if ((this.allWorkshops[j].participants.find((elem) => this.current_user.username == elem)) && this.allWorkshops[j].date < new Date()) //radionice koje su prosle
-              this.myWorkshops.push(this.allWorkshops[j]);
+          if (this.allWorkshops[j].participants != null) {
+            for (let k = 0; k < this.allWorkshops[j].participants.length; k++)
+              if ((this.allWorkshops[j].participants[k].mail == this.current_user.mail) && this.allWorkshops[j].date < new Date()) {
+                this.myWorkshops.push(this.allWorkshops[j]);
+                break;
+              }
+
+          }
+
         }
       }
     });
@@ -106,7 +112,7 @@ export class UserComponent implements OnInit {
 
   setTab(input) {
     this.active_tab = input;
-    if(input == "WorkshopHistory") this.getAllWorkshops();
+    if (input == "WorkshopHistory") this.getAllWorkshops();
   }
 
 }

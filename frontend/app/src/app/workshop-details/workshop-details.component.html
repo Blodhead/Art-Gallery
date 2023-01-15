@@ -43,8 +43,6 @@
 
     </div>
 
-
-
     <div class="row border border-success rounded" *ngIf="!Toggle()">
         <div class="col-8">
             <table>
@@ -60,7 +58,7 @@
                         <button *ngIf="type=='participant' && isSubscribed()==false" class="btn btn-success btn-sm" (click)="sub()">Subscribe</button>
                     </td>
                     <td *ngIf="type=='participant'|| current_user!=null">
-                        <button *ngIf="type=='participant' && isTime()==true && current_path!=''" class="btn btn-success btn-sm" (click)="unsub()">Unscubscribe</button>
+                        <button *ngIf="type=='participant' && isTime()==true" class="btn btn-success btn-sm" (click)="unsub()">Unscubscribe</button>
                     </td>
                 </tr>
                 <tr>
