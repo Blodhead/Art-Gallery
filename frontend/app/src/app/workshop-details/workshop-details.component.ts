@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import * as e from 'cors';
 import { User } from '../models/user';
 import { WorkshopDetails } from '../models/workshop-details';
 import { WorkshopService } from '../workshop.service';
@@ -14,6 +15,8 @@ export class WorkshopDetailsComponent implements OnInit {
 
   @Input() myWorkshopDetail: WorkshopDetails;
   @Input() myIndex: number;
+  flipDiv: boolean = false;
+
 
   constructor(private _router: Router, private workshop_Service: WorkshopService) { }
 
@@ -96,7 +99,9 @@ export class WorkshopDetailsComponent implements OnInit {
     this.like_toggle = false;
   }
 
-  comment(){
-    
+  comment() {
+    if(this.flipDiv==false)
+    this.flipDiv = true;
+    else this.flipDiv = false;
   }
 }

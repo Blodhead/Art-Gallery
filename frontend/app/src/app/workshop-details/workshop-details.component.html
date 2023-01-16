@@ -1,107 +1,114 @@
-<div class="container">
 
-    <div class="row border border-success rounded" *ngIf="Toggle()">
-        <div class="col-4" style="padding: 0px !important;">
-            <img class="rounded" src="{{myWorkshopDetail.image}}"
-                style=" object-fit: cover; border-right: solid !important; border-color:rgb(19,98,7) !important;"
-                width="100%" height="100%">
+<ngx-flip [flip]="flipDiv">
+
+        <div front  class="container">
+
+            <div class="row border border-success rounded" *ngIf="Toggle()">
+                <div class="col-4" style="padding: 0px !important;">
+                    <img class="rounded" src="{{myWorkshopDetail.image}}"
+                        style=" object-fit: cover; border-right: solid !important; border-color:rgb(19,98,7) !important;"
+                        width="100%" height="100%">
+                </div>
+        
+                <div class="col-8">
+                    <table>
+        
+                        <tr>
+                            <h2>
+                                <td>{{myWorkshopDetail.name}}</td>
+                            </h2>
+                            <td *ngIf="type=='admin'|| current_user!=null">
+                                <button *ngIf="myWorkshopDetail.owner==current_user.username || type=='admin'" class="btn btn-success btn-sm" (click)="add_Workshop()">Edit</button>
+                            </td>
+                            <td *ngIf="type=='participant'|| current_user!=null">
+                                <button *ngIf="type=='participant' && isSubscribed()==false" class="btn btn-success btn-sm" (click)="sub()">Subscribe</button>
+                            </td>
+                            <td *ngIf="type=='participant'|| current_user!=null">
+                                <button *ngIf="type=='participant' && isTime()==true && current_path!=''" class="btn btn-success btn-sm" (click)="unsub()">Unscubscribe</button>
+                            </td>
+                            <td *ngIf="type=='participant'|| current_user!=null">
+                                <button *ngIf="type=='participant' && getPah()=='user'" style="width: 120px;" class="btn btn-primary btn-sm" (click)="comment()">Comment 💬</button>
+                            </td> 
+                            <td *ngIf="type=='participant'|| current_user!=null">
+                                <button *ngIf="type=='participant' && getPah()=='user' && like_toggle==false" style="width: 100px;" class="btn btn-success btn-sm" (click)="like()">Like ♡</button>
+                            </td>
+                            <td *ngIf="type=='participant'|| current_user!=null">
+                                <button *ngIf="type=='participant' && getPah()=='user' && like_toggle==true" style="width: 100px;" class="btn btn-danger btn-sm" (click)="unlike()">Unlike ❤</button>
+                            </td>  
+                        </tr>
+                        <tr>
+                            <blockquote class="blockquote">
+                                <h5>
+                                    <td class="mb-0">{{myWorkshopDetail.date | date:'HH:mm - EEEE d. MMMM y.'}}</td>
+                                </h5>
+                                <footer class="blockquote-footer">{{myWorkshopDetail.location}}</footer>
+                            </blockquote>
+                        </tr>
+        
+                        <tr>
+                            <td style="padding-bottom: 10px;">
+                                {{myWorkshopDetail.description}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+        
+            </div>
+        
+        
+            <div class="row border border-success rounded" *ngIf="!Toggle()">
+                <div class="col-8">
+                    <table>
+        
+                        <tr>
+                            <h2>
+                                <td>{{myWorkshopDetail.name}}</td>
+                            </h2>
+                            <td *ngIf="type=='admin'|| current_user!=null">
+                                <button *ngIf="myWorkshopDetail.owner==current_user.username || type=='admin'" class="btn btn-success btn-sm" (click)="add_Workshop()">Edit</button>
+                            </td>
+                            <td *ngIf="type=='participant'|| current_user!=null">
+                                <button *ngIf="type=='participant' && isSubscribed()==false" class="btn btn-success btn-sm" (click)="sub()">Subscribe</button>
+                            </td>
+                            <td *ngIf="type=='participant'|| current_user!=null">
+                                <button *ngIf="type=='participant' && isTime()==true" class="btn btn-success btn-sm" (click)="unsub()">Unscubscribe</button>
+                            </td>
+                            <td *ngIf="type=='participant'|| current_user!=null">
+                                <button *ngIf="type=='participant' && getPah()=='user'" style="width: 120px;" class="btn btn-primary btn-sm" (click)="comment()">Comment 💬</button>
+                            </td>      
+                            <td *ngIf="type=='participant'|| current_user!=null">
+                                <button *ngIf="type=='participant' && getPah()=='user' && like_toggle==false" style="width: 100px;" class="btn btn-success btn-sm" (click)="like()">Like ♡</button>
+                            </td>
+                            <td *ngIf="type=='participant'|| current_user!=null">
+                                <button *ngIf="type=='participant' && getPah()=='user' && like_toggle==true" style="width: 100px;" class="btn btn-danger btn-sm" (click)="unlike()">Unlike ❤</button>
+                            </td>               
+                        </tr>
+                        <tr>
+                            <blockquote class="blockquote">
+                                <h5>
+                                    <td class="mb-0">{{myWorkshopDetail.date | date:'HH:mm - EEEE d. MMMM y.'}}</td>
+                                </h5>
+                                <footer class="blockquote-footer">{{myWorkshopDetail.location}}</footer>
+                            </blockquote>
+                        </tr>
+        
+                        <tr>
+                            <td style="padding-bottom: 10px;">
+                                {{myWorkshopDetail.description}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+        
+                <div class="col-4" style="padding: 0px !important;">
+                    <img class="rounded" src="{{myWorkshopDetail.image}}"
+                        style="object-fit: cover; border-left: solid !important; border-color:rgb(19,98,7) !important;"
+                        width="100%" height="100%">
+                </div>
+        
+            </div>
+        
         </div>
+    <div back class="back">Back</div>
+  </ngx-flip>
 
-        <div class="col-8">
-            <table>
-
-                <tr>
-                    <h2>
-                        <td>{{myWorkshopDetail.name}}</td>
-                    </h2>
-                    <td *ngIf="type=='admin'|| current_user!=null">
-                        <button *ngIf="myWorkshopDetail.owner==current_user.username || type=='admin'" class="btn btn-success btn-sm" (click)="add_Workshop()">Edit</button>
-                    </td>
-                    <td *ngIf="type=='participant'|| current_user!=null">
-                        <button *ngIf="type=='participant' && isSubscribed()==false" class="btn btn-success btn-sm" (click)="sub()">Subscribe</button>
-                    </td>
-                    <td *ngIf="type=='participant'|| current_user!=null">
-                        <button *ngIf="type=='participant' && isTime()==true && current_path!=''" class="btn btn-success btn-sm" (click)="unsub()">Unscubscribe</button>
-                    </td>
-                    <td *ngIf="type=='participant'|| current_user!=null">
-                        <button *ngIf="type=='participant' && getPah()=='user'" style="width: 120px;" class="btn btn-primary btn-sm" (click)="comment()">Comment 💬</button>
-                    </td> 
-                    <td *ngIf="type=='participant'|| current_user!=null">
-                        <button *ngIf="type=='participant' && getPah()=='user' && like_toggle==false" style="width: 100px;" class="btn btn-success btn-sm" (click)="like()">Like ♡</button>
-                    </td>
-                    <td *ngIf="type=='participant'|| current_user!=null">
-                        <button *ngIf="type=='participant' && getPah()=='user' && like_toggle==true" style="width: 100px;" class="btn btn-danger btn-sm" (click)="unlike()">Unlike ❤</button>
-                    </td>  
-                </tr>
-                <tr>
-                    <blockquote class="blockquote">
-                        <h5>
-                            <td class="mb-0">{{myWorkshopDetail.date | date:'HH:mm - EEEE d. MMMM y.'}}</td>
-                        </h5>
-                        <footer class="blockquote-footer">{{myWorkshopDetail.location}}</footer>
-                    </blockquote>
-                </tr>
-
-                <tr>
-                    <td style="padding-bottom: 10px;">
-                        {{myWorkshopDetail.description}}
-                    </td>
-                </tr>
-            </table>
-        </div>
-
-    </div>
-
-    <div class="row border border-success rounded" *ngIf="!Toggle()">
-        <div class="col-8">
-            <table>
-
-                <tr>
-                    <h2>
-                        <td>{{myWorkshopDetail.name}}</td>
-                    </h2>
-                    <td *ngIf="type=='admin'|| current_user!=null">
-                        <button *ngIf="myWorkshopDetail.owner==current_user.username || type=='admin'" class="btn btn-success btn-sm" (click)="add_Workshop()">Edit</button>
-                    </td>
-                    <td *ngIf="type=='participant'|| current_user!=null">
-                        <button *ngIf="type=='participant' && isSubscribed()==false" class="btn btn-success btn-sm" (click)="sub()">Subscribe</button>
-                    </td>
-                    <td *ngIf="type=='participant'|| current_user!=null">
-                        <button *ngIf="type=='participant' && isTime()==true" class="btn btn-success btn-sm" (click)="unsub()">Unscubscribe</button>
-                    </td>
-                    <td *ngIf="type=='participant'|| current_user!=null">
-                        <button *ngIf="type=='participant' && getPah()=='user'" style="width: 120px;" class="btn btn-primary btn-sm" (click)="comment()">Comment 💬</button>
-                    </td>      
-                    <td *ngIf="type=='participant'|| current_user!=null">
-                        <button *ngIf="type=='participant' && getPah()=='user' && like_toggle==false" style="width: 100px;" class="btn btn-success btn-sm" (click)="like()">Like ♡</button>
-                    </td>
-                    <td *ngIf="type=='participant'|| current_user!=null">
-                        <button *ngIf="type=='participant' && getPah()=='user' && like_toggle==true" style="width: 100px;" class="btn btn-danger btn-sm" (click)="unlike()">Unlike ❤</button>
-                    </td>               
-                </tr>
-                <tr>
-                    <blockquote class="blockquote">
-                        <h5>
-                            <td class="mb-0">{{myWorkshopDetail.date | date:'HH:mm - EEEE d. MMMM y.'}}</td>
-                        </h5>
-                        <footer class="blockquote-footer">{{myWorkshopDetail.location}}</footer>
-                    </blockquote>
-                </tr>
-
-                <tr>
-                    <td style="padding-bottom: 10px;">
-                        {{myWorkshopDetail.description}}
-                    </td>
-                </tr>
-            </table>
-        </div>
-
-        <div class="col-4" style="padding: 0px !important;">
-            <img class="rounded" src="{{myWorkshopDetail.image}}"
-                style="object-fit: cover; border-left: solid !important; border-color:rgb(19,98,7) !important;"
-                width="100%" height="100%">
-        </div>
-
-    </div>
-
-</div>

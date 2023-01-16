@@ -110,6 +110,8 @@ export class UserComponent implements OnInit {
   getTab(): string {
     return this.active_tab;
   }
+  
+  flip:boolean = false;
 
   setTab(input) {
     this.active_tab = input;

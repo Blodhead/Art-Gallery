@@ -81,3 +81,9 @@ body {
 footer{
   margin-top: auto;
 }
+.front{
+  display: contents;
+}
+.back{
+  display: contents;
+}

@@ -23,6 +23,7 @@ import { FooterComponent } from './footer/footer.component';
 import { UserOrganizerComponent } from './user-organizer/user-organizer.component';
 import { VerifyComponent } from './verify/verify.component';
 import { MyWorkshopsComponent } from './my-workshops/my-workshops.component';
+import { FlipModule } from 'ngx-flip';
 
 
 @NgModule({
@@ -43,7 +44,7 @@ import { MyWorkshopsComponent } from './my-workshops/my-workshops.component';
     FooterComponent,
     UserOrganizerComponent,
     VerifyComponent,
-    MyWorkshopsComponent
+    MyWorkshopsComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +53,8 @@ import { MyWorkshopsComponent } from './my-workshops/my-workshops.component';
     FormsModule,
     NgbModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    FlipModule
   ],
   providers: [],
   bootstrap: [AppComponent]
