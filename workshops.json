@@ -18,12 +18,7 @@
       "status": "waiting"
     }
   ],
-  "comments": [
-    [
-      "mica",
-      "Bilo je super!"
-    ]
-  ],
+  "comments": [],
   "free_spaces": 5,
   "long_desc": "assssssssssssssssssssssssssssssdddddddddddqwe",
   "gallery": [
@@ -178,10 +173,67 @@
     }
   ],
   "comments": [
-    [
-      "mica",
-      "Bilo je super!"
-    ]
+
+    {
+      "username": "bika",
+      "image": "../../assets/images/img_avatar2.png",
+      "date": {
+        "$date": {
+          "$numberLong": "1691494800000"
+        }
+      },
+      "message": "Bilo je super, mada ima puno pacijenata"
+    },
+	{
+      "username": "bika",
+      "image": "../../assets/images/img_avatar2.png",
+      "date": {
+        "$date": {
+          "$numberLong": "1691494800000"
+        }
+      },
+      "message": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    },
+	{
+      "username": "bika",
+      "image": "../../assets/images/img_avatar2.png",
+      "date": {
+        "$date": {
+          "$numberLong": "1691494800000"
+        }
+      },
+      "message": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+    },
+	    {
+      "username": "bika",
+      "image": "../../assets/images/img_avatar2.png",
+      "date": {
+        "$date": {
+          "$numberLong": "1691494800000"
+        }
+      },
+      "message": "Bilo je super, mada ima puno pacijenata"
+    },
+	{
+      "username": "bika",
+      "image": "../../assets/images/img_avatar2.png",
+      "date": {
+        "$date": {
+          "$numberLong": "1691494800000"
+        }
+      },
+      "message": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    },
+	{
+      "username": "bika",
+      "image": "../../assets/images/img_avatar2.png",
+      "date": {
+        "$date": {
+          "$numberLong": "1691494800000"
+        }
+      },
+      "message": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+    }
   ],
   "free_spaces": 5,
   "long_desc": "assssssssssssssssssssssssssssssdddddddddddqwe",
