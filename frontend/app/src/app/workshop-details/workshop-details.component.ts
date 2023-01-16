@@ -68,8 +68,8 @@ export class WorkshopDetailsComponent implements OnInit {
   isSubscribed(): boolean {
 
     for (let i = 0; i < this.myWorkshopDetail.participants.length; i++) {
-      if(this.myWorkshopDetail.participants[i].mail == this.current_user.mail)
-      return true;
+      if (this.myWorkshopDetail.participants[i].mail == this.current_user.mail)
+        return true;
     }
     return false;
 
@@ -77,9 +77,26 @@ export class WorkshopDetailsComponent implements OnInit {
 
   isTime(): boolean {
     if (this.isSubscribed() == false) return false;
-    else if ((this.myWorkshopDetail.date.getTime() - (new Date()).getTime() > 1800000) && this.current_path=='MyWorkshops')
+    else if ((this.myWorkshopDetail.date.getTime() - (new Date()).getTime() > 1800000) && this.current_path == 'MyWorkshops')
       return true;
     else return false;
   }
 
+  getPah(): string {
+    return this.current_path;
+  }
+
+  like_toggle: boolean = false;
+
+  like() {
+    this.like_toggle = true;
+  }
+
+  unlike() {
+    this.like_toggle = false;
+  }
+
+  comment(){
+    
+  }
 }

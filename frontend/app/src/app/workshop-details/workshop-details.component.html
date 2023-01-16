@@ -23,6 +23,15 @@
                     <td *ngIf="type=='participant'|| current_user!=null">
                         <button *ngIf="type=='participant' && isTime()==true && current_path!=''" class="btn btn-success btn-sm" (click)="unsub()">Unscubscribe</button>
                     </td>
+                    <td *ngIf="type=='participant'|| current_user!=null">
+                        <button *ngIf="type=='participant' && getPah()=='user'" style="width: 120px;" class="btn btn-primary btn-sm" (click)="comment()">Comment 💬</button>
+                    </td> 
+                    <td *ngIf="type=='participant'|| current_user!=null">
+                        <button *ngIf="type=='participant' && getPah()=='user' && like_toggle==false" style="width: 100px;" class="btn btn-success btn-sm" (click)="like()">Like ♡</button>
+                    </td>
+                    <td *ngIf="type=='participant'|| current_user!=null">
+                        <button *ngIf="type=='participant' && getPah()=='user' && like_toggle==true" style="width: 100px;" class="btn btn-danger btn-sm" (click)="unlike()">Unlike ❤</button>
+                    </td>  
                 </tr>
                 <tr>
                     <blockquote class="blockquote">
@@ -60,6 +69,15 @@
                     <td *ngIf="type=='participant'|| current_user!=null">
                         <button *ngIf="type=='participant' && isTime()==true" class="btn btn-success btn-sm" (click)="unsub()">Unscubscribe</button>
                     </td>
+                    <td *ngIf="type=='participant'|| current_user!=null">
+                        <button *ngIf="type=='participant' && getPah()=='user'" style="width: 120px;" class="btn btn-primary btn-sm" (click)="comment()">Comment 💬</button>
+                    </td>      
+                    <td *ngIf="type=='participant'|| current_user!=null">
+                        <button *ngIf="type=='participant' && getPah()=='user' && like_toggle==false" style="width: 100px;" class="btn btn-success btn-sm" (click)="like()">Like ♡</button>
+                    </td>
+                    <td *ngIf="type=='participant'|| current_user!=null">
+                        <button *ngIf="type=='participant' && getPah()=='user' && like_toggle==true" style="width: 100px;" class="btn btn-danger btn-sm" (click)="unlike()">Unlike ❤</button>
+                    </td>               
                 </tr>
                 <tr>
                     <blockquote class="blockquote">

@@ -25,6 +25,7 @@ export class UserComponent implements OnInit {
   toggle1: boolean = true;
   toggle2: boolean = true;
   toggle3: boolean = true;
+  loaded: boolean = false;
 
   ngOnInit(): void {
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
@@ -83,6 +84,8 @@ export class UserComponent implements OnInit {
   }
 
   getAllWorkshops() {
+    if(this.loaded == true) return;
+    else this.loaded = true;
     this.workshop_service.getAllWorkshops().subscribe((workshops: WorkshopDetails[]) => {
       if (!workshops) alert("Error");
       else {
