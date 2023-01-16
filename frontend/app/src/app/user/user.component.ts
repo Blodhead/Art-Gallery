@@ -98,9 +98,7 @@ export class UserComponent implements OnInit {
                 this.myWorkshops.push(this.allWorkshops[j]);
                 break;
               }
-
           }
-
         }
       }
     });
