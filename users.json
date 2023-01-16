@@ -41,12 +41,14 @@
   "firstname": "Bilja",
   "lastname": "Dzukovski",
   "username": "bika",
-  "password": "bika123",
+  "password": "Bika123\\",
   "phone": "0641315",
-  "mail": "djukovski@gamilc.om",
+  "mail": "djukovski@gmail.com",
   "type": "participant",
   "pib": "Enter pib",
-  "status": "approved"
+  "status": "approved",
+  "tempPass": null,
+  "timeStamp": null
 },{
   "profile_photo_name": "../../assets/images/img_avatar2.png",
   "firstname": "Miloš",
