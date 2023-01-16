@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as e from 'cors';
 import { User } from '../models/user';
-import { WorkshopDetails } from '../models/workshop-details';
+import { WorkshopDetails, Comment } from '../models/workshop-details';
 import { WorkshopService } from '../workshop.service';
 
 
@@ -17,6 +17,7 @@ export class WorkshopDetailsComponent implements OnInit {
   @Input() myIndex: number;
   flipDiv: boolean = false;
   likes: number = 0;
+  comments: Comment[];
 
   constructor(private _router: Router, private workshop_Service: WorkshopService) { }
 
@@ -35,6 +36,8 @@ export class WorkshopDetailsComponent implements OnInit {
     for (let iter = 0; iter < this.likes; iter++)
       if (this.myWorkshopDetail.likes[iter] == this.current_user.username)
         this.like_toggle = true;
+
+    this.comments = this.myWorkshopDetail.comments;    
   }
 
 
@@ -99,21 +102,24 @@ export class WorkshopDetailsComponent implements OnInit {
 
   like() {
     this.like_toggle = true;
-    this.likes++;
     this.workshop_Service.like(this.myWorkshopDetail.name, this.current_user.username).subscribe((statement) => {
       this.myWorkshopDetail.likes.push(this.current_user.username);
+      this.likes = this.myWorkshopDetail.likes.length;
     });
   }
 
   unlike() {
     this.like_toggle = false;
-    this.likes--;
     this.workshop_Service.unlike(this.myWorkshopDetail.name, this.current_user.username).subscribe((statement) => {
       for (let iter = 0; iter < this.myWorkshopDetail.likes.length; iter++)
-      if (this.myWorkshopDetail.likes[iter] == this.current_user.username){
-        this.myWorkshopDetail.likes[iter] = null;
-        this.myWorkshopDetail.likes.reduce(null);
-      }
+        if (this.myWorkshopDetail.likes[iter] == this.current_user.username) {
+          this.myWorkshopDetail.likes[iter] = null;
+          this.myWorkshopDetail.likes = this.myWorkshopDetail.likes.filter(elements => {
+            return (elements != null && elements !== undefined);
+           });
+        }
+
+        this.likes = this.myWorkshopDetail.likes.length;
     });
   }
 

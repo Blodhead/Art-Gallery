@@ -11,3 +11,83 @@
     background-color: antiquewhite;
         border-radius: 5px;
 }
+
+
+
+
+
+.chat {
+    background-image: url('../../assets/images/chat_bg.png');
+    background-size: 300px 500px;
+    background-repeat: repeat;
+  }
+  
+  .message__text {
+    border-radius: 20px;
+    padding: 8px 15px;
+    margin: 5px 90px;
+  }
+  
+  .customer.message__text {
+    margin-right: 25%;
+    background: #eee;
+    position: relative;
+  }
+  
+  .customer.message__text.last:before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+    left: -7px;
+    height: 20px;
+    width: 20px;
+    background: #eee;
+    border-bottom-right-radius: 15px;
+  }
+  .customer.message__text.last:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: -10px;
+    width: 10px;
+    height: 20px;
+    background-image: url('../../assets/images/chat_bg.png');
+    background-size: 300px 500px;
+    background-repeat: repeat;
+    border-bottom-right-radius: 10px;
+  }
+  
+  .team.message__text {
+    margin-left: 25%;
+    background: #dcf8c6;
+    position: relative;
+  }
+  
+  .team.message__text.last:before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+    right: -8px;
+    height: 20px;
+    width: 20px;
+    background: #dcf8c6;
+    border-bottom-left-radius: 15px;
+  }
+  
+  .team.message__text.last:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    right: -10px;
+    width: 10px;
+    height: 20px;
+    background-image: url('../../assets/images/chat_bg.png');
+    background-size: 300px 500px;
+    background-repeat: repeat;
+    border-bottom-left-radius: 10px;
+  }
+  

@@ -24,6 +24,7 @@ import { UserOrganizerComponent } from './user-organizer/user-organizer.componen
 import { VerifyComponent } from './verify/verify.component';
 import { MyWorkshopsComponent } from './my-workshops/my-workshops.component';
 import { FlipModule } from 'ngx-flip';
+import { MessageComponent } from './message/message.component';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { FlipModule } from 'ngx-flip';
     UserOrganizerComponent,
     VerifyComponent,
     MyWorkshopsComponent,
+    MessageComponent,
   ],
   imports: [
     BrowserModule,

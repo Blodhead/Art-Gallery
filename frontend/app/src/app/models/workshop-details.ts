@@ -7,9 +7,17 @@ export class WorkshopDetails {
     likes: string[];
     owner: string;
     status: string;
+    comments: Array<Comment>;
     participants: Array<Subscription>;
 }
-export class Subscription{
+export class Subscription {
     mail: string;
-    status:string;
+    status: string;
+}
+
+export class Comment {
+    username: string;
+    image: string;
+    date: Date;
+    message: string;
 }
