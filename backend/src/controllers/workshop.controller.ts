@@ -66,6 +66,24 @@ export class WorkshopController {
         });
     }
 
+    like = (req: express.Request, res: express.Response) => {
+        let workshop = req.body.name;
+        let username = req.body.username;
+        Workshops.updateMany({ "name": workshop }, { $push: { "likes": username } }, (err, _workshop) => {
+            if (err) console.log("ERROR");
+            else res.json(_workshop);
+        });
+    }
+
+    unlike = (req: express.Request, res: express.Response) => {
+        let workshop = req.body.name;
+        let username = req.body.username;
+        Workshops.updateMany({ "name": workshop }, { $pull: { "likes": username } }, (err, _workshop) => {
+            if (err) console.log("ERROR");
+            else res.json(_workshop);
+        });
+    }
+
 
     getAllWorkshops = (req: express.Request, res: express.Response) => {
         Workshops.find({}, (err, news) => {

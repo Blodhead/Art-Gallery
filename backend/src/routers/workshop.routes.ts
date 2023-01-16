@@ -27,4 +27,12 @@ workshopRouter.route("/unsub").post(
     (req,res)=>new WorkshopController().unsub(req,res)
 )
 
+workshopRouter.route("/like").post(
+    (req,res)=>new WorkshopController().like(req,res)
+)
+
+workshopRouter.route("/unlike").post(
+    (req,res)=>new WorkshopController().unlike(req,res)
+)
+
 export default workshopRouter;

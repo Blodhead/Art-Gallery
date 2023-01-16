@@ -16,7 +16,7 @@ export class WorkshopDetailsComponent implements OnInit {
   @Input() myWorkshopDetail: WorkshopDetails;
   @Input() myIndex: number;
   flipDiv: boolean = false;
-
+  likes: number = 0;
 
   constructor(private _router: Router, private workshop_Service: WorkshopService) { }
 
@@ -30,7 +30,13 @@ export class WorkshopDetailsComponent implements OnInit {
     if (this.current_user != null) {
       this.type = this.current_user.type;
     }
+    this.likes = this.myWorkshopDetail.likes.length;
+
+    for (let iter = 0; iter < this.likes; iter++)
+      if (this.myWorkshopDetail.likes[iter] == this.current_user.username)
+        this.like_toggle = true;
   }
+
 
   Toggle(): boolean {
 
@@ -85,7 +91,7 @@ export class WorkshopDetailsComponent implements OnInit {
     else return false;
   }
 
-  getPah(): string {
+  getPath(): string {
     return this.current_path;
   }
 
@@ -93,15 +99,28 @@ export class WorkshopDetailsComponent implements OnInit {
 
   like() {
     this.like_toggle = true;
+    this.likes++;
+    this.workshop_Service.like(this.myWorkshopDetail.name, this.current_user.username).subscribe((statement) => {
+      this.myWorkshopDetail.likes.push(this.current_user.username);
+    });
   }
 
   unlike() {
     this.like_toggle = false;
+    this.likes--;
+    this.workshop_Service.unlike(this.myWorkshopDetail.name, this.current_user.username).subscribe((statement) => {
+      for (let iter = 0; iter < this.myWorkshopDetail.likes.length; iter++)
+      if (this.myWorkshopDetail.likes[iter] == this.current_user.username){
+        this.myWorkshopDetail.likes[iter] = null;
+        this.myWorkshopDetail.likes.reduce(null);
+      }
+    });
   }
 
   comment() {
-    if(this.flipDiv==false)
-    this.flipDiv = true;
+    if (this.flipDiv == false)
+      this.flipDiv = true;
     else this.flipDiv = false;
   }
+
 }

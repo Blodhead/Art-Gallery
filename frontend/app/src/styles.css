@@ -86,4 +86,10 @@ footer{
 }
 .back{
   display: contents;
+  -webkit-transform: scaleX(-1) !important;
+  -moz-transform: scaleX(-1) !important;
+  -o-transform: scaleX(-1) !important;
+  transform: scaleX(-1) !important;
+  -webkit-transform: rotateY(180deg)!important;
+  transform: rotateY(180deg)!important;
 }

@@ -6,6 +6,7 @@ import { WorkshopDetails } from './models/workshop-details';
   providedIn: 'root'
 })
 export class WorkshopService {
+
   update(_name: string, name: string, image: string, description: string, date: Date, location: string, likes: string[]) {
     const data = {
       _name: _name,
@@ -62,4 +63,21 @@ export class WorkshopService {
 
     return this.http.post(`${this.url}/workshop/unsub`, data);
   }
+
+  like(name: string, username: string) {
+    let data = {
+      name:name,
+      username:username
+    }
+    return this.http.post(`${this.url}/workshop/like`, data);;
+  }
+
+  unlike(name: string, username: string) {
+    let data = {
+      name:name,
+      username:username
+    }
+    return this.http.post(`${this.url}/workshop/unlike`, data);;
+  }
+
 }
