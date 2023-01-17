@@ -10,6 +10,7 @@ import { EditWorkshopComponent } from './edit-workshop/edit-workshop.component';
 import { UserOrganizerComponent } from './user-organizer/user-organizer.component';
 import { VerifyComponent } from './verify/verify.component';
 import { MyWorkshopsComponent } from './my-workshops/my-workshops.component';
+import { DetailsComponent } from './details/details.component';
 
 
 const routes: Routes = [
@@ -24,7 +25,7 @@ const routes: Routes = [
   { path: 'user_organizer', component: UserOrganizerComponent },
   { path: 'verify', component: VerifyComponent },
   { path: 'MyWorkshops', component: MyWorkshopsComponent },
-  { path: 'details', component: MyWorkshopsComponent }
+  { path: 'details', component: DetailsComponent }
 ];
 
 @NgModule({

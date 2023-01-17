@@ -143,6 +143,7 @@ export class WorkshopDetailsComponent implements OnInit {
   }
 
   more(myWorkshopDetail) {
+    localStorage.setItem("detail_sent",JSON.stringify(myWorkshopDetail));
     this._router.navigate(["details"]);
   }
 
