@@ -1,0 +1,7 @@
+{
+    "/api/*": {
+        "target": "https://nominatim.openstreetmap.org/",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}

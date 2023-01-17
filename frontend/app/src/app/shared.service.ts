@@ -7,14 +7,14 @@ export class SharedService {
 
   constructor() { }
 
-  
+
   private subject = new Subject<any>();
-obj:any;
-  sendclickEvent(){
-      this.subject.next(this.obj);
+  obj: any;
+  sendclickEvent() {
+    this.subject.next(this.obj);
   }
 
-  getEvent():Observable<any>{
+  getEvent(): Observable<any> {
     return this.subject.asObservable();
 
   }
