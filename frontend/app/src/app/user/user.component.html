@@ -89,7 +89,8 @@
 
             </div>
 
-            <div class="col-12 shadow context" style="background-color: #136207; margin-bottom: 20px;" *ngIf="getTab()=='WorkshopHistory'">
+            <div class="col-12 shadow context" style="background-color: #136207; margin-bottom: 20px;"
+                *ngIf="getTab()=='WorkshopHistory'">
 
                 <table class="card"
                     style="display: flex; justify-content: center; flex-wrap: wrap; align-content: center;">
@@ -125,6 +126,43 @@
                 <div class="card container-fluid shadow" *ngFor="let workshop of myWorkshops; let i = index">
 
                     <app-workshop-details [myWorkshopDetail]="workshop" [myIndex]="i"></app-workshop-details>
+
+                </div>
+
+            </div>
+
+            <div class="col-12 shadow context" style="background-color: #136207; margin-bottom: 20px;"
+                *ngIf="getTab()=='Actions'">
+
+                <div class="row container-fluid">
+
+                    <div class="col-6 card container-fluid shadow" style="margin-left: 10px; width: 49%;">
+                        <h1>Likes:</h1>
+
+                        <div *ngFor="let workshop of myWorkshops;  let i = index">
+
+                            <div *ngFor="let like of workshop.likes;">
+
+                                <div *ngIf="like == current_user.username">{{workshop.name}} -> <button style="width: 100px;" class="btn btn-danger btn-sm" (click)="unlike(workshop)">Unlike ❤</button></div>
+                                <hr *ngIf="like == current_user.username">
+                            </div>
+        
+                        </div>
+
+                    </div>
+
+                    <div class="col-6 card container-fluid shadow" style="width: 49%; margin-right: -10px;">
+                        <h1>Comments</h1>
+                        <div *ngFor="let workshop of myWorkshops;  let i = index">
+                            <h5>{{workshop.name}}:</h5>
+                            <div *ngFor="let comment of workshop.comments;">
+                                <div *ngIf="comment.username == current_user.username"> {{comment.message}}</div>
+                                <button *ngIf="comment.username == current_user.username" style="width: 100px;" class="btn btn-danger btn-sm" (click)="uncomment(workshop,comment)">delete</button>
+                                
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
 
                 </div>
 

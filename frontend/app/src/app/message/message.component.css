@@ -84,3 +84,11 @@ img.avatar {
   height: 70px;
   border-radius: 50%;
 }
+
+.col-md-12{
+  padding-left: 360px !important;
+}
+
+.col-sm-12{
+  padding-left: 260px !important;
+}

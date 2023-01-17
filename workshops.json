@@ -48,10 +48,26 @@
     }
   ],
   "comments": [
-    [
-      "mica",
-      "Bilo je super!"
-    ]
+    {
+      "username": "bika",
+      "image": "../../assets/images/img_avatar2.png",
+      "date": {
+        "$date": {
+          "$numberLong": "1691494800000"
+        }
+      },
+      "message": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    },
+    {
+      "username": "bika",
+      "image": "../../assets/images/img_avatar2.png",
+      "date": {
+        "$date": {
+          "$numberLong": "1691494800000"
+        }
+      },
+      "message": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+    }
   ],
   "free_spaces": 5,
   "long_desc": "assssssssssssssssssssssssssssssdddddddddddqwe",
@@ -78,10 +94,16 @@
     }
   ],
   "comments": [
-    [
-      "mica",
-      "Bilo je super!"
-    ]
+    {
+      "username": "bika",
+      "image": "../../assets/images/img_avatar2.png",
+      "date": {
+        "$date": {
+          "$numberLong": "1691494800000"
+        }
+      },
+      "message": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    }
   ],
   "free_spaces": 5,
   "long_desc": "assssssssssssssssssssssssssssssdddddddddddqwe",
@@ -107,10 +129,16 @@
   ],
   "participants": [],
   "comments": [
-    [
-      "mica",
-      "Bilo je super!"
-    ]
+    {
+      "username": "bika",
+      "image": "../../assets/images/img_avatar2.png",
+      "date": {
+        "$date": {
+          "$numberLong": "1691494800000"
+        }
+      },
+      "message": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    }
   ],
   "free_spaces": 5,
   "long_desc": "assssssssssssssssssssssssssssssdddddddddddqwe",
@@ -128,7 +156,8 @@
   "likes": [
     "kokoko",
     "mika",
-    "bika"
+    "bika",
+    "mica"
   ],
   "participants": [
     {
@@ -137,10 +166,16 @@
     }
   ],
   "comments": [
-    [
-      "mica",
-      "Bilo je super!"
-    ]
+    {
+      "username": "bika",
+      "image": "../../assets/images/img_avatar2.png",
+      "date": {
+        "$date": {
+          "$numberLong": "1691494800000"
+        }
+      },
+      "message": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    }
   ],
   "free_spaces": 5,
   "long_desc": "assssssssssssssssssssssssssssssdddddddddddqwe",
@@ -158,9 +193,9 @@
   "likes": [
     "kokoko",
     "mika",
-    "mica",
     "blodhead",
-    "bika"
+    "bika",
+    "mica"
   ],
   "participants": [
     {
@@ -173,7 +208,6 @@
     }
   ],
   "comments": [
-
     {
       "username": "bika",
       "image": "../../assets/images/img_avatar2.png",
@@ -184,7 +218,7 @@
       },
       "message": "Bilo je super, mada ima puno pacijenata"
     },
-	{
+    {
       "username": "bika",
       "image": "../../assets/images/img_avatar2.png",
       "date": {
@@ -194,7 +228,7 @@
       },
       "message": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
     },
-	{
+    {
       "username": "bika",
       "image": "../../assets/images/img_avatar2.png",
       "date": {
@@ -204,7 +238,7 @@
       },
       "message": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
     },
-	    {
+    {
       "username": "bika",
       "image": "../../assets/images/img_avatar2.png",
       "date": {
@@ -214,7 +248,7 @@
       },
       "message": "Bilo je super, mada ima puno pacijenata"
     },
-	{
+    {
       "username": "bika",
       "image": "../../assets/images/img_avatar2.png",
       "date": {
@@ -224,7 +258,7 @@
       },
       "message": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
     },
-	{
+    {
       "username": "bika",
       "image": "../../assets/images/img_avatar2.png",
       "date": {
@@ -233,6 +267,54 @@
         }
       },
       "message": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+    },
+    {
+      "username": "bika",
+      "image": "../../assets/images/img_avatar2.png",
+      "date": "2023-01-17T08:03:04.665Z",
+      "message": "Ja sam prezadovoljna, divno osoblje, a i hrana nije losa"
+    },
+    {
+      "username": "bika",
+      "image": "../../assets/images/img_avatar2.png",
+      "date": "2023-01-17T08:06:34.968Z",
+      "message": "Lorem Ipsum has been the industry's standa"
+    },
+    {
+      "username": "bika",
+      "image": "../../assets/images/img_avatar2.png",
+      "date": "2023-01-17T08:07:00.215Z",
+      "message": "Lorem Ipsum has been the industry's standa"
+    },
+    {
+      "username": "bika",
+      "image": "../../assets/images/img_avatar2.png",
+      "date": "2023-01-17T08:08:05.432Z",
+      "message": "Bilo je super, mada ima puno pacijenata"
+    },
+    {
+      "username": "bika",
+      "image": "../../assets/images/img_avatar2.png",
+      "date": "2023-01-17T08:08:42.224Z",
+      "message": "Lorem Ipsum has been the industry's standar"
+    },
+    {
+      "username": "bika",
+      "image": "../../assets/images/img_avatar2.png",
+      "date": "2023-01-17T08:10:22.608Z",
+      "message": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+    },
+    {
+      "username": "mica",
+      "image": "../../assets/images/pic.jpg",
+      "date": "2023-01-17T08:11:28.401Z",
+      "message": "Ne mogu da verujem sta ova naprica... Bas mi je bilo bezveze, samo sedela dok oni pricaju..."
+    },
+    {
+      "username": "mica",
+      "image": "../../assets/images/pic.jpg",
+      "date": "2023-01-17T08:18:25.544Z",
+      "message": "Smorcinaaaaaaaaaaaaaaa"
     }
   ],
   "free_spaces": 5,
@@ -262,10 +344,26 @@
     }
   ],
   "comments": [
-    [
-      "mica",
-      "Bilo je super!"
-    ]
+    {
+      "username": "mica",
+      "image": "../../assets/images/img_avatar2.png",
+      "date": {
+        "$date": {
+          "$numberLong": "1691494800000"
+        }
+      },
+      "message": "Bilo je super!"
+    },
+    {
+      "username": "bika",
+      "image": "../../assets/images/img_avatar2.png",
+      "date": {
+        "$date": {
+          "$numberLong": "1691494800000"
+        }
+      },
+      "message": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+    }
   ],
   "free_spaces": 5,
   "long_desc": "assssssssssssssssssssssssssssssdddddddddddqwe",
@@ -283,7 +381,8 @@
   "likes": [
     "kokoko",
     "mika",
-    "bika"
+    "bika",
+    "mica"
   ],
   "participants": [
     {
@@ -292,10 +391,16 @@
     }
   ],
   "comments": [
-    [
-      "mica",
-      "Bilo je super!"
-    ]
+    {
+      "username": "mica",
+      "image": "../../assets/images/img_avatar2.png",
+      "date": {
+        "$date": {
+          "$numberLong": "1691494800000"
+        }
+      },
+      "message": "Bilo je super!"
+    }
   ],
   "free_spaces": 5,
   "long_desc": "assssssssssssssssssssssssssssssdddddddddddqwe",
@@ -317,10 +422,16 @@
   ],
   "participants": [],
   "comments": [
-    [
-      "mica",
-      "Bilo je super!"
-    ]
+    {
+      "username": "mica",
+      "image": "../../assets/images/img_avatar2.png",
+      "date": {
+        "$date": {
+          "$numberLong": "1691494800000"
+        }
+      },
+      "message": "Bilo je super!"
+    }
   ],
   "free_spaces": 5,
   "long_desc": "assssssssssssssssssssssssssssssdddddddddddqwe",
@@ -354,10 +465,36 @@
     }
   ],
   "comments": [
-    [
-      "mica",
-      "Bilo je super!"
-    ]
+    {
+      "username": "mica",
+      "image": "../../assets/images/img_avatar2.png",
+      "date": {
+        "$date": {
+          "$numberLong": "1691494800000"
+        }
+      },
+      "message": "Bilo je super!"
+    },
+    {
+      "username": "bika",
+      "image": "../../assets/images/img_avatar2.png",
+      "date": {
+        "$date": {
+          "$numberLong": "1691494800000"
+        }
+      },
+      "message": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    },
+    {
+      "username": "bika",
+      "image": "../../assets/images/img_avatar2.png",
+      "date": {
+        "$date": {
+          "$numberLong": "1691494800000"
+        }
+      },
+      "message": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+    }
   ],
   "free_spaces": 5,
   "long_desc": "assssssssssssssssssssssssssssssdddddddddddqwe",

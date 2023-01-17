@@ -33,11 +33,14 @@ export class WorkshopDetailsComponent implements OnInit {
     }
     this.likes = this.myWorkshopDetail.likes.length;
 
-    for (let iter = 0; iter < this.likes; iter++)
-      if (this.myWorkshopDetail.likes[iter] == this.current_user.username)
-        this.like_toggle = true;
+    if (this.current_user != null) {
+      for (let iter = 0; iter < this.likes; iter++)
+        if (this.myWorkshopDetail.likes[iter] == this.current_user.username)
+          this.like_toggle = true;
 
-    this.comments = this.myWorkshopDetail.comments;    
+      this.comments = this.myWorkshopDetail.comments;
+    }
+
   }
 
 
@@ -116,17 +119,31 @@ export class WorkshopDetailsComponent implements OnInit {
           this.myWorkshopDetail.likes[iter] = null;
           this.myWorkshopDetail.likes = this.myWorkshopDetail.likes.filter(elements => {
             return (elements != null && elements !== undefined);
-           });
+          });
         }
 
-        this.likes = this.myWorkshopDetail.likes.length;
+      this.likes = this.myWorkshopDetail.likes.length;
     });
   }
 
-  comment() {
+  cancel() {
     if (this.flipDiv == false)
       this.flipDiv = true;
     else this.flipDiv = false;
+  }
+
+  message: string = "";
+
+  comment() {
+    if (this.message != "")
+      this.workshop_Service.comment(this.myWorkshopDetail.name, this.current_user.username, this.current_user.profile_photo_name, this.message, new Date()).subscribe((comment: Comment) => {
+        this.myWorkshopDetail.comments.push(comment);
+        this.message = "";
+      })
+  }
+
+  more(myWorkshopDetail) {
+    this._router.navigate(["details"]);
   }
 
 }

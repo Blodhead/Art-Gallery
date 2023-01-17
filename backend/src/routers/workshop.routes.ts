@@ -35,4 +35,12 @@ workshopRouter.route("/unlike").post(
     (req,res)=>new WorkshopController().unlike(req,res)
 )
 
+workshopRouter.route("/comment").post(
+    (req,res)=>new WorkshopController().comment(req,res)
+)
+
+workshopRouter.route("/uncomment").post(
+    (req,res)=>new WorkshopController().uncomment(req,res)
+)
+
 export default workshopRouter;

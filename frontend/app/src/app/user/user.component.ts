@@ -84,7 +84,7 @@ export class UserComponent implements OnInit {
   }
 
   getAllWorkshops() {
-    if(this.loaded == true) return;
+    if (this.loaded == true) return;
     else this.loaded = true;
     this.workshop_service.getAllWorkshops().subscribe((workshops: WorkshopDetails[]) => {
       if (!workshops) alert("Error");
@@ -110,12 +110,50 @@ export class UserComponent implements OnInit {
   getTab(): string {
     return this.active_tab;
   }
-  
-  flip:boolean = false;
+
+  flip: boolean = false;
 
   setTab(input) {
     this.active_tab = input;
     if (input == "WorkshopHistory") this.getAllWorkshops();
+    if (input == "Actions") this.getAllWorkshops();
+  }
+
+  unlike(workshop) {
+    this.workshop_service.unlike(workshop.name, this.current_user.username).subscribe((statement) => {
+
+      for (let j = 0; j < this.myWorkshops.length; j++) {
+
+        if (this.myWorkshops[j] == workshop) {
+          for (let iter = 0; iter < workshop.likes.length; iter++)
+            if (workshop.likes[iter] == this.current_user.username) {
+              workshop.likes[iter] = null;
+              workshop.likes = workshop.likes.filter(elements => {
+                return (elements != null && elements !== undefined);
+              });
+            }
+          break;
+        }
+      }
+    });
+  }
+
+  uncomment(workshop, comment) {
+    this.workshop_service.uncomment(workshop.name, comment).subscribe((statement) => {
+      for (let j = 0; j < this.myWorkshops.length; j++) {
+
+        if (this.myWorkshops[j] == workshop) {
+          for (let iter = 0; iter < workshop.comments.length; iter++)
+            if (workshop.comments[iter] == comment) {
+              workshop.comments[iter] = null;
+              workshop.comments = workshop.comments.filter(elements => {
+                return (elements != null && elements !== undefined);
+              });
+            }
+          break;
+        }
+      }
+    });
   }
 
 }

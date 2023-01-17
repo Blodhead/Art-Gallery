@@ -63,6 +63,31 @@ class WorkshopController {
                     res.json(_workshop);
             });
         };
+        this.comment = (req, res) => {
+            let workshop = req.body.sent_workshop;
+            let comment = {
+                username: req.body.username,
+                image: req.body.image,
+                date: req.body.date,
+                message: req.body.comment
+            };
+            workshop_1.default.updateMany({ "name": workshop }, { $push: { "comments": comment } }, (err, _workshop) => {
+                if (err)
+                    console.log("ERROR");
+                else
+                    res.json(comment);
+            });
+        };
+        this.uncomment = (req, res) => {
+            let workshop = req.body.sent_workshop;
+            let comment = req.body.sent_comment;
+            workshop_1.default.updateMany({ "name": workshop }, { $pull: { "comments": comment } }, (err, _workshop) => {
+                if (err)
+                    console.log("ERROR");
+                else
+                    res.json(comment);
+            });
+        };
         this.like = (req, res) => {
             let workshop = req.body.name;
             let username = req.body.username;

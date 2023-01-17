@@ -24,6 +24,7 @@ const routes: Routes = [
   { path: 'user_organizer', component: UserOrganizerComponent },
   { path: 'verify', component: VerifyComponent },
   { path: 'MyWorkshops', component: MyWorkshopsComponent },
+  { path: 'details', component: MyWorkshopsComponent }
 ];
 
 @NgModule({

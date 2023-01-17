@@ -66,6 +66,31 @@ export class WorkshopController {
         });
     }
 
+    comment = (req: express.Request, res: express.Response) => {
+
+        let workshop = req.body.sent_workshop;
+        let comment = {
+            username: req.body.username,
+            image: req.body.image,
+            date: req.body.date,
+            message: req.body.comment
+        }
+        Workshops.updateMany({ "name": workshop }, { $push: { "comments": comment } }, (err, _workshop) => {
+            if (err) console.log("ERROR");
+            else res.json(comment);
+        });
+    }
+
+    uncomment = (req: express.Request, res: express.Response) => {
+
+        let workshop = req.body.sent_workshop;
+        let comment = req.body.sent_comment;
+        Workshops.updateMany({ "name": workshop }, { $pull: { "comments": comment } }, (err, _workshop) => {
+            if (err) console.log("ERROR");
+            else res.json(comment);
+        });
+    }
+
     like = (req: express.Request, res: express.Response) => {
         let workshop = req.body.name;
         let username = req.body.username;

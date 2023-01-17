@@ -6,6 +6,30 @@ import { WorkshopDetails } from './models/workshop-details';
   providedIn: 'root'
 })
 export class WorkshopService {
+  comment(name: string, username: string, profile_photo_name: string, message: string, arg4: Date) {
+
+    let data = {
+      sent_workshop: name,
+      username: username,
+      image: profile_photo_name,
+      comment: message,
+      date: arg4
+    }
+
+    return this.http.post(`${this.url}/workshop/comment`, data);
+
+  }
+
+  uncomment(name: string, comment:Comment) {
+
+    let data = {
+      sent_workshop: name,
+      sent_comment: comment
+    }
+
+    return this.http.post(`${this.url}/workshop/uncomment`, data);
+
+  }
 
   update(_name: string, name: string, image: string, description: string, date: Date, location: string, likes: string[]) {
     const data = {
@@ -66,16 +90,16 @@ export class WorkshopService {
 
   like(name: string, username: string) {
     let data = {
-      name:name,
-      username:username
+      name: name,
+      username: username
     }
     return this.http.post(`${this.url}/workshop/like`, data);;
   }
 
   unlike(name: string, username: string) {
     let data = {
-      name:name,
-      username:username
+      name: name,
+      username: username
     }
     return this.http.post(`${this.url}/workshop/unlike`, data);;
   }
