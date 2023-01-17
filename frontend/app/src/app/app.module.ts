@@ -26,6 +26,7 @@ import { MyWorkshopsComponent } from './my-workshops/my-workshops.component';
 import { FlipModule } from 'ngx-flip';
 import { MessageComponent } from './message/message.component';
 import { DetailsComponent } from './details/details.component';
+import { GalleryModule } from  'ng-gallery';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { DetailsComponent } from './details/details.component';
     NgbModule,
     BrowserAnimationsModule,
     MaterialModule,
-    FlipModule
+    FlipModule,
+    GalleryModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -30,6 +30,7 @@
     "express-async-errors": "^3.1.1",
     "handlebars": "^4.7.7",
     "jsonwebtoken": "^9.0.0",
+    "ng-gallery": "^8.0.1",
     "ngx-flip": "^9.0.0",
     "ngx-mat-timepicker": "^15.1.2",
     "nodemailer": "^6.8.0",
