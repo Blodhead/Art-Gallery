@@ -9,6 +9,7 @@ export class WorkshopDetails {
     status: string;
     comments: Array<Comment>;
     participants: Array<Subscription>;
+    gallery: Array<string>
 }
 export class Subscription {
     mail: string;
