@@ -76,8 +76,8 @@
   ],
   "status": "approved"
 },{
-  "name": "Graficari anonimnoaa",
-  "image": "../../assets/images/t2.jpg",
+  "name": "Grafiti konza",
+  "image": "../../assets/images/t4.jpg",
   "date": {
     "$date": {
       "$numberLong": "1674081600000"
@@ -108,7 +108,11 @@
   "free_spaces": 5,
   "long_desc": "assssssssssssssssssssssssssssssdddddddddddqwe",
   "gallery": [
-    "../../assets/images/t2.jpg"
+    "../../assets/images/g1.jpg",
+    "../../assets/images/g2.jpg",
+    "../../assets/images/g3.jpg",
+    "../../assets/images/g4.jpg",
+    "../../assets/images/g5.jpg"
   ],
   "status": "approved"
 },{
@@ -156,8 +160,8 @@
   "likes": [
     "kokoko",
     "mika",
-    "bika",
-    "mica"
+    "mica",
+    "bika"
   ],
   "participants": [
     {
@@ -175,6 +179,12 @@
         }
       },
       "message": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    },
+    {
+      "username": "mica",
+      "image": "../../assets/images/pic.jpg",
+      "date": "2023-01-17T09:29:47.673Z",
+      "message": "Ovo je bilo gubljenje vremena"
     }
   ],
   "free_spaces": 5,
@@ -271,24 +281,6 @@
     {
       "username": "bika",
       "image": "../../assets/images/img_avatar2.png",
-      "date": "2023-01-17T08:03:04.665Z",
-      "message": "Ja sam prezadovoljna, divno osoblje, a i hrana nije losa"
-    },
-    {
-      "username": "bika",
-      "image": "../../assets/images/img_avatar2.png",
-      "date": "2023-01-17T08:06:34.968Z",
-      "message": "Lorem Ipsum has been the industry's standa"
-    },
-    {
-      "username": "bika",
-      "image": "../../assets/images/img_avatar2.png",
-      "date": "2023-01-17T08:07:00.215Z",
-      "message": "Lorem Ipsum has been the industry's standa"
-    },
-    {
-      "username": "bika",
-      "image": "../../assets/images/img_avatar2.png",
       "date": "2023-01-17T08:08:05.432Z",
       "message": "Bilo je super, mada ima puno pacijenata"
     },
@@ -299,28 +291,18 @@
       "message": "Lorem Ipsum has been the industry's standar"
     },
     {
-      "username": "bika",
-      "image": "../../assets/images/img_avatar2.png",
-      "date": "2023-01-17T08:10:22.608Z",
-      "message": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
-    },
-    {
       "username": "mica",
       "image": "../../assets/images/pic.jpg",
-      "date": "2023-01-17T08:11:28.401Z",
-      "message": "Ne mogu da verujem sta ova naprica... Bas mi je bilo bezveze, samo sedela dok oni pricaju..."
-    },
-    {
-      "username": "mica",
-      "image": "../../assets/images/pic.jpg",
-      "date": "2023-01-17T08:18:25.544Z",
-      "message": "Smorcinaaaaaaaaaaaaaaa"
+      "date": "2023-01-17T09:57:14.672Z",
+      "message": "Smaracoiooopajsoasdj"
     }
   ],
   "free_spaces": 5,
   "long_desc": "assssssssssssssssssssssssssssssdddddddddddqwe",
   "gallery": [
-    "../../assets/images/t2.jpg"
+    "../../assets/images/t2.jpg",
+    "../../assets/images/g1.jpg",
+    "../../assets/images/g2.jpg"
   ],
   "status": "approved"
 },{
@@ -381,8 +363,8 @@
   "likes": [
     "kokoko",
     "mika",
-    "bika",
-    "mica"
+    "mica",
+    "bika"
   ],
   "participants": [
     {
@@ -400,6 +382,12 @@
         }
       },
       "message": "Bilo je super!"
+    },
+    {
+      "username": "mica",
+      "image": "../../assets/images/pic.jpg",
+      "date": "2023-01-17T09:29:47.673Z",
+      "message": "Ovo je bilo gubljenje vremena"
     }
   ],
   "free_spaces": 5,
