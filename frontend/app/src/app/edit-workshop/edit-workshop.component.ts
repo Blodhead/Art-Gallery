@@ -78,7 +78,7 @@ export class EditWorkshopComponent implements OnInit {
 
     if (this.location == null) {
       this.Error_message += "Workshop location missing\n"
-    }else{
+    } else {
       this.map_service.getLongLat(this.location).subscribe((address: any) => {
         if (address.features[0] == null) { this.Error_message += "Location doesn't exist!"; return; }
       });
@@ -140,10 +140,21 @@ export class EditWorkshopComponent implements OnInit {
     if (this.sent_workshop == null) { alert("There is nothing to delete!"); return; }
 
     //alert all subscribed users
+    let mailing_list: string[] = [];
+    for (let i = 0; i < this.sent_workshop.participants.length; i++) {
+      mailing_list.push(this.sent_workshop.participants[i].mail);
+    }
+
+    this.service.informAll(mailing_list, this.sent_workshop.name).subscribe((statement) => {
+      if (statement != null) this.cancel();
+      else alert("Error while deleting");
+    });
+
 
     this.service.delete(this.sent_workshop).subscribe((statement) => {
       if (statement != null) this.cancel();
       else alert("Error while deleting");
+      this.cancel();
     });
 
   }

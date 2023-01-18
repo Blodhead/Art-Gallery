@@ -47,6 +47,7 @@ export class MyWorkshopsComponent implements OnInit {
           if (this.allWorkshops[j].participants != null) {
             for (let k = 0; k < this.allWorkshops[j].participants.length; k++)
               if ((this.allWorkshops[j].participants[k].mail == this.current_user.mail) && this.allWorkshops[j].date > new Date()) {
+                if(this.allWorkshops[j].participants[k].status != "notify")
                 this.myWorkshops.push(this.allWorkshops[j]);
                 break;
               }

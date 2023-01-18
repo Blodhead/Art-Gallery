@@ -25,8 +25,12 @@
                                 class="btn btn-danger btn-sm" disabled>{{likes}} ❤</button>
                         </td>
                         <td *ngIf="type=='participant'|| current_user!=null">
-                            <button *ngIf="type=='participant' && isSubscribed()==false" class="btn btn-success btn-sm"
-                                (click)="sub()">Subscribe</button>
+                            <button *ngIf="type=='participant' && isSubscribed()==false && hasFree()==true"
+                                class="btn btn-success btn-sm" (click)="sub()">Subscribe</button>
+                        </td>
+                        <td *ngIf="type=='participant'|| current_user!=null">
+                            <button *ngIf="type=='participant' && isSubscribed()==false && hasFree()==false"
+                                class="btn btn-warning btn-sm" (click)="notify()">Notify&nbsp;me</button>
                         </td>
                         <td *ngIf="type=='participant'|| current_user!=null">
                             <button *ngIf="type=='participant' && isTime()==true && current_path!=''"
@@ -91,8 +95,12 @@
                                 class="btn btn-danger btn-sm" disabled>{{likes}} ❤</button>
                         </td>
                         <td *ngIf="type=='participant'|| current_user!=null">
-                            <button *ngIf="type=='participant' && isSubscribed()==false" class="btn btn-success btn-sm"
-                                (click)="sub()">Subscribe</button>
+                            <button *ngIf="type=='participant' && isSubscribed()==false && hasFree()==true"
+                                class="btn btn-success btn-sm" (click)="sub()">Subscribe</button>
+                        </td>
+                        <td *ngIf="type=='participant'|| current_user!=null">
+                            <button *ngIf="type=='participant' && isSubscribed()==false && hasFree()==false"
+                                class="btn btn-warning btn-sm" (click)="notify()">Notify&nbsp;me</button>
                         </td>
                         <td *ngIf="type=='participant'|| current_user!=null">
                             <button *ngIf="type=='participant' && isTime()==true" class="btn btn-success btn-sm"

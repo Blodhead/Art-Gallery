@@ -33,11 +33,52 @@ class WorkshopController {
                     res.json(news);
             });
         };
+        this.informAll = (req, res) => {
+            var nodemailer = require('nodemailer');
+            let mailing_list = req.body.participants;
+            let workshop_name = req.body.workshop_name;
+            console.log(req.body);
+            var transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'cirkovic32.mi@gmail.com',
+                    pass: 'lriyeiguroelkawg'
+                },
+                tls: {
+                    rejectUnauthorized: false
+                }
+            });
+            var mailOptions = {
+                from: 'cirkovic32.mi@gmail.com',
+                to: mailing_list,
+                subject: '@NotifyMe @no-reply',
+                text: 'Hello from Art Gallery, \n\nWe are sorry to inform you that ' + workshop_name + ", a workshop you wanted to attend has been canceled. Sorry for the inconvinience and we hope we see each other on some other workshop!"
+            };
+            mailing_list.forEach(function (to, i, array) {
+                mailOptions.to = to;
+                transporter.sendMail(mailOptions, function (err) {
+                    if (err) {
+                        console.log('Sending to ' + to + ' failed: ' + err);
+                        return;
+                    }
+                    else {
+                        console.log('Sent to ' + to);
+                    }
+                    if (err) {
+                        console.log(err);
+                        res.json("NIJE POSLATO");
+                    }
+                    else {
+                        res.json("POSLATO");
+                    }
+                });
+            });
+        };
         this.sub = (req, res) => {
             let workshop = req.body.myWorkshopDetail;
             let subscription = {
                 mail: req.body.mail,
-                status: "waiting"
+                status: req.body.status
             };
             workshop_1.default.updateOne({ "name": workshop }, { $push: { "participants": subscription } }, (err, _workshop) => {
                 if (err)
@@ -54,7 +95,7 @@ class WorkshopController {
             };
             let subscription2 = {
                 mail: req.body.mail,
-                status: "waiting"
+                status: "notify"
             };
             workshop_1.default.updateOne({ "name": workshop }, { $pull: { "participants": subscription1, subscription2 } }, (err, _workshop) => {
                 if (err)
@@ -135,21 +176,46 @@ class WorkshopController {
             workshop_1.default.collection.deleteOne({ "name": _name });
             res.json(req.body);
         };
-        /*addComment = (req: express.Request, res: express.Response) => {
-            let Myid = req.body.Myid;
-            let comm = req.body.comm;
-    
-            News.findOne({ "Myid": Myid }, (err, news) => {
-                if (err) console.log(err);
-                else {
-                    let comment = {
-                        text: comm
-                    }
-                    ews.collection.updateOne({ "Myid": Myid }, { $push: { "commnets": comment } });
-                    res.json({"message":"OK"});
+        this.sendMail = (req, res) => {
+            var nodemailer = require('nodemailer');
+            let mailing_list = req.body.mailing_list;
+            let workshop_name = req.body.workshop_name;
+            var transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'cirkovic32.mi@gmail.com',
+                    pass: 'lriyeiguroelkawg'
+                },
+                tls: {
+                    rejectUnauthorized: false
                 }
-            })
-        }*/
+            });
+            var mailOptions = {
+                from: 'cirkovic32.mi@gmail.com',
+                to: mailing_list,
+                subject: '@NotifyMe @no-reply',
+                text: 'Hello from Art Gallery, \n\nWe just wanted to let you know that there is a free space for ' + workshop_name + ",so hurry up and claim it!"
+            };
+            mailing_list.forEach(function (to, i, array) {
+                mailOptions.to = to;
+                transporter.sendMail(mailOptions, function (err) {
+                    if (err) {
+                        console.log('Sending to ' + to + ' failed: ' + err);
+                        return;
+                    }
+                    else {
+                        console.log('Sent to ' + to);
+                    }
+                    if (err) {
+                        console.log(err);
+                        res.json("NIJE POSLATO");
+                    }
+                    else {
+                        res.json("POSLATO");
+                    }
+                });
+            });
+        };
     }
 }
 exports.WorkshopController = WorkshopController;

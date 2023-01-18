@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import * as e from 'cors';
 import { User } from '../models/user';
 import { WorkshopDetails, Comment } from '../models/workshop-details';
+import { UserService } from '../user.service';
 import { WorkshopService } from '../workshop.service';
 
 
@@ -43,6 +44,19 @@ export class WorkshopDetailsComponent implements OnInit {
 
   }
 
+  hasFree() {
+    let temp_counter = 0;
+    for (let i = 0; i < this.myWorkshopDetail.participants.length; i++) {
+
+      if (this.myWorkshopDetail.participants[i].mail == this.current_user.mail) return true;
+
+      if (this.myWorkshopDetail.participants[i].status == "notify" || this.myWorkshopDetail.participants[i].status == "waiting")
+        temp_counter++;
+    }
+    if (this.myWorkshopDetail.free_spaces > temp_counter)
+      return true;
+    else return false;
+  }
 
   Toggle(): boolean {
 
@@ -67,17 +81,41 @@ export class WorkshopDetailsComponent implements OnInit {
   }
 
   sub() {
-    this.workshop_Service.sub(this.current_user.mail, this.myWorkshopDetail.name).subscribe((workshop) => {
+    this.workshop_Service.sub(this.current_user.mail, this.myWorkshopDetail.name, "waiting").subscribe((workshop) => {
       if (workshop) { alert("Success"); location.reload(); }
       else alert("fail");
     });
   }
 
   unsub() {
+
+    let statement: boolean = false;
+    let notify_mail_list: string[] = [];
+
+    for (let i = 0; i < this.myWorkshopDetail.participants.length; i++) {
+      if (this.myWorkshopDetail.participants[i].status == "notify")
+        notify_mail_list.push(this.myWorkshopDetail.participants[i].mail);
+    }
+
+    if (notify_mail_list.length != 0) { statement = true }
+
     this.workshop_Service.unsub(this.current_user.mail, this.myWorkshopDetail.name).subscribe((workshop) => {
-      if (workshop) { alert("Success"); location.reload(); }
+      if (workshop) { alert("Success"); }
       else alert("fail");
+      if(statement == false) this.rr();
     });
+
+
+    this.workshop_Service.sendMail(notify_mail_list, this.myWorkshopDetail.name).subscribe((mail: string) => {
+      if (mail == "NIJE POSLATO") alert("Email NOT sent!");
+      else alert("ERROR on mail!");
+
+      this.rr();
+    });
+  }
+
+  rr() {
+    location.reload();
   }
 
   isSubscribed(): boolean {
@@ -143,8 +181,15 @@ export class WorkshopDetailsComponent implements OnInit {
   }
 
   more(myWorkshopDetail) {
-    localStorage.setItem("detail_sent",JSON.stringify(myWorkshopDetail));
+    localStorage.setItem("detail_sent", JSON.stringify(myWorkshopDetail));
     this._router.navigate(["details"]);
+  }
+
+  notify() {
+    this.workshop_Service.sub(this.current_user.mail, this.myWorkshopDetail.name, "notify").subscribe((workshop) => {
+      if (workshop) { alert("Success"); location.reload(); }
+      else alert("fail");
+    });
   }
 
 }

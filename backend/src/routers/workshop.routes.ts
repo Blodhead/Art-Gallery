@@ -43,4 +43,11 @@ workshopRouter.route("/uncomment").post(
     (req,res)=>new WorkshopController().uncomment(req,res)
 )
 
+workshopRouter.route("/sendMail").post(
+    (req,res)=>new WorkshopController().sendMail(req,res)
+)
+workshopRouter.route("/informAll").post(
+    (req,res)=>new WorkshopController().informAll(req,res)
+)
+
 export default workshopRouter;

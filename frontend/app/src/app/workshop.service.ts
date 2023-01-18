@@ -20,7 +20,15 @@ export class WorkshopService {
 
   }
 
-  uncomment(name: string, comment:Comment) {
+  informAll(participants, workshop_name) {
+    let data = {
+      participants: participants,
+      workshop_name: workshop_name
+    }
+    return this.http.post(`${this.url}/workshop/informAll`, data);
+  }
+
+  uncomment(name: string, comment: Comment) {
 
     let data = {
       sent_workshop: name,
@@ -70,10 +78,11 @@ export class WorkshopService {
     return this.http.get(`${this.url}/workshop/getAllWorkshops`);
   }
 
-  sub(mail, myWorkshopDetail) {
+  sub(mail, myWorkshopDetail, arg) {
     let data = {
       mail: mail,
-      myWorkshopDetail: myWorkshopDetail
+      myWorkshopDetail: myWorkshopDetail,
+      status: arg
     }
 
     return this.http.post(`${this.url}/workshop/sub`, data);
@@ -101,7 +110,17 @@ export class WorkshopService {
       name: name,
       username: username
     }
-    return this.http.post(`${this.url}/workshop/unlike`, data);;
+    return this.http.post(`${this.url}/workshop/unlike`, data);
+  }
+
+  sendMail(mailing_list, workshop_name) {
+
+    let data = {
+      mailing_list: mailing_list,
+      workshop_name: workshop_name
+    }
+
+    return this.http.post(`${this.url}/workshop/sendMail`, data);
   }
 
 }

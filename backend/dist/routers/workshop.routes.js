@@ -22,5 +22,7 @@ workshopRouter.route("/like").post((req, res) => new workshop_controller_1.Works
 workshopRouter.route("/unlike").post((req, res) => new workshop_controller_1.WorkshopController().unlike(req, res));
 workshopRouter.route("/comment").post((req, res) => new workshop_controller_1.WorkshopController().comment(req, res));
 workshopRouter.route("/uncomment").post((req, res) => new workshop_controller_1.WorkshopController().uncomment(req, res));
+workshopRouter.route("/sendMail").post((req, res) => new workshop_controller_1.WorkshopController().sendMail(req, res));
+workshopRouter.route("/informAll").post((req, res) => new workshop_controller_1.WorkshopController().informAll(req, res));
 exports.default = workshopRouter;
 //# sourceMappingURL=workshop.routes.js.map

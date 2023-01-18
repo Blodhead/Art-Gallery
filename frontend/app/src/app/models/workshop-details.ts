@@ -11,6 +11,7 @@ export class WorkshopDetails {
     participants: Array<Subscription>;
     gallery: Array<string>;
     long_desc:string;
+    free_spaces:number;
 }
 export class Subscription {
     mail: string;
