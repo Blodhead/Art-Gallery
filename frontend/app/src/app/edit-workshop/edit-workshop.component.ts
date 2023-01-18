@@ -6,6 +6,7 @@ import { WorkshopService } from '../workshop.service';
 import * as _ from 'lodash';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { HttpClient } from "@angular/common/http";
+import { MapService } from '../map.service';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { HttpClient } from "@angular/common/http";
 })
 export class EditWorkshopComponent implements OnInit {
 
-  constructor(private service: WorkshopService, private _router: Router, private sanitizer: DomSanitizer, private httpClient: HttpClient) {}
+  constructor(private service: WorkshopService, private _router: Router, private sanitizer: DomSanitizer, private httpClient: HttpClient, private map_service: MapService) { }
 
   current_user: User;
   sent_workshop: WorkshopDetails;
@@ -42,6 +43,7 @@ export class EditWorkshopComponent implements OnInit {
       this.name = this.sent_workshop.name;
       this.date = new Date(this.sent_workshop.date);
       this.image = this.sent_workshop.image;
+      this.time = this.date.getHours() + ":" + this.date.getMinutes();
       this.location = this.sent_workshop.location;
       this.description = this.sent_workshop.description;
     }
@@ -65,6 +67,7 @@ export class EditWorkshopComponent implements OnInit {
   }
   mydate: string;
 
+  search() { }
 
   check() {
     this.Error_message = "Input error:\n";
@@ -75,6 +78,10 @@ export class EditWorkshopComponent implements OnInit {
 
     if (this.location == null) {
       this.Error_message += "Workshop location missing\n"
+    }else{
+      this.map_service.getLongLat(this.location).subscribe((address: any) => {
+        if (address.features[0] == null) { this.Error_message += "Location doesn't exist!"; return; }
+      });
     }
 
     if (this.image == null) {
@@ -92,6 +99,7 @@ export class EditWorkshopComponent implements OnInit {
     if (this.description == null) {
       this.Error_message += "Workshop description missing\n"
     }
+
   }
 
   save() {
@@ -103,9 +111,9 @@ export class EditWorkshopComponent implements OnInit {
       return;
     }
     let arr = this.time.split(":");
-    this.mydate = this.date.getFullYear()+"-"+(this.date.getMonth() + 1) + "-" + this.date.getDate();
+    this.mydate = this.date.getFullYear() + "-" + (this.date.getMonth() + 1) + "-" + this.date.getDate();
     let temp_date = new Date(this.mydate);
-    temp_date.setHours(Number(arr[0]),Number(arr[1]),0);
+    temp_date.setHours(Number(arr[0]), Number(arr[1]), 0);
     if (this.sent_workshop == null)
       this.service.save(this.name, this.image, this.description, temp_date, this.location, this.likes).subscribe((workshop) => {
         if (workshop != null) {

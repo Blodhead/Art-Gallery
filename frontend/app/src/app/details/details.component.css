@@ -1,17 +1,35 @@
-.row{
+.row {
     margin-top: 20px !important;
     margin-bottom: 40px !important;
 }
 
-.border{
+.border {
     border: solid !important;
-    border-color: rgb(19,98,7) !important;
+    border-color: rgb(19, 98, 7) !important;
 }
-.container{
+
+.container {
     background-color: antiquewhite;
-        border-radius: 5px;
+    border-radius: 5px;
 }
 
+.mapa {
+    width: fit-content;
+    padding: 0px; 
+    margin: 0px;
+}
 
+h6{
+    width: fit-content !important;
+    padding: 0px;
+    margin: 0px;
+}
 
+hr{
+    padding: 0px;
+    margin: 0px;
+}
 
+.pointer{
+ cursor: pointer !important;   
+}

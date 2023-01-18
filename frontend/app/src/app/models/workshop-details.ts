@@ -9,7 +9,8 @@ export class WorkshopDetails {
     status: string;
     comments: Array<Comment>;
     participants: Array<Subscription>;
-    gallery: Array<string>
+    gallery: Array<string>;
+    long_desc:string;
 }
 export class Subscription {
     mail: string;

@@ -1,29 +1,64 @@
 <div class="wrapper">
     <gallery [items]="images" thumbPosition="left"></gallery>
-    <div style="display: flex; justify-content: center;">
-        <h2>{{myWorkshop.name}}</h2>
-    </div>
-
     <div class="container-fluid">
 
         <div class="row">
 
             <div class="col-3">&nbsp;</div>
-            <div class="col-6 border border-success rounded">
+            <div class="col-6 container border border-success rounded">
 
                 <div class="row">
-                    <input type="text" [(ngModel)]="address">
-                    <button (click)="search()">Search!</button>
+                    <div class="col-xl-7 col-lg-12">
+                        <table style="width: -webkit-fill-available;">
+                            <tr>
+                                <label for="address">
+                                    <b>Name:</b> {{myWorkshop.name}}
+                                </label>
+                                <hr>
+                            </tr>
+                            <tr style="width: -webkit-fill-available;">
+                                <label name="address" type="text" style="width: -webkit-fill-available;">
+                                    <b>Location:</b> {{myWorkshop.location}}
+                                </label>
+                                <hr>
+                            </tr>
+                            <tr style="width: -webkit-fill-available;">
+                                <label name="address" type="text" style="width: -webkit-fill-available;">
+                                    <b>Date&Time:</b> {{myWorkshop.date | date:'EEEE d. MMMM y. - HH:mm'}}
+                                </label>
+                                <hr>
+                            </tr>
+                            <tr>
+                                <b>Organizer:</b> {{myWorkshop.owner}} <button type="button" class="btn btn-sm btn-warning pointer"
+                                    (click)="contact()">Contact</button>
+                            </tr>
+                            <tr>
+                                <b>Short desciption:</b><br>
+                                {{myWorkshop.description}}
+                                <hr>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-12">
+                        <div class="mapa border border-success rounded">
+
+                            <div id="map" class="map" style="width: 300px; height: 300px;"></div>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-1">&nbsp;</div>
                 </div>
 
+                <div class="row">
+                    <div class="col-12">
+                        <b>Long desciption:</b><br>
+                        {{long_desc}}
+                    </div>
 
+                </div>
             </div>
-            <div class="col-3 border border-success rounded" style="width: fit-content; padding: 0px; margin: 0px;">
-
-                <div id="map" class="map"></div>
-
-            </div>
-
+            <div class="col-3">&nbsp;</div>
         </div>
     </div>
 

@@ -14,12 +14,13 @@ declare var ol: any;
 export class DetailsComponent implements OnInit {
 
   constructor(private map_service: MapService) { }
-  latitude: number = 18.5204;
-  longitude: number = 73.8567;
+  latitude: number = 20.4762358;
+  longitude: number = 44.8057154;
   ngOnInit(): void {
     this.myWorkshop = JSON.parse(localStorage.getItem("detail_sent"));
+    this.bgimage = this.myWorkshop.image;
     this.images = this.getImages();
-
+    this.long_desc = this.myWorkshop.long_desc;
     this.map = new ol.Map({
       target: 'map',
       layers: [
@@ -29,17 +30,17 @@ export class DetailsComponent implements OnInit {
       ],
       view: new ol.View({
         center: ol.proj.fromLonLat([this.latitude, this.longitude]),
-        zoom: 8
+        zoom: 17
       })
     });
-
+    this.search();
   }
 
   myWorkshop: WorkshopDetails = null;
   images: GalleryItem[] = [];
   map: any;
-
-
+  long_desc:String;
+  bgimage:string;
 
 
   getImages(): GalleryItem[] {
@@ -52,13 +53,15 @@ export class DetailsComponent implements OnInit {
     }
     return temp_gallery;
   }
-  address: string;
+  err_message: string = '';
   search() {
-    this.map_service.getLongLat(this.address).subscribe((address:any) => {
+    this.map_service.getLongLat(this.myWorkshop.location).subscribe((address: any) => {
 
+      if (address.features[0] == null) { this.err_message = "Location doesn't exist!"; return; }
+      this.err_message = '';
       this.latitude = address.features[0].geometry.coordinates[1];
       this.longitude = address.features[0].geometry.coordinates[0];
-   
+
       this.setCenter();
     });
   }
@@ -68,5 +71,8 @@ export class DetailsComponent implements OnInit {
     view.setCenter(ol.proj.fromLonLat([this.longitude, this.latitude]));
     view.setZoom(17);
   }
+
+
+  contact(){}
 
 }

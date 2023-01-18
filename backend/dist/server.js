@@ -4,17 +4,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express")); //koristimo express aplikaciju
+const cors_1 = __importDefault(require("cors")); //mogucnost deljenja podataka izmedju dva "servera" tj. domena npr. 4000 i 4200
 const body_parser_1 = __importDefault(require("body-parser")); //da moze da se kupe i ubacuj podaci na sajt
 const mongoose_1 = __importDefault(require("mongoose")); //radi konektovanja na mongo bazu
 const user_routes_1 = __importDefault(require("./routers/user.routes"));
 const workshop_routes_1 = __importDefault(require("./routers/workshop.routes"));
 const app = (0, express_1.default)(); //nasoj aplikaciji dodeljujemo da je exxpress aplikacija
 app.use(function (req, res, next) {
-    console.log("WTF");
-    res.header("Access-Control-Allow-Origin", "https://nominatim.openstreetmap.org");
+    res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
+app.use((0, cors_1.default)()); //uvezivanje fron i back end-a
 app.use(body_parser_1.default.json()); //sve sto se podaci kojima se barata su json dormata
 mongoose_1.default.connect("mongodb://127.0.0.1/PIAMEAN"); //dodeljivanje baze mongoos-u
 const connection = mongoose_1.default.connection; //uvezivanje sa bazom
