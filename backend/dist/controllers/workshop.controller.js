@@ -16,7 +16,10 @@ class WorkshopController {
                 date: req.body.date,
                 location: req.body.location,
                 likes: req.body.likes,
-                gallery: req.body.gallery
+                gallery: req.body.gallery,
+                long_desc: req.body.long_desc,
+                owner: req.body.owner,
+                free_spaces: req.body.free_spaces
             });
             workshop_1.default.updateOne({ "name": original_name }, {
                 $set: {
@@ -26,7 +29,11 @@ class WorkshopController {
                     "date": workshop.date,
                     "location": workshop.location,
                     "likes": workshop.likes,
-                    "gallery": workshop.gallery
+                    "gallery": workshop.gallery,
+                    "status": "waiting",
+                    "long_desc": workshop.long_desc,
+                    "owner": workshop.owner,
+                    "free_spaces": workshop.free_spaces
                 }
             }, (err, news) => {
                 if (err)
@@ -166,7 +173,8 @@ class WorkshopController {
                 description: req.body.description,
                 date: req.body.date,
                 location: req.body.location,
-                gallery: req.body.gallery
+                gallery: req.body.gallery,
+                free_spaces: req.body.free_spaces
             });
             workshop.save().then(workshop => {
                 res.status(200).json({ "message": "workshop added" });

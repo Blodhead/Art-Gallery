@@ -35,6 +35,8 @@ export class EditWorkshopComponent implements OnInit {
   time: string;
   likes: string[] = [];
   gallery: string[] = [];
+  long_desc: string = "";
+  free_spaces: number = 0;
 
   ngOnInit(): void {
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
@@ -47,6 +49,7 @@ export class EditWorkshopComponent implements OnInit {
       this.time = this.date.getHours() + ":" + this.date.getMinutes();
       this.location = this.sent_workshop.location;
       this.description = this.sent_workshop.description;
+      this.free_spaces = this.sent_workshop.free_spaces;
     }
   }
 
@@ -56,7 +59,7 @@ export class EditWorkshopComponent implements OnInit {
 
     const allowed_types = ['image/png', 'image/jpeg'];
 
-    for(let i = 0; i < event.target.files.length; i++){
+    for (let i = 0; i < event.target.files.length; i++) {
 
       if (!_.includes(allowed_types, event.target.files[i].type)) {
         this.imageError = 'Only Images are allowed ( JPG | PNG )';
@@ -127,7 +130,7 @@ export class EditWorkshopComponent implements OnInit {
     let temp_date = new Date(this.mydate);
     temp_date.setHours(Number(arr[0]), Number(arr[1]), 0);
     if (this.sent_workshop == null)
-      this.service.save(this.name, this.image, this.description, temp_date, this.location, this.likes,this.gallery).subscribe((workshop) => {
+      this.service.save(this.name, this.image, this.description, temp_date, this.location, this.likes, this.gallery, this.long_desc, this.current_user.username,this.free_spaces).subscribe((workshop) => {
         if (workshop != null) {
           alert("Register acknowledged");
           this.cancel();
@@ -135,7 +138,7 @@ export class EditWorkshopComponent implements OnInit {
         else alert("ERROR");
       });
     else if (this.sent_workshop != null) {
-      this.service.update(this.sent_workshop.name, this.name, this.image, this.description, temp_date, this.location, this.likes,this.sent_workshop.gallery).subscribe((workshop) => {
+      this.service.update(this.sent_workshop.name, this.name, this.image, this.description, temp_date, this.location, this.likes, this.sent_workshop.gallery, this.long_desc, this.current_user.username,this.free_spaces).subscribe((workshop) => {
         if (workshop != null) {
           alert("Changes made");
           this.cancel();

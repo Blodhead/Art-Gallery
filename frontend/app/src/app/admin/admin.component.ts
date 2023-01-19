@@ -22,10 +22,10 @@ export class AdminComponent implements OnInit {
   organisers: User[] = [];
   participants: User[] = [];
   requests: User[] = [];
-  workshops: WorkshopDetails[];
+  allWorkshops: WorkshopDetails[] = [];
   index: number[] = [1];
-  current_user: User;
-  reload: string;
+  current_user: User = null;
+  reload: string = "";
 
   ngOnInit(): void {
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
@@ -66,14 +66,16 @@ export class AdminComponent implements OnInit {
     this.workshop_service.getAllWorkshops().subscribe((workshops: WorkshopDetails[]) => {
       if (!workshops) alert("Error");
       else {
-        this.workshops = workshops;
-        for (var i = 0; i < this.workshops.length; i++) {
-          this.index[i] = i;
 
+        for (let j = 0; j < workshops.length; j++) {
+          workshops[j].date = new Date(workshops[j].date);
+          if ((workshops[j].date.getTime() - (new Date()).getTime()) > 0)
+            if (workshops[j].status == "waiting")
+              this.allWorkshops.push(workshops[j]);
         }
 
-        for (let j = 0; j < this.workshops.length; j++) {
-          this.workshops[j].date = new Date(this.workshops[j].date);
+        for (var i = 0; i < this.allWorkshops.length; i++) {
+          this.index[i] = i;
         }
       }
     });

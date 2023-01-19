@@ -113,9 +113,18 @@
 
       <div class="col-12 shadow context" style="background-color: #136207;" *ngIf="getTab()=='Workshops'">
 
-        <div class="card container-fluid shadow" *ngFor="let workshop of workshops; let i = index">
+        <div class="card container-fluid shadow" style="border: solid !important; border-color: rgb(19,98,7) !important;" *ngFor="let workshop of allWorkshops; let i = index">
 
           <app-workshop-details [myWorkshopDetail]="workshop" [myIndex]="i"></app-workshop-details>
+
+          <div class="row" style="text-align: center; margin-top: -30px; margin-bottom: 10px;">
+            <div class="col-6">
+              <button class="btn btn-success">Approve</button>
+            </div>
+            <div class="col-6">
+              <button class="btn btn-warning">Reject</button>
+            </div>
+          </div>
 
         </div>
 

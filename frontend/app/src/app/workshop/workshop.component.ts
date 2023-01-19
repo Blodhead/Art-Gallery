@@ -48,12 +48,13 @@ export class WorkshopComponent implements OnInit {
         for (let j = 0; j < temp_arr.length; j++) {
           temp_arr[j].date = new Date(temp_arr[j].date);
           if (this.current_path == "" && (temp_arr[j].date.getTime() - (new Date()).getTime()) > 0)
-            this.allWorkshops[j] = temp_arr[j];
+            if (workshops[j].status == 'approved')
+              this.allWorkshops[j] = temp_arr[j];
         }
 
         this.allWorkshops = this.allWorkshops.filter(elements => {
           return (elements != null && elements !== undefined);
-         });
+        });
         this.filtered_workshops = this.allWorkshops;
         this.getTop5();
 
