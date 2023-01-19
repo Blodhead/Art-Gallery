@@ -12,9 +12,9 @@ import { WorkshopService } from '../workshop.service';
 export class UserOrganizerComponent implements OnInit {
   constructor(private workshop_service: WorkshopService, private sharedService: SharedService) { }
 
-  current_user: User;
-  reload: string;
-  allWorkshops: WorkshopDetails[];
+  current_user: User = null;
+  reload: string = "";
+  allWorkshops: WorkshopDetails[] = [];
 
   ngOnInit(): void {
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
@@ -30,10 +30,13 @@ export class UserOrganizerComponent implements OnInit {
     this.workshop_service.getAllWorkshops().subscribe((workshops: WorkshopDetails[]) => {
       if (!workshops) alert("Error");
       else {
-        this.allWorkshops = workshops;
 
-        for (let j = 0; j < this.allWorkshops.length; j++) {
-          this.allWorkshops[j].date = new Date(this.allWorkshops[j].date);
+        for (let j = 0; j < workshops.length; j++) {
+          if (workshops[j].owner == this.current_user.username) {
+            workshops[j].date = new Date(workshops[j].date);
+            this.allWorkshops.push(workshops[j]);
+          }
+
         }
       }
     });

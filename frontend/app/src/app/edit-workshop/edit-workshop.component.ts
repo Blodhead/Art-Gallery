@@ -34,6 +34,7 @@ export class EditWorkshopComponent implements OnInit {
   description: string;
   time: string;
   likes: string[] = [];
+  gallery: string[] = [];
 
   ngOnInit(): void {
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
@@ -50,15 +51,26 @@ export class EditWorkshopComponent implements OnInit {
   }
 
   onFileSelected(event) {
+
+    this.sent_workshop.gallery = [];
+
     const allowed_types = ['image/png', 'image/jpeg'];
-    if (!_.includes(allowed_types, event.target.files[0].type)) {
-      this.imageError = 'Only Images are allowed ( JPG | PNG )';
-      alert(this.imageError);
-      return;
+
+    for(let i = 0; i < event.target.files.length; i++){
+
+      if (!_.includes(allowed_types, event.target.files[i].type)) {
+        this.imageError = 'Only Images are allowed ( JPG | PNG )';
+        alert(this.imageError);
+        return;
+      }
+      const reader = new FileReader();
+      reader.readAsDataURL(event.target.files[i]);
+      this.image = "../../assets/images/" + event.target.files[0].name;
+      this.gallery.push("../../assets/images/" + event.target.files[i].name);
     }
-    const reader = new FileReader();
-    reader.readAsDataURL(event.target.files[0]);
-    this.image = "../../assets/images/" + event.target.files[0].name;
+
+    this.sent_workshop.gallery = this.gallery;
+
   }
 
   cancel() {
@@ -115,7 +127,7 @@ export class EditWorkshopComponent implements OnInit {
     let temp_date = new Date(this.mydate);
     temp_date.setHours(Number(arr[0]), Number(arr[1]), 0);
     if (this.sent_workshop == null)
-      this.service.save(this.name, this.image, this.description, temp_date, this.location, this.likes).subscribe((workshop) => {
+      this.service.save(this.name, this.image, this.description, temp_date, this.location, this.likes,this.gallery).subscribe((workshop) => {
         if (workshop != null) {
           alert("Register acknowledged");
           this.cancel();
@@ -123,7 +135,7 @@ export class EditWorkshopComponent implements OnInit {
         else alert("ERROR");
       });
     else if (this.sent_workshop != null) {
-      this.service.update(this.sent_workshop.name, this.name, this.image, this.description, temp_date, this.location, this.likes).subscribe((workshop) => {
+      this.service.update(this.sent_workshop.name, this.name, this.image, this.description, temp_date, this.location, this.likes,this.sent_workshop.gallery).subscribe((workshop) => {
         if (workshop != null) {
           alert("Changes made");
           this.cancel();
@@ -177,25 +189,13 @@ export class EditWorkshopComponent implements OnInit {
     temp.description = this.description;
     temp.image = this.image;
     temp.location = this.location;
+    temp.gallery = this.gallery;
 
     var theJSON = JSON.stringify([temp]);
     this.uri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));
     this.downloadJsonHref = this.uri;
 
   }
-
-  /*onFileChanged(event) {
-
-    const allowed_types = ['script/json'];
-    if (!_.includes(allowed_types, event.target.files[0].type)) {
-      this.jsonerror = 'Only JSON scripts are allowed ( JSON )';
-      alert(this.jsonerror);
-      return;
-    }
-    const reader = new FileReader();
-    reader.readAsDataURL(event.target.files[0]);
-    this.selectedFile =  event.target.files[0].name;
-  }*/
 
   selectedFile: string;
   jsonerror: string;
@@ -235,12 +235,5 @@ export class EditWorkshopComponent implements OnInit {
 
 
   }
-
-
-
-
-
-
-
 
 }

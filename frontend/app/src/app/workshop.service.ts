@@ -39,7 +39,7 @@ export class WorkshopService {
 
   }
 
-  update(_name: string, name: string, image: string, description: string, date: Date, location: string, likes: string[]) {
+  update(_name: string, name: string, image: string, description: string, date: Date, location: string, likes: string[], gallery: string[]) {
     const data = {
       _name: _name,
       name: name,
@@ -47,12 +47,13 @@ export class WorkshopService {
       description: description,
       date: date,
       location: location,
-      likes: likes
+      likes: likes,
+      gallery: gallery
     }
 
     return this.http.post(`${this.url}/workshop/update`, data);
   }
-  save(name: string, image: string, description: string, date: Date, location: string, likes: String[]) {
+  save(name: string, image: string, description: string, date: Date, location: string, likes: String[], gallery: string[]) {
 
     const data = {
       name: name,
@@ -60,7 +61,8 @@ export class WorkshopService {
       description: description,
       date: date,
       location: location,
-      likes: likes
+      likes: likes,
+      gallery: gallery
     }
 
     return this.http.post(`${this.url}/workshop/save`, data);

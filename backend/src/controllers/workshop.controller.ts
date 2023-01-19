@@ -16,7 +16,8 @@ export class WorkshopController {
             description: req.body.description,
             date: req.body.date,
             location: req.body.location,
-            likes: req.body.likes
+            likes: req.body.likes,
+            gallery: req.body.gallery
         })
 
         Workshops.updateOne({ "name": original_name },
@@ -27,7 +28,8 @@ export class WorkshopController {
                     "description": workshop.description,
                     "date": workshop.date,
                     "location": workshop.location,
-                    "likes": workshop.likes
+                    "likes": workshop.likes,
+                    "gallery": workshop.gallery
                 }
             }, (err, news) => {
                 if (err) console.log(err);
@@ -174,6 +176,7 @@ export class WorkshopController {
             description: req.body.description,
             date: req.body.date,
             location: req.body.location,
+            gallery: req.body.gallery
         })
         workshop.save().then(workshop => {
             res.status(200).json({ "message": "workshop added" });
