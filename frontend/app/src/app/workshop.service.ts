@@ -6,6 +6,11 @@ import { WorkshopDetails } from './models/workshop-details';
   providedIn: 'root'
 })
 export class WorkshopService {
+
+  constructor(private http: HttpClient) { }
+
+  url = "http://localhost:4000";
+
   comment(name: string, username: string, profile_photo_name: string, message: string, arg4: Date) {
 
     let data = {
@@ -78,9 +83,13 @@ export class WorkshopService {
     return this.http.post(`${this.url}/workshop/deleteWorkshop`, sent_workshop);
   }
 
-  constructor(private http: HttpClient) { }
 
-  url = "http://localhost:4000";
+  updateWorkshop(workshop) {
+    let data = {
+      workshop: workshop
+    }
+    return this.http.post(`${this.url}/workshop/updateWorkshop`, data);
+  }
 
   getAllWorkshops() {
     return this.http.get(`${this.url}/workshop/getAllWorkshops`);

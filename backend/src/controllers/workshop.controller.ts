@@ -23,7 +23,7 @@ export class WorkshopController {
             free_spaces: req.body.free_spaces
         })
 
-        Workshops.updateOne({ "name": original_name },
+        Workshops.updateMany({ "name": original_name },
             {
                 $set: {
                     "name": workshop.name,
@@ -43,6 +43,20 @@ export class WorkshopController {
                 else res.json(news);
             });
 
+    }
+
+    updateWorkshop = (req: express.Request, res: express.Response) => {
+        let workshop = req.body.workshop;
+        Workshops.updateMany({ "name": workshop.name }, {
+            $set: {
+                "status": workshop.status,
+                "long_desc": workshop.long_desc,
+                "owner": workshop.owner
+            }
+        }, (err, news) => {
+            if (err) console.log(err);
+            else res.json(news);
+        });
     }
 
     informAll = (req: express.Request, res: express.Response) => {
@@ -187,7 +201,7 @@ export class WorkshopController {
             free_spaces: req.body.free_spaces
         })
         workshop.save().then(workshop => {
-            res.status(200).json({ "message": "workshop added" });
+            res.json(workshop);
         }).catch(err => {
             res.status(400).json({ "message": "error" })
         })

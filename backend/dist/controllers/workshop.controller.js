@@ -21,7 +21,7 @@ class WorkshopController {
                 owner: req.body.owner,
                 free_spaces: req.body.free_spaces
             });
-            workshop_1.default.updateOne({ "name": original_name }, {
+            workshop_1.default.updateMany({ "name": original_name }, {
                 $set: {
                     "name": workshop.name,
                     "image": workshop.image,
@@ -34,6 +34,21 @@ class WorkshopController {
                     "long_desc": workshop.long_desc,
                     "owner": workshop.owner,
                     "free_spaces": workshop.free_spaces
+                }
+            }, (err, news) => {
+                if (err)
+                    console.log(err);
+                else
+                    res.json(news);
+            });
+        };
+        this.updateWorkshop = (req, res) => {
+            let workshop = req.body.workshop;
+            workshop_1.default.updateMany({ "name": workshop.name }, {
+                $set: {
+                    "status": workshop.status,
+                    "long_desc": workshop.long_desc,
+                    "owner": workshop.owner
                 }
             }, (err, news) => {
                 if (err)
@@ -177,7 +192,7 @@ class WorkshopController {
                 free_spaces: req.body.free_spaces
             });
             workshop.save().then(workshop => {
-                res.status(200).json({ "message": "workshop added" });
+                res.json(workshop);
             }).catch(err => {
                 res.status(400).json({ "message": "error" });
             });

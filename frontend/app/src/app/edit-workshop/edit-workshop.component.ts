@@ -7,6 +7,7 @@ import * as _ from 'lodash';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { HttpClient } from "@angular/common/http";
 import { MapService } from '../map.service';
+import { subscribeOn } from 'rxjs';
 
 
 @Component({
@@ -50,15 +51,17 @@ export class EditWorkshopComponent implements OnInit {
       this.location = this.sent_workshop.location;
       this.description = this.sent_workshop.description;
       this.free_spaces = this.sent_workshop.free_spaces;
+      this.long_desc = this.long_desc;
     }
   }
 
   onFileSelected(event) {
 
-    this.sent_workshop.gallery = [];
+    if (this.sent_workshop != null)
+      this.sent_workshop.gallery = [];
 
     const allowed_types = ['image/png', 'image/jpeg'];
-
+    let temp_gallery: string[] = [];
     for (let i = 0; i < event.target.files.length; i++) {
 
       if (!_.includes(allowed_types, event.target.files[i].type)) {
@@ -69,11 +72,15 @@ export class EditWorkshopComponent implements OnInit {
       const reader = new FileReader();
       reader.readAsDataURL(event.target.files[i]);
       this.image = "../../assets/images/" + event.target.files[0].name;
-      this.gallery.push("../../assets/images/" + event.target.files[i].name);
+      temp_gallery.push("../../assets/images/" + event.target.files[i].name);
     }
 
-    this.sent_workshop.gallery = this.gallery;
+    this.gallery = temp_gallery;
 
+    if (this.sent_workshop != null) {
+      this.sent_workshop.gallery = this.gallery;
+      this.sent_workshop.image = this.gallery[0];
+    }
   }
 
   cancel() {
@@ -99,7 +106,7 @@ export class EditWorkshopComponent implements OnInit {
       });
     }
 
-    if (this.image == null) {
+    if (this.gallery == null) {
       this.Error_message += "Workshop image missing\n"
     }
 
@@ -112,7 +119,11 @@ export class EditWorkshopComponent implements OnInit {
     }
 
     if (this.description == null) {
-      this.Error_message += "Workshop description missing\n"
+      this.Error_message += "Workshop short description missing\n"
+    }
+
+    if (this.long_desc == null) {
+      this.Error_message += "Workshop long description missing\n"
     }
 
   }
@@ -129,16 +140,22 @@ export class EditWorkshopComponent implements OnInit {
     this.mydate = this.date.getFullYear() + "-" + (this.date.getMonth() + 1) + "-" + this.date.getDate();
     let temp_date = new Date(this.mydate);
     temp_date.setHours(Number(arr[0]), Number(arr[1]), 0);
-    if (this.sent_workshop == null)
-      this.service.save(this.name, this.image, this.description, temp_date, this.location, this.likes, this.gallery, this.long_desc, this.current_user.username,this.free_spaces).subscribe((workshop) => {
+    if (this.sent_workshop == null) {
+      this.service.save(this.name, this.image, this.description, temp_date, this.location, this.likes, this.gallery, this.long_desc, this.current_user.username, this.free_spaces).subscribe((workshop: WorkshopDetails) => {
         if (workshop != null) {
-          alert("Register acknowledged");
-          this.cancel();
+          workshop.status = "waiting";
+          workshop.owner = this.current_user.username;
+          workshop.long_desc = this.long_desc;
+          this.service.updateWorkshop(workshop).subscribe(() => { this.cancel(); });
+          alert("Reguest successful");
         }
         else alert("ERROR");
       });
+
+
+    }
     else if (this.sent_workshop != null) {
-      this.service.update(this.sent_workshop.name, this.name, this.image, this.description, temp_date, this.location, this.likes, this.sent_workshop.gallery, this.long_desc, this.current_user.username,this.free_spaces).subscribe((workshop) => {
+      this.service.update(this.sent_workshop.name, this.name, this.image, this.description, temp_date, this.location, this.likes, this.sent_workshop.gallery, this.long_desc, this.current_user.username, this.free_spaces).subscribe((workshop) => {
         if (workshop != null) {
           alert("Changes made");
           this.cancel();

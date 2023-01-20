@@ -81,6 +81,50 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  approve(workshop: WorkshopDetails) {
+
+    let temp_all: WorkshopDetails[] = [];
+
+    this.workshop_service.getAllWorkshops().subscribe((all: WorkshopDetails[]) => {
+      temp_all = all;
+
+      let temp_user: User = null;
+      for (let i = 0; i < this.allUsers.length; i++) {
+        if (workshop.owner == this.allUsers[i].username) {
+          temp_user = this.allUsers[i];
+          break;
+        }
+      }
+
+      for (let i = 0; i < temp_all.length; i++) {
+        for (let j = 0; j < temp_all[i].participants.length; j++)
+          if (((new Date(temp_all[i].date)).getTime() - (new Date()).getTime()) > 0)
+            if (temp_all[i].participants[j].mail == temp_user.mail) {
+              alert("This participant is still subscribed to one or more workshops!");
+              return;
+            }
+      }
+
+      workshop.status = "approved";
+
+      this.workshop_service.updateWorkshop(workshop).subscribe((statement) => { if (statement == null) alert("Update status fail"); return; });
+
+      if (temp_user.type == "organizer") { location.reload(); return; }
+
+      this.service.deleteUser(temp_user).subscribe((statement) => { if (statement == null) alert("Update status fail"); return; });
+
+      this.service.register(temp_user.profile_photo_name, temp_user.firstname, temp_user.lastname, temp_user.username, temp_user.password, temp_user.mail, temp_user.phone, "organizer", null, null, null, null, null, null, null, "approved").subscribe((statement) => { if (statement == null) alert("Update status fail"); return; });
+
+    });
+  }
+
+  reject(workshop) {
+    this.workshop_service.delete(workshop).subscribe((statement) => {
+      if (statement) alert("Deleted");
+      else alert("Error reject");
+      location.reload();
+    });
+  }
 
   getTab(): string {
     return this.active_tab;
@@ -108,7 +152,5 @@ export class AdminComponent implements OnInit {
       user = null;
       //location.reload();
     });
-
-
   }
 }
