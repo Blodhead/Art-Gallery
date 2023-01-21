@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from '../models/user';
 import { WorkshopDetails } from '../models/workshop-details';
 import { SharedService } from '../shared.service';
@@ -10,7 +11,7 @@ import { WorkshopService } from '../workshop.service';
   styleUrls: ['./user-organizer.component.css']
 })
 export class UserOrganizerComponent implements OnInit {
-  constructor(private workshop_service: WorkshopService, private sharedService: SharedService) { }
+  constructor(private workshop_service: WorkshopService, private sharedService: SharedService, private _router: Router) { }
 
   current_user: User = null;
   reload: string = "";
@@ -18,6 +19,8 @@ export class UserOrganizerComponent implements OnInit {
 
   ngOnInit(): void {
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
+    if (this.current_user == null) this._router.navigate(["login"]);
+    if (this.current_user.type != "organizer") this._router.navigate([""]);
     this.reload = localStorage.getItem("reload");
     if (this.reload == "true") {
       localStorage.removeItem("reload");

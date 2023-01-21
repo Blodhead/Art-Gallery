@@ -3,8 +3,19 @@
     <div class="container-fluid">
 
         <div class="row">
+            <div class="col-3">
+                <div *ngIf="check()==true">
+                    <b>Approved list:</b>
+                    <br>
+                    <table *ngFor="let participant of subscribedParticipants">
 
-            <div class="col-3">&nbsp;</div>
+                        <tr>
+                            <td>{{participant}}</td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
             <div class="col-6 container border border-success rounded">
 
                 <div class="row">
@@ -29,8 +40,8 @@
                                 <hr>
                             </tr>
                             <tr>
-                                <b>Organizer:</b> {{myWorkshop.owner}} <button type="button" class="btn btn-sm btn-warning pointer"
-                                    (click)="contact()">Contact</button>
+                                <b>Organizer:</b> {{myWorkshop.owner}} <button type="button"
+                                    class="btn btn-sm btn-warning pointer" (click)="contact()">Contact</button>
                             </tr>
                             <tr>
                                 <b>Short desciption:</b><br>
@@ -59,8 +70,22 @@
 
                 </div>
             </div>
-            <div class="col-3">&nbsp;</div>
-        </div>
-    </div>
+            <div class="col-3">
+                <div *ngIf="check()==true">
+                    <b>Waiting list:</b>
+                    <br>
+                    <table *ngFor="let participant of waitingParticipants">
 
+                        <tr>
+                            <td>{{participant}}</td>
+                            <td><button class="btn btn-sm btn-success" (click)="accept(participant)">Accept</button> </td>
+                            <td><button class="btn btn-sm btn-danger" (click)="reject(participant)">Reject</button></td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>

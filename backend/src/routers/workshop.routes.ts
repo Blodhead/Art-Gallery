@@ -55,4 +55,12 @@ workshopRouter.route("/updateWorkshop").post(
     (req,res)=>new WorkshopController().updateWorkshop(req,res)
 )
 
+workshopRouter.route("/reject").post(
+    (req,res)=>new WorkshopController().reject(req,res)
+)
+
+workshopRouter.route("/accept").post(
+    (req,res)=>new WorkshopController().accept(req,res)
+)
+
 export default workshopRouter;

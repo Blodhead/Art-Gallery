@@ -47,6 +47,9 @@ export class EditUserComponent implements OnInit {
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
     this.sent_user = JSON.parse(localStorage.getItem("sent_user"));
 
+    if (this.current_user == null) this._router.navigate(["login"]);
+    if (this.sent_user == null ) this._router.navigate([""]);
+
     this.service.getTempData().subscribe((temp_data: Temp_Data[]) => { //subscribe je cekanje odgovora, tj. nna return pozvane funkcije
       if (!temp_data) {
         alert("Error get All data");

@@ -66,8 +66,6 @@ export class WorkshopController {
         let mailing_list = req.body.participants;
         let workshop_name = req.body.workshop_name;
 
-        console.log(req.body);
-
         var transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -137,6 +135,34 @@ export class WorkshopController {
             else res.json(_workshop);
         });
     }
+
+    reject = (req: express.Request, res: express.Response) => {
+
+        let workshop = req.body.myWorkshopDetail;
+        let subscription1 = {
+            mail: req.body.mail,
+            status: "waiting"
+        }
+
+        Workshops.updateOne({ "name": workshop.name }, { $pull: { "participants": subscription1 } }, (err, _workshop) => {
+            if (err) console.log("ERROR");
+            else res.json(_workshop);
+        });
+    } 
+
+    accept = (req: express.Request, res: express.Response) => {
+
+        let workshop = req.body.myWorkshopDetail;
+        let subscription1 = {
+            mail: req.body.mail,
+            status: "approved"
+        }
+        
+        Workshops.updateOne({ "name": workshop.name }, { $set: { "participants": subscription1} }, (err, _workshop) => {
+            if (err) console.log("ERROR");
+            else res.json(_workshop);
+        });
+    } 
 
     comment = (req: express.Request, res: express.Response) => {
 

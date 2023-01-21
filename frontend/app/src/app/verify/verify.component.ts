@@ -22,6 +22,7 @@ export class VerifyComponent implements OnInit {
 
   ngOnInit(): void {
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
+    if (this.current_user == null) this._router.navigate(["login"]);
     this.reload = localStorage.getItem("reload");
     if (this.reload == "true") {
       localStorage.removeItem("reload");

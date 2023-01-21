@@ -114,6 +114,24 @@ export class WorkshopService {
     return this.http.post(`${this.url}/workshop/unsub`, data);
   }
 
+  reject(participant, myWorkshop) {
+    let data = {
+      mail: participant,
+      myWorkshopDetail: myWorkshop
+    }
+
+    return this.http.post(`${this.url}/workshop/reject`, data);
+  }
+
+  accept(participant, myWorkshop) {
+    let data = {
+      mail: participant,
+      myWorkshopDetail: myWorkshop
+    }
+
+    return this.http.post(`${this.url}/workshop/accept`, data);
+  }
+
   like(name: string, username: string) {
     let data = {
       name: name,

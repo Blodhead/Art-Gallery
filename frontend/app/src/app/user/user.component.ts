@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from '../models/user';
 import { WorkshopDetails } from '../models/workshop-details';
 import { SharedService } from '../shared.service';
@@ -13,7 +14,7 @@ import { WorkshopService } from '../workshop.service';
 export class UserComponent implements OnInit {
 
 
-  constructor(private workshop_service: WorkshopService, private user_service: UserService, private sharedService: SharedService) { }
+  constructor(private workshop_service: WorkshopService, private user_service: UserService, private sharedService: SharedService, private _router: Router) { }
 
   current_user: User;
   reload: string;
@@ -29,6 +30,8 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
+    if (this.current_user == null) this._router.navigate(["login"]);
+    if (this.current_user.type != "participant") this._router.navigate([""]);
     this.user_service.login(this.current_user.username, this.current_user.password).subscribe((user: User) => {
       this.current_user = user;
     });

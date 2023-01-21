@@ -128,6 +128,36 @@ class WorkshopController {
                     res.json(_workshop);
             });
         };
+        this.reject = (req, res) => {
+            let workshop = req.body.myWorkshopDetail;
+            let subscription1 = {
+                mail: req.body.mail,
+                status: "waiting"
+            };
+            console.log(workshop.name);
+            console.log(subscription1);
+            workshop_1.default.updateOne({ "name": workshop.name }, { $pull: { "participants": subscription1 } }, (err, _workshop) => {
+                if (err)
+                    console.log("ERROR");
+                else
+                    res.json(_workshop);
+            });
+        };
+        this.accept = (req, res) => {
+            let workshop = req.body.myWorkshopDetail;
+            let subscription1 = {
+                mail: req.body.mail,
+                status: "approved"
+            };
+            console.log(workshop.name);
+            console.log(subscription1);
+            workshop_1.default.updateOne({ "name": workshop.name }, { $set: { "participants": subscription1 } }, (err, _workshop) => {
+                if (err)
+                    console.log("ERROR");
+                else
+                    res.json(_workshop);
+            });
+        };
         this.comment = (req, res) => {
             let workshop = req.body.sent_workshop;
             let comment = {

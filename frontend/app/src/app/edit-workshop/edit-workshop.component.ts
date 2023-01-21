@@ -43,6 +43,10 @@ export class EditWorkshopComponent implements OnInit {
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
     this.sent_workshop = JSON.parse(localStorage.getItem("sent_workshop"));
 
+
+    if (this.current_user == null) this._router.navigate(["login"]);
+    if (this.sent_workshop == null ) this._router.navigate([""]);
+
     if (this.sent_workshop != null) {
       this.name = this.sent_workshop.name;
       this.date = new Date(this.sent_workshop.date);
