@@ -11,7 +11,7 @@
   "firstname": "Miloš",
   "lastname": "Ćirković",
   "username": "milos",
-  "password": "milos123",
+  "password": "Мil123\\",
   "phone": "0614485465",
   "mail": "cirkovic.mi@gmail.com",
   "type": "participant",
@@ -48,7 +48,7 @@
   "firstname": "Nikola",
   "lastname": "Nikolic",
   "username": "nikola",
-  "password": "Nikol123\\",
+  "password": "Niko123\\",
   "phone": "06888843218",
   "mail": "nidza@yahoo.com",
   "type": "participant",
@@ -82,7 +82,7 @@
   "street": "Bul. Nikole Tesle212",
   "number": 1,
   "pib": "735788880000053",
-  "status": "approved"
+  "status": "rejected"
 },{
   "profile_photo_name": "../../assets/images/users/milos.jpg",
   "firstname": "Milos",
@@ -99,7 +99,7 @@
   "street": "Bul. Kralja Aleksandra 56",
   "number": 2,
   "pib": "90843252980",
-  "status": "rejected",
+  "status": "approved",
   "tempPass": null,
   "timeStamp": null
 },{
