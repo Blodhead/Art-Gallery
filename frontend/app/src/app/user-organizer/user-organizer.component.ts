@@ -36,7 +36,6 @@ export class UserOrganizerComponent implements OnInit {
 
         for (let j = 0; j < workshops.length; j++) {
           workshops[j].date = new Date(workshops[j].date);
-          if ((workshops[j].date.getTime() - (new Date()).getTime()) > 0)
             if (workshops[j].status == "approved" && (workshops[j].owner == this.current_user.username))
               this.allWorkshops.push(workshops[j]);
         }

@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
 
         localStorage.setItem("reload", "true");
         if (user.status == "waiting") { alert("Your account is yet to be approved"); return; }
+        if(user.status == "rejected") {alert("Your account has been suspended"); return; }
         localStorage.setItem("current_user", JSON.stringify(user));
         if (user.type == "admin" && this.current_path == "admin") {
           this._router.navigate(["/admin"]);

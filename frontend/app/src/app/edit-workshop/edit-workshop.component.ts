@@ -38,14 +38,12 @@ export class EditWorkshopComponent implements OnInit {
   gallery: string[] = [];
   long_desc: string = "";
   free_spaces: number = 0;
-
+  owner:string;
   ngOnInit(): void {
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
     this.sent_workshop = JSON.parse(localStorage.getItem("sent_workshop"));
 
-
     if (this.current_user == null) this._router.navigate(["login"]);
-    if (this.sent_workshop == null ) this._router.navigate([""]);
 
     if (this.sent_workshop != null) {
       this.name = this.sent_workshop.name;
@@ -55,7 +53,9 @@ export class EditWorkshopComponent implements OnInit {
       this.location = this.sent_workshop.location;
       this.description = this.sent_workshop.description;
       this.free_spaces = this.sent_workshop.free_spaces;
-      this.long_desc = this.long_desc;
+      this.long_desc = this.sent_workshop.long_desc;
+      this.long_desc = this.sent_workshop.long_desc;
+      this.owner = this.sent_workshop.owner;
     }
   }
 
@@ -159,10 +159,9 @@ export class EditWorkshopComponent implements OnInit {
 
     }
     else if (this.sent_workshop != null) {
-      this.service.update(this.sent_workshop.name, this.name, this.image, this.description, temp_date, this.location, this.likes, this.sent_workshop.gallery, this.long_desc, this.current_user.username, this.free_spaces).subscribe((workshop) => {
+      this.service.update(this.sent_workshop.name, this.name, this.image, this.description, temp_date, this.location, this.likes, this.sent_workshop.gallery, this.long_desc, this.owner, this.free_spaces).subscribe((workshop: WorkshopDetails) => {
         if (workshop != null) {
-          alert("Changes made");
-          this.cancel();
+          alert("Update successful");
         }
         else alert("ERROR");
 

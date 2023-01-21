@@ -48,7 +48,6 @@ export class EditUserComponent implements OnInit {
     this.sent_user = JSON.parse(localStorage.getItem("sent_user"));
 
     if (this.current_user == null) this._router.navigate(["login"]);
-    if (this.sent_user == null ) this._router.navigate([""]);
 
     this.service.getTempData().subscribe((temp_data: Temp_Data[]) => { //subscribe je cekanje odgovora, tj. nna return pozvane funkcije
       if (!temp_data) {
@@ -95,7 +94,7 @@ export class EditUserComponent implements OnInit {
 
     if (!_.includes(allowed_types, event.target.files[0].type)) {
       this.imageError = 'Only Images are allowed ( JPG | PNG )';
-      this.profile_photo_name = "../../assets/images/img_avatar2.png";
+      this.profile_photo_name = "../../assets/images/users/avatar1.jpg";
       alert(this.imageError);
       return;
     }
@@ -118,7 +117,7 @@ export class EditUserComponent implements OnInit {
             '*' +
             max_width +
             'px';
-          this.profile_photo_name = "../../assets/images/img_avatar2.png";
+          this.profile_photo_name = "../../assets/images/users/avatar1.jpg";
           alert(this.imageError);
           return;
         } else if (img_height < min_height && img_width < min_width) {
@@ -128,7 +127,7 @@ export class EditUserComponent implements OnInit {
             '*' +
             min_width +
             'px';
-          this.profile_photo_name = "../../assets/images/img_avatar2.png";
+          this.profile_photo_name = "../../assets/images/users/avatar1.jpg";
           alert(this.imageError);
           return;
         } else {
@@ -142,7 +141,7 @@ export class EditUserComponent implements OnInit {
     reader.readAsDataURL(event.target.files[0]);
 
     this.profile_photo = event.target.files[0];
-    this.profile_photo_name = "../../assets/images/" + event.target.files[0].name;
+    this.profile_photo_name = "../../assets/images/users/" + event.target.files[0].name;
   }
 
 

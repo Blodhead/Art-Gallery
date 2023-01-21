@@ -2,7 +2,7 @@
 
   <div class="container" style="padding-top: 30px; padding-bottom: 30px;">
 
-    <div class="row" >
+    <div class="row">
 
       <div class="col-12" style="display: flex;
       justify-content: flex-end;">
@@ -89,37 +89,52 @@
 
       </div>
 
-      
+
 
       <div class="col-12 shadow context" style="background-color: #136207;" *ngIf="getTab()=='Organizers'">
 
-        <div class="card container-fluid shadow" *ngFor="let user of organisers">
+        <div *ngFor="let user of organisers">
 
-          <app-organizer [myUser]="user"></app-organizer>
+          <div>
+
+            <div *ngIf="user.status=='rejected'" class="card container-fluid shadow" style="background-color: #ad1f1f;">
+              <app-organizer [myUser]="user"></app-organizer>
+            </div>
+            <div *ngIf="user.status!='rejected'" class="card container-fluid shadow">
+              <app-organizer [myUser]="user"></app-organizer>
+            </div>
+          </div>
 
         </div>
 
       </div>
 
-      <div class="col-12 shadow context" style="background-color: #136207; max-width: 900px;" *ngIf="getTab()=='Participants'">
+      <div class="col-12 shadow context" style="background-color: #136207; max-width: 900px;"
+        *ngIf="getTab()=='Participants'">
 
-        <div class="card container-fluid shadow" *ngFor="let user of participants">
-
-          <app-participant [myUser]="user"></app-participant>
-
+        <div *ngFor="let user of participants">
+          <div *ngIf="user.status=='rejected'" class="card container-fluid shadow" style="background-color: #ad1f1f;">
+            <app-participant [myUser]="user"></app-participant>
+          </div>
+          <div *ngIf="user.status!='rejected'" class="card container-fluid shadow">
+            <app-participant [myUser]="user"></app-participant>
+          </div>
         </div>
 
       </div>
 
       <div class="col-12 shadow context" style="background-color: #136207;" *ngIf="getTab()=='Workshops'">
 
-        <div class="card container-fluid shadow" style="border: solid !important; border-color: rgb(19,98,7) !important;" *ngFor="let workshop of allWorkshops; let i = index">
+        <div class="card container-fluid shadow"
+          style="border: solid !important; border-color: rgb(19,98,7) !important;"
+          *ngFor="let workshop of allWorkshops; let i = index">
 
           <app-workshop-details [myWorkshopDetail]="workshop" [myIndex]="i"></app-workshop-details>
 
           <div class="row" style="text-align: center; margin-top: -30px; margin-bottom: 10px;">
             <div class="col-6">
-              <button class="btn btn-success" style="background-color: rgb(19,98,7) ;" (click)="approve(workshop)">Approve</button>
+              <button class="btn btn-success" style="background-color: rgb(19,98,7) ;"
+                (click)="approve(workshop)">Approve</button>
             </div>
             <div class="col-6">
               <button class="btn btn-warning" (click)="reject(workshop)">Reject</button>

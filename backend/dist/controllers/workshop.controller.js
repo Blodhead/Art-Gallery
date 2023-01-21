@@ -61,7 +61,6 @@ class WorkshopController {
             var nodemailer = require('nodemailer');
             let mailing_list = req.body.participants;
             let workshop_name = req.body.workshop_name;
-            console.log(req.body);
             var transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
@@ -134,8 +133,6 @@ class WorkshopController {
                 mail: req.body.mail,
                 status: "waiting"
             };
-            console.log(workshop.name);
-            console.log(subscription1);
             workshop_1.default.updateOne({ "name": workshop.name }, { $pull: { "participants": subscription1 } }, (err, _workshop) => {
                 if (err)
                     console.log("ERROR");
@@ -149,9 +146,7 @@ class WorkshopController {
                 mail: req.body.mail,
                 status: "approved"
             };
-            console.log(workshop.name);
-            console.log(subscription1);
-            workshop_1.default.updateOne({ "name": workshop.name }, { $set: { "participants": subscription1 } }, (err, _workshop) => {
+            workshop_1.default.updateOne({ "name": workshop.name, "participants.mail": subscription1.mail }, { $set: { "participants.$.status": subscription1.status } }, (err, _workshop) => {
                 if (err)
                     console.log("ERROR");
                 else

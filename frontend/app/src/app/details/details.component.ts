@@ -102,7 +102,7 @@ export class DetailsComponent implements OnInit {
         this.waitingParticipants[iter] = null;
         this.waitingParticipants = this.waitingParticipants.filter(elements => {
           return (elements != null && elements !== undefined);
-        });
+        });       
         break;
       }
     }

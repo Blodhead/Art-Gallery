@@ -148,7 +148,7 @@ export class WorkshopController {
             if (err) console.log("ERROR");
             else res.json(_workshop);
         });
-    } 
+    }
 
     accept = (req: express.Request, res: express.Response) => {
 
@@ -157,12 +157,12 @@ export class WorkshopController {
             mail: req.body.mail,
             status: "approved"
         }
-        
-        Workshops.updateOne({ "name": workshop.name }, { $set: { "participants": subscription1} }, (err, _workshop) => {
+
+        Workshops.updateOne({ "name": workshop.name, "participants.mail": subscription1.mail }, { $set: { "participants.$.status": subscription1.status } }, (err, _workshop) => {
             if (err) console.log("ERROR");
             else res.json(_workshop);
         });
-    } 
+    }
 
     comment = (req: express.Request, res: express.Response) => {
 

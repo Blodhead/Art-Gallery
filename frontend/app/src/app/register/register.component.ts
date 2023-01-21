@@ -48,7 +48,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.profile_photo_name = "../../assets/images/img_avatar2.png";
+    this.profile_photo_name = "../../assets/images/users/admin.jpg";
     this.getTempData();
 
     this.current_user = JSON.parse(localStorage.getItem("current_user"));

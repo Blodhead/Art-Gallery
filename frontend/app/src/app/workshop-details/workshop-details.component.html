@@ -24,6 +24,10 @@
                             <button *ngIf="type=='participant' && getPath()==''" style="width: max-content;"
                                 class="btn btn-danger btn-sm" disabled>{{likes}} ❤</button>
                         </td>
+                        <td *ngIf="type=='organizer'|| current_user!=null">
+                            <button *ngIf="type=='organizer' && getPath()==''" style="width: max-content;"
+                                class="btn btn-danger btn-sm" disabled>{{likes}} ❤</button>
+                        </td>
                         <td *ngIf="type=='participant'|| current_user!=null">
                             <button *ngIf="type=='participant' && isSubscribed()==false && hasFree()==true"
                                 class="btn btn-success btn-sm" (click)="sub()">Subscribe</button>
@@ -92,6 +96,10 @@
                         </td>
                         <td *ngIf="type=='participant'|| current_user!=null">
                             <button *ngIf="type=='participant' && getPath()==''" style="width: max-content;"
+                                class="btn btn-danger btn-sm" disabled>{{likes}} ❤</button>
+                        </td>
+                        <td *ngIf="type=='organizer'|| current_user!=null">
+                            <button *ngIf="type=='organizer' && getPath()==''" style="width: max-content;"
                                 class="btn btn-danger btn-sm" disabled>{{likes}} ❤</button>
                         </td>
                         <td *ngIf="type=='participant'|| current_user!=null">
