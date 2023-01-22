@@ -20,6 +20,9 @@ export class ChatComponent implements OnInit {
     if (this.user1 == null) this._router.navigate(["login"]);
     if (this.myWorkshop == null) this._router.navigate([""]);
 
+    for (let k = 0; k < this.myWorkshop.messages.length; k++)
+      this.myWorkshop.messages[k].date = new Date(this.myWorkshop.messages[k].date);
+
     let temp_array: Array<Message[]> = [];
     let real_arr: Message[][] = [];
 
@@ -56,7 +59,7 @@ export class ChatComponent implements OnInit {
         this.messages[s] = [];
       }
 
-      for (let i = 0; i < real_arr.length; i++){
+      for (let i = 0; i < real_arr.length; i++) {
         this.messages[i].push(real_arr[i]);
       }
 
