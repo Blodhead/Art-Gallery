@@ -296,7 +296,6 @@ export class WorkshopController {
         let _new_mail = req.body.new_mail;
 
         Workshops.updateMany({ "participants.mail": _old_mail }, { $set: { "participants.$.mail": _new_mail } }, (err,status) => {
-            console.log(status);
             if (status) res.json(status);
             else console.log(err);
         });
