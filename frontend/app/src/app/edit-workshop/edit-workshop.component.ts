@@ -179,12 +179,8 @@ export class EditWorkshopComponent implements OnInit {
       if (this.sent_workshop == null || this.template_workshop != null) {
         this.service.save(this.name, this.image, this.description, temp_date, this.location, this.likes, this.gallery, this.long_desc, this.current_user.username, this.free_spaces).subscribe((workshop: WorkshopDetails) => {
           if (workshop != null) {
-            workshop.status = "waiting";
-            workshop.likes = this.likes;
-            workshop.owner = this.current_user.username;
-            workshop.long_desc = this.long_desc;
-            this.service.updateWorkshop(workshop).subscribe(() => { this.cancel(); });
             alert("Reguest successful");
+            this.cancel();
           }
           else alert("ERROR");
         });

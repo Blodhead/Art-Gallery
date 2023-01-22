@@ -44,14 +44,13 @@ class WorkshopController {
         };
         this.updateWorkshop = (req, res) => {
             let workshop = req.body.workshop;
-            workshop_1.default.updateOne({ "name": workshop.name, "date": workshop.date }, {
-                $push: {
-                    "status": workshop.status,
+            workshop_1.default.updateMany({ "name": workshop.name }, {
+                $set: {
+                    "status": "approved",
                     "long_desc": workshop.long_desc,
                     "owner": workshop.owner
                 }
             }, (err, news) => {
-                console.log(news);
                 if (err)
                     console.log(err);
                 else
@@ -216,7 +215,10 @@ class WorkshopController {
                 likes: req.body.likes,
                 location: req.body.location,
                 gallery: req.body.gallery,
-                free_spaces: req.body.free_spaces
+                free_spaces: req.body.free_spaces,
+                status: req.body.status,
+                owner: req.body.owner,
+                long_desc: req.body.long_desc
             });
             workshop.save().then(workshop => {
                 res.json(workshop);

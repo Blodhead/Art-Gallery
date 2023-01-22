@@ -48,14 +48,13 @@ export class WorkshopController {
 
     updateWorkshop = (req: express.Request, res: express.Response) => {
         let workshop = req.body.workshop;
-        Workshops.updateOne({ "name": workshop.name, "date": workshop.date }, {
+        Workshops.updateMany({ "name": workshop.name }, {
             $set: {
-                "status": workshop.status,
+                "status": "approved",
                 "long_desc": workshop.long_desc,
                 "owner": workshop.owner
             }
         }, (err, news) => {
-            console.log(news);
             if (err) console.log(err);
             else res.json(news);
         });
@@ -227,7 +226,10 @@ export class WorkshopController {
             likes: req.body.likes,
             location: req.body.location,
             gallery: req.body.gallery,
-            free_spaces: req.body.free_spaces
+            free_spaces: req.body.free_spaces,
+            status: req.body.status,
+            owner:req.body.owner,
+            long_desc:req.body.long_desc
         })
         workshop.save().then(workshop => {
             res.json(workshop);

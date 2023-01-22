@@ -73,7 +73,8 @@ export class WorkshopService {
       gallery: gallery,
       long_desc: long_desc,
       owner: owner,
-      free_spaces: free_spaces
+      free_spaces: free_spaces,
+      status:"waiting"
     }
 
     return this.http.post(`${this.url}/workshop/save`, data);
