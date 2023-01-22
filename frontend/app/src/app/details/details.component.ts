@@ -133,6 +133,9 @@ export class DetailsComponent implements OnInit {
     });
   }
 
-  contact() { }
+  contact() {
+    localStorage.setItem("sent_workshop", JSON.stringify(this.myWorkshop));
+    this._router.navigate(["chat"]);
+   }
 
 }

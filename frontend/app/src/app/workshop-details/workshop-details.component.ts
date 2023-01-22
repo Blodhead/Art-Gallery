@@ -74,7 +74,8 @@ export class WorkshopDetailsComponent implements OnInit {
   }
 
   open_chat() {
-
+    localStorage.setItem("sent_workshop", JSON.stringify(this.myWorkshopDetail));
+    this._router.navigate(["chat"]);
   }
 
   add_Workshop() {

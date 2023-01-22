@@ -10,8 +10,9 @@ export class WorkshopDetails {
     comments: Array<Comment>;
     participants: Array<Subscription>;
     gallery: Array<string>;
-    long_desc:string;
-    free_spaces:number;
+    long_desc: string;
+    free_spaces: number;
+    messages: Array<Message>;
 }
 export class Subscription {
     mail: string;
@@ -22,5 +23,11 @@ export class Comment {
     username: string;
     image: string;
     date: Date;
+    message: string;
+}
+
+export class Message {
+    from: string;
+    to: string;
     message: string;
 }

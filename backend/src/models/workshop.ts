@@ -30,18 +30,21 @@ let Workshops = new Schema({ //sva polja koja postoje u users semi
     participants: {
         type: Array
     },
-    comments:{
+    comments: {
         type: Array
     },
-    gallery:{
+    gallery: {
         type: Array
     },
-    free_spaces:{
+    free_spaces: {
         type: Number
     },
-    long_desc:{
+    long_desc: {
         type: String
     },
+    messages: {
+        type: Array
+    }
 
 })
 

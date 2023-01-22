@@ -15,6 +15,9 @@ workshopRouter.route("/update").post(//ako dodje "/login" ruta on obradjuje POST
 workshopRouter.route("/getAllWorkshops").get(//ako dodje "/login" ruta on obradjuje POST zahtev, za GET ne zna sta da radi, jer nije definisano
 (req, res) => new workshop_controller_1.WorkshopController().getAllWorkshops(req, res) //poziva se UserController i njegova login metoda
 );
+workshopRouter.route("/getAllMessages").post(//ako dodje "/login" ruta on obradjuje POST zahtev, za GET ne zna sta da radi, jer nije definisano
+(req, res) => new workshop_controller_1.WorkshopController().getAllMessages(req, res) //poziva se UserController i njegova login metoda
+);
 workshopRouter.route("/deleteWorkshop").post((req, res) => new workshop_controller_1.WorkshopController().deleteWorkshop(req, res));
 workshopRouter.route("/sub").post((req, res) => new workshop_controller_1.WorkshopController().sub(req, res));
 workshopRouter.route("/unsub").post((req, res) => new workshop_controller_1.WorkshopController().unsub(req, res));

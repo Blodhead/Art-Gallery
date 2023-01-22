@@ -206,6 +206,20 @@ class WorkshopController {
                     res.json(news);
             });
         };
+        this.getAllMessages = (req, res) => {
+            let workshop_name = req.body.name;
+            let date = req.body.date;
+            console.log(req.body);
+            console.log(workshop_name);
+            console.log(date);
+            workshop_1.default.findOne({ "name": req.body.name, "date": req.body.name }, (err, messages) => {
+                console.log(messages);
+                if (err)
+                    console.log(err);
+                else
+                    res.json(messages);
+            });
+        };
         this.save = (req, res) => {
             let workshop = new workshop_1.default({
                 name: req.body.name,
@@ -276,7 +290,6 @@ class WorkshopController {
             let _old_mail = req.body.old_mail;
             let _new_mail = req.body.new_mail;
             workshop_1.default.updateMany({ "participants.mail": _old_mail }, { $set: { "participants.$.mail": _new_mail } }, (err, status) => {
-                console.log(status);
                 if (status)
                     res.json(status);
                 else

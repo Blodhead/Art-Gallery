@@ -1,0 +1,34 @@
+<app-workshop-details [myWorkshopDetail]="myWorkshop"></app-workshop-details>
+
+<div *ngFor="let message of messages, let i = index;">
+    <button (click)="open(i)">Click Me</button>
+    <div id={{i}}>
+        
+        <div id="2" class="container page" style="padding: 0px;">
+
+            <div class="chat" style="padding-top: 5px; padding-bottom: 5px; height: 300px; overflow-y: scroll;">
+
+                <div *ngFor="let message of comments;">
+                    <app-message [myMessage]="message"></app-message>
+                </div>
+
+            </div>
+            <hr style="margin: 0px; color: rgb(19,98,7);">
+            <div class="container-fluid comm" style="width: 100%;padding: 0px;">
+                <div class="row" style="margin: 0px !important;">
+                    <div class="col-lg-10 col-md-8" style="padding: 0px;">
+                        <input class="rounded" type="text"
+                            style="width: -webkit-fill-available; height: -webkit-fill-available;" name="message" id=""
+                            [(ngModel)]="msg">
+                    </div>
+                    <div class="col-lg-1 col-md-2" style="padding: 0px;"><button type="button" class="btn btn-success"
+                            style="background-color: rgb(19,98,7); width: -webkit-fill-available;"
+                            (click)="comment()">Post</button></div>
+                    <div class="col-lg-1 col-md-2" style="padding: 0px;"><button type="button" class="btn btn-danger"
+                            style="width: -webkit-fill-available;" (click)="cancel()">Cancel</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

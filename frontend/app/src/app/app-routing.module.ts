@@ -11,6 +11,7 @@ import { UserOrganizerComponent } from './user-organizer/user-organizer.componen
 import { VerifyComponent } from './verify/verify.component';
 import { MyWorkshopsComponent } from './my-workshops/my-workshops.component';
 import { DetailsComponent } from './details/details.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 const routes: Routes = [
@@ -25,7 +26,8 @@ const routes: Routes = [
   { path: 'user_organizer', component: UserOrganizerComponent },
   { path: 'verify', component: VerifyComponent },
   { path: 'MyWorkshops', component: MyWorkshopsComponent },
-  { path: 'details', component: DetailsComponent }
+  { path: 'details', component: DetailsComponent },
+  { path: 'chat', component: ChatComponent }
 ];
 
 @NgModule({
