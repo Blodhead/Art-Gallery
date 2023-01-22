@@ -27,5 +27,7 @@ workshopRouter.route("/informAll").post((req, res) => new workshop_controller_1.
 workshopRouter.route("/updateWorkshop").post((req, res) => new workshop_controller_1.WorkshopController().updateWorkshop(req, res));
 workshopRouter.route("/reject").post((req, res) => new workshop_controller_1.WorkshopController().reject(req, res));
 workshopRouter.route("/accept").post((req, res) => new workshop_controller_1.WorkshopController().accept(req, res));
+workshopRouter.route("/syncMail").post((req, res) => new workshop_controller_1.WorkshopController().syncMail(req, res));
+workshopRouter.route("/syncUsername").post((req, res) => new workshop_controller_1.WorkshopController().syncUsername(req, res));
 exports.default = workshopRouter;
 //# sourceMappingURL=workshop.routes.js.map

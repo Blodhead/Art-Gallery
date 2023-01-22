@@ -228,8 +228,8 @@ export class WorkshopController {
             gallery: req.body.gallery,
             free_spaces: req.body.free_spaces,
             status: req.body.status,
-            owner:req.body.owner,
-            long_desc:req.body.long_desc
+            owner: req.body.owner,
+            long_desc: req.body.long_desc
         })
         workshop.save().then(workshop => {
             res.json(workshop);
@@ -288,6 +288,26 @@ export class WorkshopController {
                 }
 
             });
+        });
+    }
+
+    syncMail = (req: express.Request, res: express.Response) => {
+        let _old_mail = req.body.old_mail;
+        let _new_mail = req.body.new_mail;
+
+        Workshops.updateMany({ "participants.mail": _old_mail }, { $set: { "participants.$.mail": _new_mail } }, (err,status) => {
+            console.log(status);
+            if (status) res.json(status);
+            else console.log(err);
+        });
+    }
+
+    syncUsername = (req: express.Request, res: express.Response) => {
+        let _old_username = req.body.old_username;
+        let _new_username = req.body._new_username;
+
+        Workshops.updateMany({ "likes.": _old_username }, { $set: { "likes.$.": _new_username } }, (status) => {
+            res.json(status);
         });
     }
 }

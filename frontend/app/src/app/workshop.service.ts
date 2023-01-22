@@ -74,7 +74,7 @@ export class WorkshopService {
       long_desc: long_desc,
       owner: owner,
       free_spaces: free_spaces,
-      status:"waiting"
+      status: "waiting"
     }
 
     return this.http.post(`${this.url}/workshop/save`, data);
@@ -157,6 +157,23 @@ export class WorkshopService {
     }
 
     return this.http.post(`${this.url}/workshop/sendMail`, data);
+  }
+
+
+  syncMail(old_mail, new_mail) {
+    let data = {
+      old_mail: old_mail,
+      new_mail: new_mail
+    }
+    return this.http.post(`${this.url}/workshop/syncMail`, data);
+  }
+
+  syncUsername(old_username, new_username) {
+    let data = {
+      old_username: old_username,
+      new_username: new_username
+    }
+    return this.http.post(`${this.url}/workshop/syncUsername`, data);
   }
 
 }

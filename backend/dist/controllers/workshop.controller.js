@@ -272,6 +272,24 @@ class WorkshopController {
                 });
             });
         };
+        this.syncMail = (req, res) => {
+            let _old_mail = req.body.old_mail;
+            let _new_mail = req.body.new_mail;
+            workshop_1.default.updateMany({ "participants.mail": _old_mail }, { $set: { "participants.$.mail": _new_mail } }, (err, status) => {
+                console.log(status);
+                if (status)
+                    res.json(status);
+                else
+                    console.log(err);
+            });
+        };
+        this.syncUsername = (req, res) => {
+            let _old_username = req.body.old_username;
+            let _new_username = req.body._new_username;
+            workshop_1.default.updateMany({ "likes.": _old_username }, { $set: { "likes.$.": _new_username } }, (status) => {
+                res.json(status);
+            });
+        };
     }
 }
 exports.WorkshopController = WorkshopController;

@@ -3,6 +3,7 @@ import { UserService } from '../user.service';
 import * as _ from 'lodash';
 import { User, Temp_Data } from "../models/user"
 import { Router } from '@angular/router';
+import { WorkshopService } from '../workshop.service';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./edit-user.component.css']
 })
 export class EditUserComponent implements OnInit {
-  constructor(private service: UserService, private _router: Router) { }
+  constructor(private service: UserService, private _router: Router, private workshop_Service: WorkshopService) { }
 
   profile_photo = null;
   profile_photo_name: string;
@@ -313,11 +314,27 @@ export class EditUserComponent implements OnInit {
 
         });
     else {
-      this.service.update(this.sent_user.username,this.profile_photo_name, this.firstname, this.lastname, this.username, this.password, this.mail, this.phone, this.type,
+      this.service.update(this.sent_user.username, this.profile_photo_name, this.firstname, this.lastname, this.username, this.password, this.mail, this.phone, this.type,
         this.org_name, this.state, this.city, this.postal_code, this.street, this.number, this.pib, this.status).subscribe((user) => {
-        user = null;
-        this.cancel();
-      });
+          user = null;
+          let wait_flag = false;
+          let temp: User = JSON.parse(localStorage.getItem("sent_user"));
+          localStorage.removeItem("sent_user");
+          if (temp.mail != this.mail)
+            this.workshop_Service.syncMail(temp.mail, this.mail).subscribe(() => {
+              if (temp.username != this.username)
+                this.workshop_Service.syncUsername(temp.username, this.username).subscribe(() => {
+                  localStorage.removeItem("current_user"); this._router.navigate([""]);
+                });
+              else { this.cancel(); }
+            });
+          else if (temp.username != this.username)
+            this.workshop_Service.syncUsername(temp.username, this.username).subscribe(() => {
+              localStorage.removeItem("current_user");
+              this._router.navigate([""]);
+            });
+          else this.cancel();
+        });
 
     }
   }
