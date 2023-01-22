@@ -48,7 +48,7 @@ export class WorkshopController {
 
     updateWorkshop = (req: express.Request, res: express.Response) => {
         let workshop = req.body.workshop;
-        Workshops.updateMany({ "name": workshop.name }, {
+        Workshops.updateOne({ "_id": workshop._id }, {
             $set: {
                 "status": "approved",
                 "long_desc": workshop.long_desc,

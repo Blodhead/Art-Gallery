@@ -44,7 +44,7 @@ class WorkshopController {
         };
         this.updateWorkshop = (req, res) => {
             let workshop = req.body.workshop;
-            workshop_1.default.updateMany({ "name": workshop.name }, {
+            workshop_1.default.updateOne({ "_id": workshop._id }, {
                 $set: {
                     "status": "approved",
                     "long_desc": workshop.long_desc,
