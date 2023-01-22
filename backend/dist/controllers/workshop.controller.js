@@ -44,13 +44,14 @@ class WorkshopController {
         };
         this.updateWorkshop = (req, res) => {
             let workshop = req.body.workshop;
-            workshop_1.default.updateMany({ "name": workshop.name }, {
-                $set: {
+            workshop_1.default.updateOne({ "name": workshop.name, "date": workshop.date }, {
+                $push: {
                     "status": workshop.status,
                     "long_desc": workshop.long_desc,
                     "owner": workshop.owner
                 }
             }, (err, news) => {
+                console.log(news);
                 if (err)
                     console.log(err);
                 else
@@ -212,6 +213,7 @@ class WorkshopController {
                 image: req.body.image,
                 description: req.body.description,
                 date: req.body.date,
+                likes: req.body.likes,
                 location: req.body.location,
                 gallery: req.body.gallery,
                 free_spaces: req.body.free_spaces
@@ -224,7 +226,8 @@ class WorkshopController {
         };
         this.deleteWorkshop = (req, res) => {
             let _name = req.body.name;
-            workshop_1.default.collection.deleteOne({ "name": _name });
+            let _date = new Date(req.body.date);
+            workshop_1.default.collection.deleteOne({ "name": _name, "date": _date });
             res.json(req.body);
         };
         this.sendMail = (req, res) => {

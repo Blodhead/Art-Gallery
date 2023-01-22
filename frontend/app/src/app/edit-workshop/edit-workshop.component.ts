@@ -20,7 +20,7 @@ export class EditWorkshopComponent implements OnInit {
   constructor(private service: WorkshopService, private _router: Router, private sanitizer: DomSanitizer, private httpClient: HttpClient, private map_service: MapService) { }
 
   current_user: User;
-  sent_workshop: WorkshopDetails;
+  sent_workshop: WorkshopDetails = null;
   Error_message: string;
 
   imageError: string;
@@ -38,10 +38,15 @@ export class EditWorkshopComponent implements OnInit {
   gallery: string[] = [];
   long_desc: string = "";
   free_spaces: number = 0;
-  owner:string;
+  owner: string;
+  allWorkshops: WorkshopDetails[] = [];
+  global_index: number = -1;
+  template_workshop: WorkshopDetails = null;
   ngOnInit(): void {
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
     this.sent_workshop = JSON.parse(localStorage.getItem("sent_workshop"));
+    if (!this.sent_workshop)
+      this.template_workshop = JSON.parse(localStorage.getItem("template_workshop"));
 
     if (this.current_user == null) this._router.navigate(["login"]);
 
@@ -54,8 +59,19 @@ export class EditWorkshopComponent implements OnInit {
       this.description = this.sent_workshop.description;
       this.free_spaces = this.sent_workshop.free_spaces;
       this.long_desc = this.sent_workshop.long_desc;
-      this.long_desc = this.sent_workshop.long_desc;
       this.owner = this.sent_workshop.owner;
+    }
+
+    if (this.template_workshop != null) {
+      this.name = this.template_workshop.name;
+      this.date = new Date(this.template_workshop.date);
+      this.image = this.template_workshop.image;
+      this.time = this.date.getHours() + ":" + this.date.getMinutes();
+      this.location = this.template_workshop.location;
+      this.description = this.template_workshop.description;
+      this.free_spaces = this.template_workshop.free_spaces;
+      this.long_desc = this.template_workshop.long_desc;
+      this.owner = this.template_workshop.owner;
     }
   }
 
@@ -89,11 +105,10 @@ export class EditWorkshopComponent implements OnInit {
 
   cancel() {
     localStorage.removeItem("sent_workshop");
+    localStorage.removeItem("template_workshop");
     this._router.navigate([""]);
   }
   mydate: string;
-
-  search() { }
 
   check() {
     this.Error_message = "Input error:\n";
@@ -140,33 +155,58 @@ export class EditWorkshopComponent implements OnInit {
       alert(this.Error_message);
       return;
     }
-    let arr = this.time.split(":");
-    this.mydate = this.date.getFullYear() + "-" + (this.date.getMonth() + 1) + "-" + this.date.getDate();
-    let temp_date = new Date(this.mydate);
-    temp_date.setHours(Number(arr[0]), Number(arr[1]), 0);
-    if (this.sent_workshop == null) {
-      this.service.save(this.name, this.image, this.description, temp_date, this.location, this.likes, this.gallery, this.long_desc, this.current_user.username, this.free_spaces).subscribe((workshop: WorkshopDetails) => {
-        if (workshop != null) {
-          workshop.status = "waiting";
-          workshop.owner = this.current_user.username;
-          workshop.long_desc = this.long_desc;
-          this.service.updateWorkshop(workshop).subscribe(() => { this.cancel(); });
-          alert("Reguest successful");
+
+    this.service.getAllWorkshops().subscribe((workshops: WorkshopDetails[]) => {
+      for (let j = 0; j < workshops.length; j++) {
+        workshops[j].date = new Date(workshops[j].date);
+        this.allWorkshops.push(workshops[j]);
+      }
+
+      for (let i = 0; i < this.allWorkshops.length; i++) {
+        if (this.allWorkshops[i].name == this.name) {
+          this.likes = this.allWorkshops[i].likes;
+          break;
         }
-        else alert("ERROR");
-      });
+      }
+
+      localStorage.removeItem("sent_workshop");
+      localStorage.removeItem("template_workshop");
+
+      let arr = this.time.split(":");
+      this.mydate = this.date.getFullYear() + "-" + (this.date.getMonth() + 1) + "-" + this.date.getDate();
+      let temp_date = new Date(this.mydate);
+      temp_date.setHours(Number(arr[0]), Number(arr[1]), 0);
+      if (this.sent_workshop == null || this.template_workshop != null) {
+        this.service.save(this.name, this.image, this.description, temp_date, this.location, this.likes, this.gallery, this.long_desc, this.current_user.username, this.free_spaces).subscribe((workshop: WorkshopDetails) => {
+          if (workshop != null) {
+            workshop.status = "waiting";
+            workshop.likes = this.likes;
+            workshop.owner = this.current_user.username;
+            workshop.long_desc = this.long_desc;
+            this.service.updateWorkshop(workshop).subscribe(() => { this.cancel(); });
+            alert("Reguest successful");
+          }
+          else alert("ERROR");
+        });
 
 
-    }
-    else if (this.sent_workshop != null) {
-      this.service.update(this.sent_workshop.name, this.name, this.image, this.description, temp_date, this.location, this.likes, this.sent_workshop.gallery, this.long_desc, this.owner, this.free_spaces).subscribe((workshop: WorkshopDetails) => {
-        if (workshop != null) {
-          alert("Update successful");
-        }
-        else alert("ERROR");
+      }
+      else if (this.sent_workshop != null) {
+        this.service.update(this.sent_workshop.name, this.name, this.image, this.description, temp_date, this.location, this.likes, this.sent_workshop.gallery, this.long_desc, this.owner, this.free_spaces).subscribe((workshop: WorkshopDetails) => {
+          if (workshop != null) {
+            alert("Update successful");
+          }
+          else alert("ERROR");
 
-      });
-    }
+        });
+      }
+
+
+
+    });
+
+
+
 
 
   }
@@ -213,6 +253,9 @@ export class EditWorkshopComponent implements OnInit {
     temp.image = this.image;
     temp.location = this.location;
     temp.gallery = this.gallery;
+    temp.likes = this.likes;
+    temp.long_desc = this.long_desc;
+    temp.free_spaces = this.free_spaces;
 
     var theJSON = JSON.stringify([temp]);
     this.uri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));
@@ -252,7 +295,7 @@ export class EditWorkshopComponent implements OnInit {
     this.httpClient.get("assets/" + this.selectedFile).subscribe(data => {
       console.log(data);
       this.products = data;
-      localStorage.setItem("sent_workshop", JSON.stringify(this.products[0]));
+      localStorage.setItem("template_workshop", JSON.stringify(this.products[0]));
       location.reload();
     });
 

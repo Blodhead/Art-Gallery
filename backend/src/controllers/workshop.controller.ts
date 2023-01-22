@@ -1,6 +1,7 @@
 import * as express from "express";
 import { Request, Response } from "express-serve-static-core";
 import { ParsedQs } from "qs";
+import { brotliDecompressSync } from "zlib";
 import Workshops from "../models/workshop"
 
 
@@ -47,13 +48,14 @@ export class WorkshopController {
 
     updateWorkshop = (req: express.Request, res: express.Response) => {
         let workshop = req.body.workshop;
-        Workshops.updateMany({ "name": workshop.name }, {
+        Workshops.updateOne({ "name": workshop.name, "date": workshop.date }, {
             $set: {
                 "status": workshop.status,
                 "long_desc": workshop.long_desc,
                 "owner": workshop.owner
             }
         }, (err, news) => {
+            console.log(news);
             if (err) console.log(err);
             else res.json(news);
         });
@@ -222,6 +224,7 @@ export class WorkshopController {
             image: req.body.image,
             description: req.body.description,
             date: req.body.date,
+            likes: req.body.likes,
             location: req.body.location,
             gallery: req.body.gallery,
             free_spaces: req.body.free_spaces
@@ -236,7 +239,8 @@ export class WorkshopController {
 
     deleteWorkshop = (req: express.Request, res: express.Response) => {
         let _name = req.body.name;
-        Workshops.collection.deleteOne({ "name": _name });
+        let _date = new Date(req.body.date);
+        Workshops.collection.deleteOne({ "name": _name, "date": _date });
         res.json(req.body);
     }
 

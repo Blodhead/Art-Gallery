@@ -42,4 +42,11 @@ export class UserOrganizerComponent implements OnInit {
       }
     });
   }
+
+  add_new(){
+
+    localStorage.removeItem("sent_workshop");
+    this._router.navigate(["admin/edit_workshop"]);
+  }
+
 }
