@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { toJSDate } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar';
 import * as e from 'cors';
 import { User } from '../models/user';
 import { WorkshopDetails, Comment } from '../models/workshop-details';
@@ -66,6 +67,16 @@ export class WorkshopDetailsComponent implements OnInit {
 
   }
 
+  isOrganizer_page(): boolean {
+    if (this.current_path == "user_organizer")
+      return true;
+    else return false;
+  }
+
+  open_chat() {
+
+  }
+
   add_Workshop() {
     localStorage.setItem("sent_workshop", JSON.stringify(this.myWorkshopDetail));
     this._router.navigate(["admin/edit_workshop"]);
@@ -102,7 +113,7 @@ export class WorkshopDetailsComponent implements OnInit {
     this.workshop_Service.unsub(this.current_user.mail, this.myWorkshopDetail.name).subscribe((workshop) => {
       if (workshop) { alert("Success"); }
       else alert("fail");
-      if(statement == false) this.rr();
+      if (statement == false) this.rr();
     });
 
 
