@@ -98,12 +98,23 @@ export class WorkshopComponent implements OnInit {
   }
   str1: string;
   searchName(param) {
-    this.filtered_workshops = this.allWorkshops.filter(workshop => workshop.name.toLowerCase().includes(param.toLowerCase()));
+    this.filtered_workshops = this.filtered_workshops.filter(workshop => workshop.name.toLowerCase().includes(param.toLowerCase()));
     this.searchFlag = true;
   }
   str2: string;
   searchLocation(param) {
-    this.filtered_workshops = this.allWorkshops.filter(workshop => workshop.location.toLowerCase().includes(param.toLowerCase()));
+    this.filtered_workshops = this.filtered_workshops.filter(workshop => workshop.location.toLowerCase().includes(param.toLowerCase()));
     this.searchFlag = true;
   }
+
+  search(param) {
+    this.filtered_workshops = this.allWorkshops;
+    if (this.str1 != null) {
+      this.filtered_workshops = this.filtered_workshops.filter(workshop => workshop.name.toLowerCase().includes(param.toLowerCase()));
+    } else if (this.str2 != null) {
+      this.filtered_workshops = this.filtered_workshops.filter(workshop => workshop.location.toLowerCase().includes(param.toLowerCase()));
+    }
+    this.searchFlag = true;
+  }
+
 }

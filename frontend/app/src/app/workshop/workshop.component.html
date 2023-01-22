@@ -39,11 +39,11 @@
                     <td>
                         <h6>Search by:</h6>
                     </td>
-                    <td><input type="text" placeholder="name..." (keyup)="searchName(str1)" [(ngModel)]="str1"></td>
+                    <td><input type="text" placeholder="name..." (keyup)="search(str1)" [(ngModel)]="str1"></td>
                     <td>
                         <h6>or/and</h6>
                     </td>
-                    <td><input type="text" placeholder="location..." (keyup)="searchLocation(str2)" [(ngModel)]="str2">
+                    <td><input type="text" placeholder="location..." (keyup)="search(str2)" [(ngModel)]="str2">
                     </td>
                 </tr>
                 <tr *ngIf="searchFlag==true">
