@@ -24,6 +24,14 @@ export class Comment {
     image: string;
     date: Date;
     message: string;
+
+    constructor(data){
+        this.username = data.username;
+        this.image = data.image;
+        this.date = data.date;
+        this.message = data.message
+    }
+
 }
 
 export class Message {

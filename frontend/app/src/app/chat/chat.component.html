@@ -1,14 +1,14 @@
 <app-workshop-details [myWorkshopDetail]="myWorkshop"></app-workshop-details>
 
 <div *ngFor="let message of messages, let i = index;">
-    <button (click)="open(i)">{{message[0][i].from}}</button>
-    <div id={{i}}>
+    <button (click)="open(i)">{{name_index[i]}}</button>
+    <div id={{i}} style="display: none;">
         
         <div class="container page" style="padding: 0px;">
 
             <div class="chat" style="padding-top: 5px; padding-bottom: 5px; height: 300px; overflow-y: scroll;">
 
-                <div *ngFor="let message of comments;">
+                <div *ngFor="let message of comments[i];">
                     <app-message [myMessage]="message"></app-message>
                 </div>
 
