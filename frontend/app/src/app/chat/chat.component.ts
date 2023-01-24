@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
 import { Comment, Message, WorkshopDetails } from '../models/workshop-details';
@@ -18,7 +18,9 @@ export class ChatComponent implements OnInit {
     this.myWorkshop = JSON.parse(localStorage.getItem("sent_workshop"));
     this.user1 = JSON.parse(localStorage.getItem("current_user"));
     if (this.user1 == null) this._router.navigate(["login"]);
-    if (this.myWorkshop == null) this._router.navigate([""]);
+    if (this.myWorkshop == null) {
+      this.myWorkshop = this.unique_workshop;
+    }
 
     for (let k = 0; k < this.myWorkshop.messages.length; k++)
       this.myWorkshop.messages[k].date = new Date(this.myWorkshop.messages[k].date);
@@ -26,7 +28,20 @@ export class ChatComponent implements OnInit {
     let temp_array: Array<Message[]> = [];
     let real_arr: Message[][] = [];
 
+
     this.users_service.getTempData().subscribe((users_list: User[]) => {
+      this.current_path = this._router.url.split('/').pop();
+      if (this.current_path == "user") {
+
+        let arr = document.getElementsByClassName("poruka");
+        for (let i = 0; i < arr.length; i++) {
+          const slide = arr[i] as HTMLElement;
+          slide.style.width = "auto";
+          slide.style.height = "auto";
+          slide.style.paddingBottom = "20px";
+        }
+      }
+
 
       let temp_usernames: string[] = [];
       for (let k = 0; k < users_list.length; k++) {
@@ -50,7 +65,7 @@ export class ChatComponent implements OnInit {
                 this.name_index[j] = temp_usernames[j];
 
               }
-          } else if(this.user1.type == "participant"){
+          } else if (this.user1.type == "participant") {
             if (this.user1.username == temp_usernames[j])
               if (temp_array[0][i].from == temp_usernames[j] || temp_array[0][i].to == temp_usernames[j]) {
                 real_arr[j].push(temp_array[0][i]);
@@ -118,16 +133,18 @@ export class ChatComponent implements OnInit {
   myWorkshop: WorkshopDetails = null;
   user1: User = null;
   user2: User = null;
-
+  current_path: string = "";
+  @Input() unique_workshop: WorkshopDetails;
 
   messages: Message[][] = [];
   comments: Comment[][] = [];
   msg: string[] = [];
   index: number[] = [];
   name_index: string[] = [];
-  temp_images: string[] = []
+  temp_images: string[] = [];
 
   open(id) {
+    if (this.current_path == 'user') return;
     var x = document.getElementById(id);
     if (x.style.display === "none") {
       x.style.display = "block";
@@ -186,7 +203,7 @@ export class ChatComponent implements OnInit {
 
     if (this.user1.type == "participant") {
       for (let i = 0; i < this.name_index.length; i++) {
-        if (this.name_index[i] != this.user1.username){
+        if (this.name_index[i] != this.user1.username) {
           this.name_index[i] = null;
           this.messages[i] = null;
         }

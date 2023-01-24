@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
-import { WorkshopDetails } from '../models/workshop-details';
+import { Message, WorkshopDetails } from '../models/workshop-details';
 import { SharedService } from '../shared.service';
 import { UserService } from '../user.service';
 import { WorkshopService } from '../workshop.service';
@@ -19,9 +19,11 @@ export class UserComponent implements OnInit {
   current_user: User;
   reload: string;
   allWorkshops: WorkshopDetails[] = [];
+  fullWorskhops: WorkshopDetails[] = [];
   activeWorkshops: WorkshopDetails[] = [];
   active_tab: string = "User";
   myWorkshops: WorkshopDetails[] = [];
+  chats: WorkshopDetails[] = [];
   index: number[] = [];
   toggle1: boolean = true;
   toggle2: boolean = true;
@@ -40,6 +42,8 @@ export class UserComponent implements OnInit {
       localStorage.removeItem("reload");
       this.sharedService.sendclickEvent();
     }
+    localStorage.removeItem("sent_workshop");
+    this.getAllWorkshops();
   }
 
   sortName() {
@@ -93,7 +97,7 @@ export class UserComponent implements OnInit {
       if (!workshops) alert("Error");
       else {
         this.allWorkshops = workshops;
-
+        this.fullWorskhops = workshops;
         for (let j = 0; j < this.allWorkshops.length; j++) {
           this.allWorkshops[j].date = new Date(this.allWorkshops[j].date);
           this.index[j] = j;
@@ -106,6 +110,19 @@ export class UserComponent implements OnInit {
               }
           }
         }
+      }
+
+      for (let i = 0; i < this.fullWorskhops.length; i++) {
+
+        for (let j = 0; j < this.fullWorskhops[i].messages.length; j++) {
+          if (this.fullWorskhops[i].messages[j].from == this.current_user.username || this.fullWorskhops[i].messages[j].to == this.current_user.username) {
+
+            this.chats.push(this.fullWorskhops[i]);
+            break;
+          }
+
+        }
+
       }
     });
   }
@@ -158,5 +175,6 @@ export class UserComponent implements OnInit {
       }
     });
   }
+
 
 }
