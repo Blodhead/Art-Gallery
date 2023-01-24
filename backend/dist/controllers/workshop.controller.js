@@ -206,20 +206,6 @@ class WorkshopController {
                     res.json(news);
             });
         };
-        this.getAllMessages = (req, res) => {
-            let workshop_name = req.body.name;
-            let date = req.body.date;
-            console.log(req.body);
-            console.log(workshop_name);
-            console.log(date);
-            workshop_1.default.findOne({ "name": req.body.name, "date": req.body.name }, (err, messages) => {
-                console.log(messages);
-                if (err)
-                    console.log(err);
-                else
-                    res.json(messages);
-            });
-        };
         this.save = (req, res) => {
             let workshop = new workshop_1.default({
                 name: req.body.name,
@@ -300,6 +286,13 @@ class WorkshopController {
             let _old_username = req.body.old_username;
             let _new_username = req.body._new_username;
             workshop_1.default.updateMany({ "likes.": _old_username }, { $set: { "likes.$.": _new_username } }, (status) => {
+                res.json(status);
+            });
+        };
+        this.addMessage = (req, res) => {
+            let workshop = req.body.workshop;
+            let message = req.body.message;
+            workshop_1.default.updateOne({ "name": workshop }, { $push: { "messages": message } }, (err, status) => {
                 res.json(status);
             });
         };

@@ -99,16 +99,31 @@ export class DetailsComponent implements OnInit {
   reject(participant: string) {
     for (let iter = 0; iter < this.waitingParticipants.length; iter++) {
       if (this.waitingParticipants[iter] == participant) {
+
+        for (let x = 0; x < this.myWorkshop.participants.length; x++) {
+          if (this.myWorkshop.participants[x].mail == this.waitingParticipants[iter]) {
+            this.myWorkshop.participants[x] = null;
+            break;
+          }
+
+        }
+
+        this.myWorkshop.participants = this.myWorkshop.participants.filter(elements => {
+          return (elements != null && elements !== undefined);
+        });
+
+        localStorage.setItem("detail_sent", JSON.stringify(this.myWorkshop));
+
         this.waitingParticipants[iter] = null;
         this.waitingParticipants = this.waitingParticipants.filter(elements => {
           return (elements != null && elements !== undefined);
-        });       
+        });
         break;
       }
     }
 
     this.workshop_service.reject(participant, this.myWorkshop).subscribe((statement) => {
-      if (statement) alert("uspehg");
+      if (statement) localStorage.setItem("detail_sent", JSON.stringify(this.myWorkshop));
       else alert("err");
     });
 
@@ -117,6 +132,14 @@ export class DetailsComponent implements OnInit {
 
     for (let iter = 0; iter < this.waitingParticipants.length; iter++) {
       if (this.waitingParticipants[iter] == participant) {
+        for (let x = 0; x < this.myWorkshop.participants.length; x++) {
+          if (this.myWorkshop.participants[x].mail == this.waitingParticipants[iter]) {
+            this.myWorkshop.participants[x].status = "approved";
+            break;
+          }
+
+        }
+        localStorage.setItem("detail_sent", JSON.stringify(this.myWorkshop));
         this.waitingParticipants[iter] = null;
         this.waitingParticipants = this.waitingParticipants.filter(elements => {
           return (elements != null && elements !== undefined);
@@ -128,7 +151,8 @@ export class DetailsComponent implements OnInit {
     this.subscribedParticipants.push(participant);
 
     this.workshop_service.accept(participant, this.myWorkshop).subscribe((statement) => {
-      if (statement) alert("uspehg");
+      if (statement) localStorage.setItem("detail_sent", JSON.stringify(this.myWorkshop));
+
       else alert("err");
     });
   }
@@ -136,6 +160,6 @@ export class DetailsComponent implements OnInit {
   contact() {
     localStorage.setItem("sent_workshop", JSON.stringify(this.myWorkshop));
     this._router.navigate(["chat"]);
-   }
+  }
 
 }

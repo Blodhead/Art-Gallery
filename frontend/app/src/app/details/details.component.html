@@ -40,7 +40,7 @@
                                 <hr>
                             </tr>
                             <tr>
-                                <b>Organizer:</b> {{myWorkshop.owner}} <button type="button"
+                                <b>Organizer:</b> {{myWorkshop.owner}} <button *ngIf="current_user.type=='participant'" type="button"
                                     class="btn btn-sm btn-warning pointer" (click)="contact()">Contact</button>
                             </tr>
                             <tr>

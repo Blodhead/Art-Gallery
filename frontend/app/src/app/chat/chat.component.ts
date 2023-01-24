@@ -29,10 +29,9 @@ export class ChatComponent implements OnInit {
     this.users_service.getTempData().subscribe((users_list: User[]) => {
 
       let temp_usernames: string[] = [];
-      let temp_images: string[] = [];
       for (let k = 0; k < users_list.length; k++) {
         temp_usernames.push(users_list[k].username);
-        temp_images.push(users_list[k].profile_photo_name);
+        this.temp_images.push(users_list[k].profile_photo_name);
       }
       temp_array.push(this.myWorkshop.messages);
 
@@ -44,12 +43,22 @@ export class ChatComponent implements OnInit {
 
       for (let i = 0; i < temp_array[0].length; i++) {
         for (let j = 0; j < temp_usernames.length; j++) {
-          if (this.user1.username != temp_usernames[j])
-            if (temp_array[0][i].from == temp_usernames[j] || temp_array[0][i].to == temp_usernames[j]) {
-              real_arr[j].push(temp_array[0][i]);
-              this.name_index[j] = temp_usernames[j];
+          if (this.user1.type == "organizer") {
+            if (this.user1.username != temp_usernames[j])
+              if (temp_array[0][i].from == temp_usernames[j] || temp_array[0][i].to == temp_usernames[j]) {
+                real_arr[j].push(temp_array[0][i]);
+                this.name_index[j] = temp_usernames[j];
 
-            }
+              }
+          } else if(this.user1.type == "participant"){
+            if (this.user1.username == temp_usernames[j])
+              if (temp_array[0][i].from == temp_usernames[j] || temp_array[0][i].to == temp_usernames[j]) {
+                real_arr[j].push(temp_array[0][i]);
+                this.name_index[j] = temp_usernames[j];
+
+              }
+          }
+
         }
       }
 
@@ -90,7 +99,7 @@ export class ChatComponent implements OnInit {
 
           let data = {
             username: this.messages[i][j].from,
-            image: temp_images[why],
+            image: this.temp_images[why],
             date: this.messages[i][j].date,
             message: this.messages[i][j].message
           }
@@ -113,12 +122,12 @@ export class ChatComponent implements OnInit {
 
   messages: Message[][] = [];
   comments: Comment[][] = [];
-  msg: string = "";
+  msg: string[] = [];
   index: number[] = [];
   name_index: string[] = [];
+  temp_images: string[] = []
 
   open(id) {
-    if (this.user1.type == "participant") return;
     var x = document.getElementById(id);
     if (x.style.display === "none") {
       x.style.display = "block";
@@ -128,21 +137,60 @@ export class ChatComponent implements OnInit {
 
   }
 
-  comment() {
+  comment(index) {
+
+    let data1 = {
+      username: this.user1.username,
+      image: this.user1.profile_photo_name,
+      date: new Date(),
+      message: this.msg[index]
+    }
+
+    this.comments[index].push(new Comment(data1));
+
+    if (this.user1.type == "organizer") {
+
+      let data2 = {
+        from: this.user1.username,
+        to: this.name_index[index],
+        message: this.msg[index],
+        date: new Date()
+      }
+
+      this.messages[index].push(new Message(data2));
+    } else {
+
+      let data2 = {
+        from: this.name_index[index],
+        to: this.user1.username,
+        message: this.msg[index],
+        date: new Date()
+      }
+
+      this.messages[index].push(new Message(data2));
+
+    }
+
+    this.workshop_service.addMessage(this.myWorkshop.name, this.messages[index][this.messages[index].length - 1]).subscribe((statement) => {
+      this.myWorkshop.messages.push(this.messages[index][this.messages[index].length - 1]);
+      localStorage.setItem("sent_workshop", JSON.stringify(this.myWorkshop));
+    });
 
   }
 
-  cancel() {
-
+  cancel(index) {
+    this.msg[index] = "";
   }
 
   show() {
 
     if (this.user1.type == "participant") {
       for (let i = 0; i < this.name_index.length; i++) {
-        if (this.name_index[i] != this.user1.username)
+        if (this.name_index[i] != this.user1.username){
           this.name_index[i] = null;
-        this.messages[i] = null;
+          this.messages[i] = null;
+        }
+
       }
       this.name_index = this.name_index.filter(elements => {
         return (elements != null && elements !== undefined);
@@ -155,13 +203,15 @@ export class ChatComponent implements OnInit {
       if (this.messages.length == 0) {
         this.name_index.push(this.user1.username);
         let temp: Message[] = [];
-        let msg = new Message();
-        msg.date = new Date();
-        msg.from = this.myWorkshop.owner;
-        msg.to = this.user1.username;
-        msg.message = "Hi, how may I assist you today?";
 
-        temp.push(msg);
+        let data = {
+          date: new Date(),
+          from: this.myWorkshop.owner,
+          to: this.user1.username,
+          message: "Hi, how may I assist you today?"
+        }
+
+        temp.push(data);
         this.messages = [];
         this.messages.push(temp);
       }

@@ -39,4 +39,11 @@ export class Message {
     to: string;
     message: string;
     date: Date;
+
+    constructor(data){
+        this.from = data.from;
+        this.to = data.to;
+        this.message = data.message;
+        this.date = data.date;
+    }
 }

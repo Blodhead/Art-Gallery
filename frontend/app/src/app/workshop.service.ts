@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http"
-import { WorkshopDetails } from './models/workshop-details';
+import { Message, WorkshopDetails } from './models/workshop-details';
 
 @Injectable({
   providedIn: 'root'
@@ -174,6 +174,14 @@ export class WorkshopService {
       new_username: new_username
     }
     return this.http.post(`${this.url}/workshop/syncUsername`, data);
+  }
+
+  addMessage(workshop: string, message: Message) {
+    let data = {
+      workshop: workshop,
+      message: message
+    }
+    return this.http.post(`${this.url}/workshop/addMessage`, data);
   }
 
 }

@@ -15,9 +15,6 @@ workshopRouter.route("/update").post(//ako dodje "/login" ruta on obradjuje POST
 workshopRouter.route("/getAllWorkshops").get(//ako dodje "/login" ruta on obradjuje POST zahtev, za GET ne zna sta da radi, jer nije definisano
 (req, res) => new workshop_controller_1.WorkshopController().getAllWorkshops(req, res) //poziva se UserController i njegova login metoda
 );
-workshopRouter.route("/getAllMessages").post(//ako dodje "/login" ruta on obradjuje POST zahtev, za GET ne zna sta da radi, jer nije definisano
-(req, res) => new workshop_controller_1.WorkshopController().getAllMessages(req, res) //poziva se UserController i njegova login metoda
-);
 workshopRouter.route("/deleteWorkshop").post((req, res) => new workshop_controller_1.WorkshopController().deleteWorkshop(req, res));
 workshopRouter.route("/sub").post((req, res) => new workshop_controller_1.WorkshopController().sub(req, res));
 workshopRouter.route("/unsub").post((req, res) => new workshop_controller_1.WorkshopController().unsub(req, res));
@@ -32,5 +29,6 @@ workshopRouter.route("/reject").post((req, res) => new workshop_controller_1.Wor
 workshopRouter.route("/accept").post((req, res) => new workshop_controller_1.WorkshopController().accept(req, res));
 workshopRouter.route("/syncMail").post((req, res) => new workshop_controller_1.WorkshopController().syncMail(req, res));
 workshopRouter.route("/syncUsername").post((req, res) => new workshop_controller_1.WorkshopController().syncUsername(req, res));
+workshopRouter.route("/addMessage").post((req, res) => new workshop_controller_1.WorkshopController().addMessage(req, res));
 exports.default = workshopRouter;
 //# sourceMappingURL=workshop.routes.js.map

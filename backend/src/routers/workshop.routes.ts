@@ -71,4 +71,8 @@ workshopRouter.route("/syncUsername").post(
     (req, res) => new WorkshopController().syncUsername(req, res)
 )
 
+workshopRouter.route("/addMessage").post(
+    (req, res) => new WorkshopController().addMessage(req, res)
+)
+
 export default workshopRouter;

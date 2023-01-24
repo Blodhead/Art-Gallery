@@ -28,15 +28,15 @@
                                     <div class="col-lg-10 col-md-8" style="padding: 0px;">
                                         <input class="rounded" type="text"
                                             style="width: -webkit-fill-available; height: -webkit-fill-available;"
-                                            name="message" id="" [(ngModel)]="msg">
+                                            name="message" id="" [(ngModel)]="msg[i]">
                                     </div>
                                     <div class="col-lg-1 col-md-2" style="padding: 0px;"><button type="button"
                                             class="btn btn-success"
                                             style="background-color: rgb(19,98,7); width: -webkit-fill-available;"
-                                            (click)="comment()">Post</button></div>
+                                            (click)="comment(i)">Post</button></div>
                                     <div class="col-lg-1 col-md-2" style="padding: 0px;"><button type="button"
                                             class="btn btn-danger" style="width: -webkit-fill-available;"
-                                            (click)="cancel()">Cancel</button></div>
+                                            (click)="cancel(i)">Cancel</button></div>
                                 </div>
                             </div>
                         </div>

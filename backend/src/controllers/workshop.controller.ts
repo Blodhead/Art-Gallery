@@ -309,4 +309,12 @@ export class WorkshopController {
             res.json(status);
         });
     }
+
+    addMessage = (req: express.Request, res: express.Response) => {
+        let workshop = req.body.workshop;
+        let message = req.body.message;
+        Workshops.updateOne({ "name": workshop }, { $push: { "messages": message } }, (err,status) => {
+            res.json(status);
+        });
+    }
 }
