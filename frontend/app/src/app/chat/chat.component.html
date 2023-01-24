@@ -6,7 +6,7 @@
             <h3 style="color: white;">Chats:</h3>
             <div class="col-12 container-fluid" *ngFor="let message of messages, let i = index;">
                 <div class="row">
-                    <button type="button" class="btn btn-secondary" style="width: -webkit-fill-available; color: white;"
+                    <button type="button" class="btn btn-secondary border border-light" style="width: -webkit-fill-available; color: white;"
                         (click)="open(i)"><b>{{name_index[i]}}</b></button>
                 </div>
                 <div class="row">

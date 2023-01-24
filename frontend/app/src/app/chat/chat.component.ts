@@ -72,22 +72,24 @@ export class ChatComponent implements OnInit {
         this.messages.push(real_arr[i]);
       }
 
+      this.show();
+
       //conversion from message to comment
       for (let i = 0; i < this.messages.length; i++) {
-        let comm : Comment[] = [];
-        for (let j = 0; j < this.messages[i].length; j++){
+        let comm: Comment[] = [];
+        for (let j = 0; j < this.messages[i].length; j++) {
 
           let why = 0;
 
-          for(let x = 0; x < temp_usernames.length; x++){
-            if(this.messages[i][j].from==temp_usernames[x]){
+          for (let x = 0; x < temp_usernames.length; x++) {
+            if (this.messages[i][j].from == temp_usernames[x]) {
               why = x;
               break;
             }
           }
 
           let data = {
-            username:this.messages[i][j].from,
+            username: this.messages[i][j].from,
             image: temp_images[why],
             date: this.messages[i][j].date,
             message: this.messages[i][j].message
@@ -95,16 +97,16 @@ export class ChatComponent implements OnInit {
 
           comm.push(new Comment(data));
 
-          
+
         }
         this.comments.push(comm);
       }
-      
 
     });
+
   }
 
-  myWorkshop: WorkshopDetails = null;;
+  myWorkshop: WorkshopDetails = null;
   user1: User = null;
   user2: User = null;
 
@@ -116,6 +118,7 @@ export class ChatComponent implements OnInit {
   name_index: string[] = [];
 
   open(id) {
+    if (this.user1.type == "participant") return;
     var x = document.getElementById(id);
     if (x.style.display === "none") {
       x.style.display = "block";
@@ -131,6 +134,39 @@ export class ChatComponent implements OnInit {
 
   cancel() {
 
+  }
+
+  show() {
+
+    if (this.user1.type == "participant") {
+      for (let i = 0; i < this.name_index.length; i++) {
+        if (this.name_index[i] != this.user1.username)
+          this.name_index[i] = null;
+        this.messages[i] = null;
+      }
+      this.name_index = this.name_index.filter(elements => {
+        return (elements != null && elements !== undefined);
+      });
+
+      this.messages = this.messages.filter(elements => {
+        return (elements != null && elements !== undefined);
+      });
+
+      if (this.messages.length == 0) {
+        this.name_index.push(this.user1.username);
+        let temp: Message[] = [];
+        let msg = new Message();
+        msg.date = new Date();
+        msg.from = this.myWorkshop.owner;
+        msg.to = this.user1.username;
+        msg.message = "Hi, how may I assist you today?";
+
+        temp.push(msg);
+        this.messages = [];
+        this.messages.push(temp);
+      }
+
+    }
   }
 
 }
