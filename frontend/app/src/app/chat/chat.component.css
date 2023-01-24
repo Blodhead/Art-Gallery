@@ -92,3 +92,12 @@
   .col-sm-12{
     padding-left: 260px !important;
   }
+  .wrapper{
+    background-image: url('../../assets/images/edit_user_bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
