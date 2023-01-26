@@ -191,6 +191,7 @@ export class ChatComponent implements OnInit {
     this.workshop_service.addMessage(this.myWorkshop.name, this.messages[index][this.messages[index].length - 1]).subscribe((statement) => {
       this.myWorkshop.messages.push(this.messages[index][this.messages[index].length - 1]);
       localStorage.setItem("sent_workshop", JSON.stringify(this.myWorkshop));
+      this.msg[index] = "";
     });
 
   }

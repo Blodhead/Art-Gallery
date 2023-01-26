@@ -32,11 +32,6 @@ export class WorkshopComponent implements OnInit {
   index: number[] = [1];
   top5: String[] = [];
   temp_date: Date[] = [];
-  getTop5() {
-    this.filtered_workshops.sort((a, b) => {
-      return a.likes.length - b.likes.length;
-    });
-  }
 
   getAllWorkshops() {
     this.workshop_service.getAllWorkshops().subscribe((workshops: WorkshopDetails[]) => {
@@ -44,6 +39,23 @@ export class WorkshopComponent implements OnInit {
       else {
 
         let temp_arr = workshops;
+
+        temp_arr.sort((a, b) => {
+          return b.likes.length - a.likes.length;
+        });
+
+        let bridge = temp_arr;
+
+        bridge = bridge.filter((value, index, self) =>
+          index === self.findIndex((t) => (
+            t.name === value.name
+          ))
+        )
+
+        for (let i = 0; i < 5 && i < bridge.length; i++) {
+          if (this.top5.indexOf(bridge[i].name) === -1)
+            this.top5.push(bridge[i].name)
+        }
 
         for (let j = 0; j < temp_arr.length; j++) {
           temp_arr[j].date = new Date(temp_arr[j].date);
@@ -56,12 +68,6 @@ export class WorkshopComponent implements OnInit {
           return (elements != null && elements !== undefined);
         });
         this.filtered_workshops = this.allWorkshops;
-        this.getTop5();
-
-        for (let i = 0; i < 5 && i < this.filtered_workshops.length; i++) {
-          if (this.top5.indexOf(workshops[i].name) === -1)
-            this.top5.push(workshops[i].name)
-        }
       }
     });
   }

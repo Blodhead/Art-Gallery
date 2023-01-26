@@ -67,6 +67,12 @@ export class WorkshopDetailsComponent implements OnInit {
 
   }
 
+  edit_enable(myWorkshopDetail: WorkshopDetails) {
+    if ((new Date(myWorkshopDetail.date).getTime() - (new Date()).getTime() > 0))
+      return false;
+    else return true;
+  }
+
   isOrganizer_page(): boolean {
     if (this.current_path == "user_organizer")
       return true;
@@ -142,7 +148,7 @@ export class WorkshopDetailsComponent implements OnInit {
 
   isTime(): boolean {
     if (this.isSubscribed() == false) return false;
-    else if ((this.myWorkshopDetail.date.getTime() - (new Date()).getTime() > 1800000) && this.current_path == 'MyWorkshops')
+    else if ((new Date(this.myWorkshopDetail.date).getTime() - (new Date()).getTime() > 1800000) && this.current_path == 'MyWorkshops')
       return true;
     else return false;
   }
@@ -180,6 +186,7 @@ export class WorkshopDetailsComponent implements OnInit {
     if (this.flipDiv == false)
       this.flipDiv = true;
     else this.flipDiv = false;
+    this.message = "";
   }
 
   message: string = "";

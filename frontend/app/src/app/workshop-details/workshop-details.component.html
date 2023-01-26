@@ -16,7 +16,7 @@
                         <h2>
                             <td>{{myWorkshopDetail.name}}</td>
                         </h2>
-                        <td *ngIf="type=='admin'|| current_user!=null">
+                        <td *ngIf="type=='admin'|| current_user!=null && edit_enable(myWorkshopDetail)==false">
                             <button *ngIf="myWorkshopDetail.owner==current_user.username || type=='admin'"
                                 class="btn btn-success btn-sm" (click)="add_Workshop()">Edit</button>
                         </td>
@@ -29,7 +29,8 @@
                                 class="btn btn-danger btn-sm" disabled>{{likes}} ❤</button>
                         </td>
                         <td *ngIf="isOrganizer_page() == true">
-                            <button style="width: max-content;" class="btn btn-primary btn-sm" (click)="open_chat()">Chat 💬</button>
+                            <button style="width: max-content;" class="btn btn-primary btn-sm"
+                                (click)="open_chat()">Chat 💬</button>
                         </td>
                         <td *ngIf="type=='participant'|| current_user!=null">
                             <button *ngIf="type=='participant' && isSubscribed()==false && hasFree()==true"
@@ -93,7 +94,7 @@
                         <h2>
                             <td>{{myWorkshopDetail.name}}</td>
                         </h2>
-                        <td *ngIf="type=='admin'|| current_user!=null">
+                        <td *ngIf="type=='admin'|| current_user!=null && edit_enable(myWorkshopDetail)==false">
                             <button *ngIf="myWorkshopDetail.owner==current_user.username || type=='admin'"
                                 class="btn btn-success btn-sm" (click)="add_Workshop()">Edit</button>
                         </td>
@@ -106,7 +107,8 @@
                                 class="btn btn-danger btn-sm" disabled>{{likes}} ❤</button>
                         </td>
                         <td *ngIf="isOrganizer_page() == true">
-                            <button style="width: max-content;" class="btn btn-primary btn-sm" (click)="open_chat()">Chat 💬</button>
+                            <button style="width: max-content;" class="btn btn-primary btn-sm"
+                                (click)="open_chat()">Chat 💬</button>
                         </td>
                         <td *ngIf="type=='participant'|| current_user!=null">
                             <button *ngIf="type=='participant' && isSubscribed()==false && hasFree()==true"

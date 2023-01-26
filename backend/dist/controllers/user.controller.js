@@ -82,8 +82,14 @@ class UserController {
             let username = req.body.username; //dohvata usernamer iz tela
             let password = req.body.password; //dohvata possword iz tela
             users_1.default.findOne({ "username": username, "password": password }, (err, user) => {
-                if (user == null)
-                    res.json(null);
+                if (user == null) {
+                    users_1.default.findOne({ "username": username, "tempPass": password }, (err, user) => {
+                        if (user == null)
+                            res.json(null);
+                        else
+                            res.json(user);
+                    });
+                }
                 else {
                     if (password == user.password) {
                         res.json(user);

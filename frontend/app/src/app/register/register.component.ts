@@ -48,7 +48,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.profile_photo_name = "../../assets/images/users/admin.jpg";
+    this.profile_photo_name = "../../assets/images/users/avatar2.jpg";
     this.getTempData();
 
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
@@ -90,7 +90,7 @@ export class RegisterComponent implements OnInit {
 
     if (!_.includes(allowed_types, event.target.files[0].type)) {
       this.imageError = 'Only Images are allowed ( JPG | PNG )';
-      this.profile_photo_name = "../../assets/images/img_avatar2.png";
+      this.profile_photo_name = "../../assets/images/users/avatar2.png";
       alert(this.imageError);
       return;
     }
@@ -113,7 +113,7 @@ export class RegisterComponent implements OnInit {
             '*' +
             max_width +
             'px';
-          this.profile_photo_name = "../../assets/images/img_avatar2.png";
+          this.profile_photo_name = "../../assets/images/users/avatar2.png";
           alert(this.imageError);
           return;
         } else if (img_height < min_height && img_width < min_width) {
@@ -123,7 +123,7 @@ export class RegisterComponent implements OnInit {
             '*' +
             min_width +
             'px';
-          this.profile_photo_name = "../../assets/images/img_avatar2.png";
+          this.profile_photo_name = "../../assets/images/users/avatar2.png";
           alert(this.imageError);
           return;
         } else {
@@ -137,7 +137,7 @@ export class RegisterComponent implements OnInit {
     reader.readAsDataURL(event.target.files[0]);
 
     this.profile_photo = event.target.files[0];
-    this.profile_photo_name = "../../assets/images/" + event.target.files[0].name;
+    this.profile_photo_name = "../../assets/images/users/" + event.target.files[0].name;
   }
 
   removeImage() {
