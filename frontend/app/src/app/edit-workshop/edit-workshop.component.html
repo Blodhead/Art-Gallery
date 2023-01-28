@@ -37,8 +37,8 @@
                     </div>
 
                     <div class="row card-footer text-muted">
-                        <div class="row" style="width: -webkit-fill-available;">
-                            <div class="col-12 name" style="width: -webkit-fill-available;">
+                        <div class="row" style="width: -webkit-fill-available; width: -moz-available;">
+                            <div class="col-12 name" style="width: -webkit-fill-available; width: -moz-available;">
                                 <label for="address"><b style="color: black;">Address:&nbsp;</b></label>
                                 <input type="text" placeholder="example:Bulevar kralja Aleksandra 73, Beograd, Srbija"
                                     style="min-width:400px" [(ngModel)]="location">
@@ -95,7 +95,7 @@
                 <div class="picture">
 
                     <button type="button" class="btn btn-info" style="width: 128px !important;">
-                        <p>Upload Template</p><input style="width: -webkit-fill-available;" src={{selectedFile}}
+                        <p>Upload Template</p><input style="width: -webkit-fill-available; width: -moz-available;" src={{selectedFile}}
                             type="file" id="wizard-picture" class="avatar" name="json"
                             (change)="onFileChanged($event)">
                     </button>

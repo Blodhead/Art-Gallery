@@ -38,7 +38,7 @@ export class AdminComponent implements OnInit {
 
     }
     if (this.current_user == null) this._router.navigate(["login"]);
-    if (this.current_user.type != "admin" ) this._router.navigate([""]);
+    if (this.current_user.type != "admin") this._router.navigate([""]);
     this.service.getTempData().subscribe((data: User[]) => {
 
       if (localStorage.getItem("type") != null) {
@@ -52,6 +52,7 @@ export class AdminComponent implements OnInit {
 
         if (data[i].type != "admin")
           this.allUsers.push(data[i]);
+        else this.admin_user = data[i];
 
         if (data[i].status == "waiting")
           this.requests.push(data[i]);
@@ -63,6 +64,8 @@ export class AdminComponent implements OnInit {
 
     this.getAllWorkshops();
   }
+
+  admin_user: User = null;
 
   getAllWorkshops() {
     this.workshop_service.getAllWorkshops().subscribe((workshops: WorkshopDetails[]) => {
@@ -97,6 +100,7 @@ export class AdminComponent implements OnInit {
           break;
         }
       }
+      if (temp_user == null) { temp_user = this.admin_user; }
 
       for (let i = 0; i < temp_all.length; i++) {
         for (let j = 0; j < temp_all[i].participants.length; j++)
@@ -109,10 +113,9 @@ export class AdminComponent implements OnInit {
 
       workshop.status = "approved";
 
-      this.workshop_service.updateWorkshop(workshop).subscribe((statement) => { if (statement == null) alert("Update status fail"); return; });
+      this.workshop_service.updateWorkshop(workshop).subscribe((statement) => { if (statement == null) { alert("Update status fail"); return; } else if (temp_user.type == "organizer" || temp_user.type == "admin") { location.reload(); return; } });
 
-      if (temp_user.type == "organizer") { location.reload(); return; }
-
+      if (temp_user.type != "participant") return;
       this.service.deleteUser(temp_user).subscribe((statement) => { if (statement == null) alert("Update status fail"); return; });
 
       this.service.register(temp_user.profile_photo_name, temp_user.firstname, temp_user.lastname, temp_user.username, temp_user.password, temp_user.mail, temp_user.phone, "organizer", null, null, null, null, null, null, null, "approved").subscribe((statement) => { if (statement == null) alert("Update status fail"); return; });

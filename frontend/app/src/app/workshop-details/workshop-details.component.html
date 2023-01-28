@@ -184,14 +184,14 @@
             <div class="row" style="margin: 0px !important;">
                 <div class="col-lg-10 col-md-8" style="padding: 0px;">
                     <input class="rounded" type="text"
-                        style="width: -webkit-fill-available; height: -webkit-fill-available;" name="message" id=""
+                        style="width: -webkit-fill-available; width: -moz-available; height: -webkit-fill-available; height: -moz-available;" name="message" id=""
                         [(ngModel)]="message">
                 </div>
                 <div class="col-lg-1 col-md-2" style="padding: 0px;"><button type="button" class="btn btn-success"
-                        style="background-color: rgb(19,98,7); width: -webkit-fill-available;"
+                        style="background-color: rgb(19,98,7); width: -webkit-fill-available;width: -moz-available;"
                         (click)="comment()">Post</button></div>
                 <div class="col-lg-1 col-md-2" style="padding: 0px;"><button type="button" class="btn btn-danger"
-                        style="width: -webkit-fill-available;" (click)="cancel()">Cancel</button></div>
+                        style="width: -webkit-fill-available; width: -moz-available;" (click)="cancel()">Cancel</button></div>
             </div>
         </div>
     </div>

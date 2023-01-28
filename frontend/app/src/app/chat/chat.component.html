@@ -4,12 +4,12 @@
         <div class="row ">
             <app-workshop-details *ngIf="current_path != 'user'" [myWorkshopDetail]="myWorkshop"></app-workshop-details>
             <button *ngIf="current_path == 'user'" type="button" class="btn btn-secondary"
-                style="width: -webkit-fill-available; color: white; background-color: #136207;"><b>{{myWorkshop.name}}</b></button>
+                style="width: -webkit-fill-available; width: -moz-available; color: white; background-color: #136207;"><b>{{myWorkshop.name}}</b></button>
             <h3 style="color: white;">Chats:</h3>
             <div class="col-12 container-fluid" *ngFor="let message of messages, let i = index;">
                 <div class="row">
                     <button type="button" class="btn btn-secondary border border-light"
-                        style="width: -webkit-fill-available; color: white;"
+                        style="width: -webkit-fill-available; width: -moz-available; color: white;"
                         (click)="open(i)"><b>{{name_index[i]}}</b></button>
                 </div>
                 <div class="row">
@@ -30,15 +30,15 @@
                                 <div class="row" style="margin: 0px !important;">
                                     <div class="col-lg-10 col-md-8" style="padding: 0px;">
                                         <input class="rounded" type="text"
-                                            style="width: -webkit-fill-available; height: -webkit-fill-available;"
+                                            style="width: -webkit-fill-available; width: -moz-available; height: -webkit-fill-available; height: -moz-available;"
                                             name="message" id="" [(ngModel)]="msg[i]">
                                     </div>
                                     <div class="col-lg-1 col-md-2" style="padding: 0px;"><button type="button"
                                             class="btn btn-success"
-                                            style="background-color: rgb(19,98,7); width: -webkit-fill-available;"
+                                            style="background-color: rgb(19,98,7); width: -webkit-fill-available;width: -moz-available;"
                                             (click)="comment(i)">Post</button></div>
                                     <div class="col-lg-1 col-md-2" style="padding: 0px;"><button type="button"
-                                            class="btn btn-danger" style="width: -webkit-fill-available;"
+                                            class="btn btn-danger" style="width: -webkit-fill-available;width: -moz-available;"
                                             (click)="cancel(i)">Cancel</button></div>
                                 </div>
                             </div>
@@ -62,15 +62,15 @@
                                 <div class="row" style="margin: 0px !important;">
                                     <div class="col-lg-10 col-md-8" style="padding: 0px;">
                                         <input class="rounded" type="text"
-                                            style="width: -webkit-fill-available; height: -webkit-fill-available;"
+                                            style="width: -webkit-fill-available; width: -moz-available; height: -webkit-fill-available; height: -moz-available;"
                                             name="message" id="" [(ngModel)]="msg[i]">
                                     </div>
                                     <div class="col-lg-1 col-md-2" style="padding: 0px;"><button type="button"
                                             class="btn btn-success"
-                                            style="background-color: rgb(19,98,7); width: -webkit-fill-available;"
+                                            style="background-color: rgb(19,98,7); width: -webkit-fill-available;width: -moz-available;"
                                             (click)="comment(i)">Post</button></div>
                                     <div class="col-lg-1 col-md-2" style="padding: 0px;"><button type="button"
-                                            class="btn btn-danger" style="width: -webkit-fill-available;"
+                                            class="btn btn-danger" style="width: -webkit-fill-available;width: -moz-available;"
                                             (click)="cancel(i)">Cancel</button></div>
                                 </div>
                             </div>
