@@ -1,29 +1,7 @@
 [{
-  "name": "Painting Holidays at La Salle",
-  "image": "../../assets/images/t2.jpg",
-  "date": {
-    "$date": {
-      "$numberLong": "1691494800000"
-    }
+  "_id": {
+    "$oid": "63cee2502a15dc4edba77d85"
   },
-  "location": "San Polo 3052,Venezia italy",
-  "owner": "bika",
-  "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  "likes": [],
-  "participants": [
-    {
-      "mail": "mici@gmail.com",
-      "status": "approved"
-    }
-  ],
-  "comments": [],
-  "free_spaces": 5,
-  "long_desc": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\"",
-  "gallery": [
-    "../../assets/images/t2.jpg"
-  ],
-  "status": "approved"
-},{
   "name": "Water color painting",
   "image": "../../assets/images/watercolors.jpg",
   "date": {
@@ -32,27 +10,17 @@
     }
   },
   "location": "Grobljanska 5, Beograd, Srbija",
-  "owner": "jeca",
+  "owner": "jela",
   "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
   "likes": [
     "bika",
     "kokoko",
     "mika"
   ],
-  "participants": [
-    {
-      "mail": "cirkovic32.mi@gmail.com",
-      "status": "waiting"
-    },
-    {
-      "mail": "cirkovic1.mi@gmail.com",
-      "status": "waiting"
-    }
-  ],
   "comments": [
     {
       "username": "bika",
-      "image": "../../assets/images/img_avatar2.png",
+      "image": "../../assets/images/users/bilja.jpg",
       "date": {
         "$date": {
           "$numberLong": "1691494800000"
@@ -66,8 +34,25 @@
   "gallery": [
     "../../assets/images/watercolors.jpg"
   ],
-  "status": "approved"
+  "status": "approved",
+  "messages": [
+    {
+      "from": "miloss1222",
+      "to": "miloss1222",
+      "message": "Da li sami donosimo pribor?",
+      "date": "2023-01-28T21:29:11.870Z"
+    },
+    {
+      "from": "jela",
+      "to": "miloss1222",
+      "message": "Nema potreba, sve ce vam biti dostavljeno na licu mesta!",
+      "date": "2023-01-28T21:30:14.500Z"
+    }
+  ]
 },{
+  "_id": {
+    "$oid": "63cee2502a15dc4edba77d86"
+  },
   "name": "Stained glass workshop",
   "image": "../../assets/images/vitraz.jpg",
   "date": "1.1.2023",
@@ -89,7 +74,7 @@
   "comments": [
     {
       "username": "bika",
-      "image": "../../assets/images/img_avatar2.png",
+      "image": "../../assets/images/users/bilja.jpg",
       "date": {
         "$date": {
           "$numberLong": "1691494800000"
@@ -99,7 +84,7 @@
     },
     {
       "username": "mica",
-      "image": "../../assets/images/pic.jpg",
+      "image": "../../assets/images/users/avatar1.jpg",
       "date": "2023-01-17T09:29:47.673Z",
       "message": "Ovo je bilo gubljenje vremena"
     }
@@ -111,6 +96,9 @@
   ],
   "status": "approved"
 },{
+  "_id": {
+    "$oid": "63cee2502a15dc4edba77d87"
+  },
   "name": "Catch a dream",
   "image": "../../assets/images/dc1.jpg",
   "date": {
@@ -126,12 +114,16 @@
     {
       "mail": "djukovski@gmail.com",
       "status": "waiting"
+    },
+    {
+      "mail": "cirkovic989222.mi@gmail.com",
+      "status": "waiting"
     }
   ],
   "comments": [
     {
       "username": "mica",
-      "image": "../../assets/images/img_avatar2.png",
+      "image": "../../assets/images/users/avatar1.jpg",
       "date": {
         "$date": {
           "$numberLong": "1691494800000"
@@ -141,7 +133,7 @@
     },
     {
       "username": "bika",
-      "image": "../../assets/images/img_avatar2.png",
+      "image": "../../assets/images/users/bilja.jpg",
       "date": {
         "$date": {
           "$numberLong": "1691494800000"
@@ -157,8 +149,55 @@
     "../../assets/images/dc2.jpg",
     "../../assets/images/dc3.jpg"
   ],
-  "status": "approved"
+  "status": "approved",
+  "messages": [
+    {
+      "from": "mica",
+      "to": "mica",
+      "message": "Zanima me da li treba da donosimo nasu opremu?",
+      "date": "2023-01-24T21:07:27.186Z"
+    },
+    {
+      "from": "blodhead",
+      "to": "mica",
+      "message": "Ne, sve ce vam biti dostavljeno na pocetku kursa",
+      "date": "2023-01-24T21:09:54.636Z"
+    },
+    {
+      "from": "mica",
+      "to": "mica",
+      "message": "Nista novo",
+      "date": "2023-01-24T22:53:13.989Z"
+    },
+    {
+      "from": "ksendzo",
+      "to": "ksendzo",
+      "message": "Da li si normalna?",
+      "date": "2023-01-25T21:28:17.341Z"
+    },
+    {
+      "from": "blodhead",
+      "to": "ksendzo",
+      "message": "Sizofren sam",
+      "date": "2023-01-25T21:29:37.829Z"
+    },
+    {
+      "from": "ksendzo",
+      "to": "ksendzo",
+      "message": "Smorcinaaaaaaaaaaaaaaa",
+      "date": "2023-01-25T21:31:39.686Z"
+    },
+    {
+      "from": "blodhead",
+      "to": "ksendzo",
+      "message": "асдасд",
+      "date": "2023-01-25T21:32:51.395Z"
+    }
+  ]
 },{
+  "_id": {
+    "$oid": "63cee2502a15dc4edba77d88"
+  },
   "name": "Graffiti rule",
   "image": "../../assets/images/t4.jpg",
   "date": "2022-12-31T23:00:00.000Z",
@@ -170,17 +209,32 @@
     "kokoko",
     "mika"
   ],
-  "participants": [],
+  "participants": [
+    {
+      "mail": "cirkovic32.mi@gmail.com",
+      "status": "waiting"
+    },
+    {
+      "mail": "cirkovic32.mi@gmail.com",
+      "status": "waiting"
+    }
+  ],
   "comments": [
     {
       "username": "mica",
-      "image": "../../assets/images/img_avatar2.png",
+      "image": "../../assets/images/users/avatar1.jpg",
       "date": {
         "$date": {
           "$numberLong": "1691494800000"
         }
       },
       "message": "Bilo je super!"
+    },
+    {
+      "username": "mica",
+      "image": "../../assets/images/users/avatar1.jpg",
+      "date": "2023-01-28T21:41:53.350Z",
+      "message": "Toplo preporucujem!"
     }
   ],
   "free_spaces": 5,
@@ -190,6 +244,9 @@
   ],
   "status": "approved"
 },{
+  "_id": {
+    "$oid": "63cee2502a15dc4edba77d89"
+  },
   "name": "Book decorating fair",
   "image": "../../assets/images/bd1.jpg",
   "date": {
@@ -200,20 +257,10 @@
   "location": "Bulevar vojvode Mišića 14",
   "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsu",
   "likes": [],
-  "participants": [
-    {
-      "mail": "cirkovic32.mi@gmail.com",
-      "status": "waiting"
-    },
-    {
-      "mail": "marko@yahoo.com",
-      "status": "waiting"
-    }
-  ],
   "comments": [
     {
       "username": "mica",
-      "image": "../../assets/images/img_avatar2.png",
+      "image": "../../assets/images/users/avatar1.jpg",
       "date": {
         "$date": {
           "$numberLong": "1691494800000"
@@ -223,7 +270,7 @@
     },
     {
       "username": "bika",
-      "image": "../../assets/images/img_avatar2.png",
+      "image": "../../assets/images/users/bilja.jpg",
       "date": {
         "$date": {
           "$numberLong": "1691494800000"
@@ -233,7 +280,7 @@
     },
     {
       "username": "bika",
-      "image": "../../assets/images/img_avatar2.png",
+      "image": "../../assets/images/users/bilja.jpg",
       "date": {
         "$date": {
           "$numberLong": "1691494800000"
@@ -253,6 +300,9 @@
   "status": "approved",
   "owner": "ivana"
 },{
+  "_id": {
+    "$oid": "63cee2502a15dc4edba77d8a"
+  },
   "name": "Water color painting",
   "image": "../../assets/images/watercolors.jpg",
   "date": "1.1.2023",
@@ -260,11 +310,9 @@
   "owner": "blodhead",
   "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
   "likes": [
-    "kokoko",
+    "bika",
     "mika",
-    "blodhead",
-    "milos",
-    "mica"
+    "kokoko"
   ],
   "participants": [
     {
@@ -363,6 +411,9 @@
   ],
   "status": "approved"
 },{
+  "_id": {
+    "$oid": "63cee2502a15dc4edba77d8b"
+  },
   "name": "Graffiti rule",
   "image": "../../assets/images/t4.jpg",
   "date": {
@@ -373,23 +424,33 @@
   "location": "Bulevar kralja Aleksandra 73, Beograd, Srbija",
   "owner": "blodhead",
   "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  "likes": [],
+  "likes": [
+    "bika",
+    "kokoko",
+    "mika"
+  ],
   "participants": [
     {
-      "mail": "mici@gmail.com",
-      "status": "waiting"
+      "mail": "cirkovic32.mi@gmail.com",
+      "status": "approved"
     }
   ],
   "comments": [
     {
       "username": "bika",
-      "image": "../../assets/images/img_avatar2.png",
+      "image": "../../assets/images/users/bilja.jpg",
       "date": {
         "$date": {
           "$numberLong": "1691494800000"
         }
       },
       "message": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    },
+    {
+      "username": "mica",
+      "image": "../../assets/images/users/avatar1.jpg",
+      "date": "2023-01-28T21:41:53.350Z",
+      "message": "Toplo preporucujem!"
     }
   ],
   "free_spaces": 5,
@@ -403,41 +464,9 @@
   ],
   "status": "approved"
 },{
-  "name": "asdasd",
-  "image": "../../assets/images/g4.jpg",
-  "date": {
-    "$date": {
-      "$numberLong": "1674730800000"
-    }
+  "_id": {
+    "$oid": "63cee2502a15dc4edba77d8d"
   },
-  "location": "Bulevar Zorana Djindjica 99, Beograd, Srbija",
-  "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  "likes": [],
-  "participants": [
-    {
-      "mail": "cirkovic32.mi@gmail.com",
-      "status": "approved"
-    },
-    {
-      "mail": "cirkovic1.mi@gmail.com",
-      "status": "waiting"
-    },
-    {
-      "mail": "marko@yahoo.com",
-      "status": "waiting"
-    }
-  ],
-  "comments": [],
-  "gallery": [
-    "../../assets/images/g4.jpg",
-    "../../assets/images/g5.jpg",
-    "../../assets/images/gal.jpg"
-  ],
-  "free_spaces": 12,
-  "long_desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  "owner": "bika",
-  "status": "approved"
-},{
   "name": "WoW figurines painting",
   "image": "../../assets/images/figure2.jpg",
   "date": {
@@ -466,18 +495,47 @@
   "owner": "zeljko",
   "status": "approved"
 },{
+  "_id": {
+    "$oid": "63cee2502a15dc4edba77d8e"
+  },
   "name": "Making kids board games",
   "image": "../../assets/images/board1.jpg",
   "date": {
     "$date": {
-      "$numberLong": "1674991800000"
+      "$numberLong": "1672572600000"
     }
   },
   "location": "Spanskih Boraca 16, Beograd, Srbija",
   "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  "likes": [],
-  "participants": [],
-  "comments": [],
+  "likes": [
+    "mica"
+  ],
+  "participants": [
+    {
+      "mail": "luka@gamil.com",
+      "status": "approved"
+    }
+  ],
+  "comments": [
+    {
+      "username": "mica",
+      "image": "../../assets/images/users/avatar1.jpg",
+      "date": "2023-01-24T00:34:56.636Z",
+      "message": "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+    },
+    {
+      "username": "luka",
+      "image": "../../assets/images/users/avatar2.jpg",
+      "date": "2023-01-24T00:37:11.781Z",
+      "message": "Smorcinaaaaaaaaaaaaaaa"
+    },
+    {
+      "username": "mica",
+      "image": "../../assets/images/users/avatar1.jpg",
+      "date": "2023-01-24T21:11:16.418Z",
+      "message": "Mojoj deci se jako svidelo, topla preporuka!"
+    }
+  ],
   "gallery": [
     "../../assets/images/board1.jpg",
     "../../assets/images/board2.jpeg",
@@ -488,6 +546,9 @@
   "owner": "zeljko",
   "status": "approved"
 },{
+  "_id": {
+    "$oid": "63cee2502a15dc4edba77d8f"
+  },
   "name": "Stained glass workshop",
   "image": "../../assets/images/vitraz.jpg",
   "date": {
@@ -509,10 +570,6 @@
       "status": "waiting"
     },
     {
-      "mail": "cirkovic32.mi@gmail.com",
-      "status": "approved"
-    },
-    {
       "mail": "cirkovic989222.mi@gmail.com",
       "status": "waiting"
     },
@@ -524,7 +581,7 @@
   "comments": [
     {
       "username": "bika",
-      "image": "../../assets/images/img_avatar2.png",
+      "image": "../../assets/images/users/bilja.jpg",
       "date": {
         "$date": {
           "$numberLong": "1691494800000"
@@ -534,7 +591,7 @@
     },
     {
       "username": "bika",
-      "image": "../../assets/images/img_avatar2.png",
+      "image": "../../assets/images/users/bilja.jpg",
       "date": {
         "$date": {
           "$numberLong": "1691494800000"
@@ -549,4 +606,28 @@
     "../../assets/images/vitraz.jpg"
   ],
   "status": "approved"
+},{
+  "_id": {
+    "$oid": "63d5871b317d282a1dd15b0b"
+  },
+  "name": "sdfasdf",
+  "image": "../../assets/images/figure2.jpg",
+  "date": {
+    "$date": {
+      "$numberLong": "1675195800000"
+    }
+  },
+  "location": "Hilandarska 12, Beograd, Srbija",
+  "description": "asdasd",
+  "likes": [],
+  "owner": "blodhead",
+  "status": "waiting",
+  "participants": [],
+  "comments": [],
+  "gallery": [
+    "../../assets/images/figure2.jpg"
+  ],
+  "free_spaces": 2,
+  "long_desc": "asdasd",
+  "messages": []
 }]

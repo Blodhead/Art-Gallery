@@ -1,12 +1,7 @@
 [{
-  "firstname": "Admin",
-  "lastname": "admin",
-  "username": "admin",
-  "password": "Admin123\\",
-  "type": "admin",
-  "org_name": "null",
-  "profile_photo_name": "../../assets/images/users/img_avatar2.png"
-},{
+  "_id": {
+    "$oid": "63cc1532c5d901ddb6944e45"
+  },
   "profile_photo_name": "../../assets/images/users/milos.jpg",
   "firstname": "Miloš",
   "lastname": "Ćirković",
@@ -17,22 +12,9 @@
   "type": "participant",
   "status": "approved"
 },{
-  "profile_photo_name": "../../assets/images/users/avatar1.jpg",
-  "firstname": "Milica",
-  "lastname": "Micic",
-  "username": "mica",
-  "password": "Mica123\\",
-  "phone": "21334586",
-  "mail": "cirkovic32.mi@gmail.com",
-  "type": "participant",
-  "status": "approved",
-  "tempPass": "C$56c%O",
-  "timeStamp": {
-    "$date": {
-      "$numberLong": "1674057779438"
-    }
-  }
-},{
+  "_id": {
+    "$oid": "63cc1532c5d901ddb6944e47"
+  },
   "profile_photo_name": "../../assets/images/users/avatar2.jpg",
   "firstname": "Marko",
   "lastname": "Markovic",
@@ -44,6 +26,9 @@
   "pib": "5435684646888",
   "status": "approved"
 },{
+  "_id": {
+    "$oid": "63cc1532c5d901ddb6944e48"
+  },
   "profile_photo_name": "../../assets/images/users/avatar2.jpg",
   "firstname": "Nikola",
   "lastname": "Nikolic",
@@ -53,8 +38,11 @@
   "mail": "nidza@yahoo.com",
   "type": "participant",
   "pib": "8791878648749988",
-  "status": "waiting"
+  "status": "approved"
 },{
+  "_id": {
+    "$oid": "63cc1532c5d901ddb6944e49"
+  },
   "profile_photo_name": "../../assets/images/users/avatar2.jpg",
   "firstname": "Zeljko",
   "lastname": "Cirkovic",
@@ -67,6 +55,9 @@
   "pib": "41562436124365",
   "status": "approved"
 },{
+  "_id": {
+    "$oid": "63cc1532c5d901ddb6944e4a"
+  },
   "profile_photo_name": "../../assets/images/users/avatar1.jpg",
   "firstname": "Jelica",
   "lastname": "Cirkovic",
@@ -82,27 +73,11 @@
   "street": "Bul. Nikole Tesle212",
   "number": 1,
   "pib": "735788880000053",
-  "status": "rejected"
+  "status": "approved"
 },{
-  "profile_photo_name": "../../assets/images/users/milos.jpg",
-  "firstname": "Milos",
-  "lastname": "Cirkovic",
-  "username": "blodhead",
-  "password": "Milos987\\",
-  "phone": "0611114552",
-  "mail": "cirkovic31.mi@gmail.com",
-  "type": "organizer",
-  "org_name": "etf",
-  "state": "Serbia",
-  "city": "Belgrade",
-  "postal_code": "11040",
-  "street": "Bul. Kralja Aleksandra 56",
-  "number": 2,
-  "pib": "90843252980",
-  "status": "approved",
-  "tempPass": null,
-  "timeStamp": null
-},{
+  "_id": {
+    "$oid": "63cc1532c5d901ddb6944e4c"
+  },
   "profile_photo_name": "../../assets/images/users/maja.jpg",
   "firstname": "Maja",
   "lastname": "Majic",
@@ -120,6 +95,9 @@
   "pib": "943048298",
   "status": "waiting"
 },{
+  "_id": {
+    "$oid": "63cc1532c5d901ddb6944e4d"
+  },
   "profile_photo_name": "../../assets/images/users/avatar1.jpg",
   "firstname": "asdas",
   "lastname": "ddsa",
@@ -130,6 +108,9 @@
   "type": "participant",
   "status": "rejected"
 },{
+  "_id": {
+    "$oid": "63cc1532c5d901ddb6944e4e"
+  },
   "profile_photo_name": "../../assets/images/users/ivana.jpg",
   "firstname": "Ivana",
   "lastname": "Ivanovic",
@@ -147,6 +128,9 @@
   "pib": "8965165",
   "status": "approved"
 },{
+  "_id": {
+    "$oid": "63cc1532c5d901ddb6944e4f"
+  },
   "profile_photo_name": "../../assets/images/users/david.jpg",
   "firstname": "David",
   "lastname": "Stojanovic",
@@ -164,6 +148,9 @@
   "pib": "Enter pib",
   "status": "approved"
 },{
+  "_id": {
+    "$oid": "63cc1532c5d901ddb6944e50"
+  },
   "profile_photo_name": "../../assets/images/users/avatar2.jpg",
   "firstname": "Luka",
   "lastname": "Stojanovic",
@@ -175,6 +162,9 @@
   "pib": "Enter pib",
   "status": "approved"
 },{
+  "_id": {
+    "$oid": "63cc1532c5d901ddb6944e51"
+  },
   "profile_photo_name": "../../assets/images/users/pera.jpg",
   "firstname": "Pera",
   "lastname": "Peric",
@@ -186,6 +176,9 @@
   "pib": "Enter pib",
   "status": "approved"
 },{
+  "_id": {
+    "$oid": "63cc1532c5d901ddb6944e52"
+  },
   "profile_photo_name": "../../assets/images/users/vuk.jpg",
   "firstname": "Vuk",
   "lastname": "Vukovic",
@@ -197,6 +190,9 @@
   "pib": "Enter pib",
   "status": "rejected"
 },{
+  "_id": {
+    "$oid": "63cc1532c5d901ddb6944e53"
+  },
   "profile_photo_name": "../../assets/images/users/bilja.jpg",
   "firstname": "Bilja",
   "lastname": "Dzukovski",
@@ -205,6 +201,93 @@
   "phone": "0641315",
   "mail": "djukovski@gmail.com",
   "type": "organizer",
+  "org_name": null,
+  "state": null,
+  "city": null,
+  "postal_code": null,
+  "street": null,
+  "number": null,
+  "pib": null,
+  "status": "approved"
+},{
+  "_id": {
+    "$oid": "63d19ccded62023bd19a6e8f"
+  },
+  "profile_photo_name": "../../assets/images/users/avatar1.jpg",
+  "firstname": "Ksenija",
+  "lastname": "Bulatović",
+  "username": "ksendzo",
+  "password": "Ksenija12\\",
+  "phone": "0651654186",
+  "mail": "ksenijabulatovi@gmail.com",
+  "type": "organizer",
+  "pib": "Enter pib",
+  "status": "rejected",
+  "tempPass": null,
+  "timeStamp": null
+},{
+  "_id": {
+    "$oid": "63d1a2ff91ccaca2fdfafe49"
+  },
+  "profile_photo_name": "../../assets/images/users/avatar1.jpg",
+  "firstname": "Milica",
+  "lastname": "Micic",
+  "username": "mica",
+  "password": "Mica123\\",
+  "phone": "21334586",
+  "mail": "cirkovic32.mi@gmail.com",
+  "type": "participant",
+  "status": "approved",
+  "tempPass": "R=74(R",
+  "timeStamp": {
+    "$date": {
+      "$numberLong": "1674732805450"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "63d586c5317d282a1dd15b06"
+  },
+  "profile_photo_name": "../../assets/images/users/vuk.jpg",
+  "firstname": "edg",
+  "lastname": "rewr",
+  "username": "wer",
+  "password": "Vuk123\\1",
+  "phone": "Vuk123\\1",
+  "mail": "asdasd",
+  "type": "participant",
+  "pib": "Enter pib",
+  "status": "waiting"
+},{
+  "_id": {
+    "$oid": "63d58cd9317d282a1dd15b97"
+  },
+  "profile_photo_name": "../../assets/images/users/milos.jpg",
+  "firstname": "Milos",
+  "lastname": "Cirkovic",
+  "username": "blodhead",
+  "password": "Milos987\\",
+  "phone": "0611114552",
+  "mail": "cirkovic31.mi@gmail.com",
+  "type": "organizer",
+  "org_name": null,
+  "state": null,
+  "city": null,
+  "postal_code": null,
+  "street": null,
+  "number": null,
+  "pib": null,
+  "status": "approved"
+},{
+  "_id": {
+    "$oid": "63d58d27317d282a1dd15bad"
+  },
+  "profile_photo_name": "../../assets/images/users/avatar2.jpg",
+  "firstname": "Admin",
+  "lastname": "admin",
+  "username": "admin",
+  "password": "Admin123\\",
+  "type": "admin",
   "org_name": null,
   "state": null,
   "city": null,
