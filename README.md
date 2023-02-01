@@ -14,6 +14,6 @@ Some of the features include:
 
 And many more!
 
-Note: If you are trying to run this project, when running "npm install" and "npm audit fix" run with "--force" because there are some conflict with packages that don't effect the performance, therefore no need looking into. Also note that MongoDB was filled with examples that date to january 2023, so anywhere that date is relevant (mostly workshops) change them to whatever dateTime works for you.
+Note: If you are trying to run this project, when running "npm install" and "npm audit fix" run with "--force" because there are some conflict between packages that don't effect the performance, therefore no need looking into. Also note that MongoDB was filled with examples that date to january 2023, so anywhere that date is relevant (mostly workshops) change them to whatever dateTime works for you.
 
 If you have any questions feel free to ask in "Discussions"! ^^
