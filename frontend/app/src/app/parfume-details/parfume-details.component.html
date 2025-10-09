@@ -4,7 +4,7 @@
 
         <div class="row border border-success rounded" *ngIf="Toggle()">
             <div class="col-4" style="padding: 0px !important;">
-                <img class="rounded" src="{{myWorkshopDetail.image}}"
+                <img class="rounded" src="{{myParfumeDetail.image}}"
                     style=" object-fit: cover; border-right: solid !important; border-color:rgb(19,98,7) !important;"
                     width="100%" height="100%">
             </div>
@@ -14,11 +14,11 @@
 
                     <tr>
                         <h2>
-                            <td>{{myWorkshopDetail.name}}</td>
+                            <td>{{myParfumeDetail.name}}</td>
                         </h2>
-                        <td *ngIf="type=='admin'|| current_user!=null && edit_enable(myWorkshopDetail)==false">
-                            <button *ngIf="myWorkshopDetail.owner==current_user.username || type=='admin'"
-                                class="btn btn-success btn-sm" (click)="add_Workshop()">Edit</button>
+                        <td *ngIf="type=='admin'|| current_user!=null && edit_enable(myParfumeDetail)==false">
+                            <button *ngIf="myParfumeDetail.owner==current_user.username || type=='admin'"
+                                class="btn btn-success btn-sm" (click)="add_Parfume()">Edit</button>
                         </td>
                         <td *ngIf="type=='participant'|| current_user!=null">
                             <button *ngIf="type=='participant' && getPath()==''" style="width: max-content;"
@@ -62,22 +62,22 @@
                     <tr>
                         <blockquote class="blockquote">
                             <h5>
-                                <td class="mb-0">{{myWorkshopDetail.date | date:'HH:mm - EEEE d. MMMM y.'}}</td>
+                                <td class="mb-0">{{myParfumeDetail.date | date:'HH:mm - EEEE d. MMMM y.'}}</td>
                             </h5>
-                            <footer class="blockquote-footer">{{myWorkshopDetail.location}}</footer>
+                            <footer class="blockquote-footer">{{myParfumeDetail.location}}</footer>
                         </blockquote>
                     </tr>
 
                     <tr>
                         <td style="padding-bottom: 10px;">
-                            {{myWorkshopDetail.description}}
+                            {{myParfumeDetail.description}}
                         </td>
                         <td>
                     </tr>
                     <tr *ngIf="type=='participant'|| current_user!=null">
                         <td *ngIf="current_path==''" style="display: flex; justify-content: center;">
                             <button type="button" class="btn btn-success" style="background-color: rgb(19,98,7);"
-                                (click)="more(myWorkshopDetail)">More</button>
+                                (click)="more(myParfumeDetail)">More</button>
                         </td>
                     </tr>
                 </table>
@@ -92,11 +92,11 @@
 
                     <tr>
                         <h2>
-                            <td>{{myWorkshopDetail.name}}</td>
+                            <td>{{myParfumeDetail.name}}</td>
                         </h2>
-                        <td *ngIf="type=='admin'|| current_user!=null && edit_enable(myWorkshopDetail)==false">
-                            <button *ngIf="myWorkshopDetail.owner==current_user.username || type=='admin'"
-                                class="btn btn-success btn-sm" (click)="add_Workshop()">Edit</button>
+                        <td *ngIf="type=='admin'|| current_user!=null && edit_enable(myParfumeDetail)==false">
+                            <button *ngIf="myParfumeDetail.owner==current_user.username || type=='admin'"
+                                class="btn btn-success btn-sm" (click)="add_Parfume()">Edit</button>
                         </td>
                         <td *ngIf="type=='participant'|| current_user!=null">
                             <button *ngIf="type=='participant' && getPath()==''" style="width: max-content;"
@@ -140,28 +140,28 @@
                     <tr>
                         <blockquote class="blockquote">
                             <h5>
-                                <td class="mb-0">{{myWorkshopDetail.date | date:'HH:mm - EEEE d. MMMM y.'}}</td>
+                                <td class="mb-0">{{myParfumeDetail.date | date:'HH:mm - EEEE d. MMMM y.'}}</td>
                             </h5>
-                            <footer class="blockquote-footer">{{myWorkshopDetail.location}}</footer>
+                            <footer class="blockquote-footer">{{myParfumeDetail.location}}</footer>
                         </blockquote>
                     </tr>
 
                     <tr>
                         <td style="padding-bottom: 10px;">
-                            {{myWorkshopDetail.description}}
+                            {{myParfumeDetail.description}}
                         </td>
                     </tr>
                     <tr *ngIf="type=='participant'|| current_user!=null">
                         <td *ngIf="current_path==''" style="display: flex; justify-content: center;">
                             <button type="button" class="btn btn-success" style="background-color: rgb(19,98,7);"
-                                (click)="more(myWorkshopDetail)">More</button>
+                                (click)="more(myParfumeDetail)">More</button>
                         </td>
                     </tr>
                 </table>
             </div>
 
             <div class="col-4" style="padding: 0px !important;">
-                <img class="rounded" src="{{myWorkshopDetail.image}}"
+                <img class="rounded" src="{{myParfumeDetail.image}}"
                     style="object-fit: cover; border-left: solid !important; border-color:rgb(19,98,7) !important;"
                     width="100%" height="100%">
             </div>

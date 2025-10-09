@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Data, Router } from '@angular/router';
 import { User } from '../models/user';
-import { WorkshopDetails } from '../models/workshop-details';
-import { WorkshopService } from '../workshop.service';
+import { ParfumeDetails } from '../models/parfume-details';
+import { ParfumeService } from '../parfume.service';
 import * as _ from 'lodash';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { HttpClient } from "@angular/common/http";
@@ -11,16 +11,16 @@ import { subscribeOn } from 'rxjs';
 
 
 @Component({
-  selector: 'app-edit-workshop',
-  templateUrl: './edit-workshop.component.html',
-  styleUrls: ['./edit-workshop.component.css']
+  selector: 'app-edit-parfume',
+  templateUrl: './edit-parfume.component.html',
+  styleUrls: ['./edit-parfume.component.css']
 })
-export class EditWorkshopComponent implements OnInit {
+export class EditParfumeComponent implements OnInit {
 
-  constructor(private service: WorkshopService, private _router: Router, private sanitizer: DomSanitizer, private httpClient: HttpClient, private map_service: MapService) { }
+  constructor(private service: ParfumeService, private _router: Router, private sanitizer: DomSanitizer, private httpClient: HttpClient, private map_service: MapService) { }
 
   current_user: User;
-  sent_workshop: WorkshopDetails = null;
+  sent_parfume: ParfumeDetails = null;
   Error_message: string;
 
   imageError: string;
@@ -39,46 +39,46 @@ export class EditWorkshopComponent implements OnInit {
   long_desc: string = "";
   free_spaces: number = 0;
   owner: string;
-  allWorkshops: WorkshopDetails[] = [];
+  allParfumes: ParfumeDetails[] = [];
   global_index: number = -1;
-  template_workshop: WorkshopDetails = null;
+  template_parfume: ParfumeDetails = null;
   ngOnInit(): void {
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
-    this.sent_workshop = JSON.parse(localStorage.getItem("sent_workshop"));
-    if (!this.sent_workshop)
-      this.template_workshop = JSON.parse(localStorage.getItem("template_workshop"));
+    this.sent_parfume = JSON.parse(localStorage.getItem("sent_parfume"));
+    if (!this.sent_parfume)
+      this.template_parfume = JSON.parse(localStorage.getItem("template_parfume"));
 
     if (this.current_user == null) this._router.navigate(["login"]);
 
-    if (this.sent_workshop != null) {
-      this.name = this.sent_workshop.name;
-      this.date = new Date(this.sent_workshop.date);
-      this.image = this.sent_workshop.image;
+    if (this.sent_parfume != null) {
+      this.name = this.sent_parfume.name;
+      this.date = new Date(this.sent_parfume.date);
+      this.image = this.sent_parfume.image;
       this.time = this.date.getHours() + ":" + this.date.getMinutes();
-      this.location = this.sent_workshop.location;
-      this.description = this.sent_workshop.description;
-      this.free_spaces = this.sent_workshop.free_spaces;
-      this.long_desc = this.sent_workshop.long_desc;
-      this.owner = this.sent_workshop.owner;
+      this.location = this.sent_parfume.location;
+      this.description = this.sent_parfume.description;
+      this.free_spaces = this.sent_parfume.free_spaces;
+      this.long_desc = this.sent_parfume.long_desc;
+      this.owner = this.sent_parfume.owner;
     }
 
-    if (this.template_workshop != null) {
-      this.name = this.template_workshop.name;
-      this.date = new Date(this.template_workshop.date);
-      this.image = this.template_workshop.image;
+    if (this.template_parfume != null) {
+      this.name = this.template_parfume.name;
+      this.date = new Date(this.template_parfume.date);
+      this.image = this.template_parfume.image;
       this.time = this.date.getHours() + ":" + this.date.getMinutes();
-      this.location = this.template_workshop.location;
-      this.description = this.template_workshop.description;
-      this.free_spaces = this.template_workshop.free_spaces;
-      this.long_desc = this.template_workshop.long_desc;
-      this.owner = this.template_workshop.owner;
+      this.location = this.template_parfume.location;
+      this.description = this.template_parfume.description;
+      this.free_spaces = this.template_parfume.free_spaces;
+      this.long_desc = this.template_parfume.long_desc;
+      this.owner = this.template_parfume.owner;
     }
   }
 
   onFileSelected(event) {
 
-    if (this.sent_workshop != null)
-      this.sent_workshop.gallery = [];
+    if (this.sent_parfume != null)
+      this.sent_parfume.gallery = [];
 
     const allowed_types = ['image/png', 'image/jpeg'];
     let temp_gallery: string[] = [];
@@ -97,15 +97,15 @@ export class EditWorkshopComponent implements OnInit {
 
     this.gallery = temp_gallery;
 
-    if (this.sent_workshop != null) {
-      this.sent_workshop.gallery = this.gallery;
-      this.sent_workshop.image = this.gallery[0];
+    if (this.sent_parfume != null) {
+      this.sent_parfume.gallery = this.gallery;
+      this.sent_parfume.image = this.gallery[0];
     }
   }
 
   cancel() {
-    localStorage.removeItem("sent_workshop");
-    localStorage.removeItem("template_workshop");
+    localStorage.removeItem("sent_parfume");
+    localStorage.removeItem("template_parfume");
     this._router.navigate([""]);
   }
   mydate: string;
@@ -114,11 +114,11 @@ export class EditWorkshopComponent implements OnInit {
     this.Error_message = "Input error:\n";
 
     if (this.name == null) {
-      this.Error_message += "Workshop name missing\n"
+      this.Error_message += "Parfume name missing\n"
     }
 
     if (this.location == null) {
-      this.Error_message += "Workshop location missing\n"
+      this.Error_message += "Parfume location missing\n"
     } else {
       this.map_service.getLongLat(this.location).subscribe((address: any) => {
         if (address.features[0] == null) { this.Error_message += "Location doesn't exist!"; return; }
@@ -126,23 +126,23 @@ export class EditWorkshopComponent implements OnInit {
     }
 
     if (this.gallery == null) {
-      this.Error_message += "Workshop image missing\n"
+      this.Error_message += "Parfume image missing\n"
     }
 
     if (this.date == null) {
-      this.Error_message += "Workshop date missing\n"
+      this.Error_message += "Parfume date missing\n"
     }
 
     if (this.time == null) {
-      this.Error_message += "Workshop time missing\n"
+      this.Error_message += "Parfume time missing\n"
     }
 
     if (this.description == null) {
-      this.Error_message += "Workshop short description missing\n"
+      this.Error_message += "Parfume short description missing\n"
     }
 
     if (this.long_desc == null) {
-      this.Error_message += "Workshop long description missing\n"
+      this.Error_message += "Parfume long description missing\n"
     }
 
   }
@@ -156,29 +156,29 @@ export class EditWorkshopComponent implements OnInit {
       return;
     }
 
-    this.service.getAllWorkshops().subscribe((workshops: WorkshopDetails[]) => {
-      for (let j = 0; j < workshops.length; j++) {
-        workshops[j].date = new Date(workshops[j].date);
-        this.allWorkshops.push(workshops[j]);
+    this.service.getAllParfumes().subscribe((parfumes: ParfumeDetails[]) => {
+      for (let j = 0; j < parfumes.length; j++) {
+        parfumes[j].date = new Date(parfumes[j].date);
+        this.allParfumes.push(parfumes[j]);
       }
 
-      for (let i = 0; i < this.allWorkshops.length; i++) {
-        if (this.allWorkshops[i].name == this.name) {
-          this.likes = this.allWorkshops[i].likes;
+      for (let i = 0; i < this.allParfumes.length; i++) {
+        if (this.allParfumes[i].name == this.name) {
+          this.likes = this.allParfumes[i].likes;
           break;
         }
       }
 
-      localStorage.removeItem("sent_workshop");
-      localStorage.removeItem("template_workshop");
+      localStorage.removeItem("sent_parfume");
+      localStorage.removeItem("template_parfume");
 
       let arr = this.time.split(":");
       this.mydate = this.date.getFullYear() + "-" + (this.date.getMonth() + 1) + "-" + this.date.getDate();
       let temp_date = new Date(this.mydate);
       temp_date.setHours(Number(arr[0]), Number(arr[1]), 0);
-      if (this.sent_workshop == null || this.template_workshop != null) {
-        this.service.save(this.name, this.image, this.description, temp_date, this.location, this.likes, this.gallery, this.long_desc, this.current_user.username, this.free_spaces).subscribe((workshop: WorkshopDetails) => {
-          if (workshop != null) {
+      if (this.sent_parfume == null || this.template_parfume != null) {
+        this.service.save(this.name, this.image, this.description, temp_date, this.location, this.likes, this.gallery, this.long_desc, this.current_user.username, this.free_spaces).subscribe((parfume: ParfumeDetails) => {
+          if (parfume != null) {
             alert("Reguest successful");
             this.cancel();
           }
@@ -187,9 +187,9 @@ export class EditWorkshopComponent implements OnInit {
 
 
       }
-      else if (this.sent_workshop != null) {
-        this.service.update(this.sent_workshop.name, this.name, this.image, this.description, temp_date, this.location, this.likes, this.sent_workshop.gallery, this.long_desc, this.owner, this.free_spaces).subscribe((workshop: WorkshopDetails) => {
-          if (workshop != null) {
+      else if (this.sent_parfume != null) {
+        this.service.update(this.sent_parfume.name, this.name, this.image, this.description, temp_date, this.location, this.likes, this.sent_parfume.gallery, this.long_desc, this.owner, this.free_spaces).subscribe((parfume: ParfumeDetails) => {
+          if (parfume != null) {
             alert("Update successful");
           }
           else alert("ERROR");
@@ -208,21 +208,21 @@ export class EditWorkshopComponent implements OnInit {
   }
 
   remove() {
-    if (this.sent_workshop == null) { alert("There is nothing to delete!"); return; }
+    if (this.sent_parfume == null) { alert("There is nothing to delete!"); return; }
 
     //alert all subscribed users
     let mailing_list: string[] = [];
-    for (let i = 0; i < this.sent_workshop.participants.length; i++) {
-      mailing_list.push(this.sent_workshop.participants[i].mail);
+    for (let i = 0; i < this.sent_parfume.participants.length; i++) {
+      mailing_list.push(this.sent_parfume.participants[i].mail);
     }
 
-    this.service.informAll(mailing_list, this.sent_workshop.name).subscribe((statement) => {
+    this.service.informAll(mailing_list, this.sent_parfume.name).subscribe((statement) => {
       if (statement != null) this.cancel();
       else alert("Error while deleting");
     });
 
 
-    this.service.delete(this.sent_workshop).subscribe((statement) => {
+    this.service.delete(this.sent_parfume).subscribe((statement) => {
       if (statement != null) this.cancel();
       else alert("Error while deleting");
       this.cancel();
@@ -242,7 +242,7 @@ export class EditWorkshopComponent implements OnInit {
       return;
     }
 
-    let temp = new WorkshopDetails;
+    let temp = new ParfumeDetails;
     temp.name = this.name;
     temp.date = this.date;
     temp.description = this.description;
@@ -291,7 +291,7 @@ export class EditWorkshopComponent implements OnInit {
     this.httpClient.get("assets/" + this.selectedFile).subscribe(data => {
       console.log(data);
       this.products = data;
-      localStorage.setItem("template_workshop", JSON.stringify(this.products[0]));
+      localStorage.setItem("template_parfume", JSON.stringify(this.products[0]));
       location.reload();
     });
 

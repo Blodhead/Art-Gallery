@@ -13,16 +13,16 @@ import { OrganizerComponent } from './organizer/organizer.component';
 import { ParticipantComponent } from './participant/participant.component';
 import { RequestComponent } from './request/request.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
-import { WorkshopComponent } from './workshop/workshop.component';
-import { WorkshopDetailsComponent } from './workshop-details/workshop-details.component';
-import { EditWorkshopComponent } from './edit-workshop/edit-workshop.component';
+import { ParfumeComponent } from './parfume/parfume.component';
+import { ParfumeDetailsComponent } from './parfume-details/parfume-details.component';
+import { EditParfumeComponent } from './edit-parfume/edit-parfume.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { UserOrganizerComponent } from './user-organizer/user-organizer.component';
 import { VerifyComponent } from './verify/verify.component';
-import { MyWorkshopsComponent } from './my-workshops/my-workshops.component';
+import { MyParfumesComponent } from './my-parfumes/my-parfumes.component';
 import { FlipModule } from 'ngx-flip';
 import { MessageComponent } from './message/message.component';
 import { DetailsComponent } from './details/details.component';
@@ -41,14 +41,14 @@ import { ChatComponent } from './chat/chat.component';
     ParticipantComponent,
     RequestComponent,
     EditUserComponent,
-    WorkshopComponent,
-    WorkshopDetailsComponent,
-    EditWorkshopComponent,
+    ParfumeComponent,
+    ParfumeDetailsComponent,
+    EditParfumeComponent,
     HeaderComponent,
     FooterComponent,
     UserOrganizerComponent,
     VerifyComponent,
-    MyWorkshopsComponent,
+    MyParfumesComponent,
     MessageComponent,
     DetailsComponent,
     ChatComponent,

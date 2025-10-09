@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { GalleryItem, ImageItem } from 'ng-gallery';
 import { MapService } from '../map.service';
 import { User } from '../models/user';
-import { WorkshopDetails } from '../models/workshop-details';
-import { WorkshopService } from '../workshop.service';
+import { ParfumeDetails } from '../models/parfume-details';
+import { ParfumeService } from '../parfume.service';
 
 declare var ol: any;
 
@@ -16,19 +16,19 @@ declare var ol: any;
 })
 export class DetailsComponent implements OnInit {
 
-  constructor(private map_service: MapService, private workshop_service: WorkshopService, private _router: Router) { }
+  constructor(private map_service: MapService, private parfume_service: ParfumeService, private _router: Router) { }
   latitude: number = 20.4762358;
   longitude: number = 44.8057154;
   ngOnInit(): void {
-    this.myWorkshop = JSON.parse(localStorage.getItem("detail_sent"));
+    this.myParfume = JSON.parse(localStorage.getItem("detail_sent"));
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
 
     if (this.current_user == null) this._router.navigate(["login"]);
-    if (this.myWorkshop == null) this._router.navigate([""]);
+    if (this.myParfume == null) this._router.navigate([""]);
 
-    this.bgimage = this.myWorkshop.image;
+    this.bgimage = this.myParfume.image;
     this.images = this.getImages();
-    this.long_desc = this.myWorkshop.long_desc;
+    this.long_desc = this.myParfume.long_desc;
     this.map = new ol.Map({
       target: 'map',
       layers: [
@@ -43,16 +43,16 @@ export class DetailsComponent implements OnInit {
     });
     this.search();
 
-    for (let i = 0; i < this.myWorkshop.participants.length; i++) {
-      if (this.myWorkshop.participants[i].status == "waiting")
-        this.waitingParticipants.push(this.myWorkshop.participants[i].mail);
-      else if (this.myWorkshop.participants[i].status == "approved")
-        this.subscribedParticipants.push(this.myWorkshop.participants[i].mail);
+    for (let i = 0; i < this.myParfume.participants.length; i++) {
+      if (this.myParfume.participants[i].status == "waiting")
+        this.waitingParticipants.push(this.myParfume.participants[i].mail);
+      else if (this.myParfume.participants[i].status == "approved")
+        this.subscribedParticipants.push(this.myParfume.participants[i].mail);
     }
 
   }
 
-  myWorkshop: WorkshopDetails = null;
+  myParfume: ParfumeDetails = null;
   images: GalleryItem[] = [];
   map: any;
   long_desc: String;
@@ -63,17 +63,17 @@ export class DetailsComponent implements OnInit {
 
   getImages(): GalleryItem[] {
     let temp_gallery: GalleryItem[] = [];
-    for (let i = 0; i < this.myWorkshop.gallery.length; i++) {
-      temp_gallery.push(new ImageItem({ src: this.myWorkshop.gallery[i], thumb: this.myWorkshop.gallery[i] }));
+    for (let i = 0; i < this.myParfume.gallery.length; i++) {
+      temp_gallery.push(new ImageItem({ src: this.myParfume.gallery[i], thumb: this.myParfume.gallery[i] }));
     }
-    if (this.myWorkshop.gallery.length == 0) {
-      temp_gallery.push(new ImageItem({ src: this.myWorkshop.image, thumb: this.myWorkshop.image }));
+    if (this.myParfume.gallery.length == 0) {
+      temp_gallery.push(new ImageItem({ src: this.myParfume.image, thumb: this.myParfume.image }));
     }
     return temp_gallery;
   }
   err_message: string = '';
   search() {
-    this.map_service.getLongLat(this.myWorkshop.location).subscribe((address: any) => {
+    this.map_service.getLongLat(this.myParfume.location).subscribe((address: any) => {
 
       if (address.features[0] == null) { this.err_message = "Location doesn't exist!"; return; }
       this.err_message = '';
@@ -91,7 +91,7 @@ export class DetailsComponent implements OnInit {
   }
 
   check() {
-    if (this.current_user.type == "organizer" && this.current_user.username == this.myWorkshop.owner)
+    if (this.current_user.type == "organizer" && this.current_user.username == this.myParfume.owner)
       return true;
     else return false;
   }
@@ -100,19 +100,19 @@ export class DetailsComponent implements OnInit {
     for (let iter = 0; iter < this.waitingParticipants.length; iter++) {
       if (this.waitingParticipants[iter] == participant) {
 
-        for (let x = 0; x < this.myWorkshop.participants.length; x++) {
-          if (this.myWorkshop.participants[x].mail == this.waitingParticipants[iter]) {
-            this.myWorkshop.participants[x] = null;
+        for (let x = 0; x < this.myParfume.participants.length; x++) {
+          if (this.myParfume.participants[x].mail == this.waitingParticipants[iter]) {
+            this.myParfume.participants[x] = null;
             break;
           }
 
         }
 
-        this.myWorkshop.participants = this.myWorkshop.participants.filter(elements => {
+        this.myParfume.participants = this.myParfume.participants.filter(elements => {
           return (elements != null && elements !== undefined);
         });
 
-        localStorage.setItem("detail_sent", JSON.stringify(this.myWorkshop));
+        localStorage.setItem("detail_sent", JSON.stringify(this.myParfume));
 
         this.waitingParticipants[iter] = null;
         this.waitingParticipants = this.waitingParticipants.filter(elements => {
@@ -122,8 +122,8 @@ export class DetailsComponent implements OnInit {
       }
     }
 
-    this.workshop_service.reject(participant, this.myWorkshop).subscribe((statement) => {
-      if (statement) localStorage.setItem("detail_sent", JSON.stringify(this.myWorkshop));
+    this.parfume_service.reject(participant, this.myParfume).subscribe((statement) => {
+      if (statement) localStorage.setItem("detail_sent", JSON.stringify(this.myParfume));
       else alert("err");
     });
 
@@ -132,14 +132,14 @@ export class DetailsComponent implements OnInit {
 
     for (let iter = 0; iter < this.waitingParticipants.length; iter++) {
       if (this.waitingParticipants[iter] == participant) {
-        for (let x = 0; x < this.myWorkshop.participants.length; x++) {
-          if (this.myWorkshop.participants[x].mail == this.waitingParticipants[iter]) {
-            this.myWorkshop.participants[x].status = "approved";
+        for (let x = 0; x < this.myParfume.participants.length; x++) {
+          if (this.myParfume.participants[x].mail == this.waitingParticipants[iter]) {
+            this.myParfume.participants[x].status = "approved";
             break;
           }
 
         }
-        localStorage.setItem("detail_sent", JSON.stringify(this.myWorkshop));
+        localStorage.setItem("detail_sent", JSON.stringify(this.myParfume));
         this.waitingParticipants[iter] = null;
         this.waitingParticipants = this.waitingParticipants.filter(elements => {
           return (elements != null && elements !== undefined);
@@ -150,15 +150,15 @@ export class DetailsComponent implements OnInit {
 
     this.subscribedParticipants.push(participant);
 
-    this.workshop_service.accept(participant, this.myWorkshop).subscribe((statement) => {
-      if (statement) localStorage.setItem("detail_sent", JSON.stringify(this.myWorkshop));
+    this.parfume_service.accept(participant, this.myParfume).subscribe((statement) => {
+      if (statement) localStorage.setItem("detail_sent", JSON.stringify(this.myParfume));
 
       else alert("err");
     });
   }
 
   contact() {
-    localStorage.setItem("sent_workshop", JSON.stringify(this.myWorkshop));
+    localStorage.setItem("sent_parfume", JSON.stringify(this.myParfume));
     this._router.navigate(["chat"]);
   }
 

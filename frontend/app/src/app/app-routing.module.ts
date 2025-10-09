@@ -5,27 +5,27 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserComponent } from './user/user.component';
-import { WorkshopComponent } from './workshop/workshop.component';
-import { EditWorkshopComponent } from './edit-workshop/edit-workshop.component';
+import { ParfumeComponent } from './parfume/parfume.component';
+import { EditParfumeComponent } from './edit-parfume/edit-parfume.component';
 import { UserOrganizerComponent } from './user-organizer/user-organizer.component';
 import { VerifyComponent } from './verify/verify.component';
-import { MyWorkshopsComponent } from './my-workshops/my-workshops.component';
+import { MyParfumesComponent } from './my-parfumes/my-parfumes.component';
 import { DetailsComponent } from './details/details.component';
 import { ChatComponent } from './chat/chat.component';
 
 
 const routes: Routes = [
-  { path: '', component: WorkshopComponent },
+  { path: '', component: ParfumeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'admin/edit_user', component: EditUserComponent },
-  { path: 'admin/edit_workshop', component: EditWorkshopComponent },
+  { path: 'admin/edit_parfume', component: EditParfumeComponent },
   { path: 'user', component: UserComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login/admin', component: LoginComponent },
   { path: 'user_organizer', component: UserOrganizerComponent },
   { path: 'verify', component: VerifyComponent },
-  { path: 'MyWorkshops', component: MyWorkshopsComponent },
+  { path: 'MyParfumes', component: MyParfumesComponent },
   { path: 'details', component: DetailsComponent },
   { path: 'chat', component: ChatComponent }
 ];

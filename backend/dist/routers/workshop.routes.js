@@ -4,31 +4,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const workshop_controller_1 = require("../controllers/workshop.controller");
-const workshopRouter = express_1.default.Router(); //dodeljivanje rutera
-workshopRouter.route("/save").post(//ako dodje "/login" ruta on obradjuje POST zahtev, za GET ne zna sta da radi, jer nije definisano
-(req, res) => new workshop_controller_1.WorkshopController().save(req, res) //poziva se UserController i njegova login metoda
+const parfume_controller_1 = require("../controllers/parfume.controller");
+const parfumeRouter = express_1.default.Router(); //dodeljivanje rutera
+parfumeRouter.route("/save").post(//ako dodje "/login" ruta on obradjuje POST zahtev, za GET ne zna sta da radi, jer nije definisano
+(req, res) => new parfume_controller_1.ParfumeController().save(req, res) //poziva se UserController i njegova login metoda
 );
-workshopRouter.route("/update").post(//ako dodje "/login" ruta on obradjuje POST zahtev, za GET ne zna sta da radi, jer nije definisano
-(req, res) => new workshop_controller_1.WorkshopController().update(req, res) //poziva se UserController i njegova login metoda
+parfumeRouter.route("/update").post(//ako dodje "/login" ruta on obradjuje POST zahtev, za GET ne zna sta da radi, jer nije definisano
+(req, res) => new parfume_controller_1.ParfumeController().update(req, res) //poziva se UserController i njegova login metoda
 );
-workshopRouter.route("/getAllWorkshops").get(//ako dodje "/login" ruta on obradjuje POST zahtev, za GET ne zna sta da radi, jer nije definisano
-(req, res) => new workshop_controller_1.WorkshopController().getAllWorkshops(req, res) //poziva se UserController i njegova login metoda
+parfumeRouter.route("/getAllParfumes").get(//ako dodje "/login" ruta on obradjuje POST zahtev, za GET ne zna sta da radi, jer nije definisano
+(req, res) => new parfume_controller_1.ParfumeController().getAllParfumes(req, res) //poziva se UserController i njegova login metoda
 );
-workshopRouter.route("/deleteWorkshop").post((req, res) => new workshop_controller_1.WorkshopController().deleteWorkshop(req, res));
-workshopRouter.route("/sub").post((req, res) => new workshop_controller_1.WorkshopController().sub(req, res));
-workshopRouter.route("/unsub").post((req, res) => new workshop_controller_1.WorkshopController().unsub(req, res));
-workshopRouter.route("/like").post((req, res) => new workshop_controller_1.WorkshopController().like(req, res));
-workshopRouter.route("/unlike").post((req, res) => new workshop_controller_1.WorkshopController().unlike(req, res));
-workshopRouter.route("/comment").post((req, res) => new workshop_controller_1.WorkshopController().comment(req, res));
-workshopRouter.route("/uncomment").post((req, res) => new workshop_controller_1.WorkshopController().uncomment(req, res));
-workshopRouter.route("/sendMail").post((req, res) => new workshop_controller_1.WorkshopController().sendMail(req, res));
-workshopRouter.route("/informAll").post((req, res) => new workshop_controller_1.WorkshopController().informAll(req, res));
-workshopRouter.route("/updateWorkshop").post((req, res) => new workshop_controller_1.WorkshopController().updateWorkshop(req, res));
-workshopRouter.route("/reject").post((req, res) => new workshop_controller_1.WorkshopController().reject(req, res));
-workshopRouter.route("/accept").post((req, res) => new workshop_controller_1.WorkshopController().accept(req, res));
-workshopRouter.route("/syncMail").post((req, res) => new workshop_controller_1.WorkshopController().syncMail(req, res));
-workshopRouter.route("/syncUsername").post((req, res) => new workshop_controller_1.WorkshopController().syncUsername(req, res));
-workshopRouter.route("/addMessage").post((req, res) => new workshop_controller_1.WorkshopController().addMessage(req, res));
-exports.default = workshopRouter;
+parfumeRouter.route("/deleteParfume").post((req, res) => new parfume_controller_1.ParfumeController().deleteParfume(req, res));
+parfumeRouter.route("/sub").post((req, res) => new parfume_controller_1.ParfumeController().sub(req, res));
+parfumeRouter.route("/unsub").post((req, res) => new parfume_controller_1.ParfumeController().unsub(req, res));
+parfumeRouter.route("/like").post((req, res) => new parfume_controller_1.ParfumeController().like(req, res));
+parfumeRouter.route("/unlike").post((req, res) => new parfume_controller_1.ParfumeController().unlike(req, res));
+parfumeRouter.route("/comment").post((req, res) => new parfume_controller_1.ParfumeController().comment(req, res));
+parfumeRouter.route("/uncomment").post((req, res) => new parfume_controller_1.ParfumeController().uncomment(req, res));
+parfumeRouter.route("/sendMail").post((req, res) => new parfume_controller_1.ParfumeController().sendMail(req, res));
+parfumeRouter.route("/informAll").post((req, res) => new parfume_controller_1.ParfumeController().informAll(req, res));
+parfumeRouter.route("/updateParfume").post((req, res) => new parfume_controller_1.ParfumeController().updateParfume(req, res));
+parfumeRouter.route("/reject").post((req, res) => new parfume_controller_1.ParfumeController().reject(req, res));
+parfumeRouter.route("/accept").post((req, res) => new parfume_controller_1.ParfumeController().accept(req, res));
+parfumeRouter.route("/syncMail").post((req, res) => new parfume_controller_1.ParfumeController().syncMail(req, res));
+parfumeRouter.route("/syncUsername").post((req, res) => new parfume_controller_1.ParfumeController().syncUsername(req, res));
+parfumeRouter.route("/addMessage").post((req, res) => new parfume_controller_1.ParfumeController().addMessage(req, res));
+exports.default = parfumeRouter;
 //# sourceMappingURL=workshop.routes.js.map

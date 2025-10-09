@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const Schema = mongoose_1.default.Schema;
-let Workshops = new Schema({
+let Parfumes = new Schema({
     name: {
         type: String
     },
@@ -49,6 +49,6 @@ let Workshops = new Schema({
         type: Array
     }
 });
-exports.default = mongoose_1.default.model("Workshops", Workshops, "workshops"); // (1)Dodeljuje promenjivoj "User" , za semu (2)User koju smo gore definisali kako izgleda,
+exports.default = mongoose_1.default.model("Parfumes", Parfumes, "parfumes"); // (1)Dodeljuje promenjivoj "User" , za semu (2)User koju smo gore definisali kako izgleda,
 // za kolekciju koja dolazi iz (3)"users" collection iz baze
-//# sourceMappingURL=workshop.js.map
+//# sourceMappingURL=parfume.js.map

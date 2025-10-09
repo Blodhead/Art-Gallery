@@ -23,29 +23,29 @@
                         <table style="width: -webkit-fill-available; width: -moz-available;">
                             <tr>
                                 <label for="address">
-                                    <b>Name:</b> {{myWorkshop.name}}
+                                    <b>Name:</b> {{myParfume.name}}
                                 </label>
                                 <hr>
                             </tr>
                             <tr style="width: -webkit-fill-available; width: -moz-available;">
                                 <label name="address" type="text" style="width: -webkit-fill-available; width: -moz-available;">
-                                    <b>Location:</b> {{myWorkshop.location}}
+                                    <b>Location:</b> {{myParfume.location}}
                                 </label>
                                 <hr>
                             </tr>
                             <tr style="width: -webkit-fill-available; width: -moz-available;">
                                 <label name="address" type="text" style="width: -webkit-fill-available; width: -moz-available;">
-                                    <b>Date&Time:</b> {{myWorkshop.date | date:'EEEE d. MMMM y. - HH:mm'}}
+                                    <b>Date&Time:</b> {{myParfume.date | date:'EEEE d. MMMM y. - HH:mm'}}
                                 </label>
                                 <hr>
                             </tr>
                             <tr>
-                                <b>Organizer:</b> {{myWorkshop.owner}} <button *ngIf="current_user.type=='participant'" type="button"
+                                <b>Organizer:</b> {{myParfume.owner}} <button *ngIf="current_user.type=='participant'" type="button"
                                     class="btn btn-sm btn-warning pointer" (click)="contact()">Contact</button>
                             </tr>
                             <tr>
                                 <b>Short desciption:</b><br>
-                                {{myWorkshop.description}}
+                                {{myParfume.description}}
                                 <hr>
                             </tr>
                         </table>

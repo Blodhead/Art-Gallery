@@ -3,7 +3,7 @@ import { UserService } from '../user.service';
 import * as _ from 'lodash';
 import { User, Temp_Data } from "../models/user"
 import { Router } from '@angular/router';
-import { WorkshopService } from '../workshop.service';
+import { ParfumeService } from '../parfume.service';
 
 
 @Component({
@@ -12,7 +12,7 @@ import { WorkshopService } from '../workshop.service';
   styleUrls: ['./edit-user.component.css']
 })
 export class EditUserComponent implements OnInit {
-  constructor(private service: UserService, private _router: Router, private workshop_Service: WorkshopService) { }
+  constructor(private service: UserService, private _router: Router, private parfume_Service: ParfumeService) { }
 
   profile_photo = null;
   profile_photo_name: string;
@@ -321,15 +321,15 @@ export class EditUserComponent implements OnInit {
           let temp: User = JSON.parse(localStorage.getItem("sent_user"));
           localStorage.removeItem("sent_user");
           if (temp.mail != this.mail)
-            this.workshop_Service.syncMail(temp.mail, this.mail).subscribe(() => {
+            this.parfume_Service.syncMail(temp.mail, this.mail).subscribe(() => {
               if (temp.username != this.username)
-                this.workshop_Service.syncUsername(temp.username, this.username).subscribe(() => {
+                this.parfume_Service.syncUsername(temp.username, this.username).subscribe(() => {
                   localStorage.removeItem("current_user"); this._router.navigate([""]);
                 });
               else { this.cancel(); }
             });
           else if (temp.username != this.username)
-            this.workshop_Service.syncUsername(temp.username, this.username).subscribe(() => {
+            this.parfume_Service.syncUsername(temp.username, this.username).subscribe(() => {
               localStorage.removeItem("current_user");
               this._router.navigate([""]);
             });

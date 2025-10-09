@@ -3,13 +3,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.WorkshopController = void 0;
-const workshop_1 = __importDefault(require("../models/workshop"));
-class WorkshopController {
+exports.ParfumeController = void 0;
+const parfume_1 = __importDefault(require("../models/parfume"));
+class ParfumeController {
     constructor() {
         this.update = (req, res) => {
             let original_name = req.body._name;
-            let workshop = new workshop_1.default({
+            let parfume = new parfume_1.default({
                 name: req.body.name,
                 image: req.body.image,
                 description: req.body.description,
@@ -21,19 +21,19 @@ class WorkshopController {
                 owner: req.body.owner,
                 free_spaces: req.body.free_spaces
             });
-            workshop_1.default.updateMany({ "name": original_name }, {
+            parfume_1.default.updateMany({ "name": original_name }, {
                 $set: {
-                    "name": workshop.name,
-                    "image": workshop.image,
-                    "description": workshop.description,
-                    "date": workshop.date,
-                    "location": workshop.location,
-                    "likes": workshop.likes,
-                    "gallery": workshop.gallery,
+                    "name": parfume.name,
+                    "image": parfume.image,
+                    "description": parfume.description,
+                    "date": parfume.date,
+                    "location": parfume.location,
+                    "likes": parfume.likes,
+                    "gallery": parfume.gallery,
                     "status": "waiting",
-                    "long_desc": workshop.long_desc,
-                    "owner": workshop.owner,
-                    "free_spaces": workshop.free_spaces
+                    "long_desc": parfume.long_desc,
+                    "owner": parfume.owner,
+                    "free_spaces": parfume.free_spaces
                 }
             }, (err, news) => {
                 if (err)
@@ -42,13 +42,13 @@ class WorkshopController {
                     res.json(news);
             });
         };
-        this.updateWorkshop = (req, res) => {
-            let workshop = req.body.workshop;
-            workshop_1.default.updateOne({ "_id": workshop._id }, {
+        this.updateParfume = (req, res) => {
+            let parfume = req.body.parfume;
+            parfume_1.default.updateOne({ "_id": parfume._id }, {
                 $set: {
                     "status": "approved",
-                    "long_desc": workshop.long_desc,
-                    "owner": workshop.owner
+                    "long_desc": parfume.long_desc,
+                    "owner": parfume.owner
                 }
             }, (err, news) => {
                 if (err)
@@ -60,7 +60,7 @@ class WorkshopController {
         this.informAll = (req, res) => {
             var nodemailer = require('nodemailer');
             let mailing_list = req.body.participants;
-            let workshop_name = req.body.workshop_name;
+            let parfume_name = req.body.parfume_name;
             var transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
@@ -75,7 +75,7 @@ class WorkshopController {
                 from: 'cirkovic32.mi@gmail.com',
                 to: mailing_list,
                 subject: '@NotifyMe @no-reply',
-                text: 'Hello from Art Gallery, \n\nWe are sorry to inform you that ' + workshop_name + ", a workshop you wanted to attend has been canceled. Sorry for the inconvinience and we hope we see each other on some other workshop!"
+                text: 'Hello from Art Gallery, \n\nWe are sorry to inform you that ' + parfume_name + ", a parfume you wanted to attend has been canceled. Sorry for the inconvinience and we hope we see each other on some other parfume!"
             };
             mailing_list.forEach(function (to, i, array) {
                 mailOptions.to = to;
@@ -98,20 +98,20 @@ class WorkshopController {
             });
         };
         this.sub = (req, res) => {
-            let workshop = req.body.myWorkshopDetail;
+            let parfume = req.body.myParfumeDetail;
             let subscription = {
                 mail: req.body.mail,
                 status: req.body.status
             };
-            workshop_1.default.updateOne({ "name": workshop }, { $push: { "participants": subscription } }, (err, _workshop) => {
+            parfume_1.default.updateOne({ "name": parfume }, { $push: { "participants": subscription } }, (err, _parfume) => {
                 if (err)
                     console.log("ERROR");
                 else
-                    res.json(_workshop);
+                    res.json(_parfume);
             });
         };
         this.unsub = (req, res) => {
-            let workshop = req.body.myWorkshopDetail;
+            let parfume = req.body.myParfumeDetail;
             let subscription1 = {
                 mail: req.body.mail,
                 status: "waiting"
@@ -120,48 +120,48 @@ class WorkshopController {
                 mail: req.body.mail,
                 status: "notify"
             };
-            workshop_1.default.updateOne({ "name": workshop }, { $pull: { "participants": subscription1, subscription2 } }, (err, _workshop) => {
+            parfume_1.default.updateOne({ "name": parfume }, { $pull: { "participants": subscription1, subscription2 } }, (err, _parfume) => {
                 if (err)
                     console.log("ERROR");
                 else
-                    res.json(_workshop);
+                    res.json(_parfume);
             });
         };
         this.reject = (req, res) => {
-            let workshop = req.body.myWorkshopDetail;
+            let parfume = req.body.myParfumeDetail;
             let subscription1 = {
                 mail: req.body.mail,
                 status: "waiting"
             };
-            workshop_1.default.updateOne({ "name": workshop.name }, { $pull: { "participants": subscription1 } }, (err, _workshop) => {
+            parfume_1.default.updateOne({ "name": parfume.name }, { $pull: { "participants": subscription1 } }, (err, _parfume) => {
                 if (err)
                     console.log("ERROR");
                 else
-                    res.json(_workshop);
+                    res.json(_parfume);
             });
         };
         this.accept = (req, res) => {
-            let workshop = req.body.myWorkshopDetail;
+            let parfume = req.body.myParfumeDetail;
             let subscription1 = {
                 mail: req.body.mail,
                 status: "approved"
             };
-            workshop_1.default.updateOne({ "name": workshop.name, "participants.mail": subscription1.mail }, { $set: { "participants.$.status": subscription1.status } }, (err, _workshop) => {
+            parfume_1.default.updateOne({ "name": parfume.name, "participants.mail": subscription1.mail }, { $set: { "participants.$.status": subscription1.status } }, (err, _parfume) => {
                 if (err)
                     console.log("ERROR");
                 else
-                    res.json(_workshop);
+                    res.json(_parfume);
             });
         };
         this.comment = (req, res) => {
-            let workshop = req.body.sent_workshop;
+            let parfume = req.body.sent_parfume;
             let comment = {
                 username: req.body.username,
                 image: req.body.image,
                 date: req.body.date,
                 message: req.body.comment
             };
-            workshop_1.default.updateMany({ "name": workshop }, { $push: { "comments": comment } }, (err, _workshop) => {
+            parfume_1.default.updateMany({ "name": parfume }, { $push: { "comments": comment } }, (err, _parfume) => {
                 if (err)
                     console.log("ERROR");
                 else
@@ -169,9 +169,9 @@ class WorkshopController {
             });
         };
         this.uncomment = (req, res) => {
-            let workshop = req.body.sent_workshop;
+            let parfume = req.body.sent_parfume;
             let comment = req.body.sent_comment;
-            workshop_1.default.updateMany({ "name": workshop }, { $pull: { "comments": comment } }, (err, _workshop) => {
+            parfume_1.default.updateMany({ "name": parfume }, { $pull: { "comments": comment } }, (err, _parfume) => {
                 if (err)
                     console.log("ERROR");
                 else
@@ -179,27 +179,27 @@ class WorkshopController {
             });
         };
         this.like = (req, res) => {
-            let workshop = req.body.name;
+            let parfume = req.body.name;
             let username = req.body.username;
-            workshop_1.default.updateMany({ "name": workshop }, { $push: { "likes": username } }, (err, _workshop) => {
+            parfume_1.default.updateMany({ "name": parfume }, { $push: { "likes": username } }, (err, _parfume) => {
                 if (err)
                     console.log("ERROR");
                 else
-                    res.json(_workshop);
+                    res.json(_parfume);
             });
         };
         this.unlike = (req, res) => {
-            let workshop = req.body.name;
+            let parfume = req.body.name;
             let username = req.body.username;
-            workshop_1.default.updateMany({ "name": workshop }, { $pull: { "likes": username } }, (err, _workshop) => {
+            parfume_1.default.updateMany({ "name": parfume }, { $pull: { "likes": username } }, (err, _parfume) => {
                 if (err)
                     console.log("ERROR");
                 else
-                    res.json(_workshop);
+                    res.json(_parfume);
             });
         };
-        this.getAllWorkshops = (req, res) => {
-            workshop_1.default.find({}, (err, news) => {
+        this.getAllParfumes = (req, res) => {
+            parfume_1.default.find({}, (err, news) => {
                 if (err)
                     console.log(err);
                 else
@@ -207,7 +207,7 @@ class WorkshopController {
             });
         };
         this.save = (req, res) => {
-            let workshop = new workshop_1.default({
+            let parfume = new parfume_1.default({
                 name: req.body.name,
                 image: req.body.image,
                 description: req.body.description,
@@ -220,22 +220,22 @@ class WorkshopController {
                 owner: req.body.owner,
                 long_desc: req.body.long_desc
             });
-            workshop.save().then(workshop => {
-                res.json(workshop);
+            parfume.save().then(parfume => {
+                res.json(parfume);
             }).catch(err => {
                 res.status(400).json({ "message": "error" });
             });
         };
-        this.deleteWorkshop = (req, res) => {
+        this.deleteParfume = (req, res) => {
             let _name = req.body.name;
             let _date = new Date(req.body.date);
-            workshop_1.default.collection.deleteOne({ "name": _name, "date": _date });
+            parfume_1.default.collection.deleteOne({ "name": _name, "date": _date });
             res.json(req.body);
         };
         this.sendMail = (req, res) => {
             var nodemailer = require('nodemailer');
             let mailing_list = req.body.mailing_list;
-            let workshop_name = req.body.workshop_name;
+            let parfume_name = req.body.parfume_name;
             var transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
@@ -250,7 +250,7 @@ class WorkshopController {
                 from: 'cirkovic32.mi@gmail.com',
                 to: mailing_list,
                 subject: '@NotifyMe @no-reply',
-                text: 'Hello from Art Gallery, \n\nWe just wanted to let you know that there is a free space for ' + workshop_name + ",so hurry up and claim it!"
+                text: 'Hello from Art Gallery, \n\nWe just wanted to let you know that there is a free space for ' + parfume_name + ",so hurry up and claim it!"
             };
             mailing_list.forEach(function (to, i, array) {
                 mailOptions.to = to;
@@ -275,7 +275,7 @@ class WorkshopController {
         this.syncMail = (req, res) => {
             let _old_mail = req.body.old_mail;
             let _new_mail = req.body.new_mail;
-            workshop_1.default.updateMany({ "participants.mail": _old_mail }, { $set: { "participants.$.mail": _new_mail } }, (err, status) => {
+            parfume_1.default.updateMany({ "participants.mail": _old_mail }, { $set: { "participants.$.mail": _new_mail } }, (err, status) => {
                 if (status)
                     res.json(status);
                 else
@@ -285,18 +285,18 @@ class WorkshopController {
         this.syncUsername = (req, res) => {
             let _old_username = req.body.old_username;
             let _new_username = req.body._new_username;
-            workshop_1.default.updateMany({ "likes.": _old_username }, { $set: { "likes.$.": _new_username } }, (status) => {
+            parfume_1.default.updateMany({ "likes.": _old_username }, { $set: { "likes.$.": _new_username } }, (status) => {
                 res.json(status);
             });
         };
         this.addMessage = (req, res) => {
-            let workshop = req.body.workshop;
+            let parfume = req.body.parfume;
             let message = req.body.message;
-            workshop_1.default.updateOne({ "name": workshop }, { $push: { "messages": message } }, (err, status) => {
+            parfume_1.default.updateOne({ "name": parfume }, { $push: { "messages": message } }, (err, status) => {
                 res.json(status);
             });
         };
     }
 }
-exports.WorkshopController = WorkshopController;
-//# sourceMappingURL=workshop.controller.js.map
+exports.ParfumeController = ParfumeController;
+//# sourceMappingURL=parfume.controller.js.map

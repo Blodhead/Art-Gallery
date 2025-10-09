@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { User } from '../models/user';
-import { Comment } from '../models/workshop-details';
+import { Comment } from '../models/parfume-details';
 
 @Component({
   selector: 'app-message',

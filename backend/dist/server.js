@@ -8,7 +8,7 @@ const cors_1 = __importDefault(require("cors")); //mogucnost deljenja podataka i
 const body_parser_1 = __importDefault(require("body-parser")); //da moze da se kupe i ubacuj podaci na sajt
 const mongoose_1 = __importDefault(require("mongoose")); //radi konektovanja na mongo bazu
 const user_routes_1 = __importDefault(require("./routers/user.routes"));
-const workshop_routes_1 = __importDefault(require("./routers/workshop.routes"));
+const parfume_routes_1 = __importDefault(require("./routers/parfume.routes"));
 const app = (0, express_1.default)(); //nasoj aplikaciji dodeljujemo da je exxpress aplikacija
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -17,14 +17,17 @@ app.use(function (req, res, next) {
 });
 app.use((0, cors_1.default)()); //uvezivanje fron i back end-a
 app.use(body_parser_1.default.json()); //sve sto se podaci kojima se barata su json dormata
-mongoose_1.default.connect("mongodb://127.0.0.1/PIAMEAN"); //dodeljivanje baze mongoos-u
+mongoose_1.default.connect("mongodb+srv://cirkovic33mi_db_user:HRBmcONUutUaZtwv@parfumes.qnan5ol.mongodb.net/Parfumes"); //dodeljivanje baze mongoos-u
 const connection = mongoose_1.default.connection; //uvezivanje sa bazom
 connection.once("open", () => {
     console.log("db connection ok");
 });
 const router = express_1.default.Router(); //kreiranje rutera, obradjuje zahteve sa fronta
 router.use("/users", user_routes_1.default); //ako dodje ruta /user, tj. svaki zahtev koji dolazi sa stranice "user" preusmeri ka ovom ruteru
-router.use("/workshop", workshop_routes_1.default);
+router.use("/parfume", parfume_routes_1.default);
 app.use("/", router); //svaka ruta koja se pojavi koristi ovaj ruter, i kasnije u savisnosti od toga koja ruta dodje vrsi se specijalizacija i salje se na predodredjeni ruter
+app.get("/", (req, res) => {
+    res.send("Backend is running!");
+});
 app.listen(4000, () => console.log(`Express server running on port 4000`));
 //# sourceMappingURL=server.js.map

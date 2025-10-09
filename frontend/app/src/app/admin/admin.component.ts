@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
-import { WorkshopDetails } from '../models/workshop-details'
-import { WorkshopService } from '../workshop.service';
+import { ParfumeDetails } from '../models/parfume-details'
+import { ParfumeService } from '../parfume.service';
 import { SharedService } from '../shared.service';
 
 @Component({
@@ -15,14 +15,14 @@ import { SharedService } from '../shared.service';
 export class AdminComponent implements OnInit {
 
 
-  constructor(private service: UserService, private workshop_service: WorkshopService, private _router: Router, private sharedService: SharedService) { }
+  constructor(private service: UserService, private parfume_service: ParfumeService, private _router: Router, private sharedService: SharedService) { }
 
   active_tab: string = "Organizers";
   allUsers: User[] = [];
   organisers: User[] = [];
   participants: User[] = [];
   requests: User[] = [];
-  allWorkshops: WorkshopDetails[] = [];
+  allParfumes: ParfumeDetails[] = [];
   index: number[] = [1];
   current_user: User = null;
   reload: string = "";
@@ -62,40 +62,40 @@ export class AdminComponent implements OnInit {
       }
     })
 
-    this.getAllWorkshops();
+    this.getAllParfumes();
   }
 
   admin_user: User = null;
 
-  getAllWorkshops() {
-    this.workshop_service.getAllWorkshops().subscribe((workshops: WorkshopDetails[]) => {
-      if (!workshops) alert("Error");
+  getAllParfumes() {
+    this.parfume_service.getAllParfumes().subscribe((parfumes: ParfumeDetails[]) => {
+      if (!parfumes) alert("Error");
       else {
 
-        for (let j = 0; j < workshops.length; j++) {
-          workshops[j].date = new Date(workshops[j].date);
-          if ((workshops[j].date.getTime() - (new Date()).getTime()) > 0)
-            if (workshops[j].status == "waiting")
-              this.allWorkshops.push(workshops[j]);
+        for (let j = 0; j < parfumes.length; j++) {
+          parfumes[j].date = new Date(parfumes[j].date);
+          if ((parfumes[j].date.getTime() - (new Date()).getTime()) > 0)
+            if (parfumes[j].status == "waiting")
+              this.allParfumes.push(parfumes[j]);
         }
 
-        for (var i = 0; i < this.allWorkshops.length; i++) {
+        for (var i = 0; i < this.allParfumes.length; i++) {
           this.index[i] = i;
         }
       }
     });
   }
 
-  approve(workshop: WorkshopDetails) {
+  approve(parfume: ParfumeDetails) {
 
-    let temp_all: WorkshopDetails[] = [];
+    let temp_all: ParfumeDetails[] = [];
 
-    this.workshop_service.getAllWorkshops().subscribe((all: WorkshopDetails[]) => {
+    this.parfume_service.getAllParfumes().subscribe((all: ParfumeDetails[]) => {
       temp_all = all;
 
       let temp_user: User = null;
       for (let i = 0; i < this.allUsers.length; i++) {
-        if (workshop.owner == this.allUsers[i].username) {
+        if (parfume.owner == this.allUsers[i].username) {
           temp_user = this.allUsers[i];
           break;
         }
@@ -106,14 +106,14 @@ export class AdminComponent implements OnInit {
         for (let j = 0; j < temp_all[i].participants.length; j++)
           if (((new Date(temp_all[i].date)).getTime() - (new Date()).getTime()) > 0)
             if (temp_all[i].participants[j].mail == temp_user.mail) {
-              alert("This participant is still subscribed to one or more workshops!");
+              alert("This participant is still subscribed to one or more parfumes!");
               return;
             }
       }
 
-      workshop.status = "approved";
+      parfume.status = "approved";
 
-      this.workshop_service.updateWorkshop(workshop).subscribe((statement) => { if (statement == null) { alert("Update status fail"); return; } else if (temp_user.type == "organizer" || temp_user.type == "admin") { location.reload(); return; } });
+      this.parfume_service.updateParfume(parfume).subscribe((statement) => { if (statement == null) { alert("Update status fail"); return; } else if (temp_user.type == "organizer" || temp_user.type == "admin") { location.reload(); return; } });
 
       if (temp_user.type != "participant") return;
       this.service.deleteUser(temp_user).subscribe((statement) => { if (statement == null) alert("Update status fail"); return; });
@@ -123,8 +123,8 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  reject(workshop) {
-    this.workshop_service.delete(workshop).subscribe((statement) => {
+  reject(parfume) {
+    this.parfume_service.delete(parfume).subscribe((statement) => {
       if (statement) alert("Deleted");
       else alert("Error reject");
       location.reload();
@@ -144,9 +144,9 @@ export class AdminComponent implements OnInit {
     this._router.navigate(["admin/edit_user"]);
   };
 
-  add_Workshop() {
-    localStorage.setItem("sent_workshop", (null));
-    this._router.navigate(["admin/edit_workshop"]);
+  add_Parfume() {
+    localStorage.setItem("sent_parfume", (null));
+    this._router.navigate(["admin/edit_parfume"]);
   }
 
   delete(username, type) {

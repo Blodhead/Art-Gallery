@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http"
-import { Message, WorkshopDetails } from './models/workshop-details';
+import { Message, ParfumeDetails } from './models/parfume-details';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WorkshopService {
+export class ParfumeService {
 
   constructor(private http: HttpClient) { }
 
@@ -14,33 +14,33 @@ export class WorkshopService {
   comment(name: string, username: string, profile_photo_name: string, message: string, arg4: Date) {
 
     let data = {
-      sent_workshop: name,
+      sent_parfume: name,
       username: username,
       image: profile_photo_name,
       comment: message,
       date: arg4
     }
 
-    return this.http.post(`${this.url}/workshop/comment`, data);
+    return this.http.post(`${this.url}/parfume/comment`, data);
 
   }
 
-  informAll(participants, workshop_name) {
+  informAll(participants, parfume_name) {
     let data = {
       participants: participants,
-      workshop_name: workshop_name
+      parfume_name: parfume_name
     }
-    return this.http.post(`${this.url}/workshop/informAll`, data);
+    return this.http.post(`${this.url}/parfume/informAll`, data);
   }
 
   uncomment(name: string, comment: Comment) {
 
     let data = {
-      sent_workshop: name,
+      sent_parfume: name,
       sent_comment: comment
     }
 
-    return this.http.post(`${this.url}/workshop/uncomment`, data);
+    return this.http.post(`${this.url}/parfume/uncomment`, data);
 
   }
 
@@ -59,7 +59,7 @@ export class WorkshopService {
       free_spaces: free_spaces
     }
 
-    return this.http.post(`${this.url}/workshop/update`, data);
+    return this.http.post(`${this.url}/parfume/update`, data);
   }
   save(name: string, image: string, description: string, date: Date, location: string, likes: String[], gallery: string[], long_desc: string, owner: string, free_spaces: number) {
 
@@ -77,60 +77,60 @@ export class WorkshopService {
       status: "waiting"
     }
 
-    return this.http.post(`${this.url}/workshop/save`, data);
+    return this.http.post(`${this.url}/parfume/save`, data);
   }
 
-  delete(sent_workshop: WorkshopDetails) {
-    return this.http.post(`${this.url}/workshop/deleteWorkshop`, sent_workshop);
+  delete(sent_parfume: ParfumeDetails) {
+    return this.http.post(`${this.url}/parfume/deleteParfume`, sent_parfume);
   }
 
 
-  updateWorkshop(workshop) {
+  updateParfume(parfume) {
     let data = {
-      workshop: workshop
+      parfume: parfume
     }
-    return this.http.post(`${this.url}/workshop/updateWorkshop`, data);
+    return this.http.post(`${this.url}/parfume/updateParfume`, data);
   }
 
-  getAllWorkshops() {
-    return this.http.get(`${this.url}/workshop/getAllWorkshops`);
+  getAllParfumes() {
+    return this.http.get(`${this.url}/parfume/getAllParfumes`);
   }
 
-  sub(mail, myWorkshopDetail, arg) {
+  sub(mail, myParfumeDetail, arg) {
     let data = {
       mail: mail,
-      myWorkshopDetail: myWorkshopDetail,
+      myParfumeDetail: myParfumeDetail,
       status: arg
     }
 
-    return this.http.post(`${this.url}/workshop/sub`, data);
+    return this.http.post(`${this.url}/parfume/sub`, data);
   }
 
-  unsub(mail, myWorkshopDetail) {
+  unsub(mail, myParfumeDetail) {
     let data = {
       mail: mail,
-      myWorkshopDetail: myWorkshopDetail
+      myParfumeDetail: myParfumeDetail
     }
 
-    return this.http.post(`${this.url}/workshop/unsub`, data);
+    return this.http.post(`${this.url}/parfume/unsub`, data);
   }
 
-  reject(participant, myWorkshop) {
+  reject(participant, myParfume) {
     let data = {
       mail: participant,
-      myWorkshopDetail: myWorkshop
+      myParfumeDetail: myParfume
     }
 
-    return this.http.post(`${this.url}/workshop/reject`, data);
+    return this.http.post(`${this.url}/parfume/reject`, data);
   }
 
-  accept(participant, myWorkshop) {
+  accept(participant, myParfume) {
     let data = {
       mail: participant,
-      myWorkshopDetail: myWorkshop
+      myParfumeDetail: myParfume
     }
 
-    return this.http.post(`${this.url}/workshop/accept`, data);
+    return this.http.post(`${this.url}/parfume/accept`, data);
   }
 
   like(name: string, username: string) {
@@ -138,7 +138,7 @@ export class WorkshopService {
       name: name,
       username: username
     }
-    return this.http.post(`${this.url}/workshop/like`, data);;
+    return this.http.post(`${this.url}/parfume/like`, data);;
   }
 
   unlike(name: string, username: string) {
@@ -146,17 +146,17 @@ export class WorkshopService {
       name: name,
       username: username
     }
-    return this.http.post(`${this.url}/workshop/unlike`, data);
+    return this.http.post(`${this.url}/parfume/unlike`, data);
   }
 
-  sendMail(mailing_list, workshop_name) {
+  sendMail(mailing_list, parfume_name) {
 
     let data = {
       mailing_list: mailing_list,
-      workshop_name: workshop_name
+      parfume_name: parfume_name
     }
 
-    return this.http.post(`${this.url}/workshop/sendMail`, data);
+    return this.http.post(`${this.url}/parfume/sendMail`, data);
   }
 
 
@@ -165,7 +165,7 @@ export class WorkshopService {
       old_mail: old_mail,
       new_mail: new_mail
     }
-    return this.http.post(`${this.url}/workshop/syncMail`, data);
+    return this.http.post(`${this.url}/parfume/syncMail`, data);
   }
 
   syncUsername(old_username, new_username) {
@@ -173,15 +173,15 @@ export class WorkshopService {
       old_username: old_username,
       new_username: new_username
     }
-    return this.http.post(`${this.url}/workshop/syncUsername`, data);
+    return this.http.post(`${this.url}/parfume/syncUsername`, data);
   }
 
-  addMessage(workshop: string, message: Message) {
+  addMessage(parfume: string, message: Message) {
     let data = {
-      workshop: workshop,
+      parfume: parfume,
       message: message
     }
-    return this.http.post(`${this.url}/workshop/addMessage`, data);
+    return this.http.post(`${this.url}/parfume/addMessage`, data);
   }
 
 }

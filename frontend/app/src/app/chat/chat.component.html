@@ -2,9 +2,9 @@
 
     <div class="container">
         <div class="row ">
-            <app-workshop-details *ngIf="current_path != 'user'" [myWorkshopDetail]="myWorkshop"></app-workshop-details>
+            <app-parfume-details *ngIf="current_path != 'user'" [myParfumeDetail]="myParfume"></app-parfume-details>
             <button *ngIf="current_path == 'user'" type="button" class="btn btn-secondary"
-                style="width: -webkit-fill-available; width: -moz-available; color: white; background-color: #136207;"><b>{{myWorkshop.name}}</b></button>
+                style="width: -webkit-fill-available; width: -moz-available; color: white; background-color: #136207;"><b>{{myParfume.name}}</b></button>
             <h3 style="color: white;">Chats:</h3>
             <div class="col-12 container-fluid" *ngFor="let message of messages, let i = index;">
                 <div class="row">

@@ -1,4 +1,4 @@
-export class WorkshopDetails {
+export class ParfumeDetails {
     image: string;//path to an image
     name: string;
     date: Date;

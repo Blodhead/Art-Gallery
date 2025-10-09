@@ -10,7 +10,7 @@
           <button type="button" class="btn btn-primary" (click)="add_User()">Add User</button>
         </div>
         <div style="padding: 10px;">
-          <button type="button" class="btn btn-primary" (click)="add_Workshop()">Add Workshop</button>
+          <button type="button" class="btn btn-primary" (click)="add_Parfume()">Add Parfume</button>
         </div>
       </div>
 
@@ -28,7 +28,7 @@
               <a class="nav-link" (click)="setTab('Participants')">Participants</a>
             </li>
             <li class="nav-item admin_tabs" role="presentation">
-              <a class="nav-link" (click)="setTab('Workshops')">Workshops</a>
+              <a class="nav-link" (click)="setTab('Parfumes')">Parfumes</a>
             </li>
             <li class="nav-item admin_tabs" role="presentation">
               <a class="nav-link" (click)="setTab('Requests')">Requests</a>
@@ -45,7 +45,7 @@
               <a class="nav-link active" (click)="setTab('Participants')">Participants</a>
             </li>
             <li class="nav-item admin_tabs" role="presentation">
-              <a class="nav-link" (click)="setTab('Workshops')">Workshops</a>
+              <a class="nav-link" (click)="setTab('Parfumes')">Parfumes</a>
             </li>
             <li class="nav-item admin_tabs" role="presentation">
               <a class="nav-link" (click)="setTab('Requests')">Requests</a>
@@ -53,7 +53,7 @@
           </ul>
         </div>
 
-        <div class="" *ngIf="getTab() == 'Workshops'" style="width: fit-content;">
+        <div class="" *ngIf="getTab() == 'Parfumes'" style="width: fit-content;">
           <ul class="nav nav-tabs mb-3 uls" role="tablist">
             <li class="nav-item admin_tabs" role="presentation">
               <a class="nav-link" (click)="setTab('Organizers')">Organizers</a>
@@ -62,7 +62,7 @@
               <a class="nav-link" (click)="setTab('Participants')">Participants</a>
             </li>
             <li class="nav-item admin_tabs" role="presentation">
-              <a class="nav-link active" (click)="setTab('Workshops')">Workshops</a>
+              <a class="nav-link active" (click)="setTab('Parfumes')">Parfumes</a>
             </li>
             <li class="nav-item admin_tabs" role="presentation">
               <a class="nav-link" (click)="setTab('Requests')">Requests</a>
@@ -79,7 +79,7 @@
               <a class="nav-link" (click)="setTab('Participants')">Participants</a>
             </li>
             <li class="nav-item admin_tabs" role="presentation">
-              <a class="nav-link" (click)="setTab('Workshops')">Workshops</a>
+              <a class="nav-link" (click)="setTab('Parfumes')">Parfumes</a>
             </li>
             <li class="nav-item admin_tabs" role="presentation">
               <a class="nav-link active" (click)="setTab('Requests')">Requests</a>
@@ -123,21 +123,21 @@
 
       </div>
 
-      <div class="col-12 shadow context" style="background-color: #136207;" *ngIf="getTab()=='Workshops'">
+      <div class="col-12 shadow context" style="background-color: #136207;" *ngIf="getTab()=='Parfumes'">
 
         <div class="card container-fluid shadow"
           style="border: solid !important; border-color: rgb(19,98,7) !important;"
-          *ngFor="let workshop of allWorkshops; let i = index">
+          *ngFor="let parfume of allParfumes; let i = index">
 
-          <app-workshop-details [myWorkshopDetail]="workshop" [myIndex]="i"></app-workshop-details>
+          <app-parfume-details [myParfumeDetail]="parfume" [myIndex]="i"></app-parfume-details>
 
           <div class="row" style="text-align: center; margin-top: -30px; margin-bottom: 10px;">
             <div class="col-6">
               <button class="btn btn-success" style="background-color: rgb(19,98,7) ;"
-                (click)="approve(workshop)">Approve</button>
+                (click)="approve(parfume)">Approve</button>
             </div>
             <div class="col-6">
-              <button class="btn btn-warning" (click)="reject(workshop)">Reject</button>
+              <button class="btn btn-warning" (click)="reject(parfume)">Reject</button>
             </div>
           </div>
 

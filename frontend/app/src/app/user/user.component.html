@@ -10,7 +10,7 @@
                             <a class="nav-link active" (click)="setTab('User')" routerLink="User">User</a>
                         </li>
                         <li class="nav-item admin_tabs" role="presentation">
-                            <a class="nav-link" (click)="setTab('WorkshopHistory')">WorkshopHistory</a>
+                            <a class="nav-link" (click)="setTab('ParfumeHistory')">ParfumeHistory</a>
                         </li>
                         <li class="nav-item admin_tabs" role="presentation">
                             <a class="nav-link" (click)="setTab('Actions')">Actions</a>
@@ -21,13 +21,13 @@
                     </ul>
                 </div>
 
-                <div class="" *ngIf="getTab() == 'WorkshopHistory'" style="width: fit-content;">
+                <div class="" *ngIf="getTab() == 'ParfumeHistory'" style="width: fit-content;">
                     <ul class="nav nav-tabs mb-3 uls" role="tablist">
                         <li class="nav-item admin_tabs" role="presentation">
                             <a class="nav-link" (click)="setTab('User')">User</a>
                         </li>
                         <li class="nav-item admin_tabs" role="presentation">
-                            <a class="nav-link active" (click)="setTab('WorkshopHistory')">WorkshopHistory</a>
+                            <a class="nav-link active" (click)="setTab('ParfumeHistory')">ParfumeHistory</a>
                         </li>
                         <li class="nav-item admin_tabs" role="presentation">
                             <a class="nav-link" (click)="setTab('Actions')">Actions</a>
@@ -44,7 +44,7 @@
                             <a class="nav-link" (click)="setTab('User')">User</a>
                         </li>
                         <li class="nav-item admin_tabs" role="presentation">
-                            <a class="nav-link" (click)="setTab('WorkshopHistory')">WorkshopHistory</a>
+                            <a class="nav-link" (click)="setTab('ParfumeHistory')">ParfumeHistory</a>
                         </li>
                         <li class="nav-item admin_tabs" role="presentation">
                             <a class="nav-link active" (click)="setTab('Actions')">Actions</a>
@@ -61,7 +61,7 @@
                             <a class="nav-link" (click)="setTab('User')">User</a>
                         </li>
                         <li class="nav-item admin_tabs" role="presentation">
-                            <a class="nav-link" (click)="setTab('WorkshopHistory')">WorkshopHistory</a>
+                            <a class="nav-link" (click)="setTab('ParfumeHistory')">ParfumeHistory</a>
                         </li>
                         <li class="nav-item admin_tabs" role="presentation">
                             <a class="nav-link" (click)="setTab('Actions')">Actions</a>
@@ -90,7 +90,7 @@
             </div>
 
             <div class="col-12 shadow context" style="background-color: #136207; margin-bottom: 20px;"
-                *ngIf="getTab()=='WorkshopHistory'">
+                *ngIf="getTab()=='ParfumeHistory'">
 
                 <table class="card"
                     style="display: flex; justify-content: center; flex-wrap: wrap; align-content: center;">
@@ -123,9 +123,9 @@
                     </tr>
                 </table>
 
-                <div class="card container-fluid shadow" *ngFor="let workshop of myWorkshops; let i = index">
+                <div class="card container-fluid shadow" *ngFor="let parfume of myParfumes; let i = index">
 
-                    <app-workshop-details [myWorkshopDetail]="workshop" [myIndex]="i"></app-workshop-details>
+                    <app-parfume-details [myParfumeDetail]="parfume" [myIndex]="i"></app-parfume-details>
 
                 </div>
 
@@ -139,13 +139,13 @@
                     <div class="col-6 card container-fluid shadow" style="margin-left: 10px; width: 49%;">
                         <h1>Likes:</h1>
 
-                        <div *ngFor="let workshop of myWorkshops;  let i = index">
+                        <div *ngFor="let parfume of myParfumes;  let i = index">
 
-                            <div *ngFor="let like of workshop.likes;">
+                            <div *ngFor="let like of parfume.likes;">
 
-                                <div *ngIf="like == current_user.username">{{workshop.name}} -> <button
+                                <div *ngIf="like == current_user.username">{{parfume.name}} -> <button
                                         style="width: 100px;" class="btn btn-danger btn-sm"
-                                        (click)="unlike(workshop)">Unlike ❤</button></div>
+                                        (click)="unlike(parfume)">Unlike ❤</button></div>
                                 <hr *ngIf="like == current_user.username">
                             </div>
 
@@ -155,12 +155,12 @@
 
                     <div class="col-6 card container-fluid shadow" style="width: 49%; margin-right: -10px;">
                         <h1>Comments</h1>
-                        <div *ngFor="let workshop of myWorkshops;  let i = index">
-                            <h5>{{workshop.name}}:</h5>
-                            <div *ngFor="let comment of workshop.comments;">
+                        <div *ngFor="let parfume of myParfumes;  let i = index">
+                            <h5>{{parfume.name}}:</h5>
+                            <div *ngFor="let comment of parfume.comments;">
                                 <div *ngIf="comment.username == current_user.username"> {{comment.message}}</div>
                                 <button *ngIf="comment.username == current_user.username" style="width: 100px;"
-                                    class="btn btn-danger btn-sm" (click)="uncomment(workshop,comment)">delete</button>
+                                    class="btn btn-danger btn-sm" (click)="uncomment(parfume,comment)">delete</button>
 
                             </div>
                             <hr>
@@ -174,8 +174,8 @@
             <div class="col-12 shadow context" style="background-color: #136207; width: auto;"
                 *ngIf="getTab()=='Chats'">
 
-                <div *ngFor="let workshop of chats">
-                    <app-chat [unique_workshop]="workshop"></app-chat>
+                <div *ngFor="let parfume of chats">
+                    <app-chat [unique_parfume]="parfume"></app-chat>
                 </div>
 
             </div>

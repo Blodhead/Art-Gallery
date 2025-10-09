@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
-import { Comment, Message, WorkshopDetails } from '../models/workshop-details';
+import { Comment, Message, ParfumeDetails } from '../models/parfume-details';
 import { UserService } from '../user.service';
-import { WorkshopService } from '../workshop.service';
+import { ParfumeService } from '../parfume.service';
 
 @Component({
   selector: 'app-chat',
@@ -12,18 +12,18 @@ import { WorkshopService } from '../workshop.service';
 })
 export class ChatComponent implements OnInit {
 
-  constructor(private _router: Router, private workshop_service: WorkshopService, private users_service: UserService) { }
+  constructor(private _router: Router, private parfume_service: ParfumeService, private users_service: UserService) { }
 
   ngOnInit(): void {
-    this.myWorkshop = JSON.parse(localStorage.getItem("sent_workshop"));
+    this.myParfume = JSON.parse(localStorage.getItem("sent_parfume"));
     this.user1 = JSON.parse(localStorage.getItem("current_user"));
     if (this.user1 == null) this._router.navigate(["login"]);
-    if (this.myWorkshop == null) {
-      this.myWorkshop = this.unique_workshop;
+    if (this.myParfume == null) {
+      this.myParfume = this.unique_parfume;
     }
 
-    for (let k = 0; k < this.myWorkshop.messages.length; k++)
-      this.myWorkshop.messages[k].date = new Date(this.myWorkshop.messages[k].date);
+    for (let k = 0; k < this.myParfume.messages.length; k++)
+      this.myParfume.messages[k].date = new Date(this.myParfume.messages[k].date);
 
     let temp_array: Array<Message[]> = [];
     let real_arr: Message[][] = [];
@@ -48,7 +48,7 @@ export class ChatComponent implements OnInit {
         temp_usernames.push(users_list[k].username);
         this.temp_images.push(users_list[k].profile_photo_name);
       }
-      temp_array.push(this.myWorkshop.messages);
+      temp_array.push(this.myParfume.messages);
 
 
       for (var s: number = 0; s < temp_usernames.length; s++) {
@@ -130,11 +130,11 @@ export class ChatComponent implements OnInit {
 
   }
 
-  myWorkshop: WorkshopDetails = null;
+  myParfume: ParfumeDetails = null;
   user1: User = null;
   user2: User = null;
   current_path: string = "";
-  @Input() unique_workshop: WorkshopDetails;
+  @Input() unique_parfume: ParfumeDetails;
 
   messages: Message[][] = [];
   comments: Comment[][] = [];
@@ -188,9 +188,9 @@ export class ChatComponent implements OnInit {
 
     }
 
-    this.workshop_service.addMessage(this.myWorkshop.name, this.messages[index][this.messages[index].length - 1]).subscribe((statement) => {
-      this.myWorkshop.messages.push(this.messages[index][this.messages[index].length - 1]);
-      localStorage.setItem("sent_workshop", JSON.stringify(this.myWorkshop));
+    this.parfume_service.addMessage(this.myParfume.name, this.messages[index][this.messages[index].length - 1]).subscribe((statement) => {
+      this.myParfume.messages.push(this.messages[index][this.messages[index].length - 1]);
+      localStorage.setItem("sent_parfume", JSON.stringify(this.myParfume));
       this.msg[index] = "";
     });
 
@@ -224,7 +224,7 @@ export class ChatComponent implements OnInit {
 
         let data = {
           date: new Date(),
-          from: this.myWorkshop.owner,
+          from: this.myParfume.owner,
           to: this.user1.username,
           message: "Hi, how may I assist you today?"
         }

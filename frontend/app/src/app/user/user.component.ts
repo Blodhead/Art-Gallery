@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
-import { Message, WorkshopDetails } from '../models/workshop-details';
+import { Message, ParfumeDetails } from '../models/parfume-details';
 import { SharedService } from '../shared.service';
 import { UserService } from '../user.service';
-import { WorkshopService } from '../workshop.service';
+import { ParfumeService } from '../parfume.service';
 
 @Component({
   selector: 'app-user',
@@ -14,16 +14,16 @@ import { WorkshopService } from '../workshop.service';
 export class UserComponent implements OnInit {
 
 
-  constructor(private workshop_service: WorkshopService, private user_service: UserService, private sharedService: SharedService, private _router: Router) { }
+  constructor(private parfume_service: ParfumeService, private user_service: UserService, private sharedService: SharedService, private _router: Router) { }
 
   current_user: User;
   reload: string;
-  allWorkshops: WorkshopDetails[] = [];
-  fullWorskhops: WorkshopDetails[] = [];
-  activeWorkshops: WorkshopDetails[] = [];
+  allParfumes: ParfumeDetails[] = [];
+  fullWorskhops: ParfumeDetails[] = [];
+  activeParfumes: ParfumeDetails[] = [];
   active_tab: string = "User";
-  myWorkshops: WorkshopDetails[] = [];
-  chats: WorkshopDetails[] = [];
+  myParfumes: ParfumeDetails[] = [];
+  chats: ParfumeDetails[] = [];
   index: number[] = [];
   toggle1: boolean = true;
   toggle2: boolean = true;
@@ -42,18 +42,18 @@ export class UserComponent implements OnInit {
       localStorage.removeItem("reload");
       this.sharedService.sendclickEvent();
     }
-    localStorage.removeItem("sent_workshop");
-    this.getAllWorkshops();
+    localStorage.removeItem("sent_parfume");
+    this.getAllParfumes();
   }
 
   sortName() {
     if (this.toggle1 == false) {
-      this.myWorkshops.sort((a, b) => {
+      this.myParfumes.sort((a, b) => {
         return a.name.localeCompare(b.name);
       });
       this.toggle1 = true;
     } else if (this.toggle1 == true) {
-      this.myWorkshops.sort((a, b) => {
+      this.myParfumes.sort((a, b) => {
         return b.name.localeCompare(a.name);
       });
       this.toggle1 = false;
@@ -62,12 +62,12 @@ export class UserComponent implements OnInit {
 
   sortLocation() {
     if (this.toggle3 == false) {
-      this.myWorkshops.sort((a, b) => {
+      this.myParfumes.sort((a, b) => {
         return a.location.localeCompare(b.location);
       });
       this.toggle3 = true;
     } else if (this.toggle3 == true) {
-      this.myWorkshops.sort((a, b) => {
+      this.myParfumes.sort((a, b) => {
         return b.location.localeCompare(a.location);
       });
       this.toggle3 = false;
@@ -76,36 +76,36 @@ export class UserComponent implements OnInit {
 
   sortDate() {
     if (this.toggle2 == false) {
-      this.myWorkshops.sort((a, b) => {
+      this.myParfumes.sort((a, b) => {
         let g = new Date(b.date).getTime();
         let h = new Date(a.date).getTime();
         return g - h
       });
       this.toggle2 = true;
     } else if (this.toggle2 == true) {
-      this.myWorkshops.sort((a, b) => {
+      this.myParfumes.sort((a, b) => {
         return new Date(a.date).getTime() - new Date(b.date).getTime()
       });
       this.toggle2 = false;
     }
   }
 
-  getAllWorkshops() {
+  getAllParfumes() {
     if (this.loaded == true) return;
     else this.loaded = true;
-    this.workshop_service.getAllWorkshops().subscribe((workshops: WorkshopDetails[]) => {
-      if (!workshops) alert("Error");
+    this.parfume_service.getAllParfumes().subscribe((parfumes: ParfumeDetails[]) => {
+      if (!parfumes) alert("Error");
       else {
-        this.allWorkshops = workshops;
-        this.fullWorskhops = workshops;
-        for (let j = 0; j < this.allWorkshops.length; j++) {
-          this.allWorkshops[j].date = new Date(this.allWorkshops[j].date);
+        this.allParfumes = parfumes;
+        this.fullWorskhops = parfumes;
+        for (let j = 0; j < this.allParfumes.length; j++) {
+          this.allParfumes[j].date = new Date(this.allParfumes[j].date);
           this.index[j] = j;
 
-          if (this.allWorkshops[j].participants != null) {
-            for (let k = 0; k < this.allWorkshops[j].participants.length; k++)
-              if ((this.allWorkshops[j].participants[k].mail == this.current_user.mail) && this.allWorkshops[j].date < new Date()) {
-                this.myWorkshops.push(this.allWorkshops[j]);
+          if (this.allParfumes[j].participants != null) {
+            for (let k = 0; k < this.allParfumes[j].participants.length; k++)
+              if ((this.allParfumes[j].participants[k].mail == this.current_user.mail) && this.allParfumes[j].date < new Date()) {
+                this.myParfumes.push(this.allParfumes[j]);
                 break;
               }
           }
@@ -135,20 +135,20 @@ export class UserComponent implements OnInit {
 
   setTab(input) {
     this.active_tab = input;
-    if (input == "WorkshopHistory") this.getAllWorkshops();
-    if (input == "Actions") this.getAllWorkshops();
+    if (input == "ParfumeHistory") this.getAllParfumes();
+    if (input == "Actions") this.getAllParfumes();
   }
 
-  unlike(workshop) {
-    this.workshop_service.unlike(workshop.name, this.current_user.username).subscribe((statement) => {
+  unlike(parfume) {
+    this.parfume_service.unlike(parfume.name, this.current_user.username).subscribe((statement) => {
 
-      for (let j = 0; j < this.myWorkshops.length; j++) {
+      for (let j = 0; j < this.myParfumes.length; j++) {
 
-        if (this.myWorkshops[j] == workshop) {
-          for (let iter = 0; iter < workshop.likes.length; iter++)
-            if (workshop.likes[iter] == this.current_user.username) {
-              workshop.likes[iter] = null;
-              workshop.likes = workshop.likes.filter(elements => {
+        if (this.myParfumes[j] == parfume) {
+          for (let iter = 0; iter < parfume.likes.length; iter++)
+            if (parfume.likes[iter] == this.current_user.username) {
+              parfume.likes[iter] = null;
+              parfume.likes = parfume.likes.filter(elements => {
                 return (elements != null && elements !== undefined);
               });
             }
@@ -158,15 +158,15 @@ export class UserComponent implements OnInit {
     });
   }
 
-  uncomment(workshop, comment) {
-    this.workshop_service.uncomment(workshop.name, comment).subscribe((statement) => {
-      for (let j = 0; j < this.myWorkshops.length; j++) {
+  uncomment(parfume, comment) {
+    this.parfume_service.uncomment(parfume.name, comment).subscribe((statement) => {
+      for (let j = 0; j < this.myParfumes.length; j++) {
 
-        if (this.myWorkshops[j] == workshop) {
-          for (let iter = 0; iter < workshop.comments.length; iter++)
-            if (workshop.comments[iter] == comment) {
-              workshop.comments[iter] = null;
-              workshop.comments = workshop.comments.filter(elements => {
+        if (this.myParfumes[j] == parfume) {
+          for (let iter = 0; iter < parfume.comments.length; iter++)
+            if (parfume.comments[iter] == comment) {
+              parfume.comments[iter] = null;
+              parfume.comments = parfume.comments.filter(elements => {
                 return (elements != null && elements !== undefined);
               });
             }

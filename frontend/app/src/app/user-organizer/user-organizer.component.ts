@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
-import { WorkshopDetails } from '../models/workshop-details';
+import { ParfumeDetails } from '../models/parfume-details';
 import { SharedService } from '../shared.service';
-import { WorkshopService } from '../workshop.service';
+import { ParfumeService } from '../parfume.service';
 
 @Component({
   selector: 'app-user-organizer',
@@ -11,11 +11,11 @@ import { WorkshopService } from '../workshop.service';
   styleUrls: ['./user-organizer.component.css']
 })
 export class UserOrganizerComponent implements OnInit {
-  constructor(private workshop_service: WorkshopService, private sharedService: SharedService, private _router: Router) { }
+  constructor(private parfume_service: ParfumeService, private sharedService: SharedService, private _router: Router) { }
 
   current_user: User = null;
   reload: string = "";
-  allWorkshops: WorkshopDetails[] = [];
+  allParfumes: ParfumeDetails[] = [];
 
   ngOnInit(): void {
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
@@ -26,18 +26,18 @@ export class UserOrganizerComponent implements OnInit {
       localStorage.removeItem("reload");
       this.sharedService.sendclickEvent();
     }
-    this.getAllWorkshops();
+    this.getAllParfumes();
   }
 
-  getAllWorkshops() {
-    this.workshop_service.getAllWorkshops().subscribe((workshops: WorkshopDetails[]) => {
-      if (!workshops) alert("Error");
+  getAllParfumes() {
+    this.parfume_service.getAllParfumes().subscribe((parfumes: ParfumeDetails[]) => {
+      if (!parfumes) alert("Error");
       else {
 
-        for (let j = 0; j < workshops.length; j++) {
-          workshops[j].date = new Date(workshops[j].date);
-            if (workshops[j].status == "approved" && (workshops[j].owner == this.current_user.username))
-              this.allWorkshops.push(workshops[j]);
+        for (let j = 0; j < parfumes.length; j++) {
+          parfumes[j].date = new Date(parfumes[j].date);
+            if (parfumes[j].status == "approved" && (parfumes[j].owner == this.current_user.username))
+              this.allParfumes.push(parfumes[j]);
         }
       }
     });
@@ -45,8 +45,8 @@ export class UserOrganizerComponent implements OnInit {
 
   add_new(){
 
-    localStorage.removeItem("sent_workshop");
-    this._router.navigate(["admin/edit_workshop"]);
+    localStorage.removeItem("sent_parfume");
+    this._router.navigate(["admin/edit_parfume"]);
   }
 
 }
