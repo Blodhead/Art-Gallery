@@ -1,16 +1,19 @@
-<div class="topnav">
-  <a class="active" routerLink="">Home</a>
-  <a *ngIf="type=='admin'" class="" routerLink="admin">Admin</a>
-  <a *ngIf="type=='organizer'" class="" routerLink="user_organizer">Profile</a>
-  <a *ngIf="type=='participant'" class="" routerLink="user">Profile</a>
-  <a *ngIf="type=='participant'" class="" routerLink="MyParfumes">MyParfumes</a>
-  <a *ngIf="type=='participant'" class="" routerLink="/admin/edit_parfume">Become Organizer</a>
-  <!--    <a href="#news" routerLink="">News</a>
-    <a href="#contact">Contact</a>-->
-  <div class="topnav-right">
-    <a *ngIf="current_user==null" routerLink="login">Login</a>
-    <a *ngIf="current_user!=null" routerLink="verify">Change Password</a>
-    <a *ngIf="current_user!=null" class="link" (click)="logout()">Logout</a>
-    <a *ngIf="current_user==null" routerLink="register">Register</a>
+<header class="main-header">
+  <div class="header-left">
+    <span class="logo" routerLink="">FinestMiris</span>
   </div>
-</div>
+  <nav class="header-nav">
+    <a class="nav-link active" routerLink="">Home</a>
+    <a *ngIf="type=='admin'" class="nav-link" routerLink="admin">Admin</a>
+    <a *ngIf="type=='organizer'" class="nav-link" routerLink="user_organizer">Profile</a>
+    <a *ngIf="type=='participant'" class="nav-link" routerLink="user">Profile</a>
+    <a *ngIf="type=='participant'" class="nav-link" routerLink="MyParfumes">My Parfumes</a>
+    <a *ngIf="type=='participant'" class="nav-link" routerLink="/admin/edit_parfume">Become Organizer</a>
+  </nav>
+  <div class="header-actions">
+    <a *ngIf="current_user==null" class="nav-link" routerLink="login">Login</a>
+    <a *ngIf="current_user!=null" class="nav-link" routerLink="verify">Change Password</a>
+    <a *ngIf="current_user!=null" class="nav-link link" (click)="logout()">Logout</a>
+    <a *ngIf="current_user==null" class="nav-link" routerLink="register">Register</a>
+  </div>
+</header>

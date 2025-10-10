@@ -34,10 +34,10 @@ export class UserOrganizerComponent implements OnInit {
       if (!parfumes) alert("Error");
       else {
 
-        for (let j = 0; j < parfumes.length; j++) {
+        for (let j = 0; j < parfumes.length; j++) {/*
           parfumes[j].date = new Date(parfumes[j].date);
             if (parfumes[j].status == "approved" && (parfumes[j].owner == this.current_user.username))
-              this.allParfumes.push(parfumes[j]);
+              this.allParfumes.push(parfumes[j]);*/
         }
       }
     });

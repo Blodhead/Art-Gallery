@@ -1,10 +1,4 @@
-.page {
-  background-color: white;
-  border-radius: 25px;
-  border-top-left-radius: 0px;
-  border: 2px solid rgb(19, 98, 7);
-  padding: 20px;
-}
+
 
 .tabs {
   background-color: white;
@@ -92,4 +86,132 @@ footer{
   transform: scaleX(-1) !important;
   -webkit-transform: rotateY(180deg)!important;
   transform: rotateY(180deg)!important;
+}
+
+
+/* Minimalist Luxury E-commerce Styles */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+  background: #faf9f6;
+  color: #222;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  letter-spacing: 0.01em;
+  overflow-x: hidden;
+}
+
+main {
+  flex: 1 0 auto;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+header, footer {
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  padding: 1.5rem 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+footer {
+  margin-top: auto;
+  font-size: 0.95em;
+  color: #888;
+  border-top: 1px solid #eee;
+}
+
+.product-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  padding: 1.5rem;
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.2s;
+}
+.product-card:hover {
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+}
+
+.product-image {
+  width: 100%;
+  max-width: 220px;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.product-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.product-price {
+  font-size: 1.1rem;
+  color: #bfa181;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.btn {
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 0.7em 2em;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn:hover {
+  background: #bfa181;
+  color: #222;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  main {
+    max-width: 98vw;
+    padding: 1.5rem 0.5rem;
+  }
+  .product-card {
+    padding: 1rem;
+  }
+}
+@media (max-width: 600px) {
+  header, footer {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem 0.5rem;
+  }
+  .product-card {
+    margin: 0.5rem 0;
+    padding: 0.7rem;
+  }
+  .product-title {
+    font-size: 1rem;
+  }
+  .product-price {
+    font-size: 1em;
+  }
 }

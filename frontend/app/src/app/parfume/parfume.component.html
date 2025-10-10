@@ -5,26 +5,10 @@
         <div class="col-8 intro middle">
 
             <div class="row">
-                <div class="col-12 middle">
-                    <h4 class="border border-success rounded"
-                        style="background-color: white;text-align: center; width: fit-content;">FEEL CREATIVE BUT CANT
-                        GET IT OUT?</h4>
+                <div class="col-12 middle" style="height: 100px;">
+
                 </div>
 
-                <div class="col-12 middle">
-                    <h1 class="border border-success rounded"
-                        style="background-color: white; text-align: center; width: fit-content;">UNLEASH YOUR INNER
-                        ARTIST!</h1>
-                </div>
-
-                <div class="col-12 middle">
-                    <h6 class="middle border border-success rounded"
-                        style="text-align: center; background-color: white;">
-                        Choose any of our parfumes that peek your interest, sign up and have fun with our wonderful
-                        staff that will be "holding your hand" the entire time. Thrive in supportive environment and
-                        achieve your dreams!
-                    </h6>
-                </div>
 
             </div>
         </div>
@@ -32,7 +16,10 @@
     </div>
 
     <div class="row">
-        <div class="col-12 intro middle" style="justify-content: center !important;">
+        <div class="col-3 intro">
+            &nbsp;
+        </div>
+        <div class="col-6 intro middle" style="justify-content: center !important;">
 
             <table>
                 <tr>
@@ -66,33 +53,34 @@
             </table>
 
         </div>
+                <div class="col-3 intro">
+            &nbsp;
+        </div>
     </div>
 
-    <div class="row">
-        <div class="col-2">&nbsp;</div>
 
-        <div class="col-8">
-            <div *ngFor="let parfume of filtered_parfumes; let i = index;">
-                <app-parfume-details [myParfumeDetail]="parfume" [myIndex]="i"></app-parfume-details>
+    <div class="row">
+        <div class="col-1">&nbsp;</div>
+
+        <div class="col-9">
+            <div class="parfume-grid">
+                <app-parfume-details *ngFor="let parfume of filtered_parfumes; let i = index;" [myParfumeDetail]="parfume"></app-parfume-details>
             </div>
         </div>
 
-        <div class="col-2 ">
-
+        <div class="col-1 ">
+            &nbsp;
+            <!--
             <table>
                 <th> <h4>Top 5:</h4> <hr/></th>
-                
                 <tr>
                     <ol type="1">
                         <h6><li *ngFor="let i of top5;">{{i}}</li></h6>
                     </ol>
                 </tr>
-
             </table>
-
-
+            -->
         </div>
-
     </div>
 
 </div>

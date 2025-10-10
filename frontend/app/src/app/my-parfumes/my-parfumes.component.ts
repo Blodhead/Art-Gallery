@@ -43,7 +43,7 @@ export class MyParfumesComponent implements OnInit {
         this.allParfumes = parfumes;
 
         for (let j = 0; j < this.allParfumes.length; j++) {
-          this.allParfumes[j].date = new Date(this.allParfumes[j].date);
+          /*this.allParfumes[j].date = new Date(this.allParfumes[j].date);
           this.index[j] = j;
 
           if (this.allParfumes[j].participants != null) {
@@ -54,7 +54,7 @@ export class MyParfumesComponent implements OnInit {
                 break;
               }
 
-          }
+          }*/
 
         }
       }

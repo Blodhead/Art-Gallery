@@ -15,7 +15,6 @@ import { RequestComponent } from './request/request.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { ParfumeComponent } from './parfume/parfume.component';
 import { ParfumeDetailsComponent } from './parfume-details/parfume-details.component';
-import { EditParfumeComponent } from './edit-parfume/edit-parfume.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { HeaderComponent } from './header/header.component';
@@ -43,7 +42,6 @@ import { ChatComponent } from './chat/chat.component';
     EditUserComponent,
     ParfumeComponent,
     ParfumeDetailsComponent,
-    EditParfumeComponent,
     HeaderComponent,
     FooterComponent,
     UserOrganizerComponent,

@@ -106,7 +106,7 @@
                             <button *ngIf="toggle1 == false" class="btn btn-success btn-xs"
                                 style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortName()">Name
                                 ↓</button>
-                            <button *ngIf="toggle2 == true" class="btn btn-success btn-xs"
+                            <!--<button *ngIf="toggle2 == true" class="btn btn-success btn-xs"
                                 style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortDate()">Date
                                 ↑</button>
                             <button *ngIf="toggle2 == false" class="btn btn-success btn-xs"
@@ -117,7 +117,7 @@
                                 ↑</button>
                             <button *ngIf="toggle3 == false" class="btn btn-success btn-xs"
                                 style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortLocation()">Location
-                                ↓</button>
+                                ↓</button>-->
                         </td>
 
                     </tr>
@@ -141,13 +141,13 @@
 
                         <div *ngFor="let parfume of myParfumes;  let i = index">
 
-                            <div *ngFor="let like of parfume.likes;">
+                            <!--<div *ngFor="let like of parfume.likes;">
 
                                 <div *ngIf="like == current_user.username">{{parfume.name}} -> <button
                                         style="width: 100px;" class="btn btn-danger btn-sm"
                                         (click)="unlike(parfume)">Unlike ❤</button></div>
                                 <hr *ngIf="like == current_user.username">
-                            </div>
+                            </div>-->
 
                         </div>
 
@@ -157,25 +157,11 @@
                         <h1>Comments</h1>
                         <div *ngFor="let parfume of myParfumes;  let i = index">
                             <h5>{{parfume.name}}:</h5>
-                            <div *ngFor="let comment of parfume.comments;">
-                                <div *ngIf="comment.username == current_user.username"> {{comment.message}}</div>
-                                <button *ngIf="comment.username == current_user.username" style="width: 100px;"
-                                    class="btn btn-danger btn-sm" (click)="uncomment(parfume,comment)">delete</button>
 
-                            </div>
                             <hr>
                         </div>
                     </div>
 
-                </div>
-
-            </div>
-
-            <div class="col-12 shadow context" style="background-color: #136207; width: auto;"
-                *ngIf="getTab()=='Chats'">
-
-                <div *ngFor="let parfume of chats">
-                    <app-chat [unique_parfume]="parfume"></app-chat>
                 </div>
 
             </div>

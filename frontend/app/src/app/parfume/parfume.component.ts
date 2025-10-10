@@ -34,30 +34,35 @@ export class ParfumeComponent implements OnInit {
   top5: String[] = [];
   temp_date: Date[] = [];
 
-    getAllParfumes() {
-    this.parfume_service.getAllParfumes().subscribe((parfumes: Parfume[]) => {
+
+  getAllParfumes() {
+    this.parfume_service.getAllParfumes().subscribe((parfumes: any[]) => {
       if (!parfumes) alert("Error");
       else {
+        // Map backend Parfume objects to ParfumeDetails for card display
+        this.allParfumes = parfumes.map((p: any) => ({
+          name: p.name,
+          img_location: p.img_location ? (p.img_location.startsWith('http') ? p.img_location : `${p.img_location}`) : '',
+          price: p.price,
+          amount: p.amount,
+          description: p.description || '',
+          status: p.status || '',
+          _id: p._id || ''
+        }));
 
-        let temp_arr = parfumes;
-
-        let bridge = temp_arr;
-
-        bridge = bridge.filter((value, index, self) =>
+        // Top 5 by name (or any other logic)
+        let bridge = this.allParfumes.filter((value, index, self) =>
           index === self.findIndex((t) => (
             t.name === value.name
           ))
-        )
-
+        );
+        this.top5 = [];
         for (let i = 0; i < 5 && i < bridge.length; i++) {
           if (this.top5.indexOf(bridge[i].name) === -1)
             this.top5.push(bridge[i].name)
         }
 
-        this.allParfumes = this.allParfumes.filter(elements => {
-          return (elements != null && elements !== undefined);
-        });
-        this.filtered_parfumes = this.allParfumes;
+        this.filtered_parfumes = [...this.allParfumes];
       }
     });
   }
@@ -117,7 +122,7 @@ export class ParfumeComponent implements OnInit {
 
   sortDate() {
 
-    if (this.toggle2 == false) {
+    /*if (this.toggle2 == false) {
       this.filtered_parfumes.sort((a, b) => {
         let g = new Date(b.date).getTime();
         let h = new Date(a.date).getTime();
@@ -129,7 +134,7 @@ export class ParfumeComponent implements OnInit {
         return new Date(a.date).getTime() - new Date(b.date).getTime()
       });
       this.toggle2 = false;
-    }
+    }*/
   }
   str1: string;
   searchName(param) {
@@ -138,18 +143,18 @@ export class ParfumeComponent implements OnInit {
   }
   str2: string;
   searchLocation(param) {
-    this.filtered_parfumes = this.filtered_parfumes.filter(parfume => parfume.location.toLowerCase().includes(param.toLowerCase()));
-    this.searchFlag = true;
+    /*this.filtered_parfumes = this.filtered_parfumes.filter(parfume => parfume.location.toLowerCase().includes(param.toLowerCase()));
+    this.searchFlag = true;*/
   }
 
   search(param) {
-    this.filtered_parfumes = this.allParfumes;
+    /*this.filtered_parfumes = this.allParfumes;
     if (this.str1 != null) {
       this.filtered_parfumes = this.filtered_parfumes.filter(parfume => parfume.name.toLowerCase().includes(param.toLowerCase()));
     } else if (this.str2 != null) {
       this.filtered_parfumes = this.filtered_parfumes.filter(parfume => parfume.location.toLowerCase().includes(param.toLowerCase()));
     }
-    this.searchFlag = true;
+    this.searchFlag = true;*/
   }
 
 }

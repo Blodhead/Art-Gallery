@@ -4,7 +4,7 @@
 
         <div class="row">
             <div class="col-3">
-                <div *ngIf="check()==true">
+                <!--<div *ngIf="check()==true">
                     <b>Approved list:</b>
                     <br>
                     <table *ngFor="let participant of subscribedParticipants">
@@ -14,7 +14,7 @@
                         </tr>
 
                     </table>
-                </div>
+                </div>-->
             </div>
             <div class="col-6 container border border-success rounded">
 
@@ -26,22 +26,6 @@
                                     <b>Name:</b> {{myParfume.name}}
                                 </label>
                                 <hr>
-                            </tr>
-                            <tr style="width: -webkit-fill-available; width: -moz-available;">
-                                <label name="address" type="text" style="width: -webkit-fill-available; width: -moz-available;">
-                                    <b>Location:</b> {{myParfume.location}}
-                                </label>
-                                <hr>
-                            </tr>
-                            <tr style="width: -webkit-fill-available; width: -moz-available;">
-                                <label name="address" type="text" style="width: -webkit-fill-available; width: -moz-available;">
-                                    <b>Date&Time:</b> {{myParfume.date | date:'EEEE d. MMMM y. - HH:mm'}}
-                                </label>
-                                <hr>
-                            </tr>
-                            <tr>
-                                <b>Organizer:</b> {{myParfume.owner}} <button *ngIf="current_user.type=='participant'" type="button"
-                                    class="btn btn-sm btn-warning pointer" (click)="contact()">Contact</button>
                             </tr>
                             <tr>
                                 <b>Short desciption:</b><br>
@@ -71,7 +55,7 @@
                 </div>
             </div>
             <div class="col-3">
-                <div *ngIf="check()==true">
+                <!--<div *ngIf="check()==true">
                     <b>Waiting list:</b>
                     <br>
                     <table *ngFor="let participant of waitingParticipants">
@@ -83,7 +67,7 @@
                         </tr>
 
                     </table>
-                </div>
+                </div>-->
             </div>
         </div>
 

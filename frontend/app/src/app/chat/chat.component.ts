@@ -22,9 +22,9 @@ export class ChatComponent implements OnInit {
       this.myParfume = this.unique_parfume;
     }
 
-    for (let k = 0; k < this.myParfume.messages.length; k++)
+    /*for (let k = 0; k < this.myParfume.messages.length; k++)
       this.myParfume.messages[k].date = new Date(this.myParfume.messages[k].date);
-
+*/
     let temp_array: Array<Message[]> = [];
     let real_arr: Message[][] = [];
 
@@ -48,7 +48,7 @@ export class ChatComponent implements OnInit {
         temp_usernames.push(users_list[k].username);
         this.temp_images.push(users_list[k].profile_photo_name);
       }
-      temp_array.push(this.myParfume.messages);
+      //temp_array.push(this.myParfume.messages);
 
 
       for (var s: number = 0; s < temp_usernames.length; s++) {
@@ -189,7 +189,7 @@ export class ChatComponent implements OnInit {
     }
 
     this.parfume_service.addMessage(this.myParfume.name, this.messages[index][this.messages[index].length - 1]).subscribe((statement) => {
-      this.myParfume.messages.push(this.messages[index][this.messages[index].length - 1]);
+      //this.myParfume.messages.push(this.messages[index][this.messages[index].length - 1]);
       localStorage.setItem("sent_parfume", JSON.stringify(this.myParfume));
       this.msg[index] = "";
     });
@@ -224,7 +224,7 @@ export class ChatComponent implements OnInit {
 
         let data = {
           date: new Date(),
-          from: this.myParfume.owner,
+          from: "",///this.myParfume.owner,
           to: this.user1.username,
           message: "Hi, how may I assist you today?"
         }

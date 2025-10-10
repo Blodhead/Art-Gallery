@@ -17,6 +17,10 @@ export class ParfumeDetailsComponent implements OnInit {
 
   @Input() myParfumeDetail: ParfumeDetails;
   @Input() myIndex: number;
+  @Input() name: string;
+  @Input() img_location: string;
+  @Input() price: number;
+  @Input() amount: number;
   flipDiv: boolean = false;
   likes: number = 0;
   comments: Comment[];
@@ -28,7 +32,7 @@ export class ParfumeDetailsComponent implements OnInit {
   type: string = "";
 
   ngOnInit(): void {
-    this.current_user = JSON.parse(localStorage.getItem("current_user"));
+    /*this.current_user = JSON.parse(localStorage.getItem("current_user"));
     this.current_path = this._router.url.split('/').pop();
     if (this.current_user != null) {
       this.type = this.current_user.type;
@@ -41,22 +45,11 @@ export class ParfumeDetailsComponent implements OnInit {
           this.like_toggle = true;
 
       this.comments = this.myParfumeDetail.comments;
-    }
+    }*/
+   this.myParfumeDetail.img_location = "http://localhost:4200/images/" + this.myParfumeDetail.img_location;
+   this.myParfumeDetail.price = +this.myParfumeDetail.price;
+   this.myParfumeDetail.amount = +this.myParfumeDetail.amount;
 
-  }
-
-  hasFree() {
-    let temp_counter = 0;
-    for (let i = 0; i < this.myParfumeDetail.participants.length; i++) {
-
-      if (this.myParfumeDetail.participants[i].mail == this.current_user.mail) return true;
-
-      if (this.myParfumeDetail.participants[i].status == "notify" || this.myParfumeDetail.participants[i].status == "waiting")
-        temp_counter++;
-    }
-    if (this.myParfumeDetail.free_spaces > temp_counter)
-      return true;
-    else return false;
   }
 
   Toggle(): boolean {
@@ -65,12 +58,6 @@ export class ParfumeDetailsComponent implements OnInit {
       return true;
     else return false;
 
-  }
-
-  edit_enable(myParfumeDetail: ParfumeDetails) {
-    if ((new Date(myParfumeDetail.date).getTime() - (new Date()).getTime() > 0))
-      return false;
-    else return true;
   }
 
   isOrganizer_page(): boolean {
@@ -110,10 +97,10 @@ export class ParfumeDetailsComponent implements OnInit {
     let statement: boolean = false;
     let notify_mail_list: string[] = [];
 
-    for (let i = 0; i < this.myParfumeDetail.participants.length; i++) {
+    /*for (let i = 0; i < this.myParfumeDetail.participants.length; i++) {
       if (this.myParfumeDetail.participants[i].status == "notify")
         notify_mail_list.push(this.myParfumeDetail.participants[i].mail);
-    }
+    }*/
 
     if (notify_mail_list.length != 0) { statement = true }
 
@@ -138,19 +125,12 @@ export class ParfumeDetailsComponent implements OnInit {
 
   isSubscribed(): boolean {
 
-    for (let i = 0; i < this.myParfumeDetail.participants.length; i++) {
+    /*for (let i = 0; i < this.myParfumeDetail.participants.length; i++) {
       if (this.myParfumeDetail.participants[i].mail == this.current_user.mail)
         return true;
-    }
+    }*/
     return false;
 
-  }
-
-  isTime(): boolean {
-    if (this.isSubscribed() == false) return false;
-    else if ((new Date(this.myParfumeDetail.date).getTime() - (new Date()).getTime() > 1800000) && this.current_path == 'MyParfumes')
-      return true;
-    else return false;
   }
 
   getPath(): string {
@@ -160,15 +140,15 @@ export class ParfumeDetailsComponent implements OnInit {
   like_toggle: boolean = false;
 
   like() {
-    this.like_toggle = true;
+    /*this.like_toggle = true;
     this.parfume_Service.like(this.myParfumeDetail.name, this.current_user.username).subscribe((statement) => {
       this.myParfumeDetail.likes.push(this.current_user.username);
       this.likes = this.myParfumeDetail.likes.length;
-    });
+    });*/
   }
 
   unlike() {
-    this.like_toggle = false;
+    /*this.like_toggle = false;
     this.parfume_Service.unlike(this.myParfumeDetail.name, this.current_user.username).subscribe((statement) => {
       for (let iter = 0; iter < this.myParfumeDetail.likes.length; iter++)
         if (this.myParfumeDetail.likes[iter] == this.current_user.username) {
@@ -179,7 +159,7 @@ export class ParfumeDetailsComponent implements OnInit {
         }
 
       this.likes = this.myParfumeDetail.likes.length;
-    });
+    });*/
   }
 
   cancel() {
@@ -192,11 +172,11 @@ export class ParfumeDetailsComponent implements OnInit {
   message: string = "";
 
   comment() {
-    if (this.message != "")
+    /*if (this.message != "")
       this.parfume_Service.comment(this.myParfumeDetail.name, this.current_user.username, this.current_user.profile_photo_name, this.message, new Date()).subscribe((comment: Comment) => {
         this.myParfumeDetail.comments.push(comment);
         this.message = "";
-      })
+      })*/
   }
 
   more(myParfumeDetail) {

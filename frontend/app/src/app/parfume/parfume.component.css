@@ -1,7 +1,30 @@
 
+.parfume-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.2rem 1.5rem;
+    justify-items: center;
+    align-items: stretch;
+}
+@media (max-width: 1200px) {
+    .parfume-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 900px) {
+    .parfume-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 600px) {
+    .parfume-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 .bg{
     padding-top: 50px; 
-    background-image: url('../../assets/images/t2.jpg');
+    background-image: url('../../assets/images/FinestBackround.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

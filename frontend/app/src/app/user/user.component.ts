@@ -60,35 +60,6 @@ export class UserComponent implements OnInit {
     }
   }
 
-  sortLocation() {
-    if (this.toggle3 == false) {
-      this.myParfumes.sort((a, b) => {
-        return a.location.localeCompare(b.location);
-      });
-      this.toggle3 = true;
-    } else if (this.toggle3 == true) {
-      this.myParfumes.sort((a, b) => {
-        return b.location.localeCompare(a.location);
-      });
-      this.toggle3 = false;
-    }
-  }
-
-  sortDate() {
-    if (this.toggle2 == false) {
-      this.myParfumes.sort((a, b) => {
-        let g = new Date(b.date).getTime();
-        let h = new Date(a.date).getTime();
-        return g - h
-      });
-      this.toggle2 = true;
-    } else if (this.toggle2 == true) {
-      this.myParfumes.sort((a, b) => {
-        return new Date(a.date).getTime() - new Date(b.date).getTime()
-      });
-      this.toggle2 = false;
-    }
-  }
 
   getAllParfumes() {
     if (this.loaded == true) return;
@@ -98,32 +69,8 @@ export class UserComponent implements OnInit {
       else {
         this.allParfumes = parfumes;
         this.fullWorskhops = parfumes;
-        for (let j = 0; j < this.allParfumes.length; j++) {
-          this.allParfumes[j].date = new Date(this.allParfumes[j].date);
-          this.index[j] = j;
-
-          if (this.allParfumes[j].participants != null) {
-            for (let k = 0; k < this.allParfumes[j].participants.length; k++)
-              if ((this.allParfumes[j].participants[k].mail == this.current_user.mail) && this.allParfumes[j].date < new Date()) {
-                this.myParfumes.push(this.allParfumes[j]);
-                break;
-              }
-          }
-        }
       }
 
-      for (let i = 0; i < this.fullWorskhops.length; i++) {
-
-        for (let j = 0; j < this.fullWorskhops[i].messages.length; j++) {
-          if (this.fullWorskhops[i].messages[j].from == this.current_user.username || this.fullWorskhops[i].messages[j].to == this.current_user.username) {
-
-            this.chats.push(this.fullWorskhops[i]);
-            break;
-          }
-
-        }
-
-      }
     });
   }
 

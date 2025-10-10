@@ -1,18 +1,13 @@
 export class ParfumeDetails {
-    image: string;//path to an image
+
+    _id: string;
     name: string;
-    date: Date;
-    location: string;
+    img_location: string;
+    price: number;
+    amount: number;
     description: string;
-    likes: string[];
-    owner: string;
     status: string;
-    comments: Array<Comment>;
-    participants: Array<Subscription>;
-    gallery: Array<string>;
-    long_desc: string;
-    free_spaces: number;
-    messages: Array<Message>;
+    
 }
 export class Subscription {
     mail: string;

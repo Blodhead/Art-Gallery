@@ -26,9 +26,9 @@ export class DetailsComponent implements OnInit {
     if (this.current_user == null) this._router.navigate(["login"]);
     if (this.myParfume == null) this._router.navigate([""]);
 
-    this.bgimage = this.myParfume.image;
+    //this.bgimage = this.myParfume.image;
     this.images = this.getImages();
-    this.long_desc = this.myParfume.long_desc;
+    //this.long_desc = this.myParfume.long_desc;
     this.map = new ol.Map({
       target: 'map',
       layers: [
@@ -43,12 +43,12 @@ export class DetailsComponent implements OnInit {
     });
     this.search();
 
-    for (let i = 0; i < this.myParfume.participants.length; i++) {
+    /*for (let i = 0; i < this.myParfume.participants.length; i++) {
       if (this.myParfume.participants[i].status == "waiting")
         this.waitingParticipants.push(this.myParfume.participants[i].mail);
       else if (this.myParfume.participants[i].status == "approved")
         this.subscribedParticipants.push(this.myParfume.participants[i].mail);
-    }
+    }*/
 
   }
 
@@ -62,18 +62,19 @@ export class DetailsComponent implements OnInit {
   subscribedParticipants: string[] = [];
 
   getImages(): GalleryItem[] {
-    let temp_gallery: GalleryItem[] = [];
+    /*let temp_gallery: GalleryItem[] = [];
     for (let i = 0; i < this.myParfume.gallery.length; i++) {
       temp_gallery.push(new ImageItem({ src: this.myParfume.gallery[i], thumb: this.myParfume.gallery[i] }));
     }
     if (this.myParfume.gallery.length == 0) {
       temp_gallery.push(new ImageItem({ src: this.myParfume.image, thumb: this.myParfume.image }));
     }
-    return temp_gallery;
+    return temp_gallery;*/
+    return null;
   }
   err_message: string = '';
   search() {
-    this.map_service.getLongLat(this.myParfume.location).subscribe((address: any) => {
+    /*this.map_service.getLongLat(this.myParfume.location).subscribe((address: any) => {
 
       if (address.features[0] == null) { this.err_message = "Location doesn't exist!"; return; }
       this.err_message = '';
@@ -81,7 +82,7 @@ export class DetailsComponent implements OnInit {
       this.longitude = address.features[0].geometry.coordinates[0];
 
       this.setCenter();
-    });
+    });*/
   }
 
   setCenter() {
@@ -90,27 +91,27 @@ export class DetailsComponent implements OnInit {
     view.setZoom(17);
   }
 
-  check() {
+  /*check() {
     if (this.current_user.type == "organizer" && this.current_user.username == this.myParfume.owner)
       return true;
     else return false;
-  }
+  }*/
 
   reject(participant: string) {
     for (let iter = 0; iter < this.waitingParticipants.length; iter++) {
       if (this.waitingParticipants[iter] == participant) {
 
-        for (let x = 0; x < this.myParfume.participants.length; x++) {
+        /*for (let x = 0; x < this.myParfume.participants.length; x++) {
           if (this.myParfume.participants[x].mail == this.waitingParticipants[iter]) {
             this.myParfume.participants[x] = null;
             break;
           }
 
-        }
+        }*/
 
-        this.myParfume.participants = this.myParfume.participants.filter(elements => {
+        /*this.myParfume.participants = this.myParfume.participants.filter(elements => {
           return (elements != null && elements !== undefined);
-        });
+        });*/
 
         localStorage.setItem("detail_sent", JSON.stringify(this.myParfume));
 
@@ -122,15 +123,15 @@ export class DetailsComponent implements OnInit {
       }
     }
 
-    this.parfume_service.reject(participant, this.myParfume).subscribe((statement) => {
+    /*this.parfume_service.reject(participant, this.myParfume).subscribe((statement) => {
       if (statement) localStorage.setItem("detail_sent", JSON.stringify(this.myParfume));
       else alert("err");
-    });
+    });*/
 
   }
   accept(participant) {
 
-    for (let iter = 0; iter < this.waitingParticipants.length; iter++) {
+    /*for (let iter = 0; iter < this.waitingParticipants.length; iter++) {
       if (this.waitingParticipants[iter] == participant) {
         for (let x = 0; x < this.myParfume.participants.length; x++) {
           if (this.myParfume.participants[x].mail == this.waitingParticipants[iter]) {
@@ -146,7 +147,7 @@ export class DetailsComponent implements OnInit {
         });
         break;
       }
-    }
+    }*/
 
     this.subscribedParticipants.push(participant);
 

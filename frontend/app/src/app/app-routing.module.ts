@@ -6,7 +6,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserComponent } from './user/user.component';
 import { ParfumeComponent } from './parfume/parfume.component';
-import { EditParfumeComponent } from './edit-parfume/edit-parfume.component';
 import { UserOrganizerComponent } from './user-organizer/user-organizer.component';
 import { VerifyComponent } from './verify/verify.component';
 import { MyParfumesComponent } from './my-parfumes/my-parfumes.component';
@@ -19,7 +18,6 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'admin/edit_user', component: EditUserComponent },
-  { path: 'admin/edit_parfume', component: EditParfumeComponent },
   { path: 'user', component: UserComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login/admin', component: LoginComponent },

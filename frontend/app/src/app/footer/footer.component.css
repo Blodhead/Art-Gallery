@@ -1,5 +1,52 @@
-.fut {
+.main-footer {
+    width: 100%;
+    background: #fff;
+    border-top: 1px solid #eee;
+    color: #888;
+    font-size: 1em;
+    padding: 2rem 0 1rem 0;
+    margin-top: auto;
+}
+.footer-content {
     display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+.footer-section {
+    flex: 1 1 200px;
+    min-width: 180px;
+    margin-bottom: 1.5rem;
+}
+.footer-title {
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 0.7em;
+    font-size: 1.1em;
+}
+.footer-bottom {
+    text-align: center;
+    color: #bfa181;
+    font-size: 0.95em;
+    margin-top: 1.5rem;
+}
+.main-footer a {
+    color: #bfa181;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.main-footer a:hover {
+    color: #222;
+}
+@media (max-width: 700px) {
+    .footer-content {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0 1rem;
+    }
+    .footer-section {
+        margin-bottom: 1rem;
+    }
 }

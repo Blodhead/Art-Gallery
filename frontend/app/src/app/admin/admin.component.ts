@@ -73,10 +73,10 @@ export class AdminComponent implements OnInit {
       else {
 
         for (let j = 0; j < parfumes.length; j++) {
-          parfumes[j].date = new Date(parfumes[j].date);
+          /*parfumes[j].date = new Date(parfumes[j].date);
           if ((parfumes[j].date.getTime() - (new Date()).getTime()) > 0)
             if (parfumes[j].status == "waiting")
-              this.allParfumes.push(parfumes[j]);
+              this.allParfumes.push(parfumes[j]);*/
         }
 
         for (var i = 0; i < this.allParfumes.length; i++) {
@@ -95,21 +95,21 @@ export class AdminComponent implements OnInit {
 
       let temp_user: User = null;
       for (let i = 0; i < this.allUsers.length; i++) {
-        if (parfume.owner == this.allUsers[i].username) {
+       /* if (parfume.owner == this.allUsers[i].username) {
           temp_user = this.allUsers[i];
           break;
-        }
+        }*/
       }
       if (temp_user == null) { temp_user = this.admin_user; }
 
-      for (let i = 0; i < temp_all.length; i++) {
+      /*for (let i = 0; i < temp_all.length; i++) {
         for (let j = 0; j < temp_all[i].participants.length; j++)
           if (((new Date(temp_all[i].date)).getTime() - (new Date()).getTime()) > 0)
             if (temp_all[i].participants[j].mail == temp_user.mail) {
               alert("This participant is still subscribed to one or more parfumes!");
               return;
             }
-      }
+      }*/
 
       parfume.status = "approved";
 
