@@ -46,11 +46,11 @@ img.avatar {
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  background-color: rgb(19, 98, 7);
+  background-color: #bdbdbd;
 }
 
 .scrollbar-default {
-  scrollbar-color: rgb(19, 98, 7) #F5F5F5;
+  scrollbar-color: #bdbdbd #F5F5F5;
 }
 
 .context {

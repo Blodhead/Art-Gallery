@@ -114,7 +114,7 @@
 
 .middle{
     display: flex !important; 
-    justify-content: start !important; 
+    justify-content: flex-start !important; 
     height: fit-content;
     margin-top: 20px;
     margin-bottom: 25px;
