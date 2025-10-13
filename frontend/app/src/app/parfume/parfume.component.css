@@ -1,3 +1,79 @@
+.filter-sidebar {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px 0 rgba(0,0,0,0.07);
+    padding: 2.5rem 2rem 2rem 2rem;
+    min-height: 500px;
+    max-width: 320px;
+    margin-right: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.filter-box {
+    width: 100%;
+}
+
+.filter-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    letter-spacing: 0.05em;
+    color: #222;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+}
+
+.filter-group {
+    margin-bottom: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.filter-input {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 0.7rem 1rem;
+    font-size: 1rem;
+    background: #fafafa;
+    transition: border 0.2s;
+}
+.filter-input:focus {
+    border: 1.5px solid #136207;
+    outline: none;
+}
+
+.slider-box {
+    width: 100%;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.price-range-labels {
+    font-size: 0.95rem;
+    color: #555;
+    margin-top: 0.2rem;
+}
+
+.sort-btn {
+    background: #fff;
+    border: 1px solid #136207;
+    color: #136207;
+    border-radius: 5px;
+    padding: 0.5rem 1.2rem;
+    font-size: 1rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+.sort-btn:hover {
+    background: #136207;
+    color: #fff;
+}
 
 .parfume-grid {
     display: grid;

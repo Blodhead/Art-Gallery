@@ -15,40 +15,27 @@
         <div class="col-2">&nbsp;</div>
     </div>
 
-    <div class="row">
-        <div class="col-3 intro">
-            &nbsp;
-        </div>
-        <div class="col-6 intro middle" style="justify-content: center !important;">
-            <div style="display: flex; flex-direction: column; gap: 1.2rem; align-items: center; width: 100%;">
-                <div style="display: flex; gap: 1.2rem; align-items: center; width: 100%; justify-content: center;">
-                    <label for="nameFilter"><b>Search by name:</b></label>
-                    <input id="nameFilter" type="text" placeholder="name..." style="min-width: 180px;" [(ngModel)]="nameFilter" (keyup)="onNameFilterChange(nameFilter)">
+
+    <div class="row" style="margin-top: 2rem;">
+        <div class="col-3 filter-sidebar">
+            <div class="filter-box">
+                <h4 class="filter-title">Filter</h4>
+                <div class="filter-group">
+                    <label for="nameFilter">Name</label>
+                    <input id="nameFilter" type="text" class="filter-input" placeholder="Search..." [(ngModel)]="nameFilter" (keyup)="onNameFilterChange(nameFilter)">
                 </div>
-                <div style="display: flex; gap: 1.2rem; align-items: center; width: 100%; justify-content: center;">
-                    <label for="priceSlider"><b>Price range:</b></label>
-                    <div style="width: 220px;">
-                        <div #priceSlider></div>
-                    </div>
-                    <span style="margin-left: 1rem;">{{priceFilterMin}} - {{priceFilterMax}}</span>
+                <div class="filter-group">
+                    <label for="priceSlider">Price range</label>
+                    <div #priceSlider class="slider-box"></div>
+                    <div class="price-range-labels">{{priceFilterMin}} - {{priceFilterMax}}</div>
                 </div>
-                <div style="display: flex; gap: 1.2rem; align-items: center; width: 100%; justify-content: center;">
-                    <button *ngIf="toggle1 == true" class="btn btn-success btn-xs"
-                        style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortName()">Name ↑</button>
-                    <button *ngIf="toggle1 == false" class="btn btn-success btn-xs"
-                        style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortName()">Name ↓</button>
+                <div class="filter-group">
+                    <label>Sort by</label>
+                    <button *ngIf="toggle1 == true" class="sort-btn" (click)="sortName()">Name ↑</button>
+                    <button *ngIf="toggle1 == false" class="sort-btn" (click)="sortName()">Name ↓</button>
                 </div>
             </div>
         </div>
-                <div class="col-3 intro">
-            &nbsp;
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col-1">&nbsp;</div>
-
         <div class="col-9">
             <div class="parfume-grid">
                 <app-parfume-details *ngFor="let parfume of displayed_parfumes; let i = index;" [myParfumeDetail]="parfume"></app-parfume-details>
@@ -58,20 +45,6 @@
                 <span>Page {{currentPage}} of {{totalPages}}</span>
                 <button class="btn btn-outline-secondary" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
             </div>
-        </div>
-
-        <div class="col-1 ">
-            &nbsp;
-            <!--
-            <table>
-                <th> <h4>Top 5:</h4> <hr/></th>
-                <tr>
-                    <ol type="1">
-                        <h6><li *ngFor="let i of top5;">{{i}}</li></h6>
-                    </ol>
-                </tr>
-            </table>
-            -->
         </div>
     </div>
 
