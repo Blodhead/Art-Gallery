@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import * as noUiSlider from 'nouislider';
 import { Router } from '@angular/router';
 import { ParfumeDetails } from '../models/parfume-details';
 import { SharedService } from '../shared.service';
@@ -10,10 +12,31 @@ import { Parfume } from '../models/parfumes';
   templateUrl: './parfume.component.html',
   styleUrls: ['./parfume.component.css']
 })
-export class ParfumeComponent implements OnInit {
 
+export class ParfumeComponent implements OnInit, AfterViewInit {
+  @ViewChild('priceSlider', { static: false }) priceSlider: ElementRef;
   constructor(private _router: Router, private parfume_service: ParfumeService, private sharedService: SharedService) { }
   reload: string;
+  toggle1: boolean = true;
+  toggle2: boolean = true;
+  searchFlag: boolean = false;
+  current_path: string;
+  allParfumes: ParfumeDetails[] = [];
+  filtered_parfumes: ParfumeDetails[] = [];
+  displayed_parfumes: ParfumeDetails[] = [];
+  index: number[] = [1];
+  top5: String[] = [];
+  temp_date: Date[] = [];
+  pageSize: number = 20;
+  currentPage: number = 1;
+  totalPages: number = 1;
+  nameFilter: string = '';
+  priceMin: number = 0;
+  priceMax: number = 0;
+  priceFilterMin: number = 0;
+  priceFilterMax: number = 0;
+  priceSliderInstance: any = null;
+
   ngOnInit(): void {
     this.current_path = this._router.url.split('/').pop();
     this.reload = localStorage.getItem("reload");
@@ -22,24 +45,17 @@ export class ParfumeComponent implements OnInit {
       this.sharedService.sendclickEvent();
     }
     this.getAllParfumes();
+  // No scroll event needed for pagination
   }
 
-  toggle1: boolean = true;
-  toggle2: boolean = true;
-  searchFlag: boolean = false;
-  current_path: string;
-  filtered_parfumes: ParfumeDetails[] = [];
-  allParfumes: ParfumeDetails[] = [];
-  index: number[] = [1];
-  top5: String[] = [];
-  temp_date: Date[] = [];
-
+  ngOnDestroy(): void {
+    // No scroll event needed for pagination
+  }
 
   getAllParfumes() {
     this.parfume_service.getAllParfumes().subscribe((parfumes: any[]) => {
       if (!parfumes) alert("Error");
       else {
-        // Map backend Parfume objects to ParfumeDetails for card display
         this.allParfumes = parfumes.map((p: any) => ({
           name: p.name,
           img_location: p.img_location ? (p.img_location.startsWith('http') ? p.img_location : `${p.img_location}`) : '',
@@ -49,8 +65,6 @@ export class ParfumeComponent implements OnInit {
           status: p.status || '',
           _id: p._id || ''
         }));
-
-        // Top 5 by name (or any other logic)
         let bridge = this.allParfumes.filter((value, index, self) =>
           index === self.findIndex((t) => (
             t.name === value.name
@@ -61,10 +75,77 @@ export class ParfumeComponent implements OnInit {
           if (this.top5.indexOf(bridge[i].name) === -1)
             this.top5.push(bridge[i].name)
         }
-
-        this.filtered_parfumes = [...this.allParfumes];
+        // Set price range
+        if (this.allParfumes.length > 0) {
+          this.priceMin = Math.min(...this.allParfumes.map(p => p.price));
+          this.priceMax = Math.max(...this.allParfumes.map(p => p.price));
+        } else {
+          this.priceMin = 0;
+          this.priceMax = 0;
+        }
+        this.priceFilterMin = this.priceMin;
+        this.priceFilterMax = this.priceMax;
+        setTimeout(() => this.initNoUiSlider(), 0);
+        this.applyFilters();
       }
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.initNoUiSlider();
+  }
+
+  initNoUiSlider(): void {
+    if (!this.priceSlider || this.priceSliderInstance || this.priceMin === this.priceMax) return;
+    this.priceSliderInstance = noUiSlider.create(this.priceSlider.nativeElement, {
+      start: [this.priceFilterMin, this.priceFilterMax],
+      connect: true,
+      step: 1,
+      range: {
+        min: this.priceMin,
+        max: this.priceMax
+      },
+      tooltips: [true, true],
+      format: {
+        to: (value: number) => Math.round(value),
+        from: (value: string) => Number(value)
+      }
+    });
+    this.priceSliderInstance.on('update', (values: string[]) => {
+      this.priceFilterMin = Number(values[0]);
+      this.priceFilterMax = Number(values[1]);
+      this.applyFilters();
+    });
+  }
+
+
+
+
+  updatePagination(): void {
+    this.totalPages = Math.ceil(this.filtered_parfumes.length / this.pageSize) || 1;
+    const start = (this.currentPage - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    this.displayed_parfumes = this.filtered_parfumes.slice(start, end);
+  }
+
+  goToPage(page: number): void {
+    if (page < 1 || page > this.totalPages) return;
+    this.currentPage = page;
+    this.updatePagination();
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePagination();
+    }
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePagination();
+    }
   }
 
   /*getAllParfumes() {
@@ -118,6 +199,7 @@ export class ParfumeComponent implements OnInit {
       });
       this.toggle1 = false;
     }
+    this.updatePagination();
   }
 
   sortDate() {
@@ -136,25 +218,24 @@ export class ParfumeComponent implements OnInit {
       this.toggle2 = false;
     }*/
   }
-  str1: string;
-  searchName(param) {
-    this.filtered_parfumes = this.filtered_parfumes.filter(parfume => parfume.name.toLowerCase().includes(param.toLowerCase()));
-    this.searchFlag = true;
-  }
-  str2: string;
-  searchLocation(param) {
-    /*this.filtered_parfumes = this.filtered_parfumes.filter(parfume => parfume.location.toLowerCase().includes(param.toLowerCase()));
-    this.searchFlag = true;*/
+
+  onNameFilterChange(value: string) {
+    this.nameFilter = value;
+    this.applyFilters();
   }
 
-  search(param) {
-    /*this.filtered_parfumes = this.allParfumes;
-    if (this.str1 != null) {
-      this.filtered_parfumes = this.filtered_parfumes.filter(parfume => parfume.name.toLowerCase().includes(param.toLowerCase()));
-    } else if (this.str2 != null) {
-      this.filtered_parfumes = this.filtered_parfumes.filter(parfume => parfume.location.toLowerCase().includes(param.toLowerCase()));
-    }
-    this.searchFlag = true;*/
+  onPriceFilterChange(): void {
+    this.applyFilters();
+  }
+
+  applyFilters() {
+    this.filtered_parfumes = this.allParfumes.filter(parfume => {
+      const nameMatch = parfume.name.toLowerCase().includes(this.nameFilter.toLowerCase());
+      const priceMatch = parfume.price >= this.priceFilterMin && parfume.price <= this.priceFilterMax;
+      return nameMatch && priceMatch;
+    });
+    this.currentPage = 1;
+    this.updatePagination();
   }
 
 }

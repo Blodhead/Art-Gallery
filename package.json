@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "ngx-slider": "^0.0.5",
+    "nouislider": "^15.8.1"
+  }
+}

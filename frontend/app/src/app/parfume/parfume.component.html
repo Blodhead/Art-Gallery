@@ -20,38 +20,25 @@
             &nbsp;
         </div>
         <div class="col-6 intro middle" style="justify-content: center !important;">
-
-            <table>
-                <tr>
-                    <td>
-                        <h6>Search by:</h6>
-                    </td>
-                    <td><input type="text" placeholder="name..." (keyup)="search(str1)" [(ngModel)]="str1"></td>
-                    <td>
-                        <h6>or/and</h6>
-                    </td>
-                    <td><input type="text" placeholder="location..." (keyup)="search(str2)" [(ngModel)]="str2">
-                    </td>
-                </tr>
-                <tr *ngIf="searchFlag==true">
-                    <td>
-                        <h6>Sort by:</h6>
-                    </td>
-
-                    <td>
-                        <button *ngIf="toggle1 == true" class="btn btn-success btn-xs"
-                            style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortName()">Name ↑</button>
-                        <button *ngIf="toggle1 == false" class="btn btn-success btn-xs"
-                            style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortName()">Name ↓</button>
-                        <button *ngIf="toggle2 == true" class="btn btn-success btn-xs"
-                            style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortDate()">Date ↑</button>
-                        <button *ngIf="toggle2 == false" class="btn btn-success btn-xs"
-                            style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortDate()">Date ↓</button>
-                    </td>
-
-                </tr>
-            </table>
-
+            <div style="display: flex; flex-direction: column; gap: 1.2rem; align-items: center; width: 100%;">
+                <div style="display: flex; gap: 1.2rem; align-items: center; width: 100%; justify-content: center;">
+                    <label for="nameFilter"><b>Search by name:</b></label>
+                    <input id="nameFilter" type="text" placeholder="name..." style="min-width: 180px;" [(ngModel)]="nameFilter" (keyup)="onNameFilterChange(nameFilter)">
+                </div>
+                <div style="display: flex; gap: 1.2rem; align-items: center; width: 100%; justify-content: center;">
+                    <label for="priceSlider"><b>Price range:</b></label>
+                    <div style="width: 220px;">
+                        <div #priceSlider></div>
+                    </div>
+                    <span style="margin-left: 1rem;">{{priceFilterMin}} - {{priceFilterMax}}</span>
+                </div>
+                <div style="display: flex; gap: 1.2rem; align-items: center; width: 100%; justify-content: center;">
+                    <button *ngIf="toggle1 == true" class="btn btn-success btn-xs"
+                        style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortName()">Name ↑</button>
+                    <button *ngIf="toggle1 == false" class="btn btn-success btn-xs"
+                        style="margin: 0px; background-color: rgb(19,98,7);" (click)="sortName()">Name ↓</button>
+                </div>
+            </div>
         </div>
                 <div class="col-3 intro">
             &nbsp;
@@ -64,7 +51,12 @@
 
         <div class="col-9">
             <div class="parfume-grid">
-                <app-parfume-details *ngFor="let parfume of filtered_parfumes; let i = index;" [myParfumeDetail]="parfume"></app-parfume-details>
+                <app-parfume-details *ngFor="let parfume of displayed_parfumes; let i = index;" [myParfumeDetail]="parfume"></app-parfume-details>
+            </div>
+            <div class="pagination-controls" style="margin: 2rem 0; display: flex; justify-content: center; align-items: center; gap: 1rem;">
+                <button class="btn btn-outline-secondary" (click)="prevPage()" [disabled]="currentPage === 1">Prev</button>
+                <span>Page {{currentPage}} of {{totalPages}}</span>
+                <button class="btn btn-outline-secondary" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
             </div>
         </div>
 

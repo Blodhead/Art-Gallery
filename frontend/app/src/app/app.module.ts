@@ -60,7 +60,8 @@ import { ChatComponent } from './chat/chat.component';
     BrowserAnimationsModule,
     MaterialModule,
     FlipModule,
-    GalleryModule
+  GalleryModule,
+    // NgxSliderModule removed as it is unused
   ],
   providers: [],
   bootstrap: [AppComponent]
