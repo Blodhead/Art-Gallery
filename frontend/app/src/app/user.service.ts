@@ -21,6 +21,11 @@ export class UserService {
     // i slozenim objektom "data"(2) koji sadrzi username i password
   }
 
+  logout(username, token) {
+    const data = { username, token };
+    return this.http.post(`${this.url}/users/logout`, data);
+  }
+
   register(profile_photo_name, firstname, lastname, username, password, mail, phone, type, org_name, state, city, postal_code, street, number, pib, status) {
     const data = {
       profile_photo_name: profile_photo_name,

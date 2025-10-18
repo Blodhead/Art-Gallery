@@ -39,4 +39,8 @@ userRouter.route("/updatePassword").post(
     (req, res) => new UserController().updatePassword(req, res)
 )
 
+userRouter.route("/logout").post(
+    (req, res) => new UserController().logout(req, res)
+)
+
 export default userRouter; //eksportuj ruter da se moze koristiti negde drugde

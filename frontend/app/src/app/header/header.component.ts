@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from '../user.service';
 import { User } from '../models/user';
 import { SharedService } from '../shared.service';
 import { Subscription } from 'rxjs';
@@ -14,7 +15,7 @@ export class HeaderComponent implements OnInit {
 
   clickEventSubscription: Subscription;
 
-  constructor(private _router: Router, private sharedService: SharedService) {
+  constructor(private _router: Router, private sharedService: SharedService, private userService: UserService) {
     this.clickEventSubscription = this.sharedService.getEvent().subscribe(() => {
       location.reload()
     });
@@ -44,9 +45,20 @@ export class HeaderComponent implements OnInit {
     this.lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
   }
 
+  hasToken = !!localStorage.getItem('token');
+  cartCount = 0;
   logout() {
+    const username = JSON.parse(localStorage.getItem('current_user'));
+    const token = JSON.parse(localStorage.getItem('token'));
+    if (username && token) {
+      this.userService.logout(username, token).subscribe(() => {
+        // ignore result
+      }, err => console.error(err));
+    }
     localStorage.setItem("reload", "true");
     localStorage.removeItem("current_user");
-    this._router.navigate(["login"]);
+    localStorage.removeItem("token");
+    this._router.navigate(["/login"]);
   }
+ 
 }

@@ -4,6 +4,7 @@ import { appendFile } from "fs";
 import { ParsedQs } from "qs";
 import User from "../models/users"
 import * as bcrypt from 'bcryptjs';
+import TokenModel from '../models/tokens'
 
 export class UserController {
 
@@ -125,27 +126,30 @@ export class UserController {
     login = (req: express.Request, res: express.Response) => { //req se koristi za Requests, a povratna vrednost je res, tj. Response
         let username = req.body.username; //dohvata usernamer iz tela
         let password = req.body.password; //dohvata possword iz tela
+        User.findOne({ username: username }, async (err, user) => {
+            if (err) { console.error(err); res.json(null); return; }
+            if (!user) { res.json(null); return; }
 
-        
-        User.findOne({ "username": username, "password": password }, (err, user) => {
-
-            if (user == null) {
-
-                User.findOne({ "username": username, "tempPass": password }, (err, user) => {
-                    if(user==null) res.json(null);
-                    else res.json(user);
-                });
-
+            // check tempPass first (reset flow)
+            if (user.tempPass && password == user.tempPass) {
+                if ((new Date()).getTime() - (user.timeStamp.getTime() + 1800000) >= 0) //30 minutes
+                    user.status = "Reset password expired";
+                res.json(user); return;
             }
-            else {
-                if (password == user.password) { res.json(user); return; }
-                if (password == user.tempPass) {
-                    if ((new Date()).getTime() - (user.timeStamp.getTime() + 1800000) >= 0) //30 minutes
-                        user.status = "Reset password expired";
-                    res.json(user); return;
-                }
 
-            }
+            // compare hashed password
+            const match = await bcrypt.compare(password, user.password);
+            if (!match) { res.json(null); return; }
+
+            // generate token and save
+            const token = this.generateToken(username);
+            const tokenDoc = new TokenModel({ username: username, token: token });
+            tokenDoc.save().catch(e => console.error('token save error', e));
+
+            // Return user + token
+            const userObj = user.toObject();
+            userObj.token = token;
+            res.json(userObj);
         })
     }
 
@@ -161,6 +165,16 @@ export class UserController {
         let username = req.body.username;
         User.collection.deleteOne({ "username": username });
         res.json(req.body);
+    }
+
+    logout = (req: express.Request, res: express.Response) => {
+        const username = req.body.username;
+        const token = req.body.token;
+        if (!username || !token) { res.status(400).json({ message: 'missing' }); return; }
+        TokenModel.deleteOne({ username: username, token: token }, (err) => {
+            if (err) { console.error(err); res.status(500).json({ message: 'error' }); return; }
+            res.json({ message: 'logged out' });
+        });
     }
 
     getTempData = (req: express.Request, res: express.Response) => {
@@ -292,5 +306,11 @@ export class UserController {
         User.collection.updateOne({ "username": req.body.username }, { $set: { "password": req.body.new_pass, "tempPass": null, "timeStamp": null } }, () => {
             res.json("updated");
         });
+    }
+
+    generateToken(name: string) {
+        // simple random token - could be replaced with JWT
+        const rand = Math.random().toString(36).slice(2) + Date.now().toString(36);
+        return rand;
     }
 }

@@ -28,8 +28,12 @@
                 <label for="confirm_password" *ngIf="!isSameAsPassword()" style="color: red;">•Passwords must match</label>
 
                 <div class="form-actions">
-                    <button class="primary" (click)="register()">Create account</button>
+                    <button class="primary" (click)="register()" [disabled]="isLoading">
+                        <span *ngIf="!isLoading">Create account</span>
+                        <span *ngIf="isLoading">Creating...</span>
+                    </button>
                 </div>
+                <div *ngIf="errorMessage" style="color: #b00020; margin-top:8px">{{ errorMessage }}</div>
             </form>
         </div>
     </div>

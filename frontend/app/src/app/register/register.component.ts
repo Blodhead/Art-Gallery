@@ -211,6 +211,8 @@ export class RegisterComponent implements OnInit {
   }
 
   Error_message: string;
+  isLoading: boolean = false;
+  errorMessage: string = '';
 
   register() {
 
@@ -236,9 +238,12 @@ export class RegisterComponent implements OnInit {
     }
 
     // Check email uniqueness on server
+    this.isLoading = true;
+    this.errorMessage = '';
     this.service.checkMail(this.mail).subscribe((resp: any) => {
       if (resp && resp.exists) {
-        alert('E-mail already registered');
+        this.isLoading = false;
+        this.errorMessage = 'E-mail already registered';
         return;
       }
 
@@ -261,23 +266,45 @@ export class RegisterComponent implements OnInit {
       };
 
       this.service.register(defaults.profile_photo_name, defaults.firstname, defaults.lastname, this.username, this.password, defaults.mail, defaults.phone, defaults.type,
-        defaults.org_name, defaults.state, defaults.city, defaults.postal_code, defaults.street, defaults.number, defaults.pib, defaults.status).subscribe((res) => {
+        defaults.org_name, defaults.state, defaults.city, defaults.postal_code, defaults.street, defaults.number, defaults.pib, defaults.status).subscribe((res: any) => {
+          this.isLoading = false;
           if (res && res["message"] == "user added") {
-            alert("Register acknowledged");
-            this._router.navigate(["/login"]);
+            // Auto-login: call login endpoint to obtain token & user object
+            this.userLoginAfterRegister(this.username, this.password);
           } else {
-            alert("ERROR");
+            this.errorMessage = 'Registration error';
           }
         }, err => {
           console.error(err);
-          alert("ERROR");
+          this.isLoading = false;
+          this.errorMessage = 'Registration error';
         });
 
     }, err => {
       console.error(err);
-      alert('Error checking email');
+      this.isLoading = false;
+      this.errorMessage = 'Error checking email';
     });
 
   }
 
+  userLoginAfterRegister(username: string, password: string) {
+    this.userLogin(username, password);
+  }
+
+  userLogin(username: string, password: string) {
+    this.service.login(username, password).subscribe((user: any) => {
+      if (user) {
+        localStorage.setItem('current_user', JSON.stringify(user.username));
+        localStorage.setItem('email', JSON.stringify(user.email));
+        localStorage.setItem('token', JSON.stringify(user.token));
+        this._router.navigate(["/"]);
+      } else {
+        this.errorMessage = 'Login failed after registration';
+      }
+    }, err => {
+      console.error(err);
+      this.errorMessage = 'Login failed after registration';
+    });
+  }
 }

@@ -229,3 +229,6 @@ footer {
   border: 3px solid black;
 }
 
+a, .nav-link, .logo {
+  cursor: pointer;
+}

@@ -4,7 +4,7 @@ export class User {          //definisanje strukture
     username: string;
     password: string;
     phone:string;
-    mail:string;
+    email:string;
     type: string;
     profile_photo_name:string;
     org_name:String;

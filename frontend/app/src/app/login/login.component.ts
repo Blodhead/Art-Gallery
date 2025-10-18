@@ -36,21 +36,12 @@ export class LoginComponent implements OnInit {
   //message:string;
 
   login() {
-    this.userService.login(this.username, this.password).subscribe((user: User) => { //subscribe je cekanje odgovora, tj. nna return pozvane funkcije
+    this.userService.login(this.username, this.password).subscribe((user: any) => { //subscribe je cekanje odgovora, tj. nna return pozvane funkcije
       if (user) {
-
-        if (user.status == "Reset password expired") { alert("Reset password expired"); return; }
-
-        localStorage.setItem("reload", "true");
-        if (user.status == "waiting") { alert("Your account is yet to be approved"); return; }
-        if(user.status == "rejected") {alert("Your account has been suspended"); return; }
-        localStorage.setItem("current_user", JSON.stringify(user));
-        if (user.type == "admin" && this.current_path == "admin") {
-          this._router.navigate(["/admin"]);
-        } else if (user.type == "organizer" && this.current_path != "admin") this._router.navigate(["/user_organizer"]);
-        else if (user.type == "participant" && this.current_path != "admin") this._router.navigate(["/user"]);
-        else
-          alert("User does not exist");
+        localStorage.setItem('current_user', JSON.stringify(user.username));
+        localStorage.setItem('email', JSON.stringify(user.email));
+        localStorage.setItem('token', JSON.stringify(user.token));
+        this._router.navigate(["/"]);
       }
       else alert("Password and username don't match");
       //if timestamp expired

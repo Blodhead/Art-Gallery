@@ -32,6 +32,15 @@ var __importStar = (this && this.__importStar) || (function () {
         return result;
     };
 })();
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -39,6 +48,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const users_1 = __importDefault(require("../models/users"));
 const bcrypt = __importStar(require("bcryptjs"));
+const tokens_1 = __importDefault(require("../models/tokens"));
 class UserController {
     constructor() {
         this.register = (req, res) => {
@@ -155,28 +165,38 @@ class UserController {
         this.login = (req, res) => {
             let username = req.body.username; //dohvata usernamer iz tela
             let password = req.body.password; //dohvata possword iz tela
-            users_1.default.findOne({ "username": username, "password": password }, (err, user) => {
-                if (user == null) {
-                    users_1.default.findOne({ "username": username, "tempPass": password }, (err, user) => {
-                        if (user == null)
-                            res.json(null);
-                        else
-                            res.json(user);
-                    });
+            users_1.default.findOne({ username: username }, (err, user) => __awaiter(this, void 0, void 0, function* () {
+                if (err) {
+                    console.error(err);
+                    res.json(null);
+                    return;
                 }
-                else {
-                    if (password == user.password) {
-                        res.json(user);
-                        return;
-                    }
-                    if (password == user.tempPass) {
-                        if ((new Date()).getTime() - (user.timeStamp.getTime() + 1800000) >= 0) //30 minutes
-                            user.status = "Reset password expired";
-                        res.json(user);
-                        return;
-                    }
+                if (!user) {
+                    res.json(null);
+                    return;
                 }
-            });
+                // check tempPass first (reset flow)
+                if (user.tempPass && password == user.tempPass) {
+                    if ((new Date()).getTime() - (user.timeStamp.getTime() + 1800000) >= 0) //30 minutes
+                        user.status = "Reset password expired";
+                    res.json(user);
+                    return;
+                }
+                // compare hashed password
+                const match = yield bcrypt.compare(password, user.password);
+                if (!match) {
+                    res.json(null);
+                    return;
+                }
+                // generate token and save
+                const token = this.generateToken(username);
+                const tokenDoc = new tokens_1.default({ username: username, token: token });
+                tokenDoc.save().catch(e => console.error('token save error', e));
+                // Return user + token
+                const userObj = user.toObject();
+                userObj.token = token;
+                res.json(userObj);
+            }));
         };
         this.updateStatus = (req, res) => {
             let username = req.body.username;
@@ -187,6 +207,22 @@ class UserController {
             let username = req.body.username;
             users_1.default.collection.deleteOne({ "username": username });
             res.json(req.body);
+        };
+        this.logout = (req, res) => {
+            const username = req.body.username;
+            const token = req.body.token;
+            if (!username || !token) {
+                res.status(400).json({ message: 'missing' });
+                return;
+            }
+            tokens_1.default.deleteOne({ username: username, token: token }, (err) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).json({ message: 'error' });
+                    return;
+                }
+                res.json({ message: 'logged out' });
+            });
         };
         this.getTempData = (req, res) => {
             users_1.default.find({}, (err, data) => {
@@ -303,6 +339,11 @@ class UserController {
         }
         //console.log(a);
         return a.join("");
+    }
+    generateToken(name) {
+        // simple random token - could be replaced with JWT
+        const rand = Math.random().toString(36).slice(2) + Date.now().toString(36);
+        return rand;
     }
 }
 exports.UserController = UserController;

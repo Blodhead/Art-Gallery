@@ -97,7 +97,7 @@ export class ParfumeDetailsComponent implements OnInit {
   }
 
   sub() {
-    this.parfume_Service.sub(this.current_user.mail, this.myParfumeDetail.name, "waiting").subscribe((parfume) => {
+    this.parfume_Service.sub(this.current_user.email, this.myParfumeDetail.name, "waiting").subscribe((parfume) => {
       if (parfume) { alert("Success"); location.reload(); }
       else alert("fail");
     });
@@ -115,7 +115,7 @@ export class ParfumeDetailsComponent implements OnInit {
 
     if (notify_mail_list.length != 0) { statement = true }
 
-    this.parfume_Service.unsub(this.current_user.mail, this.myParfumeDetail.name).subscribe((parfume) => {
+    this.parfume_Service.unsub(this.current_user.email, this.myParfumeDetail.name).subscribe((parfume) => {
       if (parfume) { alert("Success"); }
       else alert("fail");
       if (statement == false) this.rr();
@@ -196,7 +196,7 @@ export class ParfumeDetailsComponent implements OnInit {
   }
 
   notify() {
-    this.parfume_Service.sub(this.current_user.mail, this.myParfumeDetail.name, "notify").subscribe((parfume) => {
+    this.parfume_Service.sub(this.current_user.email, this.myParfumeDetail.name, "notify").subscribe((parfume) => {
       if (parfume) { alert("Success"); location.reload(); }
       else alert("fail");
     });

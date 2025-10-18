@@ -29,7 +29,7 @@ export class EditUserComponent implements OnInit {
   number: number;
   pib: string = "Enter pib";
   phone: string;
-  mail: string;
+  email: string;
   status: string = "waiting";
   current_user: User;
   org_name: String;
@@ -79,7 +79,7 @@ export class EditUserComponent implements OnInit {
       this.number = this.sent_user.number;
       this.pib = this.sent_user.pib;
       this.phone = this.sent_user.phone;
-      this.mail = this.sent_user.mail;
+      this.email = this.sent_user.email;
       this.status = this.sent_user.status;
       this.org_name = this.sent_user.org_name;
 
@@ -248,11 +248,11 @@ export class EditUserComponent implements OnInit {
         }
       }
 
-      if (this.mail == null) {
+      if (this.email == null) {
         this.Error_message += "Missing Mail\n"
       } else {
         for (var i = 0; i < this.temp_mails.length; i++) {
-          if (this.temp_mails[i] == this.mail) {
+          if (this.temp_mails[i] == this.email) {
             this.Error_message += "E-mail is taken\n";
             break;
           }
@@ -265,7 +265,7 @@ export class EditUserComponent implements OnInit {
       this.Error_message += "Missing Username\n"
     }
 
-    if (this.mail == null) {
+    if (this.email == null) {
       this.Error_message += "Missing Mail\n"
     }
 
@@ -297,7 +297,7 @@ export class EditUserComponent implements OnInit {
     }
 
     if (this.sent_user == null)
-      this.service.register(this.profile_photo_name, this.firstname, this.lastname, this.username, this.password, this.mail, this.phone, this.type,
+      this.service.register(this.profile_photo_name, this.firstname, this.lastname, this.username, this.password, this.email, this.phone, this.type,
         this.org_name, this.state, this.city, this.postal_code, this.street, this.number, this.pib, this.status).subscribe((res) => {
           if (res["message"] == "user added") {
             if (this.sent_user != null)
@@ -314,14 +314,14 @@ export class EditUserComponent implements OnInit {
 
         });
     else {
-      this.service.update(this.sent_user.username, this.profile_photo_name, this.firstname, this.lastname, this.username, this.password, this.mail, this.phone, this.type,
+      this.service.update(this.sent_user.username, this.profile_photo_name, this.firstname, this.lastname, this.username, this.password, this.email, this.phone, this.type,
         this.org_name, this.state, this.city, this.postal_code, this.street, this.number, this.pib, this.status).subscribe((user) => {
           user = null;
           let wait_flag = false;
           let temp: User = JSON.parse(localStorage.getItem("sent_user"));
           localStorage.removeItem("sent_user");
-          if (temp.mail != this.mail)
-            this.parfume_Service.syncMail(temp.mail, this.mail).subscribe(() => {
+          if (temp.email != this.email)
+            this.parfume_Service.syncMail(temp.email, this.email).subscribe(() => {
               if (temp.username != this.username)
                 this.parfume_Service.syncUsername(temp.username, this.username).subscribe(() => {
                   localStorage.removeItem("current_user"); this._router.navigate([""]);

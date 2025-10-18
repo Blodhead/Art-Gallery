@@ -118,7 +118,7 @@ export class AdminComponent implements OnInit {
       if (temp_user.type != "participant") return;
       this.service.deleteUser(temp_user).subscribe((statement) => { if (statement == null) alert("Update status fail"); return; });
 
-      this.service.register(temp_user.profile_photo_name, temp_user.firstname, temp_user.lastname, temp_user.username, temp_user.password, temp_user.mail, temp_user.phone, "organizer", null, null, null, null, null, null, null, "approved").subscribe((statement) => { if (statement == null) alert("Update status fail"); return; });
+      this.service.register(temp_user.profile_photo_name, temp_user.firstname, temp_user.lastname, temp_user.username, temp_user.password, temp_user.email, temp_user.phone, "organizer", null, null, null, null, null, null, null, "approved").subscribe((statement) => { if (statement == null) alert("Update status fail"); return; });
 
     });
   }
