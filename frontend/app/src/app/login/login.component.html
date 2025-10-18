@@ -1,41 +1,21 @@
-<div class="body container-fluid">
-  <div class="row">
-    <div class="col-4">&nbsp;</div>
-    <div class="col-4">
-
-      <ul class="nav nav-tabs" style="width: fit-content; padding-top: 40px; border-bottom: black;">
-        <li *ngIf="show==false" class="nav-item tabs tabbs">
-          <button class=" rounded-top" style="margin: 0px; background-color: rgb(19,98,7);" routerLink="../login">Login</button>
-        </li> 
-        <li  class="nav-item tabs" *ngIf="current_path != 'admin'" style="background-color: transparent;">
-
-          <button *ngIf="show==false" class=" rounded-top btn-xs" style="padding: 9px; top: 13px; position: relative; margin: 0px; background-color: rgb(28, 108, 16);" routerLink="../register">Register</button>
-        </li>
-      </ul>
-
-      <form class="page">
-        <div *ngIf="show==false" class="imgcontainer">
-          <img *ngIf="current_path != 'admin'" src="../../assets/images/users/avatar2.jpg" style="width: 100px; height: 100px;" alt="Avatar" class="avatar">
-          <img *ngIf="current_path == 'admin'" src="../../assets/images/users/admin.jpg" style="width: 100px; height: 100px;" alt="Avatar" class="avatar">
-        </div>
-
-        <div class="container">
-          <label *ngIf="show==false" for="username"><b>Username</b></label>
-          <input *ngIf="show==false" type="text" placeholder="Enter Username" name="username" [(ngModel)]="username" required>
-
-          <label *ngIf="show==false" for="password"><b>Password</b></label>
-          <input *ngIf="show==false" type="password" placeholder="Enter Password" name="password" [(ngModel)]="password" required>
-          <button *ngIf="show==false" style="background-color: rgb(19,98,7);" (click)="login()">Login</button>
-
-          <div *ngIf="show==true"><h3><a (click)="rr()">←</a></h3></div>
-          <div *ngIf="show==false" class="psw" style="text-align: center;">Forgot <a class="link" (click)="change()">password?</a></div>
-          <div *ngIf="show==true" class="psw" style="text-align: center;"><label for="pp">Password Recovery</label></div>
-          <div *ngIf="show==true" class="psw" style="text-align: center;"><input type="text" placeholder="Enter your user mail" name="recovery" [(ngModel)]="recovery"> <button class="btn btn-dark" style="background-color: rgb(19,98,7);" (click)="reload()">Send</button></div>
-        </div>
-
-      </form>
-
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-header">
+      <h2>Login</h2>
+      <a class="small-link" routerLink="../register">Create an account</a>
     </div>
-    <div class="col-4">&nbsp;</div>
+
+    <form class="login-form">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" [(ngModel)]="username" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" [(ngModel)]="password" required>
+
+      <div class="form-actions">
+        <button class="primary" (click)="login()">Sign in</button>
+        <a class="link" (click)="change()">Forgot password?</a>
+      </div>
+    </form>
   </div>
 </div>

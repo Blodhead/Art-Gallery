@@ -1,4 +1,5 @@
 .filter-sidebar {
+    height: fit-content;
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 2px 16px 0 rgba(0,0,0,0.07);

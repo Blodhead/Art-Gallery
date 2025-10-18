@@ -3,7 +3,6 @@
     <span class="logo" routerLink="">FinestMiris</span>
   </div>
   <nav class="header-nav">
-    <a class="nav-link active" routerLink="">Home</a>
     <a *ngIf="type=='admin'" class="nav-link" routerLink="admin">Admin</a>
     <a *ngIf="type=='organizer'" class="nav-link" routerLink="user_organizer">Profile</a>
     <a *ngIf="type=='participant'" class="nav-link" routerLink="user">Profile</a>

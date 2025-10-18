@@ -46,7 +46,18 @@ export class ParfumeDetailsComponent implements OnInit {
 
       this.comments = this.myParfumeDetail.comments;
     }*/
-   this.myParfumeDetail.img_location = "http://localhost:4200/images/" + this.myParfumeDetail.img_location;
+   // If img_location is already an absolute URL, keep it.
+   // Otherwise, build a portable URL based on the current origin so images load correctly on any device.
+   if (this.myParfumeDetail && this.myParfumeDetail.img_location) {
+     const img = this.myParfumeDetail.img_location;
+     if (img.startsWith('http://') || img.startsWith('https://') || img.startsWith('//')) {
+       this.myParfumeDetail.img_location = img;
+     } else if (img.startsWith('/')) {
+       this.myParfumeDetail.img_location = window.location.origin + img;
+     } else {
+       this.myParfumeDetail.img_location = window.location.origin + '/images/' + img;
+     }
+   }
    this.myParfumeDetail.price = +this.myParfumeDetail.price;
    this.myParfumeDetail.amount = +this.myParfumeDetail.amount;
 

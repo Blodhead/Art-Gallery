@@ -202,6 +202,17 @@ export class ParfumeComponent implements OnInit, AfterViewInit {
     this.updatePagination();
   }
 
+  sortPrice() {
+    if (this.toggle2 == false) {
+      this.filtered_parfumes.sort((a, b) => a.price - b.price);
+      this.toggle2 = true;
+    } else if(this.toggle2 == true) {
+      this.filtered_parfumes.sort((a, b) => b.price - a.price);
+      this.toggle2 = false;
+    }
+    this.updatePagination();
+  }
+
   sortDate() {
 
     /*if (this.toggle2 == false) {

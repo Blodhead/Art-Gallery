@@ -8,7 +8,8 @@ import { User } from './models/user';
 export class UserService {
   constructor(private http: HttpClient) { }//servisu se preko injection-a prosledjuje HttpClient da bismo ga mogli koristiti
 
-  url = "http://localhost:4000";
+  //url = "http://localhost:4000";
+  url = "https://finestservices.onrender.com";
 
   login(username, password) {   //metova koja prima parametre
     const data = {              //pakovanje podataka u strukturu radi lakseg slanja backendu

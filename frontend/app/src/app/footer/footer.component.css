@@ -3,8 +3,8 @@
     background: #fff;
     border-top: 1px solid #eee;
     color: #888;
-    font-size: 1em;
-    padding: 2rem 0 1rem 0;
+    font-size: 0.95em;
+    padding: 0.6rem 0 0.6rem 0;
     margin-top: auto;
 }
 .footer-content {
@@ -12,13 +12,14 @@
     justify-content: space-between;
     max-width: 1200px;
     margin: 0 auto;
-    gap: 2rem;
-    flex-wrap: wrap;
+    gap: 1rem;
+    flex-wrap: nowrap;
 }
 .footer-section {
-    flex: 1 1 200px;
-    min-width: 180px;
-    margin-bottom: 1.5rem;
+    text-align: center;
+    flex: 1 1 auto;
+    min-width: 120px;
+    margin-bottom: 0.2rem;
 }
 .footer-title {
     font-weight: 600;
@@ -29,8 +30,8 @@
 .footer-bottom {
     text-align: center;
     color: #bfa181;
-    font-size: 0.95em;
-    margin-top: 1.5rem;
+    font-size: 0.9em;
+    margin-top: 0.4rem;
 }
 .main-footer a {
     color: #bfa181;

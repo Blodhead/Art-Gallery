@@ -31,6 +31,8 @@
                 </div>
                 <div class="filter-group">
                     <label>Sort by</label>
+                    <button *ngIf="toggle2 == true" class="sort-btn" (click)="sortPrice()">Price ↑</button>
+                    <button *ngIf="toggle2 == false" class="sort-btn" (click)="sortPrice()">Price ↓</button>
                     <button *ngIf="toggle1 == true" class="sort-btn" (click)="sortName()">Name ↑</button>
                     <button *ngIf="toggle1 == false" class="sort-btn" (click)="sortName()">Name ↓</button>
                 </div>
