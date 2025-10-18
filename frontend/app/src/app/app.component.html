@@ -1,5 +1,7 @@
 <app-header></app-header>
-<main>
-	<router-outlet></router-outlet>
+<div [ngClass]="{ 'container-fluid': true, 'auth-container': showAuthBg }">
+<main [class.auth-bg]="showAuthBg">
+    <router-outlet></router-outlet>
 </main>
+</div>
 <app-footer></app-footer>

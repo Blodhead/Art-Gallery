@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4rem 1rem;
+  padding: 2.5rem 1rem;
 }
 .login-card{
   width: 450px;
@@ -25,3 +25,4 @@
 .form-actions{display:flex;justify-content:space-between;align-items:center;margin-top:1rem}
 .primary{background:#222;color:#fff;border:none;padding:10px 16px;border-radius:4px;cursor:pointer}
 .link{color:#777;cursor:pointer;text-decoration:underline}
+

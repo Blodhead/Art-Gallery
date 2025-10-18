@@ -68,7 +68,7 @@ body {
 }
 
 .body {
-  min-height: 100vh;
+
   display: flex;
   flex-direction: column;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -220,3 +220,12 @@ footer {
     font-size: 1em;
   }
 }
+
+.auth-bg{
+  background-image: url('/assets/images/FinestBackround.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border: 3px solid black;
+}
+
