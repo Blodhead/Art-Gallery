@@ -19,6 +19,10 @@ userRouter.route("/register").post(
     (req, res) => new UserController().register(req, res)
 )
 
+userRouter.route("/checkMail").post(
+    (req, res) => new UserController().checkMail(req, res)
+)
+
 userRouter.route("/deleteUser").post(
     (req, res) => new UserController().deleteUser(req, res)
 )

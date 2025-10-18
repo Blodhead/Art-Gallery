@@ -213,14 +213,16 @@ export class RegisterComponent implements OnInit {
   Error_message: string;
 
   register() {
-    // Minimal registration: only username, password, confirm_password
-    this.Error_message = "";
 
+    // Validate inputs
+    this.Error_message = "";
     if (!this.username) this.Error_message += "Missing Username\n";
+    if (!this.mail) this.Error_message += "Missing Email\n";
     if (!this.password) this.Error_message += "Missing Password\n";
     if (this.password && (!this.hasLength() || !this.hasACapital() || !this.hasANumber() || !this.containsSpecialChars(this.password) || !this.isLetter())) this.Error_message += "Invalid password\n";
     if (this.password !== this.confirm_password) this.Error_message += "Passwords must match\n";
 
+    // username duplication check from temp data
     for (var i = 0; i < this.temp_usernames.length; i++) {
       if (this.temp_usernames[i] == this.username) {
         this.Error_message += "Username is taken\n";
@@ -233,37 +235,48 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    // Call backend register with defaults for omitted fields so existing API signature is satisfied
-    const defaults = {
-      profile_photo_name: this.profile_photo_name || "../../assets/images/users/avatar2.jpg",
-      firstname: this.firstname || "",
-      lastname: this.lastname || "",
-      mail: this.mail || "",
-      phone: this.phone || "",
-      type: this.type || "participant",
-      org_name: this.org_name || "",
-      state: this.state || "",
-      city: this.city || "",
-      postal_code: this.postal_code || "",
-      street: this.street || "",
-      number: this.number || 0,
-      pib: this.pib || "",
-      status: this.status || "waiting"
-    };
+    // Check email uniqueness on server
+    this.service.checkMail(this.mail).subscribe((resp: any) => {
+      if (resp && resp.exists) {
+        alert('E-mail already registered');
+        return;
+      }
 
-    this.service.register(defaults.profile_photo_name, defaults.firstname, defaults.lastname, this.username, this.password, defaults.mail, defaults.phone, defaults.type,
-      defaults.org_name, defaults.state, defaults.city, defaults.postal_code, defaults.street, defaults.number, defaults.pib, defaults.status).subscribe((res) => {
-        if (res && res["message"] == "user added") {
-          alert("Register acknowledged");
-          this._router.navigate(["/login"]);
-        } else {
+      // proceed to register (backend hashes password)
+      const defaults = {
+        profile_photo_name: this.profile_photo_name || "../../assets/images/users/avatar2.jpg",
+        firstname: this.firstname || "",
+        lastname: this.lastname || "",
+        mail: this.mail || "",
+        phone: this.phone || "",
+        type: this.type || "participant",
+        org_name: this.org_name || "",
+        state: this.state || "",
+        city: this.city || "",
+        postal_code: this.postal_code || "",
+        street: this.street || "",
+        number: this.number || 0,
+        pib: this.pib || "",
+        status: this.status || "waiting"
+      };
+
+      this.service.register(defaults.profile_photo_name, defaults.firstname, defaults.lastname, this.username, this.password, defaults.mail, defaults.phone, defaults.type,
+        defaults.org_name, defaults.state, defaults.city, defaults.postal_code, defaults.street, defaults.number, defaults.pib, defaults.status).subscribe((res) => {
+          if (res && res["message"] == "user added") {
+            alert("Register acknowledged");
+            this._router.navigate(["/login"]);
+          } else {
+            alert("ERROR");
+          }
+        }, err => {
+          console.error(err);
           alert("ERROR");
-        }
-      }, err => {
-        console.error(err);
-        alert("ERROR");
-      });
+        });
 
+    }, err => {
+      console.error(err);
+      alert('Error checking email');
+    });
 
   }
 

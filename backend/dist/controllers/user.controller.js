@@ -1,17 +1,91 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const users_1 = __importDefault(require("../models/users"));
+const bcrypt = __importStar(require("bcryptjs"));
 class UserController {
     constructor() {
         this.register = (req, res) => {
+            const mail = req.body.mail;
+            const username = req.body.username;
+            const password = req.body.password;
+            // basic presence check
+            if (!mail || !username || !password) {
+                res.status(400).json({ message: 'missing fields' });
+                return;
+            }
+            // hash the password before saving
+            bcrypt.hash(password, 10).then((hash) => {
+                let user = new users_1.default({
+                    mail: mail,
+                    username: username,
+                    password: hash,
+                });
+                user.save().then(user => {
+                    res.status(200).json({ "message": "user added" });
+                }).catch(err => {
+                    console.error(err);
+                    res.status(400).json({ "message": "error" });
+                });
+            }).catch(err => {
+                console.error(err);
+                res.status(500).json({ message: 'hash error' });
+            });
+        };
+        // POST { mail }
+        this.checkMail = (req, res) => {
+            const mail = req.body.mail;
+            if (!mail) {
+                res.status(400).json({ exists: false });
+                return;
+            }
+            users_1.default.findOne({ mail: mail }, (err, user) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).json({ exists: false });
+                    return;
+                }
+                res.json({ exists: !!user });
+            });
+        };
+        this.addShippingInfo = (req, res) => {
             let user = new users_1.default({
-                profile_photo_name: req.body.profile_photo_name,
-                org_name: req.body.org_name,
-                firstname: req.body.firstname,
                 phone: req.body.phone,
                 mail: req.body.mail,
                 lastname: req.body.lastname,

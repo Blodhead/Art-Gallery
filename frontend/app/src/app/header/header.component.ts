@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
 import { SharedService } from '../shared.service';
@@ -25,6 +26,22 @@ export class HeaderComponent implements OnInit {
     if (this.current_user != null) {
       this.type = this.current_user.type;
     }
+  }
+
+  private lastScrollTop = 0;
+  isHidden = false;
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const st = window.pageYOffset || document.documentElement.scrollTop;
+    if (st > this.lastScrollTop && st > 50) {
+      // down
+      this.isHidden = true;
+    } else {
+      // up
+      this.isHidden = false;
+    }
+    this.lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
   }
 
   logout() {

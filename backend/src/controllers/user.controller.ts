@@ -3,14 +3,53 @@ import { Request, Response } from "express-serve-static-core";
 import { appendFile } from "fs";
 import { ParsedQs } from "qs";
 import User from "../models/users"
+import * as bcrypt from 'bcryptjs';
 
 export class UserController {
 
     register = (req: express.Request, res: express.Response) => {
+        const mail = req.body.mail;
+        const username = req.body.username;
+        const password = req.body.password;
+
+        // basic presence check
+        if (!mail || !username || !password) {
+            res.status(400).json({ message: 'missing fields' });
+            return;
+        }
+
+        // hash the password before saving
+        bcrypt.hash(password, 10).then((hash) => {
+            let user = new User({
+                mail: mail,
+                username: username,
+                password: hash,
+            })
+
+            user.save().then(user => {
+                res.status(200).json({ "message": "user added" });
+            }).catch(err => {
+                console.error(err);
+                res.status(400).json({ "message": "error" })
+            })
+        }).catch(err => {
+            console.error(err);
+            res.status(500).json({ message: 'hash error' });
+        });
+    }
+
+    // POST { mail }
+    checkMail = (req: express.Request, res: express.Response) => {
+        const mail = req.body.mail;
+        if (!mail) { res.status(400).json({ exists: false }); return; }
+        User.findOne({ mail: mail }, (err, user) => {
+            if (err) { console.error(err); res.status(500).json({ exists: false }); return; }
+            res.json({ exists: !!user });
+        });
+    }
+
+    addShippingInfo = (req: express.Request, res: express.Response) => {
         let user = new User({
-            profile_photo_name: req.body.profile_photo_name,
-            org_name: req.body.org_name,
-            firstname: req.body.firstname,
             phone: req.body.phone,
             mail: req.body.mail,
             lastname: req.body.lastname,

@@ -10,6 +10,9 @@
                 <label for="username">Username</label>
                 <input type="text" placeholder="Enter Username" id="username" name="username" [(ngModel)]="username" required>
 
+                <label for="mail">Email</label>
+                <input type="email" placeholder="Enter Email" id="mail" name="mail" [(ngModel)]="mail" required>
+
                 <label for="password">Password</label>
                 <input type="password" placeholder="Enter Password" name="password" (keyup)="unlock()" [(ngModel)]="password" required>
                 

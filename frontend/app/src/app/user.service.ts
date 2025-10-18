@@ -44,6 +44,11 @@ export class UserService {
     return this.http.post(`${this.url}/users/register`, data);
   }
 
+  checkMail(mail: string) {
+    const data = { mail };
+    return this.http.post(`${this.url}/users/checkMail`, data);
+  }
+
   updateStatus(user: User) {
     return this.http.post(`${this.url}/users/updateStatus`, user);
   }

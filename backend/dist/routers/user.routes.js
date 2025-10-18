@@ -14,6 +14,7 @@ userRouter.route("/getTempData").get(//ako dodje "/login" ruta on obradjuje POST
 );
 userRouter.route("/update").post((req, res) => new user_controller_1.UserController().update(req, res));
 userRouter.route("/register").post((req, res) => new user_controller_1.UserController().register(req, res));
+userRouter.route("/checkMail").post((req, res) => new user_controller_1.UserController().checkMail(req, res));
 userRouter.route("/deleteUser").post((req, res) => new user_controller_1.UserController().deleteUser(req, res));
 userRouter.route("/updateStatus").post((req, res) => new user_controller_1.UserController().updateStatus(req, res));
 userRouter.route("/sendMail").post((req, res) => new user_controller_1.UserController().sendMail(req, res));

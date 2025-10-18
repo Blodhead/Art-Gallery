@@ -28,6 +28,7 @@
     "mongodb": "^4.13.0",
     "mongoose": "^6.3.3",
     "nodemailer": "^6.8.0",
-    "random-words": "^1.2.1"
+    "random-words": "^1.2.1",
+    "bcryptjs": "^2.4.3"
   }
 }
