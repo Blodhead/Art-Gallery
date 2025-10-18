@@ -48,7 +48,6 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.profile_photo_name = "../../assets/images/users/avatar2.jpg";
     this.getTempData();
 
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
@@ -81,7 +80,7 @@ export class RegisterComponent implements OnInit {
   cardImageBase64: string;
   isImageSaved: boolean;
 
-  onFileSelected(event) {
+  /*onFileSelected(event) {
     const allowed_types = ['image/png', 'image/jpeg'];
     const max_height = 300;
     const max_width = 300;
@@ -138,7 +137,7 @@ export class RegisterComponent implements OnInit {
 
     this.profile_photo = event.target.files[0];
     this.profile_photo_name = "../../assets/images/users/" + event.target.files[0].name;
-  }
+  }*/
 
   removeImage() {
     this.cardImageBase64 = null;
@@ -203,6 +202,12 @@ export class RegisterComponent implements OnInit {
     if (this.password.length < 8 || this.password.length > 16)
       return false;
     return true;
+  }
+
+  
+  isSameAsPassword(): boolean {
+    if(this.password == this.confirm_password) return true;
+    return false;
   }
 
   Error_message: string;

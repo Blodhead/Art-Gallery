@@ -9,8 +9,8 @@ export class ParfumeService {
 
   constructor(private http: HttpClient) { }
 
-  url = "http://localhost:4000";
-  //url = "https://finestservices.onrender.com";
+  //url = "http://localhost:4000";
+  url = "https://finestservices.onrender.com";
 
   comment(name: string, username: string, profile_photo_name: string, message: string, arg4: Date) {
 
