@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('current_user', JSON.stringify(user.username));
         localStorage.setItem('email', JSON.stringify(user.email));
         localStorage.setItem('token', JSON.stringify(user.token));
-        this._router.navigate(["/"]);
+        window.location.href = '/';
       }
       else alert("Password and username don't match");
       //if timestamp expired
