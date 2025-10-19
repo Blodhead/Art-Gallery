@@ -1,4 +1,4 @@
-.filter-sidebar {
+/*.filter-sidebar {
     height: fit-content;
     background: #fff;
     border-radius: 12px;
@@ -11,7 +11,23 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
+}*/
+
+.filter-sidebar {
+    height: fit-content;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px 0 rgba(0,0,0,0.07);
+    padding: 2.5rem 2rem 2rem 2rem;
+    /* Remove these: */
+    /* min-height: 500px; */
+    /* max-width: 320px; */
+    /* margin-right: 2rem; */
+
+    display: flex;
+    flex-direction: column;
 }
+
 
 .filter-box {
     width: 100%;
