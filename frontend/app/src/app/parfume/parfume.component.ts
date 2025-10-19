@@ -37,6 +37,13 @@ export class ParfumeComponent implements OnInit, AfterViewInit {
   priceFilterMax: number = 0;
   priceSliderInstance: any = null;
 
+  filtersVisible = true;
+
+  toggleFilters() {
+    this.filtersVisible = !this.filtersVisible;
+  }
+
+
   ngOnInit(): void {
     this.current_path = this._router.url.split('/').pop();
     this.reload = localStorage.getItem("reload");
@@ -45,7 +52,7 @@ export class ParfumeComponent implements OnInit, AfterViewInit {
       this.sharedService.sendclickEvent();
     }
     this.getAllParfumes();
-  // No scroll event needed for pagination
+    // No scroll event needed for pagination
   }
 
   ngOnDestroy(): void {
@@ -206,7 +213,7 @@ export class ParfumeComponent implements OnInit, AfterViewInit {
     if (this.toggle2 == false) {
       this.filtered_parfumes.sort((a, b) => a.price - b.price);
       this.toggle2 = true;
-    } else if(this.toggle2 == true) {
+    } else if (this.toggle2 == true) {
       this.filtered_parfumes.sort((a, b) => b.price - a.price);
       this.toggle2 = false;
     }

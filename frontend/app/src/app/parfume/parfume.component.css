@@ -1,29 +1,10 @@
-/*.filter-sidebar {
-    height: fit-content;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 16px 0 rgba(0,0,0,0.07);
-    padding: 2.5rem 2rem 2rem 2rem;
-    min-height: 500px;
-    max-width: 320px;
-    margin-right: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-}*/
 
 .filter-sidebar {
     height: fit-content;
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 2px 16px 0 rgba(0,0,0,0.07);
-    padding: 2.5rem 2rem 2rem 2rem;
-
-    /* Remove these: */
-    /* min-height: 500px; */
-    /* max-width: 320px; */
-    /* margin-right: 2rem; */
+    padding: 1.75rem 1rem 1rem 1rem;
 
     display: flex;
     flex-direction: column;
@@ -31,32 +12,75 @@
 
 @media (min-width: 776px) {
   .filter-sidebar {
-    min-height: 500px;
+    /*min-height: 500px;*/
     max-width: 320px;
   }
 }
-
 
 .filter-box {
     width: 100%;
 }
 
+/* === Added collapsible header + arrow === */
 .filter-title {
     font-size: 1.5rem;
     font-weight: 600;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     letter-spacing: 0.05em;
     color: #222;
     border-bottom: 1px solid #eee;
     padding-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.2s ease;
 }
 
+.filter-title:hover {
+    color: #bfa181;
+}
+
+/* Arrow styling */
+.arrow {
+    font-size: 1.2rem;
+    color: #bfa181;
+    transition: transform 0.3s ease;
+}
+
+.arrow.open {
+    transform: rotate(180deg);
+}
+
+/* === Collapsible content animation === */
+.filter-content {
+    overflow: hidden;
+    max-height: 1000px; /* enough for expanded state */
+    opacity: 1;
+    transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+
+.filter-content.hidden {
+    max-height: 0;
+    opacity: 0;
+}
+
+/* === Keep your original inputs and groups === */
 .filter-group {
     margin-bottom: 2rem;
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 0.7rem;
+}
+
+.filter-group label {
+  display: block;
+  margin-bottom: 0.6rem; /* space between text and slider */
+}
+
+.price-slider {
+  margin-top: 0.6rem; /* moves the slider lower */
 }
 
 .filter-input {
@@ -67,27 +91,27 @@
     background: #fafafa;
     transition: border 0.2s;
 }
+
 .filter-input:focus {
-    border: 1.5px solid #136207;
+    border: 1.5px solid #bfa181;
     outline: none;
 }
 
+.price-slider{
+        display: flex;
+    justify-content: center;}
+
 .slider-box {
-    width: 100%;
+    width: 80%;
+    position: center;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 }
 
-.price-range-labels {
-    font-size: 0.95rem;
-    color: #555;
-    margin-top: 0.2rem;
-}
-
 .sort-btn {
     background: #fff;
-    border: 1px solid #136207;
-    color: #136207;
+    border: 1px solid #bfa181;
+    color: #bfa181;
     border-radius: 5px;
     padding: 0.5rem 1.2rem;
     font-size: 1rem;
@@ -96,7 +120,7 @@
     transition: background 0.2s, color 0.2s;
 }
 .sort-btn:hover {
-    background: #136207;
+    background: #bfa181;
     color: #fff;
 }
 

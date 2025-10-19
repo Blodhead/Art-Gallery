@@ -20,33 +20,44 @@
         <!-- Sidebar: on small screens it should take full width and stack above content -->
         <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 col-12 pe-lg-4 mb-4 mb-lg-0 filter-sidebar">
             <div class="filter-box">
-                <h4 class="filter-title">Filter</h4>
-                <div class="filter-group">
-                    <label for="nameFilter">Name</label>
-                    <input id="nameFilter" type="text" class="filter-input" placeholder="Search..." [(ngModel)]="nameFilter" (keyup)="onNameFilterChange(nameFilter)">
-                </div>
-                <div class="filter-group">
-                    <label for="priceSlider">Price range</label>
-                    <div #priceSlider class="slider-box"></div>
-                    <div class="price-range-labels">{{priceFilterMin}} - {{priceFilterMax}}</div>
-                </div>
-                <div class="filter-group">
-                    <label>Sort by</label>
-                    <button *ngIf="toggle2 == true" class="sort-btn" (click)="sortPrice()">Price ↑</button>
-                    <button *ngIf="toggle2 == false" class="sort-btn" (click)="sortPrice()">Price ↓</button>
-                    <button *ngIf="toggle1 == true" class="sort-btn" (click)="sortName()">Name ↑</button>
-                    <button *ngIf="toggle1 == false" class="sort-btn" (click)="sortName()">Name ↓</button>
+                <h4 class="filter-title" (click)="toggleFilters()">Filters
+                    <span class="arrow" [class.open]="filtersVisible">&#9662;</span>
+                </h4>
+                <div class="filter-content" *ngIf="filtersVisible">
+                    <div class="filter-group">
+                        <label for="nameFilter">Name</label>
+                        <input id="nameFilter" type="text" class="filter-input" placeholder="Search..."
+                            [(ngModel)]="nameFilter" (keyup)="onNameFilterChange(nameFilter)">
+                    </div>
+                    <div class="filter-group">
+                        <label for="priceSlider">Price range</label>
+                        <div class="price-slider">
+                            <div #priceSlider class="slider-box"></div>
+                        </div>
+                        
+                    </div>
+                    <div class="filter-group">
+                        <label>Sort by</label>
+                        <button *ngIf="toggle2 == true" class="sort-btn" (click)="sortPrice()">Price ↑</button>
+                        <button *ngIf="toggle2 == false" class="sort-btn" (click)="sortPrice()">Price ↓</button>
+                        <button *ngIf="toggle1 == true" class="sort-btn" (click)="sortName()">Name ↑</button>
+                        <button *ngIf="toggle1 == false" class="sort-btn" (click)="sortName()">Name ↓</button>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12 col-12">
             <div class="parfume-grid">
-                <app-parfume-details *ngFor="let parfume of displayed_parfumes; let i = index;" [myParfumeDetail]="parfume"></app-parfume-details>
+                <app-parfume-details *ngFor="let parfume of displayed_parfumes; let i = index;"
+                    [myParfumeDetail]="parfume"></app-parfume-details>
             </div>
-            <div class="pagination-controls" style="margin: 2rem 0; display: flex; justify-content: center; align-items: center; gap: 1rem;">
-                <button class="btn btn-outline-secondary" (click)="prevPage()" [disabled]="currentPage === 1">Prev</button>
+            <div class="pagination-controls"
+                style="margin: 2rem 0; display: flex; justify-content: center; align-items: center; gap: 1rem;">
+                <button class="btn btn-outline-secondary" (click)="prevPage()"
+                    [disabled]="currentPage === 1">Prev</button>
                 <span>Page {{currentPage}} of {{totalPages}}</span>
-                <button class="btn btn-outline-secondary" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+                <button class="btn btn-outline-secondary" (click)="nextPage()"
+                    [disabled]="currentPage === totalPages">Next</button>
             </div>
         </div>
     </div>
