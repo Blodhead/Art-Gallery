@@ -17,7 +17,8 @@
 
 
     <div class="row" style="margin-top: 2rem;">
-        <div class="col-3 filter-sidebar">
+        <!-- Sidebar: on small screens it should take full width and stack above content -->
+        <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 col-12 filter-sidebar">
             <div class="filter-box">
                 <h4 class="filter-title">Filter</h4>
                 <div class="filter-group">
@@ -38,7 +39,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-9">
+        <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12 col-12">
             <div class="parfume-grid">
                 <app-parfume-details *ngFor="let parfume of displayed_parfumes; let i = index;" [myParfumeDetail]="parfume"></app-parfume-details>
             </div>

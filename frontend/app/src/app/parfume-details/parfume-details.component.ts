@@ -53,9 +53,9 @@ export class ParfumeDetailsComponent implements OnInit {
      if (img.startsWith('http://') || img.startsWith('https://') || img.startsWith('//')) {
        this.myParfumeDetail.img_location = img;
      } else if (img.startsWith('/')) {
-       this.myParfumeDetail.img_location = window.location.origin + img;
+       this.myParfumeDetail.img_location = window.location.origin + '/assets/images/' + img;
      } else {
-       this.myParfumeDetail.img_location = window.location.origin + '/images/' + img;
+       this.myParfumeDetail.img_location = window.location.origin + '/assets/images/' + img;
      }
    }
    this.myParfumeDetail.price = +this.myParfumeDetail.price;

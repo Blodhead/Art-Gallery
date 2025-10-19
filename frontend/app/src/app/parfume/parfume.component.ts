@@ -27,7 +27,7 @@ export class ParfumeComponent implements OnInit, AfterViewInit {
   index: number[] = [1];
   top5: String[] = [];
   temp_date: Date[] = [];
-  pageSize: number = 20;
+  pageSize: number = 16;
   currentPage: number = 1;
   totalPages: number = 1;
   nameFilter: string = '';
