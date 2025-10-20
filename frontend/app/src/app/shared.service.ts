@@ -18,4 +18,15 @@ export class SharedService {
     return this.subject.asObservable();
 
   }
+
+  // New subject for cart updates
+  private cartSubject = new Subject<any>();
+
+  sendCartEvent(cart: any) {
+    this.cartSubject.next(cart);
+  }
+
+  getCartEvent(): Observable<any> {
+    return this.cartSubject.asObservable();
+  }
 }

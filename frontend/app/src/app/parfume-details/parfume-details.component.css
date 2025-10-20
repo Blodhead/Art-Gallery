@@ -75,6 +75,39 @@
   margin-left: 0.5em;
 }
 
+.parfume-card-cart-controls {
+  margin-top: 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.cart-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: rgba(19,98,7,0.06);
+  color: #136207;
+  font-size: 18px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.cart-btn:hover {
+  background: rgba(19,98,7,0.12);
+}
+
+.cart-qty {
+  min-width: 28px;
+  text-align: center;
+  font-weight: 600;
+}
+
 /* Responsive behavior */
 @media (max-width: 600px) {
   .row {

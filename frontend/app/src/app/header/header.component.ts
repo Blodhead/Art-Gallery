@@ -27,6 +27,25 @@ export class HeaderComponent implements OnInit {
     if (this.current_user != null) {
       this.type = this.current_user.type;
     }
+    // initialize cart count from localStorage
+    try {
+      const raw = localStorage.getItem('shopping_cart');
+      if (raw) {
+        const cart = JSON.parse(raw);
+        let count = 0;
+        Object.keys(cart).forEach(k => {
+          count += cart[k].qty || 0;
+        })
+        this.cartCount = count;
+      }
+    } catch (e) { console.error('cart init', e); }
+
+    // subscribe to cart updates
+    this.sharedService.getCartEvent().subscribe((cart) => {
+      let count = 0;
+      if (cart) Object.keys(cart).forEach(k => { count += cart[k].qty || 0; });
+      this.cartCount = count;
+    });
   }
 
   private lastScrollTop = 0;

@@ -4,8 +4,8 @@ import { toJSDate } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar';
 import * as e from 'cors';
 import { User } from '../models/user';
 import { ParfumeDetails, Comment } from '../models/parfume-details';
-import { UserService } from '../user.service';
 import { ParfumeService } from '../parfume.service';
+import { SharedService } from '../shared.service';
 
 
 @Component({
@@ -25,7 +25,7 @@ export class ParfumeDetailsComponent implements OnInit {
   likes: number = 0;
   comments: Comment[];
 
-  constructor(private _router: Router, private parfume_Service: ParfumeService) { }
+  constructor(private _router: Router, private parfume_Service: ParfumeService, private sharedService: SharedService) { }
 
   current_user: User;
   current_path: string;
@@ -61,6 +61,53 @@ export class ParfumeDetailsComponent implements OnInit {
    this.myParfumeDetail.price = +this.myParfumeDetail.price;
    this.myParfumeDetail.amount = +this.myParfumeDetail.amount;
 
+  }
+
+  // CART helpers: read/write cart from localStorage. Cart format: { [parfumeName]: { item: ParfumeDetails, qty: number } }
+  private readCart(): { [key: string]: { item: ParfumeDetails, qty: number } } {
+    try {
+      const raw = localStorage.getItem('shopping_cart');
+      if (!raw) return {};
+      return JSON.parse(raw);
+    } catch (e) {
+      console.error('readCart error', e);
+      return {};
+    }
+  }
+
+  private writeCart(cart: { [key: string]: { item: ParfumeDetails, qty: number } }) {
+    try {
+      localStorage.setItem('shopping_cart', JSON.stringify(cart));
+      // notify others (header) about cart change
+      this.sharedService.sendCartEvent(cart);
+    } catch (e) {
+      console.error('writeCart error', e);
+    }
+  }
+
+  getCartQty(): number {
+    const cart = this.readCart();
+    const entry = cart[this.myParfumeDetail.name];
+    return entry ? entry.qty : 0;
+  }
+
+  incrementCart() {
+    if (!localStorage.getItem('token')) { alert('You must be logged in to add items to cart'); return; }
+    const cart = this.readCart();
+    const key = this.myParfumeDetail.name;
+    if (!cart[key]) cart[key] = { item: this.myParfumeDetail, qty: 0 };
+    cart[key].qty = (cart[key].qty || 0) + 1;
+    this.writeCart(cart);
+  }
+
+  decrementCart() {
+    if (!localStorage.getItem('token')) { alert('You must be logged in to modify cart'); return; }
+    const cart = this.readCart();
+    const key = this.myParfumeDetail.name;
+    if (!cart[key]) return; // nothing to decrement
+    cart[key].qty = (cart[key].qty || 0) - 1;
+    if (cart[key].qty <= 0) delete cart[key];
+    this.writeCart(cart);
   }
 
   Toggle(): boolean {
