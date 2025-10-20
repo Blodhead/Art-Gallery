@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http" //importuj da bi backend i frontend komunicirali preko HTTP zahteva
 import { User } from './models/user';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +9,8 @@ import { User } from './models/user';
 export class UserService {
   constructor(private http: HttpClient) { }//servisu se preko injection-a prosledjuje HttpClient da bismo ga mogli koristiti
 
-  url = "http://localhost:4000";
-  //url = "https://finestservices.onrender.com";
-
+  url = environment.apiUrl;
+  
   login(username, password) {   //metova koja prima parametre
     const data = {              //pakovanje podataka u strukturu radi lakseg slanja backendu
       username: username,

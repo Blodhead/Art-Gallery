@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http"
 import { Message, ParfumeDetails } from './models/parfume-details';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,8 @@ export class ParfumeService {
 
   constructor(private http: HttpClient) { }
 
-  //url = "http://localhost:4000";
-  url = "https://finestservices.onrender.com";
+
+  url = environment.apiUrl;
 
   comment(name: string, username: string, profile_photo_name: string, message: string, arg4: Date) {
 

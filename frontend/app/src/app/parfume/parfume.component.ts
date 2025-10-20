@@ -27,7 +27,7 @@ export class ParfumeComponent implements OnInit, AfterViewInit {
   index: number[] = [1];
   top5: String[] = [];
   temp_date: Date[] = [];
-  pageSize: number = 16;
+  pageSize: number = 10;
   currentPage: number = 1;
   totalPages: number = 1;
   nameFilter: string = '';
@@ -39,9 +39,20 @@ export class ParfumeComponent implements OnInit, AfterViewInit {
 
   filtersVisible = true;
 
-  toggleFilters() {
-    this.filtersVisible = !this.filtersVisible;
+toggleFilters() {
+  if (this.filtersVisible && this.priceSliderInstance) {
+    // destroy before hiding
+    this.priceSliderInstance.destroy();
+    this.priceSliderInstance = null;
   }
+
+  this.filtersVisible = !this.filtersVisible;
+
+  // reinitialize when shown again
+  if (this.filtersVisible) {
+    setTimeout(() => this.initNoUiSlider(), 0);
+  }
+}
 
 
   ngOnInit(): void {
