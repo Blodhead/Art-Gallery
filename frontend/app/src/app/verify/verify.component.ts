@@ -142,11 +142,11 @@ export class VerifyComponent implements OnInit {
     this.isLoading = true;
     this.service.changePassword(this.current_user, this.old_password, this.new_password).subscribe({
       next: (resp: any) => {
-        this.isLoading = false;
-        localStorage.setItem("reload", "true");
         alert("Change password successful");
         localStorage.removeItem("current_user");
-        this._router.navigate(["login"]);
+        localStorage.removeItem("token");
+        localStorage.removeItem("email");
+        window.location.href = '/';
       },
       error: (err) => {
         this.isLoading = false;
