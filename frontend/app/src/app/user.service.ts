@@ -104,4 +104,9 @@ export class UserService {
     
     return this.http.post(`${this.url}/users/updatePassword`, data);
   }
+
+  changePassword(username, old_pass, new_pass) {
+    const data = { username, old_pass, new_pass };
+    return this.http.post(`${this.url}/users/changePassword`, data);
+  }
 }

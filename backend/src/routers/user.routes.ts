@@ -39,6 +39,10 @@ userRouter.route("/updatePassword").post(
     (req, res) => new UserController().updatePassword(req, res)
 )
 
+userRouter.route("/changePassword").post(
+    (req, res) => new UserController().changePassword(req, res)
+)
+
 userRouter.route("/logout").post(
     (req, res) => new UserController().logout(req, res)
 )

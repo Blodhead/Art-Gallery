@@ -308,6 +308,53 @@ export class UserController {
         });
     }
 
+    // Secure change password endpoint: verifies old password (or tempPass), hashes new password and updates user
+    changePassword = async (req: express.Request, res: express.Response) => {
+        const username = req.body.username;
+        const old_pass = req.body.old_pass;
+        const new_pass = req.body.new_pass;
+
+        if (!username || !old_pass || !new_pass) {
+            res.status(400).json({ message: 'missing fields' });
+            return;
+        }
+
+        try {
+            const user = await User.findOne({ username: username }).exec();
+            if (!user) { res.status(404).json({ message: 'user not found' }); return; }
+
+            // Allow reset flow: if tempPass matches and not expired
+            let allowed = false;
+            if (user.tempPass && old_pass == user.tempPass) {
+                // check expiry (30 minutes)
+                const expiryMs = 30 * 60 * 1000;
+                if ((new Date()).getTime() - user.timeStamp.getTime() <= expiryMs) {
+                    allowed = true;
+                } else {
+                    res.status(400).json({ message: 'temporary password expired' }); return;
+                }
+            }
+
+            // Otherwise compare existing hashed password
+            if (!allowed) {
+                const match = await bcrypt.compare(old_pass, user.password);
+                if (!match) { res.status(401).json({ message: 'old password incorrect' }); return; }
+            }
+
+            // Hash new password and update
+            const hashed = await bcrypt.hash(new_pass, 10);
+            user.password = hashed;
+            user.tempPass = null;
+            user.timeStamp = null;
+            await user.save();
+
+            res.json({ message: 'password updated' });
+        } catch (err) {
+            console.error('changePassword error', err);
+            res.status(500).json({ message: 'server error' });
+        }
+    }
+
     generateToken(name: string) {
         // simple random token - could be replaced with JWT
         const rand = Math.random().toString(36).slice(2) + Date.now().toString(36);

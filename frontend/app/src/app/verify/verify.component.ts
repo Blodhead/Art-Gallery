@@ -126,10 +126,8 @@ export class VerifyComponent implements OnInit {
       return;
     }
 
-    if (this.old_password != this.current_user.password && this.current_user.tempPass != this.old_password) {
-      alert("Old password does not match!");
-      return;
-    }
+    // Do not compare with local copy of password (may be hashed). Send old and new passwords to backend
+    // backend will validate old password (or tempPass) and perform hashing.
 
     if (this.new_password != this.confirm_password) {
       alert("New and confirmation password do not match!");
@@ -141,11 +139,20 @@ export class VerifyComponent implements OnInit {
       return;
     }
 
-    this.service.updatePassword(this.current_user.username, this.new_password).subscribe((statement) => {
-      localStorage.setItem("reload", "true");
-      alert("Change password successful");
-      localStorage.removeItem("current_user");
-      this._router.navigate(["login"]);
+    this.isLoading = true;
+    this.service.changePassword(this.current_user, this.old_password, this.new_password).subscribe({
+      next: (resp: any) => {
+        this.isLoading = false;
+        localStorage.setItem("reload", "true");
+        alert("Change password successful");
+        localStorage.removeItem("current_user");
+        this._router.navigate(["login"]);
+      },
+      error: (err) => {
+        this.isLoading = false;
+        if (err && err.error && err.error.message) alert(err.error.message);
+        else alert('Error changing password');
+      }
     });
   }
 

@@ -322,6 +322,55 @@ class UserController {
                 res.json("updated");
             });
         };
+        // Secure change password endpoint: verifies old password (or tempPass), hashes new password and updates user
+        this.changePassword = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const username = req.body.username;
+            const old_pass = req.body.old_pass;
+            const new_pass = req.body.new_pass;
+            if (!username || !old_pass || !new_pass) {
+                res.status(400).json({ message: 'missing fields' });
+                return;
+            }
+            try {
+                const user = yield users_1.default.findOne({ username: username }).exec();
+                if (!user) {
+                    res.status(404).json({ message: 'user not found' });
+                    return;
+                }
+                // Allow reset flow: if tempPass matches and not expired
+                let allowed = false;
+                if (user.tempPass && old_pass == user.tempPass) {
+                    // check expiry (30 minutes)
+                    const expiryMs = 30 * 60 * 1000;
+                    if ((new Date()).getTime() - user.timeStamp.getTime() <= expiryMs) {
+                        allowed = true;
+                    }
+                    else {
+                        res.status(400).json({ message: 'temporary password expired' });
+                        return;
+                    }
+                }
+                // Otherwise compare existing hashed password
+                if (!allowed) {
+                    const match = yield bcrypt.compare(old_pass, user.password);
+                    if (!match) {
+                        res.status(401).json({ message: 'old password incorrect' });
+                        return;
+                    }
+                }
+                // Hash new password and update
+                const hashed = yield bcrypt.hash(new_pass, 10);
+                user.password = hashed;
+                user.tempPass = null;
+                user.timeStamp = null;
+                yield user.save();
+                res.json({ message: 'password updated' });
+            }
+            catch (err) {
+                console.error('changePassword error', err);
+                res.status(500).json({ message: 'server error' });
+            }
+        });
     }
     getRandomInt(min, max) {
         min = Math.ceil(min);
