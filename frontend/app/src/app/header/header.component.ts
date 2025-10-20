@@ -54,6 +54,10 @@ export class HeaderComponent implements OnInit {
     this.filtersVisible = !this.filtersVisible;
   }
 
+  reloadHome() {
+    window.location.href = '/';
+  }
+
   logout() {
     const username = JSON.parse(localStorage.getItem('current_user'));
     const token = JSON.parse(localStorage.getItem('token'));

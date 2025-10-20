@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 
 export class RegisterComponent implements OnInit {
 
-  constructor(private service: UserService,private _router: Router) { }
+  constructor(private service: UserService, private _router: Router) { }
 
   profile_photo = null;
   profile_photo_name: string;
@@ -34,14 +34,17 @@ export class RegisterComponent implements OnInit {
   mail: string;
   status: string = "waiting";
   org_name: string;
+  Error_message: string;
+  isLoading: boolean = false;
+  errorMessage: string = '';
 
-  boot:boolean = false;
+  boot: boolean = false;
 
   temp_usernames: Array<string> = [];
   temp_mails: Array<string> = [];
 
 
-  current_user:User;
+  current_user: User;
   getType(): boolean {
     if (this.type == "organizer") return true;
     else return false;
@@ -51,13 +54,13 @@ export class RegisterComponent implements OnInit {
     this.getTempData();
 
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
-    if(this.current_user != null){
+    if (this.current_user != null) {
       localStorage.removeItem("current_user");
       this._router.navigate([""]);
     }
   }
 
-  unlock(){
+  unlock() {
     this.boot = true;
   }
 
@@ -145,42 +148,42 @@ export class RegisterComponent implements OnInit {
   }
 
   isLetter(): boolean {
-    if(this.boot==false) return true;
+    if (this.boot == false) return true;
     let arr = this.password;
 
-    if(this.containsSpecialChars(arr.charAt(0)) == true) return false;
+    if (this.containsSpecialChars(arr.charAt(0)) == true) return false;
     if (Number.isNaN(Number(arr.charAt(0))))
-    return true;
+      return true;
     else return false;
   }
 
   containsSpecialChars(str): boolean {
-    if(this.boot==false) return true;
+    if (this.boot == false) return true;
     let arr = str;
     const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
     return specialChars.test(arr);
   }
 
   hasANumber(): boolean {
-    if(this.boot==false) return true;
+    if (this.boot == false) return true;
     let arr = this.password;
 
     for (let i = 0; i < this.password.length; i++) {
-      if(!Number.isNaN(Number(arr.charAt(i))))
-      if (Number(arr.charAt(i)) >= 0 || Number(arr.charAt(i)) <= 9) {
-        return true;
-      }
+      if (!Number.isNaN(Number(arr.charAt(i))))
+        if (Number(arr.charAt(i)) >= 0 || Number(arr.charAt(i)) <= 9) {
+          return true;
+        }
     }
     return false;
   }
 
   hasACapital(): boolean {
-    if(this.boot==false) return true;
+    if (this.boot == false) return true;
     let character: String;
     for (let i = 0; i < this.password.length; i++) {
 
       character = this.password.charAt(i);
-      if(this.containsSpecialChars(character) == true) continue;
+      if (this.containsSpecialChars(character) == true) continue;
 
       if (!isNaN(Number(character) * 1)) {
 
@@ -198,21 +201,17 @@ export class RegisterComponent implements OnInit {
   }
 
   hasLength(): boolean {
-    if(this.boot==false) return true;
+    if (this.boot == false) return true;
     if (this.password.length < 8 || this.password.length > 16)
       return false;
     return true;
   }
 
-  
+
   isSameAsPassword(): boolean {
-    if(this.password == this.confirm_password) return true;
+    if (this.password == this.confirm_password) return true;
     return false;
   }
-
-  Error_message: string;
-  isLoading: boolean = false;
-  errorMessage: string = '';
 
   register() {
 
@@ -298,7 +297,7 @@ export class RegisterComponent implements OnInit {
         localStorage.setItem('current_user', JSON.stringify(user.username));
         localStorage.setItem('email', JSON.stringify(user.email));
         localStorage.setItem('token', JSON.stringify(user.token));
-        this._router.navigate(["/"]);
+        window.location.href = '/';
       } else {
         this.errorMessage = 'Login failed after registration';
       }

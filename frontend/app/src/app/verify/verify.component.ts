@@ -13,12 +13,15 @@ export class VerifyComponent implements OnInit {
 
   constructor(private service: UserService, private _router: Router, private sharedService: SharedService) { }
 
-  old_pass: string = "";
-  new_pass: string = "";
-  confirm_pass: string = "";
+  old_password: string = "";
+  new_password: string = "";
+  confirm_password: string = "";
   current_user: User = null;
   reload: string = "";
   boot: boolean = false;
+  Error_message: string;
+  isLoading: boolean = false;
+  errorMessage: string = '';
 
   ngOnInit(): void {
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
@@ -31,9 +34,10 @@ export class VerifyComponent implements OnInit {
   }
 
 
+
   isLetter(): boolean {
     if (this.boot == false) return true;
-    let arr = this.new_pass;
+    let arr = this.new_password;
 
     if (this.containsSpecialChars(arr.charAt(0)) == true) return false;
     if (Number.isNaN(Number(arr.charAt(0))))
@@ -50,9 +54,9 @@ export class VerifyComponent implements OnInit {
 
   hasANumber(): boolean {
     if (this.boot == false) return true;
-    let arr = this.new_pass;
+    let arr = this.new_password;
 
-    for (let i = 0; i < this.new_pass.length; i++) {
+    for (let i = 0; i < this.new_password.length; i++) {
       if (!Number.isNaN(Number(arr.charAt(i))))
         if (Number(arr.charAt(i)) >= 0 || Number(arr.charAt(i)) <= 9) {
           return true;
@@ -64,28 +68,37 @@ export class VerifyComponent implements OnInit {
   hasACapital(): boolean {
     if (this.boot == false) return true;
     let character: String;
-    for (let i = 0; i < this.new_pass.length; i++) {
+    for (let i = 0; i < this.new_password.length; i++) {
 
-      character = this.new_pass.charAt(i);
-      if (this.containsSpecialChars(character) == false) {
+      character = this.new_password.charAt(i);
+      if (this.containsSpecialChars(character) == true) continue;
 
-        if (!isNaN(Number(character) * 1)) {
+      if (!isNaN(Number(character) * 1)) {
 
-        } else {
-          if (character == character.toUpperCase()) {
-            return true;
-          }
+      } else {
+        if (character == character.toUpperCase()) {
+          return true;
+        }
+        if (character == character.toLowerCase()) {
+
         }
       }
+
     }
     return false;
   }
 
   hasLength(): boolean {
     if (this.boot == false) return true;
-    if (this.new_pass.length < 8 || this.new_pass.length > 16)
+    if (this.new_password.length < 8 || this.new_password.length > 16)
       return false;
     return true;
+  }
+
+
+  isSameAsPassword(): boolean {
+    if (this.new_password == this.confirm_password) return true;
+    return false;
   }
 
   unlock() {
@@ -108,27 +121,27 @@ export class VerifyComponent implements OnInit {
 
   save() {
 
-    if (this.old_pass == null || this.new_pass == null || this.confirm_pass == null) {
+    if (this.old_password == null || this.new_password == null || this.confirm_password == null) {
       alert("All fields must be filled");
       return;
     }
 
-    if (this.old_pass != this.current_user.password && this.current_user.tempPass != this.old_pass) {
+    if (this.old_password != this.current_user.password && this.current_user.tempPass != this.old_password) {
       alert("Old password does not match!");
       return;
     }
 
-    if (this.new_pass != this.confirm_pass) {
+    if (this.new_password != this.confirm_password) {
       alert("New and confirmation password do not match!");
       return;
     }
 
-    if (!this.hasLength() || !this.hasACapital() || !this.hasANumber() || !this.containsSpecialChars(this.new_pass) || !this.isLetter()) {
+    if (!this.hasLength() || !this.hasACapital() || !this.hasANumber() || !this.containsSpecialChars(this.new_password) || !this.isLetter()) {
       alert("New password not valid!");
       return;
     }
 
-    this.service.updatePassword(this.current_user.username, this.new_pass).subscribe((statement) => {
+    this.service.updatePassword(this.current_user.username, this.new_password).subscribe((statement) => {
       localStorage.setItem("reload", "true");
       alert("Change password successful");
       localStorage.removeItem("current_user");

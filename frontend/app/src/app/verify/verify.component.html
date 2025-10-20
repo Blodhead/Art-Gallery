@@ -1,35 +1,44 @@
-<div class="container-fluid body">
+<div class="container-fluid">
+  <div class="login-page">
+    <div class="login-card">
+      <div class="login-header">
+        <h2>Change Password</h2>
+      </div>
 
-  <div class="row">
-    <div class="col-4">&nbsp;</div>
-    <div class="col-4" style="margin-top: 8%">
+      <form class="login-form">
 
-      <form class="page">
+        <label for="old_password">Old Password</label>
+        <input type="password" placeholder="Enter old Password" name="old_password" [(ngModel)]="old_password" required>
 
+        <label for="new_password">New Password</label>
+        <input type="password" placeholder="Enter New Password" name="new_password" (keyup)="unlock()"
+          [(ngModel)]="new_password" required>
 
-        <label for="password" *ngIf="!isLetter()" style="color: red;">•Password must start with a letter</label>
-        <label for="password" *ngIf="!hasLength()" style="color: red;">•Password must contain between 8 and 16
+        <label for="new_password" *ngIf="!isLetter()" style="color: red;">•Password must start with a letter</label>
+        <label for="new_password" *ngIf="!hasLength()" style="color: red;">•Password must contain between 8 and 16
           letters</label>
-        <label for="password" *ngIf="!containsSpecialChars(new_pass)" style="color: red;">•Password must contain special
-          characters</label><br />
-        <label for="password" *ngIf="!hasANumber()" style="color: red;">•Password must contain a number</label>
-        <label for="password" *ngIf="!hasACapital()" style="color: red;">•Password must contain at least one capital
+        <label for="new_password" *ngIf="!containsSpecialChars(new_password)" style="color: red;">•Password must contain
+          special characters</label>
+        <label for="new_password" *ngIf="!hasANumber()" style="color: red;">•Password must contain a number</label>
+        <label for="new_password" *ngIf="!hasACapital()" style="color: red;">•Password must contain at least one capital
           letter</label>
 
-      </form>
+        <label for="confirm_password">Confirm Password</label>
+        <input type="password" placeholder="Confirm New Password" name="confirm_password" [(ngModel)]="confirm_password"
+          required>
 
+        <label for="confirm_password" *ngIf="!isSameAsPassword()" style="color: red;">•Passwords must match</label>
+
+        <div class="form-actions row">
+          <button class="primary div-4" (click)="save()" [disabled]="isLoading">
+            <span>Change Password</span>
+          </button>
+          <button class="primary div-4" (click)="cancel()">
+            <span>Cancel</span>
+          </button>
+        </div>
+        <div *ngIf="errorMessage" style="color: #b00020; margin-top:8px">{{ errorMessage }}</div>
+      </form>
     </div>
-    <div class="col-4">&nbsp;</div>
   </div>
-  <div class="row">
-    <div class="col-4">&nbsp;</div>
-    <div class="col-2">
-      <button style="background-color: rgb(19,98,7);" (click)="save()">Save</button>
-    </div>
-    <div class="col-2">
-      <button style="background-color: rgb(201, 13, 13);" (click)="cancel()">Cancel</button>
-    </div>
-    <div class="col-4">&nbsp;</div>
-  </div>
-  
 </div>

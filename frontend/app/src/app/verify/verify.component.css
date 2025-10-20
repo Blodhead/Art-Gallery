@@ -1,18 +1,5 @@
-.err{
-    color: red;
-}
-form {border: 5px solid black;}
 
-.shadow{
-  box-shadow: 5px 5px 10px 2px rgba(0,0,0,.8);
-}
-
-.container-fluid{
-    background-image: url("../../assets/images/login_bg.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100vw;
-}
+.page{width:100%;}
 
 input[type=text], input[type=password] {
   width: 100%;
@@ -31,14 +18,6 @@ button {
   border: none;
   cursor: pointer;
   width: 100%;
-}
-
-.tabbs{
-  padding: 3px;
-  padding-bottom: 0px;
-    background: black;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
 }
 
 button:hover {
@@ -80,3 +59,39 @@ span.psw {
      width: 100%;
   }
 }
+
+/*Profile Pic Start*/
+.simple-register{max-width:400px;margin:0 auto;padding:1rem}
+.simple-register label{display:block;margin-top:0.6rem;color:#444}
+.simple-register input{width:100%;padding:10px;border:1px solid #e6e6e6;border-radius:4px;margin-top:6px}
+.primary{background:#222;color:#fff;border:none;padding:10px 16px;border-radius:4px;cursor:pointer;margin-top:1rem}
+/*Profile Pic End*/
+
+
+.login-page{
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1rem;
+}
+.login-card{
+  width: 450px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+  padding: 2rem;
+}
+.login-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:1rem;
+}
+.login-header h2{margin:0;font-weight:600;color:#222}
+.small-link{font-size:0.9rem;color:#777;text-decoration:none}
+.login-form label{display:block;margin-top:0.6rem;color:#444}
+.login-form input{width:100%;padding:10px;border:1px solid #e6e6e6;border-radius:4px;margin-top:6px}
+.form-actions{display:flex;justify-content:space-between;align-items:center;margin-top:1rem}
+.primary{background:#222;color:#fff;border:none;padding:10px 16px;border-radius:4px;cursor:pointer}
+.link{color:#777;cursor:pointer;text-decoration:underline}

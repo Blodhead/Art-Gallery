@@ -1,7 +1,9 @@
 <header class="main-header" [class.hidden]="isHidden">
+
   <div class="header-left">
-    <span class="logo" routerLink="">FinestMiris</span>
+    <span class="logo" (click)="reloadHome()">FinestMiris</span>
   </div>
+
   <nav class="header-nav">
     <a *ngIf="type=='admin'" class="nav-link" routerLink="admin">Admin</a>
     <a *ngIf="type=='organizer'" class="nav-link" routerLink="user_organizer">Profile</a>
