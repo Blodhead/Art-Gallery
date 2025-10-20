@@ -63,6 +63,20 @@ export class ParfumeDetailsComponent implements OnInit {
 
   }
 
+  // Image preview modal
+  isPreviewOpen = false;
+  previewSrc = '';
+
+  openPreview() {
+    this.previewSrc = this.myParfumeDetail.img_location;
+    this.isPreviewOpen = true;
+  }
+
+  closePreview() {
+    this.isPreviewOpen = false;
+    this.previewSrc = '';
+  }
+
   // CART helpers: read/write cart from localStorage. Cart format: { [parfumeName]: { item: ParfumeDetails, qty: number } }
   private readCart(): { [key: string]: { item: ParfumeDetails, qty: number } } {
     try {

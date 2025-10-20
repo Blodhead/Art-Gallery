@@ -1,0 +1,55 @@
+<div class="shippment-grid">
+  <div class="shippment-cart">
+    <h3>Your cart ({{ totalQty() }} items)</h3>
+    <div *ngIf="entries().length == 0">Your cart is empty.</div>
+    <div class="cart-list">
+      <div *ngFor="let e of entries()" class="cart-item">
+        <app-parfume-details [myParfumeDetail]="e.item"></app-parfume-details>
+        <div class="cart-item-info">
+          <div>Quantity: <strong>{{ e.qty }}</strong></div>
+          <div class="cart-remove"><button class="btn btn-link" (click)="removeItem(e.key)">Remove</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shippment-form">
+    <h2>Shipping information</h2>
+    <div class="form-row">
+      <label>First name</label>
+      <input [(ngModel)]="firstName" />
+    </div>
+    <div class="form-row">
+      <label>Last name</label>
+      <input [(ngModel)]="lastName" />
+    </div>
+    <div class="form-row">
+      <label>Phone</label>
+      <input [(ngModel)]="phone" />
+    </div>
+    <div class="form-row">
+      <label>Street</label>
+      <input [(ngModel)]="street" />
+    </div>
+    <div class="form-row">
+      <label>Number</label>
+      <input [(ngModel)]="number" />
+    </div>
+    <div class="form-row">
+      <label>House number</label>
+      <input [(ngModel)]="houseNumber" />
+    </div>
+    <div class="form-row">
+      <label>City</label>
+      <input [(ngModel)]="city" />
+    </div>
+    <div class="form-row">
+      <label>Postal code</label>
+      <input [(ngModel)]="postalCode" />
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-primary" (click)="save()">Save & Continue</button>
+    </div>
+  </div>
+</div>

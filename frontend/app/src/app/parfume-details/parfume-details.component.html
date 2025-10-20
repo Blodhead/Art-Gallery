@@ -1,5 +1,5 @@
 <div class="parfume-card">
-  <div class="parfume-image-wrap">
+  <div class="parfume-image-wrap" (click)="openPreview()" style="cursor: zoom-in;">
     <img class="parfume-card-image" [src]="myParfumeDetail.img_location" alt="{{myParfumeDetail.name}}" loading="lazy" />
   </div>
   <div class="parfume-card-info">
@@ -11,6 +11,14 @@
       <div class="cart-qty">{{ getCartQty() }}</div>
       <button class="cart-btn plus" (click)="incrementCart()">+</button>
     </div>
+  </div>
+</div>
+
+<!-- Image preview modal -->
+<div class="image-preview-backdrop" *ngIf="isPreviewOpen" (click)="closePreview()">
+  <div class="image-preview" (click)="$event.stopPropagation()">
+    <button class="preview-close" (click)="closePreview()">×</button>
+    <img [src]="previewSrc" alt="preview" />
   </div>
 </div>
 

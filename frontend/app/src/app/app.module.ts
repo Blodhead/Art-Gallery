@@ -25,6 +25,7 @@ import { MessageComponent } from './message/message.component';
 import { DetailsComponent } from './details/details.component';
 import { GalleryModule } from  'ng-gallery';
 import { ChatComponent } from './chat/chat.component';
+import { ShippmentComponent } from './shippment/shippment.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { ChatComponent } from './chat/chat.component';
     MessageComponent,
     DetailsComponent,
     ChatComponent,
+    ShippmentComponent,
   ],
   imports: [
     BrowserModule,

@@ -73,6 +73,16 @@ export class HeaderComponent implements OnInit {
     this.filtersVisible = !this.filtersVisible;
   }
 
+  openCart(evt?: Event) {
+    if (evt) evt.preventDefault();
+    if (this.cartCount && this.cartCount > 0) {
+      // navigate to shippment page
+      window.location.href = '/shippment';
+    } else {
+      alert('Your cart is empty');
+    }
+  }
+
   reloadHome() {
     window.location.href = '/';
   }
