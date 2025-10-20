@@ -26,24 +26,11 @@ export class UserService {
     return this.http.post(`${this.url}/users/logout`, data);
   }
 
-  register(profile_photo_name, firstname, lastname, username, password, mail, phone, type, org_name, state, city, postal_code, street, number, pib, status) {
+  register(username, password, email) {
     const data = {
-      profile_photo_name: profile_photo_name,
-      firstname: firstname,
-      lastname: lastname,
       username: username,
       password: password,
-      type: type,
-      org_name: org_name,
-      state: state,
-      city: city,
-      postal_code: postal_code,
-      street: street,
-      number: number,
-      pib: pib,
-      mail: mail,
-      phone: phone,
-      status: status
+      mail: email,
     }
 
     return this.http.post(`${this.url}/users/register`, data);

@@ -16,24 +16,10 @@ export class RegisterComponent implements OnInit {
 
   constructor(private service: UserService, private _router: Router) { }
 
-  profile_photo = null;
-  profile_photo_name: string;
-  firstname: string;
-  lastname: string;
   username: string;
   password: string;
-  type: string;
   confirm_password: string;
-  state: string;
-  city: string;
-  postal_code: string;
-  street: string;
-  number: number;
-  pib: string = "Enter pib";
-  phone: string;
-  mail: string;
-  status: string = "waiting";
-  org_name: string;
+  email: string;
   Error_message: string;
   isLoading: boolean = false;
   errorMessage: string = '';
@@ -44,11 +30,7 @@ export class RegisterComponent implements OnInit {
   temp_mails: Array<string> = [];
 
 
-  current_user: User;
-  getType(): boolean {
-    if (this.type == "organizer") return true;
-    else return false;
-  }
+  current_user: string = null;
 
   ngOnInit(): void {
     this.getTempData();
@@ -83,69 +65,7 @@ export class RegisterComponent implements OnInit {
   cardImageBase64: string;
   isImageSaved: boolean;
 
-  /*onFileSelected(event) {
-    const allowed_types = ['image/png', 'image/jpeg'];
-    const max_height = 300;
-    const max_width = 300;
-    const min_height = 100;
-    const min_width = 100;
-
-    if (!_.includes(allowed_types, event.target.files[0].type)) {
-      this.imageError = 'Only Images are allowed ( JPG | PNG )';
-      this.profile_photo_name = "../../assets/images/users/avatar2.png";
-      alert(this.imageError);
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      const image = new Image();
-      image.src = e.target.result;
-      image.onload = rs => {
-        const img_height = rs.currentTarget['height'];
-        const img_width = rs.currentTarget['width'];
-
-        console.log(img_height, img_width);
-
-
-        if (img_height > max_height && img_width > max_width) {
-          this.imageError =
-            'Maximum dimentions allowed ' +
-            max_height +
-            '*' +
-            max_width +
-            'px';
-          this.profile_photo_name = "../../assets/images/users/avatar2.png";
-          alert(this.imageError);
-          return;
-        } else if (img_height < min_height && img_width < min_width) {
-          this.imageError =
-            'Minimum dimentions allowed ' +
-            min_height +
-            '*' +
-            min_width +
-            'px';
-          this.profile_photo_name = "../../assets/images/users/avatar2.png";
-          alert(this.imageError);
-          return;
-        } else {
-          const imgBase64Path = e.target.result;
-          this.cardImageBase64 = imgBase64Path;
-          this.isImageSaved = true;
-          // this.previewImagePath = imgBase64Path;
-        }
-      };
-    };
-    reader.readAsDataURL(event.target.files[0]);
-
-    this.profile_photo = event.target.files[0];
-    this.profile_photo_name = "../../assets/images/users/" + event.target.files[0].name;
-  }*/
-
-  removeImage() {
-    this.cardImageBase64 = null;
-    this.isImageSaved = false;
-  }
+  //#region validations rgb(255, 235, 235)
 
   isLetter(): boolean {
     if (this.boot == false) return true;
@@ -213,12 +133,13 @@ export class RegisterComponent implements OnInit {
     return false;
   }
 
+  //#endregion 
+
   register() {
 
     // Validate inputs
     this.Error_message = "";
     if (!this.username) this.Error_message += "Missing Username\n";
-    if (!this.mail) this.Error_message += "Missing Email\n";
     if (!this.password) this.Error_message += "Missing Password\n";
     if (this.password && (!this.hasLength() || !this.hasACapital() || !this.hasANumber() || !this.containsSpecialChars(this.password) || !this.isLetter())) this.Error_message += "Invalid password\n";
     if (this.password !== this.confirm_password) this.Error_message += "Passwords must match\n";
@@ -239,33 +160,13 @@ export class RegisterComponent implements OnInit {
     // Check email uniqueness on server
     this.isLoading = true;
     this.errorMessage = '';
-    this.service.checkMail(this.mail).subscribe((resp: any) => {
+    this.service.checkMail(this.email).subscribe((resp: any) => {
       if (resp && resp.exists) {
         this.isLoading = false;
         this.errorMessage = 'E-mail already registered';
         return;
       }
-
-      // proceed to register (backend hashes password)
-      const defaults = {
-        profile_photo_name: this.profile_photo_name || "../../assets/images/users/avatar2.jpg",
-        firstname: this.firstname || "",
-        lastname: this.lastname || "",
-        mail: this.mail || "",
-        phone: this.phone || "",
-        type: this.type || "participant",
-        org_name: this.org_name || "",
-        state: this.state || "",
-        city: this.city || "",
-        postal_code: this.postal_code || "",
-        street: this.street || "",
-        number: this.number || 0,
-        pib: this.pib || "",
-        status: this.status || "waiting"
-      };
-
-      this.service.register(defaults.profile_photo_name, defaults.firstname, defaults.lastname, this.username, this.password, defaults.mail, defaults.phone, defaults.type,
-        defaults.org_name, defaults.state, defaults.city, defaults.postal_code, defaults.street, defaults.number, defaults.pib, defaults.status).subscribe((res: any) => {
+      this.service.register(this.username, this.password, this.email).subscribe((res: any) => {
           this.isLoading = false;
           if (res && res["message"] == "user added") {
             // Auto-login: call login endpoint to obtain token & user object

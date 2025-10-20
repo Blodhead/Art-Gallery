@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
-import { AdminComponent } from './admin/admin.component';
 import { RegisterComponent } from './register/register.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -12,7 +11,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrganizerComponent } from './organizer/organizer.component';
 import { ParticipantComponent } from './participant/participant.component';
 import { RequestComponent } from './request/request.component';
-import { EditUserComponent } from './edit-user/edit-user.component';
 import { ParfumeComponent } from './parfume/parfume.component';
 import { ParfumeDetailsComponent } from './parfume-details/parfume-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -34,12 +32,10 @@ import { ChatComponent } from './chat/chat.component';
     AppComponent,
     LoginComponent,
     UserComponent,
-    AdminComponent,
     RegisterComponent,
     OrganizerComponent,
     ParticipantComponent,
     RequestComponent,
-    EditUserComponent,
     ParfumeComponent,
     ParfumeDetailsComponent,
     HeaderComponent,
