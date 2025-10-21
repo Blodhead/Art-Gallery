@@ -61,6 +61,13 @@ export class ParfumeDetailsComponent implements OnInit {
    this.myParfumeDetail.price = +this.myParfumeDetail.price;
    this.myParfumeDetail.amount = +this.myParfumeDetail.amount;
 
+   // set current path so template can show page-specific UI (like remove on shippment)
+   try {
+     this.current_path = this._router.url.split('/').filter(Boolean).pop() || '';
+   } catch (e) {
+     this.current_path = '';
+   }
+
   }
 
   // Image preview modal
@@ -122,6 +129,15 @@ export class ParfumeDetailsComponent implements OnInit {
     cart[key].qty = (cart[key].qty || 0) - 1;
     if (cart[key].qty <= 0) delete cart[key];
     this.writeCart(cart);
+  }
+
+  removeFromCart() {
+    const cart = this.readCart();
+    const key = this.myParfumeDetail.name;
+    if (cart[key]) {
+      delete cart[key];
+      this.writeCart(cart);
+    }
   }
 
   Toggle(): boolean {

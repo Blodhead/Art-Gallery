@@ -117,7 +117,7 @@ a,
 }
 
 .header-actions .collapse a {
-  display: block;
+  /*display: block;*/
   padding: 6px 10px;
   color: #333;
   text-decoration: none;

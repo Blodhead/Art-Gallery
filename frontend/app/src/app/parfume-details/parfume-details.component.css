@@ -108,6 +108,15 @@
   font-weight: 600;
 }
 
+.cart-remove-inline {
+  margin-left: 0.6rem;
+  background: transparent;
+  border: none;
+  color: #c33;
+  cursor: pointer;
+  font-weight: 600;
+}
+
 /* Image preview modal */
 .image-preview-backdrop {
   position: fixed;
