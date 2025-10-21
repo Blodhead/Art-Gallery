@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ParfumeDetails } from '../models/parfume-details';
 import { OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { SharedService } from '../shared.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-shippment',
@@ -13,14 +13,17 @@ import { SharedService } from '../shared.service';
 export class ShippmentComponent implements OnInit, OnDestroy {
   firstName = '';
   lastName = '';
+  address = '';
+  city = '';
+  postalCode = '';
   phone = '';
   street = '';
   number = '';
   houseNumber = '';
-  city = '';
-  postalCode = '';
 
-  constructor(private router: Router, private sharedService: SharedService) {
+  private cartSub: Subscription;
+
+  constructor(private router: Router, private shared: SharedService) {
     // try to prefill from localStorage
     const raw = localStorage.getItem('shipping_info');
     if (raw) {
@@ -28,31 +31,28 @@ export class ShippmentComponent implements OnInit, OnDestroy {
         const obj = JSON.parse(raw);
         this.firstName = obj.firstName || '';
         this.lastName = obj.lastName || '';
+        this.address = obj.address || '';
+        this.city = obj.city || '';
+        this.postalCode = obj.postalCode || '';
         this.phone = obj.phone || '';
         this.street = obj.street || '';
         this.number = obj.number || '';
         this.houseNumber = obj.houseNumber || '';
-        this.city = obj.city || '';
-        this.postalCode = obj.postalCode || '';
       } catch (e) { }
     }
   }
 
   cart: { [key: string]: { item: ParfumeDetails, qty: number } } = {};
-  cartSub: Subscription;
 
   ngOnInit() {
     try {
       const raw = localStorage.getItem('shopping_cart');
       if (raw) this.cart = JSON.parse(raw);
     } catch (e) { this.cart = {}; }
-    // emit cart state so header badge initializes correctly
-    this.sharedService.sendCartEvent(this.cart);
 
-    this.cartSub = this.sharedService.getCartEvent().subscribe((cart) => {
-      try {
-        this.cart = cart || {};
-      } catch (e) { this.cart = {}; }
+    // subscribe to cart events so the list updates when user changes cart elsewhere
+    this.cartSub = this.shared.getCartEvent().subscribe((cart) => {
+      try { this.cart = cart || {}; } catch (e) { this.cart = {}; }
     });
   }
 
@@ -63,14 +63,8 @@ export class ShippmentComponent implements OnInit, OnDestroy {
   removeItem(key: string) {
     delete this.cart[key];
     localStorage.setItem('shopping_cart', JSON.stringify(this.cart));
-    // emit cart update so header updates
-    this.sharedService.sendCartEvent(this.cart);
-    // refresh local view
-    this.ngOnInit();
-  }
-
-  ngOnDestroy() {
-    if (this.cartSub) this.cartSub.unsubscribe();
+    // notify others (header)
+    this.shared.sendCartEvent(this.cart);
   }
 
   totalQty() {
@@ -80,22 +74,27 @@ export class ShippmentComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    if (!this.firstName || !this.lastName || !this.phone || !this.street || !this.number || !this.houseNumber || !this.city || !this.postalCode) {
+    if (!this.firstName || !this.lastName || !this.address || !this.city || !this.postalCode || !this.phone || !this.street || !this.number || !this.houseNumber) {
       alert('Please fill all fields');
       return;
     }
     const info = {
       firstName: this.firstName,
       lastName: this.lastName,
+      address: this.address,
+      city: this.city,
+      postalCode: this.postalCode,
       phone: this.phone,
       street: this.street,
       number: this.number,
-      houseNumber: this.houseNumber,
-      city: this.city,
-      postalCode: this.postalCode
+      houseNumber: this.houseNumber
     };
     localStorage.setItem('shipping_info', JSON.stringify(info));
     alert('Shipping information saved');
     this.router.navigate(['/cart']);
+  }
+
+  ngOnDestroy() {
+    if (this.cartSub) this.cartSub.unsubscribe();
   }
 }
