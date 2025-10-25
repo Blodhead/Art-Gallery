@@ -319,7 +319,7 @@ class UserController {
         };
         // Send order confirmation email. Expects { email, shipping, cart }
         this.order = (req, res) => {
-            var nodemailer = require('nodemailer');
+            const nodemailer = require('nodemailer');
             const email = req.body.email;
             const shipping = req.body.shipping || {};
             const cart = req.body.cart || {};
@@ -327,37 +327,73 @@ class UserController {
                 res.status(400).json({ message: 'missing email' });
                 return;
             }
-            // Build order summary
-            let itemsSummary = '';
+            // Build HTML order summary
+            let itemsRows = '';
             try {
                 Object.keys(cart).forEach(k => {
                     const entry = cart[k];
                     const qty = entry.qty || 0;
                     const name = (entry.item && entry.item.name) || k;
                     const price = (entry.item && entry.item.price) ? entry.item.price : '';
-                    itemsSummary += `${name} — qty: ${qty}` + (price ? ` — price: ${price}` : '') + "\n";
+                    itemsRows += `
+        <tr>
+          <td style="padding: 8px 10px;">${name}</td>
+          <td style="padding: 8px 10px; text-align: center;">${qty}</td>
+          <td style="padding: 8px 10px; text-align: right;">${price ? price + ' €' : ''}</td>
+        </tr>`;
                 });
             }
             catch (e) {
-                itemsSummary = 'No items';
+                itemsRows = '<tr><td colspan="3">No items</td></tr>';
             }
-            const shippingText = `Name: ${shipping.firstName || ''} ${shipping.lastName || ''}\n` +
-                `Phone: ${shipping.phone || ''}\n` +
-                `Street: ${shipping.street || ''} ${shipping.number || ''} ${shipping.houseNumber || ''}\n` +
-                `City: ${shipping.city || ''}\nPostal code: ${shipping.postalCode || ''}`;
-            var transporter = nodemailer.createTransport({
+            const shippingHTML = `
+    <p style="margin: 0; line-height: 1.6;">
+      <strong>Name:</strong> ${shipping.firstName || ''} ${shipping.lastName || ''}<br>
+      <strong>Phone:</strong> ${shipping.phone || ''}<br>
+      <strong>Street:</strong> ${shipping.street || ''} ${shipping.number || ''} ${shipping.houseNumber || ''}<br>
+      <strong>City:</strong> ${shipping.city || ''}<br>
+      <strong>Postal code:</strong> ${shipping.postalCode || ''}
+    </p>`;
+            const transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
                     user: 'cirkovic32.mi@gmail.com',
-                    pass: 'lriyeiguroelkawg'
+                    pass: 'lriyeiguroelkawg' // app password
                 },
                 tls: { rejectUnauthorized: false }
             });
+            const htmlBody = `
+    <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto;">
+      <h2 style="color: #136207; text-align: center;">Thank you for your order!</h2>
+      <p style="text-align: center;">We’ve received your order and will process it shortly.</p>
+
+      <h3 style="border-bottom: 1px solid #ddd; padding-bottom: 4px;">Order Summary</h3>
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+        <thead>
+          <tr style="background: #f5f5f5;">
+            <th style="padding: 8px 10px; text-align: left;">Item</th>
+            <th style="padding: 8px 10px; text-align: center;">Qty</th>
+            <th style="padding: 8px 10px; text-align: right;">Price (€)</th>
+          </tr>
+        </thead>
+        <tbody>${itemsRows}</tbody>
+      </table>
+
+      <h3 style="border-bottom: 1px solid #ddd; padding-bottom: 4px;">Shipping Information</h3>
+      ${shippingHTML}
+
+      <p style="margin-top: 20px; text-align: center; color: #777;">
+        Best regards,<br>
+        <strong>FinestMiris Team</strong><br>
+        <a href="mailto:no-reply@finestmiris.com" style="color: #136207; text-decoration: none;">no-reply@finestmiris.com</a>
+      </p>
+    </div>
+  `;
             const mailOptions = {
-                from: 'cirkovic32.mi@gmail.com',
+                from: '"FinestMiris" <no-reply@finestmiris.com>',
                 to: email,
-                subject: 'Order confirmation from FinestMiris @no-reply',
-                text: `Thank you for your order!\n\nItems:\n${itemsSummary}\nShipping info:\n${shippingText}`
+                subject: 'Order Confirmation – FinestMiris',
+                html: htmlBody
             };
             transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
