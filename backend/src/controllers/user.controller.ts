@@ -316,17 +316,19 @@ export class UserController {
 
         // Build HTML order summary
         let itemsRows = '';
+        let total = 0;
         try {
             Object.keys(cart).forEach(k => {
                 const entry = cart[k];
                 const qty = entry.qty || 0;
                 const name = (entry.item && entry.item.name) || k;
-                const price = (entry.item && entry.item.price) ? entry.item.price : '';
+                const price = (entry.item && entry.item.price) ? entry.item.price : 0;
+                total += price * qty;
                 itemsRows += `
         <tr>
           <td style="padding: 8px 10px;">${name}</td>
           <td style="padding: 8px 10px; text-align: center;">${qty}</td>
-          <td style="padding: 8px 10px; text-align: right;">${price ? price + ' €' : ''}</td>
+          <td style="padding: 8px 10px; text-align: right;">${price.toFixed(2)} €</td>
         </tr>`;
             });
         } catch (e) {
@@ -334,13 +336,13 @@ export class UserController {
         }
 
         const shippingHTML = `
-    <p style="margin: 0; line-height: 1.6;">
-      <strong>Name:</strong> ${shipping.firstName || ''} ${shipping.lastName || ''}<br>
-      <strong>Phone:</strong> ${shipping.phone || ''}<br>
-      <strong>Street:</strong> ${shipping.street || ''} ${shipping.number || ''} ${shipping.houseNumber || ''}<br>
-      <strong>City:</strong> ${shipping.city || ''}<br>
-      <strong>Postal code:</strong> ${shipping.postalCode || ''}
-    </p>`;
+            <p style="margin: 0; line-height: 1.6;">
+            <strong>Ime i Prezime:</strong> ${shipping.firstName || ''} ${shipping.lastName || ''}<br>
+            <strong>Kontak telefon:</strong> ${shipping.phone || ''}<br>
+            <strong>Adresa:</strong> ${shipping.street || ''} ${shipping.number || ''} ${shipping.houseNumber ? '/' + shipping.houseNumber : ''}<br>
+            <strong>Grad:</strong> ${shipping.city || ''}<br>
+            <strong>Poštanski broj:</strong> ${shipping.postalCode || ''}
+            </p>`;
 
         const transporter = nodemailer.createTransport({
             service: 'gmail',
@@ -352,37 +354,56 @@ export class UserController {
         });
 
         const htmlBody = `
-    <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto;">
-      <h2 style="color: #136207; text-align: center;">Thank you for your order!</h2>
-      <p style="text-align: center;">We’ve received your order and will process it shortly.</p>
+            <div style="font-family: Arial, sans-serif; color: #333; max-width: 650px; margin: auto; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
+            
+            <!-- Header -->
+            <div style="background-color: #f9f9f9; padding: 20px; text-align: center;">
+                <span style="
+                font-family: 'Montserrat', sans-serif;
+                font-size: 2rem;
+                font-weight: 600;
+                color: #222;
+                letter-spacing: 0.05em;
+                text-decoration: none;
+                ">FinestMiris</span>
+            </div>
 
-      <h3 style="border-bottom: 1px solid #ddd; padding-bottom: 4px;">Order Summary</h3>
-      <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-        <thead>
-          <tr style="background: #f5f5f5;">
-            <th style="padding: 8px 10px; text-align: left;">Item</th>
-            <th style="padding: 8px 10px; text-align: center;">Qty</th>
-            <th style="padding: 8px 10px; text-align: right;">Price (€)</th>
-          </tr>
-        </thead>
-        <tbody>${itemsRows}</tbody>
-      </table>
+            <!-- Body -->
+            <div style="padding: 20px;">
+                <h2 style="color: #136207; text-align: center;">Hvala na ukazanom poverenju!</h2>
+                <p style="text-align: center; margin-bottom: 25px;">Primili smo porudžbinu, uskoro ćemo pripremiti Vašu pošiljku!</p>
 
-      <h3 style="border-bottom: 1px solid #ddd; padding-bottom: 4px;">Shipping Information</h3>
-      ${shippingHTML}
+                <h3 style="border-bottom: 1px solid #ddd; padding-bottom: 4px;">Sažetak</h3>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px;">
+                <thead>
+                    <tr style="background: #f5f5f5;">
+                    <th style="padding: 8px 10px; text-align: left;">Artikal</th>
+                    <th style="padding: 8px 10px; text-align: center;">Količina</th>
+                    <th style="padding: 8px 10px; text-align: right;">Cena (€)</th>
+                    </tr>
+                </thead>
+                <tbody>${itemsRows}</tbody>
+                </table>
 
-      <p style="margin-top: 20px; text-align: center; color: #777;">
-        Best regards,<br>
-        <strong>FinestMiris Team</strong><br>
-        <a href="mailto:no-reply@finestmiris.com" style="color: #136207; text-decoration: none;">no-reply@finestmiris.com</a>
-      </p>
-    </div>
-  `;
+                <div style="text-align: right; font-size: 1.1rem; font-weight: bold; margin-bottom: 20px;">
+                Ukupno: ${total.toFixed(2)} €
+                </div>
+
+                <h3 style="border-bottom: 1px solid #ddd; padding-bottom: 4px;">Podaci za isporuku</h3>
+                ${shippingHTML}
+
+                <p style="margin-top: 30px; text-align: center; color: #777;">
+                Srdačan pozdrav,<br>
+                <strong>FinestMiris Team</strong><br>
+                <a href="mailto:no-reply@finestmiris.com" style="color: #136207; text-decoration: none;">no-reply@finestmiris.com</a>
+                </p>
+            </div>
+            </div>`;
 
         const mailOptions = {
             from: '"FinestMiris" <no-reply@finestmiris.com>',
             to: email,
-            subject: 'Order Confirmation – FinestMiris',
+            subject: 'Potvrda porudžbine – FinestMiris',
             html: htmlBody
         };
 
@@ -395,6 +416,7 @@ export class UserController {
             }
         });
     };
+
 
 
     updatePassword = (req: express.Request, res: express.Response) => {

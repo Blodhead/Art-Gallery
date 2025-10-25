@@ -9,7 +9,6 @@ img.avatar {
 }
 
 .wrapper {
-  background-image: url("../../assets/images/user-bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   width: 100vw;

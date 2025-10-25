@@ -1,5 +1,4 @@
 .chat {
-    background-image: url('../../assets/images/chat_bg.png');
     background-size: 300px 500px;
     background-repeat: repeat;
   }
@@ -35,7 +34,6 @@
     left: -10px;
     width: 10px;
     height: 20px;
-    background-image: url('../../assets/images/chat_bg.png');
     background-size: 300px 500px;
     background-repeat: repeat;
     border-bottom-right-radius: 10px;
@@ -68,7 +66,6 @@
     right: -10px;
     width: 10px;
     height: 20px;
-    background-image: url('../../assets/images/chat_bg.png');
     background-size: 300px 500px;
     background-repeat: repeat;
     border-bottom-left-radius: 10px;
@@ -93,7 +90,6 @@
     padding-left: 260px !important;
   }
   .wrapper{
-    background-image: url('../../assets/images/edit_user_bg.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     width: 100vw;
