@@ -21,7 +21,7 @@ let User = new Schema({ //sva polja koja postoje u users semi
     phone:{
         type:String
     },
-    mail:{
+    email:{
         type:String
     },
     type:{

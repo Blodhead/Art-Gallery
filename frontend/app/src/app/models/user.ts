@@ -21,7 +21,7 @@ export class User {          //definisanje strukture
 
 export class Temp_Data{
     username: string;
-    mail:string;
+    email:string;
 }
 
 export class Token {

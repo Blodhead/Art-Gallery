@@ -4,6 +4,7 @@ import { ParfumeDetails } from '../models/parfume-details';
 import { OnInit, OnDestroy } from '@angular/core';
 import { SharedService } from '../shared.service';
 import { Subscription } from 'rxjs';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-shippment',
@@ -23,7 +24,7 @@ export class ShippmentComponent implements OnInit, OnDestroy {
 
   private cartSub: Subscription;
 
-  constructor(private router: Router, private shared: SharedService) {
+  constructor(private router: Router, private shared: SharedService, private userService: UserService) {
     // try to prefill from localStorage
     const raw = localStorage.getItem('shipping_info');
     if (raw) {
@@ -73,15 +74,16 @@ export class ShippmentComponent implements OnInit, OnDestroy {
     return n;
   }
 
+  // When user presses Order: validate, persist shipping info, send order email via backend
   save() {
-    if (!this.firstName || !this.lastName || !this.address || !this.city || !this.postalCode || !this.phone || !this.street || !this.number || !this.houseNumber) {
+    if (!this.firstName || !this.lastName || !this.city || !this.postalCode || !this.phone || !this.street || !this.number || !this.houseNumber) {
       alert('Please fill all fields');
       return;
     }
     const info = {
       firstName: this.firstName,
       lastName: this.lastName,
-      address: this.address,
+      address: this.street,
       city: this.city,
       postalCode: this.postalCode,
       phone: this.phone,
@@ -90,8 +92,38 @@ export class ShippmentComponent implements OnInit, OnDestroy {
       houseNumber: this.houseNumber
     };
     localStorage.setItem('shipping_info', JSON.stringify(info));
-    alert('Shipping information saved');
-    this.router.navigate(['/cart']);
+
+    // determine recipient email from localStorage current_user or email key
+    let recipient = null;
+    try {
+      const cur = JSON.parse(localStorage.getItem('email'));
+      if (cur) recipient = cur || null;
+    } catch (e) { }
+    if (!recipient) {
+      const alt = localStorage.getItem('email');
+      if (alt) recipient = alt;
+    }
+
+    if (!recipient) { alert('Could not determine recipient email. Please log in.'); return; }
+
+    // load cart
+    let cart = {};
+    try { cart = JSON.parse(localStorage.getItem('shopping_cart')) || {}; } catch (e) { cart = {}; }
+
+    this.userService.order(recipient, cart, info).subscribe({
+      next: (res: any) => {
+        alert('Order placed — confirmation email sent');
+        // clear cart
+        localStorage.removeItem('shopping_cart');
+        this.shared.sendCartEvent({});
+        // navigate to home or orders page
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        console.error('order error', err);
+        alert('Error placing order');
+      }
+    });
   }
 
   ngOnDestroy() {

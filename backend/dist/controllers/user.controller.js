@@ -142,7 +142,7 @@ class UserController {
                     "org_name": user.org_name,
                     "firstname": user.firstname,
                     "phone": user.phone,
-                    "mail": user.mail,
+                    "mail": user.email,
                     "lastname": user.lastname,
                     "username": user.username,
                     "password": user.password,
@@ -315,6 +315,58 @@ class UserController {
                         res.json("POSLATO");
                     }
                 statement = false;
+            });
+        };
+        // Send order confirmation email. Expects { email, shipping, cart }
+        this.order = (req, res) => {
+            var nodemailer = require('nodemailer');
+            const email = req.body.email;
+            const shipping = req.body.shipping || {};
+            const cart = req.body.cart || {};
+            if (!email) {
+                res.status(400).json({ message: 'missing email' });
+                return;
+            }
+            // Build order summary
+            let itemsSummary = '';
+            try {
+                Object.keys(cart).forEach(k => {
+                    const entry = cart[k];
+                    const qty = entry.qty || 0;
+                    const name = (entry.item && entry.item.name) || k;
+                    const price = (entry.item && entry.item.price) ? entry.item.price : '';
+                    itemsSummary += `${name} — qty: ${qty}` + (price ? ` — price: ${price}` : '') + "\n";
+                });
+            }
+            catch (e) {
+                itemsSummary = 'No items';
+            }
+            const shippingText = `Name: ${shipping.firstName || ''} ${shipping.lastName || ''}\n` +
+                `Phone: ${shipping.phone || ''}\n` +
+                `Street: ${shipping.street || ''} ${shipping.number || ''} ${shipping.houseNumber || ''}\n` +
+                `City: ${shipping.city || ''}\nPostal code: ${shipping.postalCode || ''}`;
+            var transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'cirkovic32.mi@gmail.com',
+                    pass: 'lriyeiguroelkawg'
+                },
+                tls: { rejectUnauthorized: false }
+            });
+            const mailOptions = {
+                from: 'cirkovic32.mi@gmail.com',
+                to: email,
+                subject: 'Order confirmation from FinestMiris @no-reply',
+                text: `Thank you for your order!\n\nItems:\n${itemsSummary}\nShipping info:\n${shippingText}`
+            };
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    console.error('order mail error', error);
+                    res.status(500).json({ message: 'error sending email' });
+                }
+                else {
+                    res.json({ message: 'order email sent' });
+                }
             });
         };
         this.updatePassword = (req, res) => {

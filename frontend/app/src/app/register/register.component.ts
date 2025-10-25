@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit {
       else {
         for (var i = 0; i < temp_data.length; i++) {
           this.temp_usernames[i] = temp_data[i].username;
-          this.temp_mails[i] = temp_data[i].mail;
+          this.temp_mails[i] = temp_data[i].email;
         }
 
       }

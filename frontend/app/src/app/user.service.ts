@@ -96,4 +96,9 @@ export class UserService {
     const data = { username, old_pass, new_pass };
     return this.http.post(`${this.url}/users/changePassword`, data);
   }
+
+  order(email, cart, shipping) {
+    const data = { email, cart, shipping };
+    return this.http.post(`${this.url}/users/order`, data);
+  }
 }

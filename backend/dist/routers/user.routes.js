@@ -20,6 +20,7 @@ userRouter.route("/updateStatus").post((req, res) => new user_controller_1.UserC
 userRouter.route("/sendMail").post((req, res) => new user_controller_1.UserController().sendMail(req, res));
 userRouter.route("/updatePassword").post((req, res) => new user_controller_1.UserController().updatePassword(req, res));
 userRouter.route("/changePassword").post((req, res) => new user_controller_1.UserController().changePassword(req, res));
+userRouter.route("/order").post((req, res) => new user_controller_1.UserController().order(req, res));
 userRouter.route("/logout").post((req, res) => new user_controller_1.UserController().logout(req, res));
 exports.default = userRouter; //eksportuj ruter da se moze koristiti negde drugde
 //# sourceMappingURL=user.routes.js.map
