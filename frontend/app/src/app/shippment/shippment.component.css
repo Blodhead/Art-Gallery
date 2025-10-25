@@ -36,6 +36,11 @@
 .cart-item-info { display:flex; flex-direction: column; gap: 0.5rem }
 .cart-remove button { color: #c33 }
 
+  @media (max-width: 600px) {
+    .cart-list { grid-template-columns: repeat(1, 1fr);  }
+  }
+
+
 /* Make shipping form sticky so it doesn't scroll with cart list */
 .shippment-form { position: sticky; top: 20px; align-self: start }
 

@@ -1,6 +1,6 @@
 <div class="shippment-grid">
   <div class="shippment-cart">
-    <h3>Your cart ({{ totalQty() }} items)</h3>
+    <h3>Orders ({{ totalQty() }} items)</h3>
     <div *ngIf="entries().length == 0">Your cart is empty.</div>
     <div class="cart-list">
       <div *ngFor="let e of entries()" class="cart-item">
