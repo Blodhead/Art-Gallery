@@ -34,7 +34,7 @@
                         <div class="price-slider">
                             <div #priceSlider class="slider-box"></div>
                         </div>
-                        
+
                     </div>
                     <div class="filter-group">
                         <label>Sort by</label>
@@ -51,14 +51,13 @@
                 <app-parfume-details *ngFor="let parfume of displayed_parfumes; let i = index;"
                     [myParfumeDetail]="parfume"></app-parfume-details>
             </div>
-            <div class="pagination-controls"
-                style="margin: 2rem 0; display: flex; justify-content: center; align-items: center; gap: 1rem;">
-                <button class="btn btn-outline-secondary" (click)="prevPage()"
-                    [disabled]="currentPage === 1">Prev</button>
-                <span>Page {{currentPage}} of {{totalPages}}</span>
-                <button class="btn btn-outline-secondary" (click)="nextPage()"
-                    [disabled]="currentPage === totalPages">Next</button>
-            </div>
+        </div>
+        <div class="pagination-controls"
+            style="margin: 2rem 0; display: flex; justify-content: center; align-items: center; gap: 1rem;">
+            <button class="btn btn-outline-secondary" (click)="prevPage()" [disabled]="currentPage === 1">Prev</button>
+            <span>Page {{currentPage}} of {{totalPages}}</span>
+            <button class="btn btn-outline-secondary" (click)="nextPage()"
+                [disabled]="currentPage === totalPages">Next</button>
         </div>
     </div>
 
