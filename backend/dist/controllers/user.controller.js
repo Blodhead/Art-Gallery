@@ -52,18 +52,18 @@ const tokens_1 = __importDefault(require("../models/tokens"));
 class UserController {
     constructor() {
         this.register = (req, res) => {
-            const mail = req.body.mail;
+            const email = req.body.email;
             const username = req.body.username;
             const password = req.body.password;
             // basic presence check
-            if (!mail || !username || !password) {
+            if (!email || !username || !password) {
                 res.status(400).json({ message: 'missing fields' });
                 return;
             }
             // hash the password before saving
             bcrypt.hash(password, 10).then((hash) => {
                 let user = new users_1.default({
-                    mail: mail,
+                    email: email,
                     username: username,
                     password: hash,
                 });
@@ -78,14 +78,14 @@ class UserController {
                 res.status(500).json({ message: 'hash error' });
             });
         };
-        // POST { mail }
+        // POST { email }
         this.checkMail = (req, res) => {
-            const mail = req.body.mail;
-            if (!mail) {
+            const email = req.body.email;
+            if (!email) {
                 res.status(400).json({ exists: false });
                 return;
             }
-            users_1.default.findOne({ mail: mail }, (err, user) => {
+            users_1.default.findOne({ email: email }, (err, user) => {
                 if (err) {
                     console.error(err);
                     res.status(500).json({ exists: false });
@@ -97,7 +97,7 @@ class UserController {
         this.addShippingInfo = (req, res) => {
             let user = new users_1.default({
                 phone: req.body.phone,
-                mail: req.body.mail,
+                email: req.body.email,
                 lastname: req.body.lastname,
                 username: req.body.username,
                 password: req.body.password,
@@ -123,7 +123,7 @@ class UserController {
                 org_name: req.body.org_name,
                 firstname: req.body.firstname,
                 phone: req.body.phone,
-                mail: req.body.mail,
+                email: req.body.email,
                 lastname: req.body.lastname,
                 username: req.body.username,
                 password: req.body.password,
@@ -142,7 +142,7 @@ class UserController {
                     "org_name": user.org_name,
                     "firstname": user.firstname,
                     "phone": user.phone,
-                    "mail": user.email,
+                    "email": user.email,
                     "lastname": user.lastname,
                     "username": user.username,
                     "password": user.password,
@@ -238,7 +238,7 @@ class UserController {
             var nodemailer = require('nodemailer');
             var randomWords = require('random-words');
             var special = "!\"§$%&/()=?\u{20ac}";
-            let mail = req.body.mail;
+            let email = req.body.email;
             let temp_password = randomWords({ exactly: 1, maxLength: 8 });
             while (temp_password[0].length < 6 || temp_password[0].length > 8)
                 temp_password = randomWords({ exactly: 1, maxLength: 8 });
@@ -279,14 +279,14 @@ class UserController {
                     rejectUnauthorized: false
                 }
             });
-            var mailOptions = {
+            var emailOptions = {
                 from: 'cirkovic32.mi@gmail.com',
-                to: mail,
+                to: email,
                 subject: 'Password reset @no-reply',
                 text: 'Hello from Art Gallery, \n\nYour reset password is: ' + temp_password + "\n\n P.S.IF YOU DIDN'T INITIATE PASSWORD RESET, IGNORE THIS E-MAIL!"
             };
             let statement = false;
-            transporter.sendMail(mailOptions, (error, info) => {
+            transporter.sendMail(emailOptions, (error, info) => {
                 if (statement == false)
                     if (error) {
                         console.log(error);
@@ -302,7 +302,7 @@ class UserController {
                 timeStamp: new Date()
             };
             console.log(temp_password);
-            users_1.default.updateOne({ "mail": mail }, {
+            users_1.default.updateOne({ "email": email }, {
                 $set: { "tempPass": data.temp_password, "timeStamp": data.timeStamp }
             }, (error, info) => {
                 if (statement == true)
@@ -382,9 +382,9 @@ class UserController {
             <!-- Body -->
             <div style="padding: 20px;">
                 <h2 style="color: #136207; text-align: center;">Hvala na ukazanom poverenju!</h2>
-                <p style="text-align: center; margin-bottom: 25px;">Primili smo Vašu narudžbinu, uskoro ćemo obraditi bašu porudžbinu.</p>
+                <p style="text-align: center; margin-bottom: 25px;">Primili smo porudžbinu, uskoro ćemo pripremiti Vašu pošiljku!</p>
 
-                <h3 style="border-bottom: 1px solid #ddd; padding-bottom: 4px;">Sažetak narudžbine</h3>
+                <h3 style="border-bottom: 1px solid #ddd; padding-bottom: 4px;">Sažetak</h3>
                 <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px;">
                 <thead>
                     <tr style="background: #f5f5f5;">
@@ -406,19 +406,19 @@ class UserController {
                 <p style="margin-top: 30px; text-align: center; color: #777;">
                 Srdačan pozdrav,<br>
                 <strong>FinestMiris Team</strong><br>
-                <a href="mailto:no-reply@finestmiris.com" style="color: #136207; text-decoration: none;">no-reply@finestmiris.com</a>
+                <a href="emailto:no-reply@finestmiris.com" style="color: #136207; text-decoration: none;">no-reply@finestmiris.com</a>
                 </p>
             </div>
             </div>`;
-            const mailOptions = {
+            const emailOptions = {
                 from: '"FinestMiris" <no-reply@finestmiris.com>',
                 to: email,
                 subject: 'Potvrda porudžbine – FinestMiris',
                 html: htmlBody
             };
-            transporter.sendMail(mailOptions, (error, info) => {
+            transporter.sendMail(emailOptions, (error, info) => {
                 if (error) {
-                    console.error('order mail error', error);
+                    console.error('order email error', error);
                     res.status(500).json({ message: 'error sending email' });
                 }
                 else {

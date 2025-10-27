@@ -9,12 +9,12 @@ import TokenModel from '../models/tokens'
 export class UserController {
 
     register = (req: express.Request, res: express.Response) => {
-        const mail = req.body.mail;
+        const email = req.body.email;
         const username = req.body.username;
         const password = req.body.password;
 
         // basic presence check
-        if (!mail || !username || !password) {
+        if (!email || !username || !password) {
             res.status(400).json({ message: 'missing fields' });
             return;
         }
@@ -22,7 +22,7 @@ export class UserController {
         // hash the password before saving
         bcrypt.hash(password, 10).then((hash) => {
             let user = new User({
-                mail: mail,
+                email: email,
                 username: username,
                 password: hash,
             })
@@ -39,11 +39,11 @@ export class UserController {
         });
     }
 
-    // POST { mail }
+    // POST { email }
     checkMail = (req: express.Request, res: express.Response) => {
-        const mail = req.body.mail;
-        if (!mail) { res.status(400).json({ exists: false }); return; }
-        User.findOne({ mail: mail }, (err, user) => {
+        const email = req.body.email;
+        if (!email) { res.status(400).json({ exists: false }); return; }
+        User.findOne({ email: email }, (err, user) => {
             if (err) { console.error(err); res.status(500).json({ exists: false }); return; }
             res.json({ exists: !!user });
         });
@@ -52,7 +52,7 @@ export class UserController {
     addShippingInfo = (req: express.Request, res: express.Response) => {
         let user = new User({
             phone: req.body.phone,
-            mail: req.body.mail,
+            email: req.body.email,
             lastname: req.body.lastname,
             username: req.body.username,
             password: req.body.password,
@@ -81,7 +81,7 @@ export class UserController {
             org_name: req.body.org_name,
             firstname: req.body.firstname,
             phone: req.body.phone,
-            mail: req.body.mail,
+            email: req.body.email,
             lastname: req.body.lastname,
             username: req.body.username,
             password: req.body.password,
@@ -103,7 +103,7 @@ export class UserController {
                     "org_name": user.org_name,
                     "firstname": user.firstname,
                     "phone": user.phone,
-                    "mail": user.email,
+                    "email": user.email,
                     "lastname": user.lastname,
                     "username": user.username,
                     "password": user.password,
@@ -212,7 +212,7 @@ export class UserController {
         var randomWords = require('random-words');
         var special = "!\"§$%&/()=?\u{20ac}";
 
-        let mail = req.body.mail;
+        let email = req.body.email;
 
         let temp_password = randomWords({ exactly: 1, maxLength: 8 });
 
@@ -262,16 +262,16 @@ export class UserController {
             }
         });
 
-        var mailOptions = {
+        var emailOptions = {
             from: 'cirkovic32.mi@gmail.com',
-            to: mail,
+            to: email,
             subject: 'Password reset @no-reply',
             text: 'Hello from Art Gallery, \n\nYour reset password is: ' + temp_password + "\n\n P.S.IF YOU DIDN'T INITIATE PASSWORD RESET, IGNORE THIS E-MAIL!"
         };
 
         let statement: boolean = false;
 
-        transporter.sendMail(mailOptions, (error, info) => {
+        transporter.sendMail(emailOptions, (error, info) => {
             if (statement == false)
                 if (error) {
                     console.log(error);
@@ -286,7 +286,7 @@ export class UserController {
             timeStamp: new Date()
         }
         console.log(temp_password);
-        User.updateOne({ "mail": mail }, {
+        User.updateOne({ "email": email }, {
             $set: { "tempPass": data.temp_password, "timeStamp": data.timeStamp }
         }, (error, info) => {
             if (statement == true)
@@ -395,21 +395,21 @@ export class UserController {
                 <p style="margin-top: 30px; text-align: center; color: #777;">
                 Srdačan pozdrav,<br>
                 <strong>FinestMiris Team</strong><br>
-                <a href="mailto:no-reply@finestmiris.com" style="color: #136207; text-decoration: none;">no-reply@finestmiris.com</a>
+                <a href="emailto:no-reply@finestmiris.com" style="color: #136207; text-decoration: none;">no-reply@finestmiris.com</a>
                 </p>
             </div>
             </div>`;
 
-        const mailOptions = {
+        const emailOptions = {
             from: '"FinestMiris" <no-reply@finestmiris.com>',
             to: email,
             subject: 'Potvrda porudžbine – FinestMiris',
             html: htmlBody
         };
 
-        transporter.sendMail(mailOptions, (error, info) => {
+        transporter.sendMail(emailOptions, (error, info) => {
             if (error) {
-                console.error('order mail error', error);
+                console.error('order email error', error);
                 res.status(500).json({ message: 'error sending email' });
             } else {
                 res.json({ message: 'order email sent' });
