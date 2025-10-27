@@ -113,7 +113,7 @@ export class ParfumeDetailsComponent implements OnInit {
   }
 
   incrementCart() {
-    if (!localStorage.getItem('token')) { alert('You must be logged in to add items to cart'); return; }
+    if (!localStorage.getItem('token')) { this._router.navigate(["login"]); return}
     const cart = this.readCart();
     const key = this.myParfumeDetail.name;
     if (!cart[key]) cart[key] = { item: this.myParfumeDetail, qty: 0 };
@@ -122,7 +122,7 @@ export class ParfumeDetailsComponent implements OnInit {
   }
 
   decrementCart() {
-    if (!localStorage.getItem('token')) { alert('You must be logged in to modify cart'); return; }
+    if (!localStorage.getItem('token')) { this._router.navigate(["login"]); return; }
     const cart = this.readCart();
     const key = this.myParfumeDetail.name;
     if (!cart[key]) return; // nothing to decrement

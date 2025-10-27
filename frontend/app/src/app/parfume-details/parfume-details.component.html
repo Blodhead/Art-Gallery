@@ -9,7 +9,7 @@
     <div class="parfume-card-cart-controls">
       <button class="cart-btn minus" (click)="decrementCart()">−</button>
       <div class="cart-qty">{{ getCartQty() }}</div>
-      <button class="cart-btn plus" (click)="incrementCart()">+</button>
+      <button  class="cart-btn plus" (click)="incrementCart()">+</button>
       <button *ngIf="current_path === 'shippment'" class="cart-remove-inline" (click)="removeFromCart()">Remove</button>
     </div>
   </div>
