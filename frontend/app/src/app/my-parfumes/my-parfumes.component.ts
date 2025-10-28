@@ -48,7 +48,7 @@ export class MyParfumesComponent implements OnInit {
 
           if (this.allParfumes[j].participants != null) {
             for (let k = 0; k < this.allParfumes[j].participants.length; k++)
-              if ((this.allParfumes[j].participants[k].mail == this.current_user.mail) && this.allParfumes[j].date > new Date()) {
+              if ((this.allParfumes[j].participants[k].email == this.current_user.email) && this.allParfumes[j].date > new Date()) {
                 if(this.allParfumes[j].participants[k].status != "notify")
                 this.myParfumes.push(this.allParfumes[j]);
                 break;

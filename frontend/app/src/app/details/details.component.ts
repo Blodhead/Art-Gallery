@@ -45,9 +45,9 @@ export class DetailsComponent implements OnInit {
 
     /*for (let i = 0; i < this.myParfume.participants.length; i++) {
       if (this.myParfume.participants[i].status == "waiting")
-        this.waitingParticipants.push(this.myParfume.participants[i].mail);
+        this.waitingParticipants.push(this.myParfume.participants[i].email);
       else if (this.myParfume.participants[i].status == "approved")
-        this.subscribedParticipants.push(this.myParfume.participants[i].mail);
+        this.subscribedParticipants.push(this.myParfume.participants[i].email);
     }*/
 
   }
@@ -102,7 +102,7 @@ export class DetailsComponent implements OnInit {
       if (this.waitingParticipants[iter] == participant) {
 
         /*for (let x = 0; x < this.myParfume.participants.length; x++) {
-          if (this.myParfume.participants[x].mail == this.waitingParticipants[iter]) {
+          if (this.myParfume.participants[x].email == this.waitingParticipants[iter]) {
             this.myParfume.participants[x] = null;
             break;
           }
@@ -134,7 +134,7 @@ export class DetailsComponent implements OnInit {
     /*for (let iter = 0; iter < this.waitingParticipants.length; iter++) {
       if (this.waitingParticipants[iter] == participant) {
         for (let x = 0; x < this.myParfume.participants.length; x++) {
-          if (this.myParfume.participants[x].mail == this.waitingParticipants[iter]) {
+          if (this.myParfume.participants[x].email == this.waitingParticipants[iter]) {
             this.myParfume.participants[x].status = "approved";
             break;
           }

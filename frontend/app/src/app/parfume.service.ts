@@ -98,9 +98,9 @@ export class ParfumeService {
     return this.http.get(`${this.url}/parfume/getAllParfumes`);
   }
 
-  sub(mail, myParfumeDetail, arg) {
+  sub(email, myParfumeDetail, arg) {
     let data = {
-      mail: mail,
+      email: email,
       myParfumeDetail: myParfumeDetail,
       status: arg
     }
@@ -108,9 +108,9 @@ export class ParfumeService {
     return this.http.post(`${this.url}/parfume/sub`, data);
   }
 
-  unsub(mail, myParfumeDetail) {
+  unsub(email, myParfumeDetail) {
     let data = {
-      mail: mail,
+      email: email,
       myParfumeDetail: myParfumeDetail
     }
 
@@ -119,7 +119,7 @@ export class ParfumeService {
 
   reject(participant, myParfume) {
     let data = {
-      mail: participant,
+      email: participant,
       myParfumeDetail: myParfume
     }
 
@@ -128,7 +128,7 @@ export class ParfumeService {
 
   accept(participant, myParfume) {
     let data = {
-      mail: participant,
+      email: participant,
       myParfumeDetail: myParfume
     }
 

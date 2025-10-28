@@ -80,18 +80,21 @@ class UserController {
         };
         // POST { email }
         this.checkMail = (req, res) => {
-            const email = req.body.email;
-            if (!email) {
+            // accept either { mail } or { email } from clients
+            const mail = req.body.mail || req.body.email;
+            if (!mail) {
+                // missing payload - client should send an e-mail to check
                 res.status(400).json({ exists: false });
                 return;
             }
-            users_1.default.findOne({ email: email }, (err, user) => {
+            // Look up user by email and return a clear exists boolean
+            users_1.default.findOne({ email: mail }, (err, user) => {
                 if (err) {
-                    console.error(err);
+                    console.error('checkMail error', err);
                     res.status(500).json({ exists: false });
                     return;
                 }
-                res.json({ exists: !!user });
+                res.status(200).json({ exists: !!user });
             });
         };
         this.addShippingInfo = (req, res) => {

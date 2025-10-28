@@ -187,7 +187,7 @@ export class ParfumeDetailsComponent implements OnInit {
 
     /*for (let i = 0; i < this.myParfumeDetail.participants.length; i++) {
       if (this.myParfumeDetail.participants[i].status == "notify")
-        notify_mail_list.push(this.myParfumeDetail.participants[i].mail);
+        notify_mail_list.push(this.myParfumeDetail.participants[i].email);
     }*/
 
     if (notify_mail_list.length != 0) { statement = true }
@@ -199,9 +199,9 @@ export class ParfumeDetailsComponent implements OnInit {
     });
 
 
-    this.parfume_Service.sendMail(notify_mail_list, this.myParfumeDetail.name).subscribe((mail: string) => {
-      if (mail == "NIJE POSLATO") alert("Email NOT sent!");
-      else alert("ERROR on mail!");
+    this.parfume_Service.sendMail(notify_mail_list, this.myParfumeDetail.name).subscribe((email: string) => {
+      if (email == "NIJE POSLATO") alert("Email NOT sent!");
+      else alert("ERROR on email!");
 
       this.rr();
     });
@@ -214,7 +214,7 @@ export class ParfumeDetailsComponent implements OnInit {
   isSubscribed(): boolean {
 
     /*for (let i = 0; i < this.myParfumeDetail.participants.length; i++) {
-      if (this.myParfumeDetail.participants[i].mail == this.current_user.mail)
+      if (this.myParfumeDetail.participants[i].email == this.current_user.email)
         return true;
     }*/
     return false;

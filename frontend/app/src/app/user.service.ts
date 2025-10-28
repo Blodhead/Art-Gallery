@@ -30,14 +30,14 @@ export class UserService {
     const data = {
       username: username,
       password: password,
-      mail: email,
+      email: email,
     }
 
     return this.http.post(`${this.url}/users/register`, data);
   }
 
-  checkMail(mail: string) {
-    const data = { mail };
+  checkMail(email: string) {
+    const data = { email };
     return this.http.post(`${this.url}/users/checkMail`, data);
   }
 
@@ -45,7 +45,7 @@ export class UserService {
     return this.http.post(`${this.url}/users/updateStatus`, user);
   }
 
-  update(curr_sent, profile_photo_name, firstname, lastname, username, password, mail, phone, type, org_name, state, city, postal_code, street, number, pib, status) {
+  update(curr_sent, profile_photo_name, firstname, lastname, username, password, email, phone, type, org_name, state, city, postal_code, street, number, pib, status) {
     const data = {
       curr_sent: curr_sent,
       profile_photo_name: profile_photo_name,
@@ -61,7 +61,7 @@ export class UserService {
       street: street,
       number: number,
       pib: pib,
-      mail: mail,
+      email: email,
       phone: phone,
       status: status
     }
@@ -76,9 +76,9 @@ export class UserService {
     return this.http.get(`${this.url}/users/getTempData`);
   }
 
-  sendMail(mail) {
+  sendMail(email) {
     let data = {
-      mail: mail
+      email: email
     }
     return this.http.post(`${this.url}/users/sendMail`, data);
   }

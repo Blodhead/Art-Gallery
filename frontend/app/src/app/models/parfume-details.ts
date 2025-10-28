@@ -10,7 +10,7 @@ export class ParfumeDetails {
     
 }
 export class Subscription {
-    mail: string;
+    email: string;
     status: string;
 }
 
