@@ -5,45 +5,133 @@
   background: #fff;
   padding: 1.5rem;
   border-radius: 12px;
-  box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
 }
-.shippment-form h2 { color: #136207; margin-bottom: 1rem }
-.form-row { display:flex; flex-direction: column; gap: 0.4rem; margin-bottom: 0.9rem }
-.form-row label { font-weight: 600 }
-.form-row input { padding: 0.6rem; border-radius: 6px; border: 1px solid #e6e6e6 }
-.form-actions { display:flex; justify-content:flex-end }
+
+.shippment-form h2 {
+  color: #136207;
+  margin-bottom: 1rem
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 0.9rem
+}
+
+.form-row label {
+  font-weight: 600
+}
+
+.form-row input {
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #e6e6e6
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end
+}
 
 .form-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.8rem;
 }
-.form-field { display:flex; flex-direction: column; gap: 0.35rem }
-.form-field label { font-weight: 600 }
-.form-field input { padding: 0.6rem; border-radius: 6px; border: 1px solid #e6e6e6 }
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem
+}
+
+.form-field label {
+  font-weight: 600
+}
+
+.form-field input {
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #e6e6e6
+}
 
 @media (max-width: 1100px) {
-  .form-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 600px) {
-  .form-grid { grid-template-columns: 1fr; }
-}
-
-.shippment-grid { display: grid; grid-template-columns: 1fr 650px; gap: 1.5rem; max-width: 1100px; margin: 2rem auto }
-.shippment-cart { background: #fff; padding: 1rem; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.04) }
-.cart-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; max-height: 70vh; overflow-y: auto; padding: 0.5rem }
-.cart-item { display:flex; gap: 1rem; align-items: center; background: #fff; padding: 0.5rem; border-radius: 8px }
-.cart-item-info { display:flex; flex-direction: column; gap: 0.5rem }
-.cart-remove button { color: #c33 }
-
-  @media (max-width: 600px) {
-    .cart-list { grid-template-columns: repeat(1, 1fr);  }
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
+}
+
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/*.shippment-cart { background: #fff; padding: 1rem; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.04) }*/
+.shippment-grid { display: grid; grid-template-columns: 1fr 650px; gap: 1.5rem; max-width: 1100px; margin: 2rem auto }
+
+@media (max-width: 900px) {
+  .shippment-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.shippment-cart {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04)
+}
+
+.cart-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 0.5rem
+}
+
+.cart-item {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  background: #fff;
+  padding: 0.5rem;
+  border-radius: 8px
+}
+
+.cart-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem
+}
+
+.cart-remove button {
+  color: #c33
+}
+
+@media (max-width: 600px) {
+  .cart-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
 
 
 /* Make shipping form sticky so it doesn't scroll with cart list */
-.shippment-form { position: sticky; top: 20px; align-self: start }
+.shippment-form {
+  position: sticky;
+  top: 20px;
+  align-self: start
+}
 
 @media (max-width: 900px) {
-  .shippment-grid { grid-template-columns: 1fr; }
+  .shippment-grid {
+    grid-template-columns: 1fr;
+  }
 }
