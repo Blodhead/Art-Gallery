@@ -1,15 +1,20 @@
 <div class="parfume-card">
   <div class="parfume-image-wrap" (click)="openPreview()" style="cursor: zoom-in;">
-    <img class="parfume-card-image" [src]="myParfumeDetail.img_location" alt="{{myParfumeDetail.name}}" loading="lazy" />
+    <img class="parfume-card-image" [src]="myParfumeDetail.img_location" alt="{{myParfumeDetail.name}}"
+      loading="lazy" />
   </div>
   <div class="parfume-card-info">
     <h2 class="parfume-card-title">{{myParfumeDetail.name}}</h2>
-    <div class="parfume-card-price">{{myParfumeDetail.price | currency:'EUR':'symbol':'1.0-0'}} <span
-        class="parfume-card-amount">{{myParfumeDetail.amount}}ml</span></div>
+    <div class="parfume-card-price">{{myParfumeDetail.price | currency:'EUR':'symbol':'1.0-0'}}
+      <span class="parfume-card-amount">{{
+          +myParfumeDetail.amount === 333 ? 'SET'
+        : +myParfumeDetail.amount === 999 ? 'TESTER'
+        :  myParfumeDetail.amount + 'ml'}}</span>
+    </div>
     <div class="parfume-card-cart-controls">
       <button class="cart-btn minus" (click)="decrementCart()">−</button>
       <div class="cart-qty">{{ getCartQty() }}</div>
-      <button  class="cart-btn plus" (click)="incrementCart()">+</button>
+      <button class="cart-btn plus" (click)="incrementCart()">+</button>
       <button *ngIf="current_path === 'shippment'" class="cart-remove-inline" (click)="removeFromCart()">Remove</button>
     </div>
   </div>
