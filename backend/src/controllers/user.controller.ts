@@ -429,12 +429,7 @@ export class UserController {
     }
 
     // Send order confirmation email. Expects { email, shipping, cart }
-    order = async (req, res) => {
-        console.log('order request received');
-        console.log(req.body);
-        console.log(req.body.email);
-        console.log(req.body.cart);
-        console.log(req.body.shipping);
+    order = (req, res) => {
         const nodemailer = require('nodemailer');
         const email = req.body.email;
         const shipping = req.body.shipping || {};
