@@ -11,11 +11,36 @@ const user_routes_1 = __importDefault(require("./routers/user.routes"));
 const parfume_routes_1 = __importDefault(require("./routers/parfume.routes"));
 const app = (0, express_1.default)();
 // ✅ Middleware
-app.use((0, cors_1.default)());
+// Allow CORS from the frontend. In production you may want to restrict this to your domain(s).
+const allowedOrigins = [
+    process.env.FRONTEND_ORIGIN || 'https://finestmiris.kesug.com',
+    '*'
+];
+const corsOptions = {
+    origin: function (origin, callback) {
+        // allow requests with no origin (like mobile apps, curl)
+        if (!origin)
+            return callback(null, true);
+        // allow if origin is in allowedOrigins or if '*' is present
+        if (allowedOrigins.indexOf('*') !== -1 || allowedOrigins.indexOf(origin) !== -1) {
+            return callback(null, true);
+        }
+        const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+        return callback(new Error(msg), false);
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'],
+    credentials: false,
+};
 app.use(body_parser_1.default.json());
+app.use((0, cors_1.default)(corsOptions));
+// enable pre-flight across-the-board
+app.options('*', (0, cors_1.default)(corsOptions));
+// fallback headers for older clients
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     next();
 });
 // ✅ MongoDB connection
