@@ -154,9 +154,9 @@ export class UserController {
             const match = await bcrypt.compare(password, user.password);
             if (!match) { res.json(null); return; }
 
-            // generate token and save
+            // generate token and save (include user email because Token schema requires it)
             const token = this.generateToken(username);
-            const tokenDoc = new TokenModel({ username: username, token: token });
+            const tokenDoc = new TokenModel({ username: username, token: token, email: user.email });
             tokenDoc.save().catch(e => console.error('token save error', e));
 
             // Return user + token
