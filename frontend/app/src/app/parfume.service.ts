@@ -98,11 +98,6 @@ export class ParfumeService {
     return this.http.get(`${this.url}/parfume/getAllParfumes`);
   }
 
-  getByName(name: string) {
-    // GET /parfume/getByName?name=...
-    return this.http.get(`${this.url}/parfume/getByName`, { params: { name } });
-  }
-
   sub(email, myParfumeDetail, arg) {
     let data = {
       email: email,

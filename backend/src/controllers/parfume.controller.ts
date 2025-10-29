@@ -130,17 +130,6 @@ export class ParfumeController {
         )
     }
 
-    // GET /parfume/getByName?name=...
-    getByName = (req: express.Request, res: express.Response) => {
-        const name = req.query.name || req.params.name;
-        if (!name) { res.status(400).json({ message: 'missing name' }); return; }
-        Parfume.findOne({ name: name.toString() }, (err, data) => {
-            if (err) { console.error('getByName error', err); res.status(500).json({}); return; }
-            if (!data) { res.status(404).json({}); return; }
-            res.json(data);
-        });
-    }
-
     getRandomInt(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);

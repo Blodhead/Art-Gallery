@@ -122,26 +122,6 @@ class ParfumeController {
                 }
             });
         };
-        // GET /parfume/getByName?name=...
-        this.getByName = (req, res) => {
-            const name = req.query.name || req.params.name;
-            if (!name) {
-                res.status(400).json({ message: 'missing name' });
-                return;
-            }
-            parfumes_1.default.findOne({ name: name.toString() }, (err, data) => {
-                if (err) {
-                    console.error('getByName error', err);
-                    res.status(500).json({});
-                    return;
-                }
-                if (!data) {
-                    res.status(404).json({});
-                    return;
-                }
-                res.json(data);
-            });
-        };
         this.sendMail = (req, res) => {
             var nodemailer = require('nodemailer');
             var randomWords = require('random-words');

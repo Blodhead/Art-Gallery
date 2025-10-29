@@ -15,10 +15,6 @@ parfumeRouter.route("/getTempData").get( //ako dodje "/login" ruta on obradjuje 
     (req, res) => new ParfumeController().getTempData(req, res)//poziva se ParfumeController i njegova login metoda
 )
 
-parfumeRouter.route("/getByName").get(
-    (req, res) => new ParfumeController().getByName(req, res)
-)
-
 parfumeRouter.route("/update").post(
     (req, res) => new ParfumeController().update(req, res)
 )
