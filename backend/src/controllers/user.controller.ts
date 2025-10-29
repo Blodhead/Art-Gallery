@@ -429,7 +429,7 @@ export class UserController {
     }
 
     // Send order confirmation email. Expects { email, shipping, cart }
-    order = (req, res) => {
+    order = async (req, res) => {
         const nodemailer = require('nodemailer');
         const email = req.body.email;
         const shipping = req.body.shipping || {};
@@ -548,7 +548,7 @@ export class UserController {
 
         try {
             // use Promise API
-            const info = transporter.sendMail(emailOptions);
+            const info = await transporter.sendMail(emailOptions);
             console.log('order email sent', info && info.messageId);
             res.json({ message: 'order email sent' });
         } catch (error) {
