@@ -35,6 +35,18 @@ userRouter.route("/sendMail").post(
     (req, res) => new UserController().sendMail(req, res)
 )
 
+userRouter.route("/requestReset").post(
+    (req, res) => new UserController().requestReset(req, res)
+)
+
+userRouter.route("/verifyCode").post(
+    (req, res) => new UserController().verifyCode(req, res)
+)
+
+userRouter.route("/resetPassword").post(
+    (req, res) => new UserController().resetPassword(req, res)
+)
+
 userRouter.route("/updatePassword").post(
     (req, res) => new UserController().updatePassword(req, res)
 )

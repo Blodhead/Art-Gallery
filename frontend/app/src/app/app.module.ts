@@ -26,6 +26,7 @@ import { DetailsComponent } from './details/details.component';
 import { GalleryModule } from  'ng-gallery';
 import { ChatComponent } from './chat/chat.component';
 import { ShippmentComponent } from './shippment/shippment.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { ShippmentComponent } from './shippment/shippment.component';
     DetailsComponent,
     ChatComponent,
     ShippmentComponent,
+  ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,

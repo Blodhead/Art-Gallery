@@ -315,6 +315,119 @@ export class UserController {
         });
     }
 
+    // Request a short-lived numeric verification code sent to the user's email
+    // POST { email }
+    requestReset = async (req: express.Request, res: express.Response) => {
+        const nodemailer = require('nodemailer');
+        const email = req.body.email || req.body.mail;
+
+        if (!email) { res.status(400).json({ message: 'missing email' }); return; }
+
+        try {
+            const user = await User.findOne({ email: email }).exec();
+
+            // Always respond with success to avoid leaking registered emails
+            // but only generate/send code if user exists
+            if (!user) { res.json({ message: 'mail sent' }); return; }
+
+            // generate 6-digit numeric code
+            const code = Math.floor(100000 + Math.random() * 900000).toString();
+
+            // store code and timestamp (used for 5 minute expiry)
+            user.tempPass = code;
+            user.timeStamp = new Date();
+            await user.save();
+
+            // configure transporter (reuse existing credentials)
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'cirkovic32.mi@gmail.com',
+                    pass: 'lriyeiguroelkawg'
+                },
+                tls: { rejectUnauthorized: false }
+            });
+
+            const mailOptions = {
+                from: '"FinestMiris" <no-reply@finestmiris.com>',
+                to: email,
+                subject: 'Your verification code',
+                text: `Your verification code is: ${code}. It is valid for 5 minutes.`
+            };
+
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    console.error('requestReset sendMail error', error);
+                    // still respond success so we don't leak info
+                    res.json({ message: 'mail sent' });
+                } else {
+                    res.json({ message: 'mail sent' });
+                }
+            });
+        } catch (err) {
+            console.error('requestReset error', err);
+            res.status(500).json({ message: 'server error' });
+        }
+    }
+
+    // Verify code: POST { email, code }
+    verifyCode = async (req: express.Request, res: express.Response) => {
+        const email = req.body.email || req.body.mail;
+        const code = req.body.code;
+
+        if (!email || !code) { res.status(400).json({ verified: false, message: 'missing fields' }); return; }
+
+        try {
+            const user = await User.findOne({ email: email }).exec();
+            if (!user || !user.tempPass || !user.timeStamp) { res.status(400).json({ verified: false, message: 'invalid or expired code' }); return; }
+
+            const expiryMs = 5 * 60 * 1000; // 5 minutes
+            if ((new Date()).getTime() - user.timeStamp.getTime() > expiryMs) {
+                res.status(400).json({ verified: false, message: 'code expired' }); return;
+            }
+
+            if (user.tempPass !== code) { res.status(400).json({ verified: false, message: 'code incorrect' }); return; }
+
+            res.json({ verified: true });
+        } catch (err) {
+            console.error('verifyCode error', err);
+            res.status(500).json({ verified: false, message: 'server error' });
+        }
+    }
+
+    // Reset password using email + code. POST { email, code, new_pass }
+    resetPassword = async (req: express.Request, res: express.Response) => {
+        const email = req.body.email || req.body.mail;
+        const code = req.body.code;
+        const new_pass = req.body.new_pass;
+
+        if (!email || !code || !new_pass) { res.status(400).json({ message: 'missing fields' }); return; }
+
+        try {
+            const user = await User.findOne({ email: email }).exec();
+            if (!user || !user.tempPass || !user.timeStamp) { res.status(400).json({ message: 'invalid or expired code' }); return; }
+
+            const expiryMs = 5 * 60 * 1000; // 5 minutes
+            if ((new Date()).getTime() - user.timeStamp.getTime() > expiryMs) {
+                res.status(400).json({ message: 'code expired' }); return;
+            }
+
+            if (user.tempPass !== code) { res.status(400).json({ message: 'code incorrect' }); return; }
+
+            // hash and update
+            const hashed = await bcrypt.hash(new_pass, 10);
+            user.password = hashed;
+            user.tempPass = null;
+            user.timeStamp = null;
+            await user.save();
+
+            res.json({ message: 'password reset' });
+        } catch (err) {
+            console.error('resetPassword error', err);
+            res.status(500).json({ message: 'server error' });
+        }
+    }
+
     // Send order confirmation email. Expects { email, shipping, cart }
     order = (req, res) => {
         const nodemailer = require('nodemailer');

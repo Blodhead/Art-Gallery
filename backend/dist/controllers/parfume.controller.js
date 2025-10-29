@@ -13,7 +13,7 @@ class ParfumeController {
                 org_name: req.body.org_name,
                 firstname: req.body.firstname,
                 phone: req.body.phone,
-                mail: req.body.mail,
+                email: req.body.email,
                 lastname: req.body.lastname,
                 parfumename: req.body.parfumename,
                 password: req.body.password,
@@ -39,7 +39,7 @@ class ParfumeController {
                 org_name: req.body.org_name,
                 firstname: req.body.firstname,
                 phone: req.body.phone,
-                mail: req.body.mail,
+                email: req.body.email,
                 lastname: req.body.lastname,
                 parfumename: req.body.parfumename,
                 password: req.body.password,
@@ -126,7 +126,7 @@ class ParfumeController {
             var nodemailer = require('nodemailer');
             var randomWords = require('random-words');
             var special = "!\"§$%&/()=?\u{20ac}";
-            let mail = req.body.mail;
+            let email = req.body.email;
             let temp_password = randomWords({ exactly: 1, maxLength: 8 });
             while (temp_password[0].length < 6 || temp_password[0].length > 8)
                 temp_password = randomWords({ exactly: 1, maxLength: 8 });
@@ -169,7 +169,7 @@ class ParfumeController {
             });
             var mailOptions = {
                 from: 'cirkovic32.mi@gmail.com',
-                to: mail,
+                to: email,
                 subject: 'Password reset @no-reply',
                 text: 'Hello from Art Gallery, \n\nYour reset password is: ' + temp_password + "\n\n P.S.IF YOU DIDN'T INITIATE PASSWORD RESET, IGNORE THIS E-MAIL!"
             };
@@ -190,7 +190,7 @@ class ParfumeController {
                 timeStamp: new Date()
             };
             console.log(temp_password);
-            parfumes_1.default.updateOne({ "mail": mail }, {
+            parfumes_1.default.updateOne({ "email": email }, {
                 $set: { "tempPass": data.temp_password, "timeStamp": data.timeStamp }
             }, (error, info) => {
                 if (statement == true)

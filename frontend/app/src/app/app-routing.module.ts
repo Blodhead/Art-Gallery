@@ -10,6 +10,7 @@ import { MyParfumesComponent } from './my-parfumes/my-parfumes.component';
 import { DetailsComponent } from './details/details.component';
 import { ChatComponent } from './chat/chat.component';
 import { ShippmentComponent } from './shippment/shippment.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 const routes: Routes = [
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'details', component: DetailsComponent },
   { path: 'chat', component: ChatComponent }
   ,{ path: 'shippment', component: ShippmentComponent }
+  ,{ path: 'forgot-password', component: ForgotPasswordComponent }
 ];
 
 @NgModule({

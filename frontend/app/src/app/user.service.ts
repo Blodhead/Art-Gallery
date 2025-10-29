@@ -83,6 +83,22 @@ export class UserService {
     return this.http.post(`${this.url}/users/sendMail`, data);
   }
 
+  // Forgot-password flow
+  requestReset(email: string) {
+    const data = { email };
+    return this.http.post(`${this.url}/users/requestReset`, data);
+  }
+
+  verifyCode(email: string, code: string) {
+    const data = { email, code };
+    return this.http.post(`${this.url}/users/verifyCode`, data);
+  }
+
+  resetPassword(email: string, code: string, new_pass: string) {
+    const data = { email, code, new_pass };
+    return this.http.post(`${this.url}/users/resetPassword`, data);
+  }
+
   updatePassword(username, new_pass) {
     let data = {
       username: username,
