@@ -429,7 +429,7 @@ export class UserController {
     }
 
     // Send order confirmation email. Expects { email, shipping, cart }
-    order = async (req, res) => {
+    order = (req, res) => {
         const nodemailer = require('nodemailer');
         const email = req.body.email;
         const shipping = req.body.shipping || {};
@@ -470,26 +470,13 @@ export class UserController {
             <strong>Poštanski broj:</strong> ${shipping.postalCode || ''}
             </p>`;
 
-        // Read SMTP config from environment so prod and dev can differ
-        const smtpHost = process.env.SMTP_HOST || 'smtp.gmail.com';
-        const smtpPort = parseInt(process.env.SMTP_PORT || '465', 10);
-        const smtpSecure = (process.env.SMTP_SECURE || 'true') === 'true';
-        const smtpUser = process.env.SMTP_USER || 'cirkovic32.mi@gmail.com';
-        const smtpPass = process.env.SMTP_PASS || 'lriyeiguroelkawg';
-
         const transporter = nodemailer.createTransport({
-            host: smtpHost,
-            port: smtpPort,
-            secure: smtpSecure,
+            service: 'gmail',
             auth: {
-                user: smtpUser,
-                pass: smtpPass
+                user: 'cirkovic32.mi@gmail.com',
+                pass: 'lriyeiguroelkawg' // app password
             },
-            tls: { rejectUnauthorized: false },
-            // short timeouts so a blocked network doesn't hang the request
-            connectionTimeout: 10000,
-            greetingTimeout: 5000,
-            socketTimeout: 10000
+            tls: { rejectUnauthorized: false }
         });
 
         const htmlBody = `
@@ -546,17 +533,14 @@ export class UserController {
             html: htmlBody
         };
 
-        try {
-            // use Promise API
-            const info = await transporter.sendMail(emailOptions);
-            console.log('order email sent', info && info.messageId);
-            res.json({ message: 'order email sent' });
-        } catch (error) {
-            // Log the error and return a non-fatal response so user flow continues
-            console.error('order email error', error);
-            // 202 Accepted: we received the order but email delivery failed for now
-            res.status(202).json({ message: 'order received; email delivery failed' });
-        }
+        transporter.sendMail(emailOptions, (error, info) => {
+            if (error) {
+                console.error('order email error', error);
+                res.status(500).json({ message: 'error sending email' });
+            } else {
+                res.json({ message: 'order email sent' });
+            }
+        });
     };
 
 
