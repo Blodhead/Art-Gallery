@@ -191,9 +191,9 @@ class UserController {
                     res.json(null);
                     return;
                 }
-                // generate token and save (include user email because Token schema requires it)
+                // generate token and save
                 const token = this.generateToken(username);
-                const tokenDoc = new tokens_1.default({ username: username, token: token, email: user.email });
+                const tokenDoc = new tokens_1.default({ username: username, token: token });
                 tokenDoc.save().catch(e => console.error('token save error', e));
                 // Return user + token
                 const userObj = user.toObject();
