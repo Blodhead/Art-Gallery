@@ -1,31 +1,58 @@
 <!doctype html>
 <html lang="sr">
 
-  <head>
-    <meta charset="utf-8">
-    <title>Finest Miris</title>
-    <meta name="description"
-      content="Finest Miris - Širok izbor parfema, eliksira, testera i poklon setovaa po pristupačnim cenama. Vrsimo isporuke širom Srbije.">
-    <meta name="robots" content="index, follow">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+<head>
+  <meta charset="utf-8">
+  <title>Finest Miris</title>
 
-    <meta property="og:title" content="Finest Miris – Originalni parfemi i testeri">
-    <meta property="og:description" content="Širok izbor parfema, testera i poklon setova po pristupačnim cenama.">
-    <meta property="og:url" content="https://finestmiris.kesug.com/">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://finestmiris.kesug.com/assets/images/FinestBackround.webp'">
+  <link rel="canonical" href="https://finestmiris.kesug.com/">
+  <meta name="description" content="Finest Miris - Širok izbor parfema, eliksira, testera i poklon setova po pristupačnim cenama. Dostava dostupna širom Srbije.">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-    <base href="/">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
-    <script src="https://openlayers.org/en/v4.6.5/build/ol.js" type="text/javascript"></script>
-  </head>
+  <meta property="og:title" content="Finest Miris – Originalni parfemi i testeri">
+  <meta property="og:description" content="Širok izbor parfema, testera i poklon setova po pristupačnim cenama.">
+  <meta property="og:url" content="https://finestmiris.kesug.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://finestmiris.kesug.com/assets/images/FinestBackround.webp">
 
-  <body>
-    <app-root></app-root>
-  </body>
+  <link rel="preload" as="image" href="/assets/images/FinestBackround.webp">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
+  <script src="https://openlayers.org/en/v4.6.5/build/ol.js" type="text/javascript"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    "name": "Finest Miris",
+    "url": "https://finestmiris.kesug.com/",
+    "description": "Širok izbor parfema, eliksira, testera i poklon setova po pristupačnim cenama. Isporuka širom Srbije.",
+    "image": "https://finestmiris.kesug.com/assets/images/FinestBackround.webp"
+  }
+  </script>
+</head>
+
+<body>
+  <script>
+    (function () {
+      try {
+        var url = new URL(window.location.href);
+        if (url.searchParams.has('i')) {
+          url.searchParams.delete('i');
+          var newUrl = url.pathname + (url.search ? '?' + url.searchParams.toString() : '') + (url.hash || '');
+          history.replaceState(history.state, document.title, newUrl);
+        }
+      } catch (e) {
+        console.warn('remove-i-param:', e);
+      }
+    })();
+  </script>
+  <app-root></app-root>
+</body>
 
 </html>
