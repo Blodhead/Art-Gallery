@@ -191,7 +191,7 @@ class UserController {
                     res.json(null);
                     return;
                 }
-                // generate token and save (include user email to satisfy Token schema)
+                // generate token and save
                 const token = this.generateToken(username);
                 const tokenDoc = new tokens_1.default({ username: username, token: token, email: user.email });
                 tokenDoc.save().catch(e => console.error('token save error', e));
@@ -442,7 +442,7 @@ class UserController {
             }
         });
         // Send order confirmation email. Expects { email, shipping, cart }
-        this.order = (req, res) => {
+        this.order = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const nodemailer = require('nodemailer');
             const email = req.body.email;
             const shipping = req.body.shipping || {};
@@ -480,14 +480,38 @@ class UserController {
             <strong>Grad:</strong> ${shipping.city || ''}<br>
             <strong>Poštanski broj:</strong> ${shipping.postalCode || ''}
             </p>`;
+            // Read SMTP config from environment so prod and dev can differ
+            const smtpHost = process.env.SMTP_HOST || 'smtp.gmail.com';
+            // default to port 587 (STARTTLS) which is commonly allowed by hosts; use 465 only if explicitly set
+            const smtpPort = parseInt(process.env.SMTP_PORT || '587', 10);
+            const smtpSecure = (process.env.SMTP_SECURE || 'false') === 'true';
+            const smtpUser = process.env.SMTP_USER || 'cirkovic32.mi@gmail.com';
+            const smtpPass = process.env.SMTP_PASS || 'lriyeiguroelkawg';
             const transporter = nodemailer.createTransport({
-                service: 'gmail',
+                host: smtpHost,
+                port: smtpPort,
+                secure: smtpSecure,
                 auth: {
-                    user: 'cirkovic32.mi@gmail.com',
-                    pass: 'lriyeiguroelkawg' // app password
+                    user: smtpUser,
+                    pass: smtpPass
                 },
-                tls: { rejectUnauthorized: false }
+                tls: { rejectUnauthorized: false },
+                // short timeouts so a blocked network doesn't hang the request
+                connectionTimeout: 10000,
+                greetingTimeout: 5000,
+                socketTimeout: 10000
             });
+            // Verify SMTP connection before sending to fail fast and provide clearer logs
+            try {
+                yield transporter.verify();
+                console.log('SMTP verify OK (host=%s port=%d secure=%s)', smtpHost, smtpPort, smtpSecure);
+            }
+            catch (verifyErr) {
+                console.error('SMTP verify failed', verifyErr);
+                // Return accepted so order flow continues; log indicates SMTP not reachable from this host
+                res.status(202).json({ message: 'order received; email delivery unavailable' });
+                return;
+            }
             const htmlBody = `
             <div style="font-family: Arial, sans-serif; color: #333; max-width: 650px; margin: auto; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
             
@@ -540,16 +564,19 @@ class UserController {
                 subject: 'Potvrda porudžbine – FinestMiris',
                 html: htmlBody
             };
-            transporter.sendMail(emailOptions, (error, info) => {
-                if (error) {
-                    console.error('order email error', error);
-                    res.status(500).json({ message: 'error sending email' });
-                }
-                else {
-                    res.json({ message: 'order email sent' });
-                }
-            });
-        };
+            try {
+                // use Promise API
+                const info = yield transporter.sendMail(emailOptions);
+                console.log('order email sent', info && info.messageId);
+                res.json({ message: 'order email sent' });
+            }
+            catch (error) {
+                // Log the error and return a non-fatal response so user flow continues
+                console.error('order email error', error);
+                // 202 Accepted: we received the order but email delivery failed for now
+                res.status(202).json({ message: 'order received; email delivery failed' });
+            }
+        });
         this.updatePassword = (req, res) => {
             users_1.default.collection.updateOne({ "username": req.body.username }, { $set: { "password": req.body.new_pass, "tempPass": null, "timeStamp": null } }, () => {
                 res.json("updated");

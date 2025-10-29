@@ -472,8 +472,9 @@ export class UserController {
 
         // Read SMTP config from environment so prod and dev can differ
         const smtpHost = process.env.SMTP_HOST || 'smtp.gmail.com';
-        const smtpPort = parseInt(process.env.SMTP_PORT || '465', 10);
-        const smtpSecure = (process.env.SMTP_SECURE || 'true') === 'true';
+    // default to port 587 (STARTTLS) which is commonly allowed by hosts; use 465 only if explicitly set
+    const smtpPort = parseInt(process.env.SMTP_PORT || '587', 10);
+    const smtpSecure = (process.env.SMTP_SECURE || 'false') === 'true';
         const smtpUser = process.env.SMTP_USER || 'cirkovic32.mi@gmail.com';
         const smtpPass = process.env.SMTP_PASS || 'lriyeiguroelkawg';
 
@@ -491,6 +492,17 @@ export class UserController {
             greetingTimeout: 5000,
             socketTimeout: 10000
         });
+
+        // Verify SMTP connection before sending to fail fast and provide clearer logs
+        try {
+            await transporter.verify();
+            console.log('SMTP verify OK (host=%s port=%d secure=%s)', smtpHost, smtpPort, smtpSecure);
+        } catch (verifyErr) {
+            console.error('SMTP verify failed', verifyErr);
+            // Return accepted so order flow continues; log indicates SMTP not reachable from this host
+            res.status(202).json({ message: 'order received; email delivery unavailable' });
+            return;
+        }
 
         const htmlBody = `
             <div style="font-family: Arial, sans-serif; color: #333; max-width: 650px; margin: auto; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
