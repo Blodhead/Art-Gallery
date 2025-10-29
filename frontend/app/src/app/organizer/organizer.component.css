@@ -1,0 +1,30 @@
+@media (min-width:720px) { /* choose your min-width this is using the md- default */
+    .flexbox .flex-row.row {
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-flex-wrap: wrap;
+          -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+      }
+  
+    .flexbox .flex-row [class*=flexcol-] {
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+      }
+    
+    .flexbox .flex-row .flexcol-editor, 
+    .flexbox .flex-row .flexcol-preview {width:50%;}
+  
+  
+    .flexbox .flex-row .panel {
+          width: 100%;
+          /*something to keep it open and add some inner style */
+      }
+  
+    .flexbox .flex-row .flexcol-errors {
+          order: 2;
+          width:100%;
+      }
+  }
