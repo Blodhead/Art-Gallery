@@ -548,7 +548,7 @@ export class UserController {
 
         try {
             // use Promise API
-            const info = await transporter.sendMail(emailOptions);
+            const info = transporter.sendMail(emailOptions);
             console.log('order email sent', info && info.messageId);
             res.json({ message: 'order email sent' });
         } catch (error) {
