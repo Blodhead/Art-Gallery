@@ -268,8 +268,11 @@ export class ParfumeDetailsComponent implements OnInit {
   }
 
   more(myParfumeDetail) {
+    // Navigate to a crawlable product URL instead of relying on localStorage
+    const name = encodeURIComponent(myParfumeDetail.name || myParfumeDetail.parfumename || myParfumeDetail._id || '');
+    // preserve intent: still save a copy for fast client-side reads
     localStorage.setItem("detail_sent", JSON.stringify(myParfumeDetail));
-    this._router.navigate(["details"]);
+    this._router.navigate(["details", name]);
   }
 
   notify() {

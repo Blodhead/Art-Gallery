@@ -1,34 +1,64 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { GalleryItem, ImageItem } from 'ng-gallery';
 import { MapService } from '../map.service';
 import { User } from '../models/user';
 import { ParfumeDetails } from '../models/parfume-details';
 import { ParfumeService } from '../parfume.service';
+import { Title, Meta } from '@angular/platform-browser';
 
 declare var ol: any;
 
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
-  template: `<gallery [items]="images"></gallery>`,
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
 
-  constructor(private map_service: MapService, private parfume_service: ParfumeService, private _router: Router) { }
+  constructor(private map_service: MapService, private parfume_service: ParfumeService, private _router: Router, private route: ActivatedRoute, private title: Title, private meta: Meta) { }
   latitude: number = 20.4762358;
   longitude: number = 44.8057154;
   ngOnInit(): void {
-    this.myParfume = JSON.parse(localStorage.getItem("detail_sent"));
+    // Try to read product name from route param and fetch from backend.
     this.current_user = JSON.parse(localStorage.getItem("current_user"));
 
-    if (this.current_user == null) this._router.navigate(["login"]);
-    if (this.myParfume == null) this._router.navigate([""]);
+    const nameParam = this.route.snapshot.paramMap.get('name');
+    if (nameParam) {
+      const decoded = decodeURIComponent(nameParam);
+      this.parfume_service.getByName(decoded).subscribe((p: any) => {
+        if (!p) { this._router.navigate([""]); return; }
+        this.myParfume = p;
+        this.setMetaFromParfume(p);
+        this.images = this.getImages();
+        this.initMap();
+      }, err => {
+        console.error('getByName error', err);
+        // fallback to localStorage if available
+        const local = JSON.parse(localStorage.getItem("detail_sent"));
+        if (local) {
+          this.myParfume = local;
+          this.setMetaFromParfume(local);
+          this.images = this.getImages();
+          this.initMap();
+        } else {
+          this._router.navigate([""]);
+        }
+      });
+    } else {
+      // no param — fallback to previous behaviour
+      this.myParfume = JSON.parse(localStorage.getItem("detail_sent"));
+      if (!this.myParfume) { this._router.navigate([""]); return; }
+      this.setMetaFromParfume(this.myParfume);
+      this.images = this.getImages();
+      this.initMap();
+    }
 
     //this.bgimage = this.myParfume.image;
-    this.images = this.getImages();
-    //this.long_desc = this.myParfume.long_desc;
+    // moved map init into initMap() called when parfume available
+  }
+
+  private initMap() {
     this.map = new ol.Map({
       target: 'map',
       layers: [
@@ -43,14 +73,63 @@ export class DetailsComponent implements OnInit {
     });
     this.search();
 
+    }
+
+  private setMetaFromParfume(p: any) {
+    try {
+      const title = p.name || p.parfumename || 'Product';
+      const desc = (p.long_desc && p.long_desc.toString().slice(0, 150)) || p.description || '';
+      this.title.setTitle(title + ' - Finest Miris');
+      this.meta.updateTag({ name: 'description', content: desc });
+      this.meta.updateTag({ property: 'og:title', content: title });
+      this.meta.updateTag({ property: 'og:description', content: desc });
+      if (p.img_location) this.meta.updateTag({ property: 'og:image', content: p.img_location });
+      // set canonical link
+      try {
+        const existingCanonical = document.querySelector('link[rel="canonical"]');
+        const canonicalHref = window.location.origin + '/details/' + encodeURIComponent(p.name || p.parfumename || '');
+        if (existingCanonical) (existingCanonical as HTMLLinkElement).href = canonicalHref;
+        else {
+          const l = document.createElement('link');
+          l.rel = 'canonical';
+          l.href = canonicalHref;
+          document.head.appendChild(l);
+        }
+      } catch (e) { /* ignore */ }
+      // add JSON-LD product schema for better indexing
+      this.addJsonLdForProduct(p);
+    } catch (e) { console.warn('setMetaFromParfume error', e); }
+  }
+
+  private addJsonLdForProduct(p: any) {
+    try {
+      const existing = document.getElementById('ld-json-product');
+      if (existing) existing.remove();
+      const script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.id = 'ld-json-product';
+      const json: any = {
+        '@context': 'https://schema.org/',
+        '@type': 'Product',
+        'name': p.name || p.parfumename,
+        'image': p.img_location ? [p.img_location] : [],
+        'description': p.long_desc || p.description || '',
+        'offers': {
+          '@type': 'Offer',
+          'price': (p.price != null) ? p.price.toString() : undefined,
+          'priceCurrency': 'RSD'
+        }
+      };
+      script.innerText = JSON.stringify(json);
+      document.head.appendChild(script);
+    } catch (e) { console.warn('addJsonLdForProduct err', e); }
+  }
     /*for (let i = 0; i < this.myParfume.participants.length; i++) {
       if (this.myParfume.participants[i].status == "waiting")
         this.waitingParticipants.push(this.myParfume.participants[i].email);
       else if (this.myParfume.participants[i].status == "approved")
         this.subscribedParticipants.push(this.myParfume.participants[i].email);
     }*/
-
-  }
 
   myParfume: ParfumeDetails = null;
   images: GalleryItem[] = [];

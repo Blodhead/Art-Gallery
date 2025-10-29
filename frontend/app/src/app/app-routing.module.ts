@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'user_organizer', component: UserOrganizerComponent },
   { path: 'verify', component: VerifyComponent },
   { path: 'MyParfumes', component: MyParfumesComponent },
-  { path: 'details', component: DetailsComponent },
+  { path: 'details/:name', component: DetailsComponent },
   { path: 'chat', component: ChatComponent }
   ,{ path: 'shippment', component: ShippmentComponent }
   ,{ path: 'forgot-password', component: ForgotPasswordComponent }

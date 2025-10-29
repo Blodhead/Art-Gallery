@@ -15,6 +15,7 @@ parfumeRouter.route("/getAllParfumes").get(//ako dodje "/login" ruta on obradjuj
 parfumeRouter.route("/getTempData").get(//ako dodje "/login" ruta on obradjuje POST zahtev, za GET ne zna sta da radi, jer nije definisano
 (req, res) => new parfume_controller_1.ParfumeController().getTempData(req, res) //poziva se ParfumeController i njegova login metoda
 );
+parfumeRouter.route("/getByName").get((req, res) => new parfume_controller_1.ParfumeController().getByName(req, res));
 parfumeRouter.route("/update").post((req, res) => new parfume_controller_1.ParfumeController().update(req, res));
 parfumeRouter.route("/register").post((req, res) => new parfume_controller_1.ParfumeController().register(req, res));
 parfumeRouter.route("/deleteParfume").post((req, res) => new parfume_controller_1.ParfumeController().deleteParfume(req, res));
