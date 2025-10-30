@@ -507,7 +507,9 @@ export class UserController {
                 from: "FinestMiris <no-reply@resend.dev>",
                 to: email,
                 subject: 'Potvrda porudžbine – FinestMiris',
-                html: htmlBody
+                html: htmlBody,
+                //reply_to: "finestmirisbeograd@gmail.com"
+                reply_to: "cirkovic32.mi@gmail.com"
             });
 
             console.log('order email sent successfully');
