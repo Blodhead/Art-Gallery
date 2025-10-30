@@ -444,7 +444,7 @@ export class UserController {
 
         // Use Resend HTTP API if configured (preferred over SMTP)
         const { Resend } = require('resend');
-        const resendKey = "api_key_here";
+        const resendKey = "re_JG84XtDB_PBNXrbF1uFMgdKasYvRZHmbg";
         const resend = resendKey ? new Resend(resendKey) : null;
 
 
