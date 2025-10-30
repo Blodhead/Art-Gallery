@@ -502,11 +502,9 @@ export class UserController {
                 res.status(202).json({ message: 'order received; email delivery unavailable' });
                 return;
             }
-            console.log('sending order email to', email);
-            console.log('email body:', resend);
 
             await resend.emails.send({
-                from: "cirkovic32.mi@gmail.com",
+                from: "FinestMiris <no-reply@resend.dev>",
                 to: email,
                 subject: 'Potvrda porudžbine – FinestMiris',
                 html: htmlBody
