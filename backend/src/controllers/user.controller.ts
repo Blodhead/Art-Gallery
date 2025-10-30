@@ -220,8 +220,11 @@ export class UserController {
         return a.join("");
     }
 
-    sendMail = (req: express.Request, res: express.Response) => {
-        var nodemailer = require('nodemailer');
+    sendMail = async (req: express.Request, res: express.Response) => {
+        // Password reset helper using Resend if available
+        const { Resend } = require('resend');
+        const resendKey = process.env.RESEND_API_KEY;
+        const resend = resendKey ? new Resend(resendKey) : null;
         var randomWords = require('random-words');
         var special = "!\"§$%&/()=?\u{20ac}";
 
@@ -260,65 +263,42 @@ export class UserController {
 
         temp_password = temp_password.join("");
         temp_password = this.shuffle(temp_password);
-        const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~1234567890]/;
-        while (specialChars.test(temp_password[0])) {
-            temp_password = this.shuffle(temp_password);
+        const specialChars = /[`!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?~1234567890]/;
+
+        const data = { temp_password: temp_password, timeStamp: new Date() };
+        // Persist reset token regardless of email delivery outcome
+        User.updateOne({ email: email }, { $set: { tempPass: data.temp_password, timeStamp: data.timeStamp } }, (error, info) => {
+            if (error) console.error('updateOne tempPass error', error);
+        });
+
+        // If Resend not configured, respond with sent (don't leak) but log lack of configuration
+        if (!resend) {
+            console.warn('RESEND_API_KEY not set; skipping email send for password reset');
+            res.json('POSLATO');
+            return;
         }
-        var transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: 'cirkovic32.mi@gmail.com',
-                pass: 'lriyeiguroelkawg'
-            },
-            tls: {
-                rejectUnauthorized: false
-            }
-        });
 
-        var emailOptions = {
-            from: 'cirkovic32.mi@gmail.com',
-            to: email,
-            subject: 'Password reset @no-reply',
-            text: 'Hello from Art Gallery, \n\nYour reset password is: ' + temp_password + "\n\n P.S.IF YOU DIDN'T INITIATE PASSWORD RESET, IGNORE THIS E-MAIL!"
-        };
-
-        let statement: boolean = false;
-
-        transporter.sendMail(emailOptions, (error, info) => {
-            if (statement == false)
-                if (error) {
-                    console.log(error);
-                    res.json("NIJE POSLATO");
-                } else {
-                    res.json("POSLATO");
-                }
-            statement = true;
-        });
-        let data = {
-            temp_password: temp_password,
-            timeStamp: new Date()
+        try {
+            await resend.emails.send({
+                from: process.env.EMAIL_FROM || 'no-reply@finestmiris.com',
+                to: email,
+                subject: 'Password reset @no-reply',
+                text: `Hello from Art Gallery, \n\nYour reset password is: ${temp_password}\n\n P.S. IF YOU DIDN'T INITIATE PASSWORD RESET, IGNORE THIS E-MAIL!`
+            });
+            res.json('POSLATO');
+        } catch (err) {
+            console.error('resend send error (password reset)', err);
+            // Still respond success to avoid leaking existence
+            res.json('POSLATO');
         }
-        console.log(temp_password);
-        User.updateOne({ "email": email }, {
-            $set: { "tempPass": data.temp_password, "timeStamp": data.timeStamp }
-        }, (error, info) => {
-            if (statement == true)
-                if (error) {
-                    if (statement == true)
-                        console.log(error);
-                    res.json("NIJE POSLATO");
-                } else {
-                    res.json("POSLATO");
-
-                }
-            statement = false;
-        });
     }
 
     // Request a short-lived numeric verification code sent to the user's email
     // POST { email }
     requestReset = async (req: express.Request, res: express.Response) => {
-        const nodemailer = require('nodemailer');
+        const { Resend } = require('resend');
+        const resendKey = process.env.RESEND_API_KEY;
+        const resend = resendKey ? new Resend(resendKey) : null;
         const email = req.body.email || req.body.mail;
 
         if (!email) { res.status(400).json({ message: 'missing email' }); return; }
@@ -338,32 +318,25 @@ export class UserController {
             user.timeStamp = new Date();
             await user.save();
 
-            // configure transporter (reuse existing credentials)
-            const transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                    user: 'cirkovic32.mi@gmail.com',
-                    pass: 'lriyeiguroelkawg'
-                },
-                tls: { rejectUnauthorized: false }
-            });
+            // Send verification email using Resend if configured
+            try {
+                const { Resend } = require('resend');
+                const resendKey2 = process.env.RESEND_API_KEY;
+                const resend2 = resendKey2 ? new Resend(resendKey2) : null;
+                if (!resend2) { console.warn('RESEND_API_KEY not set; skipping reset email'); res.json({ message: 'mail sent' }); return; }
 
-            const mailOptions = {
-                from: '"FinestMiris" <no-reply@finestmiris.com>',
-                to: email,
-                subject: 'Your verification code',
-                text: `Your verification code is: ${code}. It is valid for 5 minutes.`
-            };
+                await resend2.emails.send({
+                    from: process.env.EMAIL_FROM || 'no-reply@finestmiris.com',
+                    to: email,
+                    subject: 'Your verification code',
+                    text: `Your verification code is: ${code}. It is valid for 5 minutes.`
+                });
 
-            transporter.sendMail(mailOptions, (error, info) => {
-                if (error) {
-                    console.error('requestReset sendMail error', error);
-                    // still respond success so we don't leak info
-                    res.json({ message: 'mail sent' });
-                } else {
-                    res.json({ message: 'mail sent' });
-                }
-            });
+                res.json({ message: 'mail sent' });
+            } catch (sendErr) {
+                console.error('requestReset resend send error', sendErr);
+                res.json({ message: 'mail sent' });
+            }
         } catch (err) {
             console.error('requestReset error', err);
             res.status(500).json({ message: 'server error' });
@@ -430,7 +403,6 @@ export class UserController {
 
     // Send order confirmation email. Expects { email, shipping, cart }
     order = async (req, res) => {
-        const nodemailer = require('nodemailer');
         const email = req.body.email;
         const shipping = req.body.shipping || {};
         const cart = req.body.cart || {};
@@ -470,39 +442,12 @@ export class UserController {
             <strong>Poštanski broj:</strong> ${shipping.postalCode || ''}
             </p>`;
 
-        // Read SMTP config from environment so prod and dev can differ
-        const smtpHost = process.env.SMTP_HOST || 'smtp.gmail.com';
-    // default to port 587 (STARTTLS) which is commonly allowed by hosts; use 465 only if explicitly set
-    const smtpPort = parseInt(process.env.SMTP_PORT || '587', 10);
-    const smtpSecure = (process.env.SMTP_SECURE || 'false') === 'true';
-        const smtpUser = process.env.SMTP_USER || 'cirkovic32.mi@gmail.com';
-        const smtpPass = process.env.SMTP_PASS || 'lriyeiguroelkawg';
+        // Use Resend HTTP API if configured (preferred over SMTP)
+        const { Resend } = require('resend');
+        const resendKey = "api_key_here";
+        const resend = resendKey ? new Resend(resendKey) : null;
 
-        const transporter = nodemailer.createTransport({
-            host: smtpHost,
-            port: smtpPort,
-            secure: smtpSecure,
-            auth: {
-                user: smtpUser,
-                pass: smtpPass
-            },
-            tls: { rejectUnauthorized: false },
-            // short timeouts so a blocked network doesn't hang the request
-            connectionTimeout: 10000,
-            greetingTimeout: 5000,
-            socketTimeout: 10000
-        });
 
-        // Verify SMTP connection before sending to fail fast and provide clearer logs
-        try {
-            await transporter.verify();
-            console.log('SMTP verify OK (host=%s port=%d secure=%s)', smtpHost, smtpPort, smtpSecure);
-        } catch (verifyErr) {
-            console.error('SMTP verify failed', verifyErr);
-            // Return accepted so order flow continues; log indicates SMTP not reachable from this host
-            res.status(202).json({ message: 'order received; email delivery unavailable' });
-            return;
-        }
 
         const htmlBody = `
             <div style="font-family: Arial, sans-serif; color: #333; max-width: 650px; margin: auto; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
@@ -551,22 +496,23 @@ export class UserController {
             </div>
             </div>`;
 
-        const emailOptions = {
-            from: '"FinestMiris" <no-reply@finestmiris.com>',
-            to: email,
-            subject: 'Potvrda porudžbine – FinestMiris',
-            html: htmlBody
-        };
-
         try {
-            // use Promise API
-            const info = await transporter.sendMail(emailOptions);
-            console.log('order email sent', info && info.messageId);
+            if (!resend) {
+                console.warn('RESEND_API_KEY not set; skipping email send for order');
+                res.status(202).json({ message: 'order received; email delivery unavailable' });
+                return;
+            }
+
+            const result = await resend.emails.send({
+                from: "cirkovic32.mi@gmail.com",
+                to: email,
+                subject: 'Potvrda porudžbine – FinestMiris',
+                html: htmlBody
+            });
+            console.log('order email sent', result && result.id);
             res.json({ message: 'order email sent' });
         } catch (error) {
-            // Log the error and return a non-fatal response so user flow continues
             console.error('order email error', error);
-            // 202 Accepted: we received the order but email delivery failed for now
             res.status(202).json({ message: 'order received; email delivery failed' });
         }
     };

@@ -32,6 +32,7 @@
     "mongoose": "^6.3.3",
     "nodemailer": "^6.8.0",
     "random-words": "^1.2.1",
+    "resend": "^6.3.0",
     "sharp": "^0.34.4"
   }
 }
