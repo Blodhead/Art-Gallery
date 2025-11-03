@@ -41,20 +41,20 @@ export class ParfumeComponent implements OnInit, AfterViewInit {
 
   filtersVisible = true;
 
-toggleFilters() {
-  if (this.filtersVisible && this.priceSliderInstance) {
-    // destroy before hiding
-    this.priceSliderInstance.destroy();
-    this.priceSliderInstance = null;
-  }
+  toggleFilters() {
+    if (this.filtersVisible && this.priceSliderInstance) {
+      // destroy before hiding
+      this.priceSliderInstance.destroy();
+      this.priceSliderInstance = null;
+    }
 
-  this.filtersVisible = !this.filtersVisible;
+    this.filtersVisible = !this.filtersVisible;
 
-  // reinitialize when shown again
-  if (this.filtersVisible) {
-    setTimeout(() => this.initNoUiSlider(), 0);
+    // reinitialize when shown again
+    if (this.filtersVisible) {
+      setTimeout(() => this.initNoUiSlider(), 0);
+    }
   }
-}
 
 
   ngOnInit(): void {
@@ -138,10 +138,23 @@ toggleFilters() {
     });
   }
 
-
-
-
   updatePagination(): void {
+
+    const pageWidth = window.innerWidth; // or document.documentElement.clientWidth
+
+    if (pageWidth > 1830) { // XXL
+      this.pageSize = 10;
+    } else if (pageWidth > 1475) { // LG
+      this.pageSize = 8;
+    } else if (pageWidth > 1200) { // MD
+      this.pageSize = 9;
+    } else if (pageWidth > 850) { // SM
+      this.pageSize = 8;
+    } else { // XS (extra small screens)
+      this.pageSize = 6;
+    }
+
+
     this.totalPages = Math.ceil(this.filtered_parfumes.length / this.pageSize) || 1;
     const start = (this.currentPage - 1) * this.pageSize;
     const end = start + this.pageSize;
@@ -177,48 +190,9 @@ toggleFilters() {
         this.parfumeGrid.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     } catch (e) {
-      // ignore in case of any runtime issues
+
     }
   }
-
-  /*getAllParfumes() {
-    this.parfume_service.getAllParfumes().subscribe((parfumes: ParfumeDetails[]) => {
-      if (!parfumes) alert("Error");
-      else {
-
-        let temp_arr = parfumes;
-
-        temp_arr.sort((a, b) => {
-          return b.likes.length - a.likes.length;
-        });
-
-        let bridge = temp_arr;
-
-        bridge = bridge.filter((value, index, self) =>
-          index === self.findIndex((t) => (
-            t.name === value.name
-          ))
-        )
-
-        for (let i = 0; i < 5 && i < bridge.length; i++) {
-          if (this.top5.indexOf(bridge[i].name) === -1)
-            this.top5.push(bridge[i].name)
-        }
-
-        for (let j = 0; j < temp_arr.length; j++) {
-          temp_arr[j].date = new Date(temp_arr[j].date);
-          if (this.current_path == "" && (temp_arr[j].date.getTime() - (new Date()).getTime()) > 0)
-            if (parfumes[j].status == 'approved')
-              this.allParfumes[j] = temp_arr[j];
-        }
-
-        this.allParfumes = this.allParfumes.filter(elements => {
-          return (elements != null && elements !== undefined);
-        });
-        this.filtered_parfumes = this.allParfumes;
-      }
-    });
-  }*/
 
   sortName() {
     if (this.toggle1 == false) {
@@ -246,22 +220,6 @@ toggleFilters() {
     this.updatePagination();
   }
 
-  sortDate() {
-
-    /*if (this.toggle2 == false) {
-      this.filtered_parfumes.sort((a, b) => {
-        let g = new Date(b.date).getTime();
-        let h = new Date(a.date).getTime();
-        return g - h
-      });
-      this.toggle2 = true;
-    } else if (this.toggle2 == true) {
-      this.filtered_parfumes.sort((a, b) => {
-        return new Date(a.date).getTime() - new Date(b.date).getTime()
-      });
-      this.toggle2 = false;
-    }*/
-  }
 
   onNameFilterChange(value: string) {
     this.nameFilter = value;
@@ -291,11 +249,7 @@ toggleFilters() {
       const priceMatch = parfume.price >= this.priceFilterMin && parfume.price <= this.priceFilterMax;
       const sex = this.getSexFromName(parfume.name);
       let sexMatch = true;
-      // Behavior:
-      // - "Sve": include all
-      // - "Muški": include Muški and Uniseks
-      // - "Ženski": include Ženski and Uniseks
-      // - "Uniseks": include only Uniseks
+
       if (this.sexFilter === 'Sve') {
         sexMatch = true;
       } else if (this.sexFilter === 'Muški') {
