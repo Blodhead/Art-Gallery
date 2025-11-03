@@ -33,6 +33,15 @@
                             [(ngModel)]="nameFilter" (keyup)="onNameFilterChange(nameFilter)">
                     </div>
                     <div class="filter-group">
+                        <label for="sexFilter">Pol</label>
+                        <select id="sexFilter" class="filter-input" [(ngModel)]="sexFilter" (change)="onSexFilterChange(sexFilter)">
+                            <option value="Sve">Sve</option>
+                            <option value="Muški">Muški</option>
+                            <option value="Ženski">Ženski</option>
+                            <option value="Uniseks">Uniseks</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
                         <label for="priceSlider">Opseg cena</label>
                         <div class="price-slider">
                             <div #priceSlider class="slider-box"></div>

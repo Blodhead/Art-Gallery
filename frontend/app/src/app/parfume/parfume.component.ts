@@ -37,6 +37,7 @@ export class ParfumeComponent implements OnInit, AfterViewInit {
   priceFilterMin: number = 0;
   priceFilterMax: number = 0;
   priceSliderInstance: any = null;
+  sexFilter: string = 'Sve';
 
   filtersVisible = true;
 
@@ -267,6 +268,19 @@ toggleFilters() {
     this.applyFilters();
   }
 
+  onSexFilterChange(value: string) {
+    this.sexFilter = value;
+    this.applyFilters();
+  }
+
+  private getSexFromName(name: string): string {
+    if (!name || name.length === 0) return 'Sve';
+    const last = name.trim().slice(-1).toUpperCase();
+    if (last === 'M') return 'Muški';
+    else if (last === 'W') return 'Ženski';
+    else return 'Uniseks';
+  }
+
   onPriceFilterChange(): void {
     this.applyFilters();
   }
@@ -275,7 +289,24 @@ toggleFilters() {
     this.filtered_parfumes = this.allParfumes.filter(parfume => {
       const nameMatch = parfume.name.toLowerCase().includes(this.nameFilter.toLowerCase());
       const priceMatch = parfume.price >= this.priceFilterMin && parfume.price <= this.priceFilterMax;
-      return nameMatch && priceMatch;
+      const sex = this.getSexFromName(parfume.name);
+      let sexMatch = true;
+      // Behavior:
+      // - "Sve": include all
+      // - "Muški": include Muški and Uniseks
+      // - "Ženski": include Ženski and Uniseks
+      // - "Uniseks": include only Uniseks
+      if (this.sexFilter === 'Sve') {
+        sexMatch = true;
+      } else if (this.sexFilter === 'Muški') {
+        sexMatch = (sex === 'Muški');
+      } else if (this.sexFilter === 'Ženski') {
+        sexMatch = (sex === 'Ženski');
+      } else if (this.sexFilter === 'Uniseks') {
+        sexMatch = (sex === 'Uniseks');
+      }
+
+      return nameMatch && priceMatch && sexMatch;
     });
     this.currentPage = 1;
     this.updatePagination();
