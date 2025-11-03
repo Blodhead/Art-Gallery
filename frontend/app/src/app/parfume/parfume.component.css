@@ -147,6 +147,21 @@
     }
 }
 
+.finest-filet-text{
+    margin: 10px;
+    margin-left: 0px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: #222;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
 .bg{
     padding-top: 50px; 
     background-image: url('../../assets/images/FinestBackround.webp');

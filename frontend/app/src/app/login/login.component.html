@@ -2,19 +2,19 @@
   <div class="login-card">
     <div class="login-header">
       <h2>Login</h2>
-      <a class="small-link" routerLink="../register">Create an account</a>
+      <a class="small-link" routerLink="../register">Kreirajte nalog</a>
     </div>
 
     <form class="login-form">
-      <label for="username">Username</label>
-      <input type="text" id="username" placeholder="Enter Username" name="username" [(ngModel)]="username" required>
+      <label for="username">Korisničko ime</label>
+      <input type="text" id="username" placeholder="Unesite korisničko ime" name="username" [(ngModel)]="username" required>
 
-      <label for="password">Password</label>
-      <input type="password" id="password" placeholder="Enter Password" name="password" [(ngModel)]="password" required>
+      <label for="password">Šifra</label>
+      <input type="password" id="password" placeholder="Unesite šifru" name="password" [(ngModel)]="password" required>
 
       <div class="form-actions">
-        <button class="primary" (click)="login()">Sign in</button>
-        <a class="link" (click)="change()">Forgot password?</a>
+        <button class="primary" (click)="login()">Log in</button>
+        <a class="link" (click)="change()">Zaboravili šifru?</a>
       </div>
     </form>
   </div>

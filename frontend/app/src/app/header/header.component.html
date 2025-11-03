@@ -4,13 +4,6 @@
     <span class="logo" (click)="reloadHome()">FinestMiris</span>
   </div>
 
-  <nav class="header-nav">
-    <a *ngIf="type=='admin'" class="nav-link" routerLink="admin">Admin</a>
-    <a *ngIf="type=='organizer'" class="nav-link" routerLink="user_organizer">Profile</a>
-    <a *ngIf="type=='participant'" class="nav-link" routerLink="user">Profile</a>
-    <a *ngIf="type=='participant'" class="nav-link" routerLink="MyParfumes">My Parfumes</a>
-    <a *ngIf="type=='participant'" class="nav-link" routerLink="/admin/edit_parfume">Become Organizer</a>
-  </nav>
 
   <div class="header-actions header-actions-mobile" style="position: relative;">
     <h4 class="filter-title" (click)="toggleVisible()">
@@ -32,9 +25,9 @@
         </svg>
         <span class="cart-badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
       </a>
-      <a *ngIf="hasToken" class="nav-link" (click)="toggleVisible()" routerLink="verify">Change Password</a>
+      <a *ngIf="hasToken" class="nav-link" (click)="toggleVisible()" routerLink="verify">Promena šifre</a>
       <a *ngIf="hasToken" class="nav-link link" (click)="logout()" (click)="toggleVisible()">Logout</a>
-      <a *ngIf="!hasToken" class="nav-link" (click)="toggleVisible()" routerLink="register">Register</a>
+      <a *ngIf="!hasToken" class="nav-link" (click)="toggleVisible()" routerLink="register">Registracija</a>
     </div>
   </div>
 
@@ -48,9 +41,9 @@
       </svg>
       <span class="cart-badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
     </a>
-    <a *ngIf="hasToken" class="nav-link" routerLink="verify">Change Password</a>
+    <a *ngIf="hasToken" class="nav-link" routerLink="verify">Promena šifre</a>
     <a *ngIf="hasToken" class="nav-link link" (click)="logout()">Logout</a>
-    <a *ngIf="!hasToken" class="nav-link" routerLink="register">Register</a>
+    <a *ngIf="!hasToken" class="nav-link" routerLink="register">Registracija</a>
   </div>
 
 </header>

@@ -122,7 +122,7 @@ export class VerifyComponent implements OnInit {
   save() {
 
     if (this.old_password == null || this.new_password == null || this.confirm_password == null) {
-      alert("All fields must be filled");
+      alert("Sva polja moraju biti popunjena!");
       return;
     }
 
@@ -130,7 +130,7 @@ export class VerifyComponent implements OnInit {
     // backend will validate old password (or tempPass) and perform hashing.
 
     if (this.new_password != this.confirm_password) {
-      alert("New and confirmation password do not match!");
+      alert("Neslaganje u šiframa!");
       return;
     }
 
@@ -142,7 +142,7 @@ export class VerifyComponent implements OnInit {
     this.isLoading = true;
     this.service.changePassword(this.current_user, this.old_password, this.new_password).subscribe({
       next: (resp: any) => {
-        alert("Change password successful");
+        alert("Šifra uspešno promenjena!");
         localStorage.removeItem("current_user");
         localStorage.removeItem("token");
         localStorage.removeItem("email");
@@ -151,7 +151,7 @@ export class VerifyComponent implements OnInit {
       error: (err) => {
         this.isLoading = false;
         if (err && err.error && err.error.message) alert(err.error.message);
-        else alert('Error changing password');
+        else alert('Greška pri promeni šifre');
       }
     });
   }

@@ -15,6 +15,7 @@ import { Parfume } from '../models/parfumes';
 
 export class ParfumeComponent implements OnInit, AfterViewInit {
   @ViewChild('priceSlider', { static: false }) priceSlider: ElementRef;
+  @ViewChild('parfumeGrid', { static: false }) parfumeGrid: ElementRef;
   constructor(private _router: Router, private parfume_service: ParfumeService, private sharedService: SharedService) { }
   reload: string;
   toggle1: boolean = true;
@@ -150,12 +151,14 @@ toggleFilters() {
     if (page < 1 || page > this.totalPages) return;
     this.currentPage = page;
     this.updatePagination();
+    this.scrollGridTop();
   }
 
   nextPage(): void {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
       this.updatePagination();
+      this.scrollGridTop();
     }
   }
 
@@ -163,6 +166,17 @@ toggleFilters() {
     if (this.currentPage > 1) {
       this.currentPage--;
       this.updatePagination();
+      this.scrollGridTop();
+    }
+  }
+
+  private scrollGridTop(): void {
+    try {
+      if (this.parfumeGrid && this.parfumeGrid.nativeElement) {
+        this.parfumeGrid.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } catch (e) {
+      // ignore in case of any runtime issues
     }
   }
 

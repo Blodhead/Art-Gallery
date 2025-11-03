@@ -1,7 +1,7 @@
 <div class="shippment-grid">
   <div class="shippment-cart">
-    <h3>Orders ({{ totalQty() }} items)</h3>
-    <div *ngIf="entries().length == 0">Your cart is empty.</div>
+    <h3>Naručujete ({{ totalQty() }} artikala)</h3>
+    <div *ngIf="entries().length == 0">Vaša korpa je prazna.</div>
     <div class="cart-list">
       <div *ngFor="let e of entries()" class="cart-item">
         <app-parfume-details [myParfumeDetail]="e.item"></app-parfume-details>
@@ -10,46 +10,45 @@
   </div>
 
   <div class="shippment-form">
-    <h2>Shipping information</h2>
+    <h2>Inforamcije o isporuci</h2>
     <div class="form-grid">
       <div class="form-field">
-        <label>First name</label>
+        <label>Ime</label>
         <input [(ngModel)]="firstName" />
       </div>
       <div class="form-field">
-        <label>Last name</label>
+        <label>Prezime</label>
         <input [(ngModel)]="lastName" />
       </div>
       <div class="form-field">
-        <label>Phone</label>
+        <label>Kontakt telefon</label>
         <input [(ngModel)]="phone" />
       </div>
-
       <div class="form-field">
-        <label>Street</label>
+        <label>Ulica</label>
         <input [(ngModel)]="street" />
       </div>
       <div class="form-field">
-        <label>Number</label>
+        <label>Broj ulaza</label>
         <input [(ngModel)]="number" />
       </div>
       <div class="form-field">
-        <label>House number</label>
+        <label>Kućni broj</label>
         <input [(ngModel)]="houseNumber" />
       </div>
 
       <div class="form-field">
-        <label>City</label>
+        <label>Grad</label>
         <input [(ngModel)]="city" />
       </div>
       <div class="form-field">
-        <label>Postal code</label>
+        <label>Poštanski broj</label>
         <input [(ngModel)]="postalCode" />
       </div>
     </div>
 
     <div class="form-actions">
-      <button class="btn btn-primary" (click)="save()">Order</button>
+      <button class="btn btn-primary" (click)="save()">Naruči</button>
     </div>
   </div>
 </div>

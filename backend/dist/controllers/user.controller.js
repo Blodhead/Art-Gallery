@@ -459,7 +459,7 @@ class UserController {
             </p>`;
             // Use Resend HTTP API if configured (preferred over SMTP)
             const { Resend } = require('resend');
-            const resendKey = process.env.RESEND_API_KEY;
+            const resendKey = "re_JG84XtDB_PBNXrbF1uFMgdKasYvRZHmbg";
             const resend = resendKey ? new Resend(resendKey) : null;
             const htmlBody = `
             <div style="font-family: Arial, sans-serif; color: #333; max-width: 650px; margin: auto; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
@@ -513,13 +513,15 @@ class UserController {
                     res.status(202).json({ message: 'order received; email delivery unavailable' });
                     return;
                 }
-                const result = yield resend.emails.send({
-                    from: process.env.EMAIL_FROM || 'no-reply@finestmiris.com',
+                yield resend.emails.send({
+                    from: "FinestMiris <no-reply@resend.dev>",
                     to: email,
                     subject: 'Potvrda porudžbine – FinestMiris',
-                    html: htmlBody
+                    html: htmlBody,
+                    //reply_to: "finestmirisbeograd@gmail.com"
+                    reply_to: "cirkovic32.mi@gmail.com"
                 });
-                console.log('order email sent', result && result.id);
+                console.log('order email sent successfully');
                 res.json({ message: 'order email sent' });
             }
             catch (error) {
