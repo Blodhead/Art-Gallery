@@ -1,54 +1,67 @@
-<div class="shippment-grid">
-  <div class="shippment-cart">
-    <h3>Naručujete ({{ totalQty() }} artikala)</h3>
-    <div *ngIf="entries().length == 0">Vaša korpa je prazna.</div>
-    <div class="cart-list">
-      <div *ngFor="let e of entries()" class="cart-item">
-        <app-parfume-details [myParfumeDetail]="e.item"></app-parfume-details>
+<div class="container-fluid">
+  <div class="shippment-grid row">
+    <div class="col-xl-5 col-lg-6 col-md-6 col-sm-12 col-12 shippment-cart">
+      <h3>Naručujete ({{ totalQty() }} artikala)</h3>
+      <div *ngIf="entries().length == 0">Vaša korpa je prazna.</div>
+      <div class="cart-list">
+        <div *ngFor="let e of entries()" class="cart-item">
+          <app-parfume-details [myParfumeDetail]="e.item"></app-parfume-details>
+        </div>
       </div>
     </div>
-  </div>
+    <div class="col-xl-7 col-lg-6 col-md-6 col-sm-12 col-12">
+      <div class="row shipping-info">
 
-  <div class="shippment-form">
-    <h2>Inforamcije o isporuci</h2>
-    <div class="form-grid">
-      <div class="form-field">
-        <label>Ime</label>
-        <input [(ngModel)]="firstName" />
-      </div>
-      <div class="form-field">
-        <label>Prezime</label>
-        <input [(ngModel)]="lastName" />
-      </div>
-      <div class="form-field">
-        <label>Kontakt telefon</label>
-        <input [(ngModel)]="phone" />
-      </div>
-      <div class="form-field">
-        <label>Ulica</label>
-        <input [(ngModel)]="street" />
-      </div>
-      <div class="form-field">
-        <label>Broj ulaza</label>
-        <input [(ngModel)]="number" />
-      </div>
-      <div class="form-field">
-        <label>Kućni broj</label>
-        <input [(ngModel)]="houseNumber" />
-      </div>
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 before-you-buy">
+          <h2>Pre nego što kupite!</h2>
+          <label for="before-you-buy"> • Plaćanje je po uzeću, cena dostave nije uračunata u cenu. </label>
+          <br>
+          <label for="before-you-buy"> • Slike koje vidite mogu variti uživo. </label>
+        </div>
 
-      <div class="form-field">
-        <label>Grad</label>
-        <input [(ngModel)]="city" />
-      </div>
-      <div class="form-field">
-        <label>Poštanski broj</label>
-        <input [(ngModel)]="postalCode" />
-      </div>
-    </div>
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12 shippment-form">
+          <h2>Inforamcije o isporuci</h2>
+          <div class="form-grid">
+            <div class="form-field">
+              <label>Ime</label>
+              <input [(ngModel)]="firstName" />
+            </div>
+            <div class="form-field">
+              <label>Prezime</label>
+              <input [(ngModel)]="lastName" />
+            </div>
+            <div class="form-field">
+              <label>Kontakt telefon</label>
+              <input [(ngModel)]="phone" />
+            </div>
+            <div class="form-field">
+              <label>Ulica</label>
+              <input [(ngModel)]="street" />
+            </div>
+            <div class="form-field">
+              <label>Broj ulaza</label>
+              <input [(ngModel)]="number" />
+            </div>
+            <div class="form-field">
+              <label>Kućni broj</label>
+              <input [(ngModel)]="houseNumber" />
+            </div>
 
-    <div class="form-actions">
-      <button class="btn btn-primary" (click)="save()">Naruči</button>
+            <div class="form-field">
+              <label>Grad</label>
+              <input [(ngModel)]="city" />
+            </div>
+            <div class="form-field">
+              <label>Poštanski broj</label>
+              <input [(ngModel)]="postalCode" />
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-primary" (click)="save()">Naruči</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -1,4 +1,5 @@
-.shippment-form {
+.shippment-form,
+.before-you-buy {
   height: fit-content;
   width: fit-content;
   margin: 2rem auto;
@@ -8,10 +9,12 @@
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
 }
 
-.shippment-form h2 {
+.shippment-form h2,
+.before-you-buy h2 {
   color: #136207;
   margin-bottom: 1rem
 }
+
 
 .form-row {
   display: flex;
@@ -71,20 +74,16 @@
 
 
 /*.shippment-cart { background: #fff; padding: 1rem; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.04) }*/
-.shippment-grid { display: grid; grid-template-columns: 1fr 650px; gap: 1.5rem; max-width: 1100px; margin: 2rem auto }
-
-@media (max-width: 900px) {
-  .shippment-grid {
-    display: inline;
-
-    flex-direction: column;
-    align-items: center;
-  }
+.shippment-grid {
+  /* Let Bootstrap row/col handle layout. Keep a container width and outer spacing. */
+  max-width: 1500px;
+  margin: 2rem auto;
 }
 
 .shippment-cart {
   background: #fff;
   padding: 1rem;
+  max-height: fit-content;
   border-radius: 12px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04)
 }
@@ -130,12 +129,23 @@
   }
 }
 
+@media (max-width: 1000px) {
+  .shipping-info {
+    display: contents;
+    flex: none;
+  }
+}
+
 
 /* Make shipping form sticky so it doesn't scroll with cart list */
 .shippment-form {
   position: sticky;
   top: 20px;
-  align-self: start
+  align-self: start;
+}
+
+.shipping-info {
+  min-width: fit-content;
 }
 
 @media (max-width: 900px) {
