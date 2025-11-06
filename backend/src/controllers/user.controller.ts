@@ -512,7 +512,7 @@ export class UserController {
                 reply_to: "cirkovic32.mi@gmail.com"
             });
 
-            console.log('order email sent successfully');
+            console.log('order email sent successfully to' + email);
             res.json({ message: 'order email sent' });
 
         } catch (error) {

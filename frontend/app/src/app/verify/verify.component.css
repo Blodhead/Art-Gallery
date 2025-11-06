@@ -89,7 +89,7 @@ span.psw {
   margin-bottom:1rem;
 }
 .login-header h2{margin:0;font-weight:600;color:#222}
-.small-link{font-size:0.9rem;color:#777;text-decoration:none}
+.small-link{font-size:0.9rem;color:#777;text-decoration:none; text-align: end;}
 .login-form label{display:block;margin-top:0.6rem;color:#444}
 .login-form input{width:100%;padding:10px;border:1px solid #e6e6e6;border-radius:4px;margin-top:6px}
 .form-actions{display:flex;justify-content:space-between;align-items:center;margin-top:1rem}
