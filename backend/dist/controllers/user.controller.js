@@ -49,6 +49,22 @@ exports.UserController = void 0;
 const users_1 = __importDefault(require("../models/users"));
 const bcrypt = __importStar(require("bcryptjs"));
 const tokens_1 = __importDefault(require("../models/tokens"));
+// Try to load a local credentials file for development (do NOT commit credentials.js/ts).
+// This file should export the same env var names (GMAIL_CLIENT_ID, GMAIL_CLIENT_SECRET, GMAIL_REFRESH_TOKEN, GMAIL_USER, RESEND_API_KEY, etc.)
+let fileCreds = {};
+try {
+    // relative to src/controllers -> src/credentials.ts or src/credentials.js
+    fileCreds = require('../../credentials');
+}
+catch (e) {
+    try {
+        // fallback: maybe credentials placed at project root for JS runtime
+        fileCreds = require('../../../credentials');
+    }
+    catch (e2) {
+        fileCreds = {};
+    }
+}
 class UserController {
     constructor() {
         this.register = (req, res) => {
@@ -240,7 +256,7 @@ class UserController {
         this.sendMail = (req, res) => __awaiter(this, void 0, void 0, function* () {
             // Password reset helper using Resend if available
             const { Resend } = require('resend');
-            const resendKey = process.env.RESEND_API_KEY;
+            const resendKey = fileCreds.RESEND_API_KEY || process.env.RESEND_API_KEY;
             const resend = resendKey ? new Resend(resendKey) : null;
             var randomWords = require('random-words');
             var special = "!\"§$%&/()=?\u{20ac}";
@@ -303,7 +319,7 @@ class UserController {
         // POST { email }
         this.requestReset = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { Resend } = require('resend');
-            const resendKey = process.env.RESEND_API_KEY;
+            const resendKey = fileCreds.RESEND_API_KEY || process.env.RESEND_API_KEY;
             const resend = resendKey ? new Resend(resendKey) : null;
             const email = req.body.email || req.body.mail;
             if (!email) {
@@ -457,10 +473,9 @@ class UserController {
             <strong>Grad:</strong> ${shipping.city || ''}<br>
             <strong>Poštanski broj:</strong> ${shipping.postalCode || ''}
             </p>`;
-            // Use Resend HTTP API if configured (preferred over SMTP)
-            const { Resend } = require('resend');
-            const resendKey = "re_JG84XtDB_PBNXrbF1uFMgdKasYvRZHmbg";
-            const resend = resendKey ? new Resend(resendKey) : null;
+            // Use Google's Gmail API (OAuth2) to send the order email if configured.
+            // Requires these env vars to be set: GMAIL_CLIENT_ID, GMAIL_CLIENT_SECRET, GMAIL_REFRESH_TOKEN, GMAIL_USER
+            const { google } = require('googleapis');
             const htmlBody = `
             <div style="font-family: Arial, sans-serif; color: #333; max-width: 650px; margin: auto; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
             
@@ -508,20 +523,39 @@ class UserController {
             </div>
             </div>`;
             try {
-                if (!resend) {
-                    console.warn('RESEND_API_KEY not set; skipping email send for order');
+                const CLIENT_ID = fileCreds.web.client_id || process.env.GMAIL_CLIENT_ID;
+                const CLIENT_SECRET = fileCreds.web.client_secret || process.env.GMAIL_CLIENT_SECRET;
+                const REFRESH_TOKEN = "1//09SCnawgnN-hqCgYIARAAGAkSNwF-L9Ir4utl3dfWY6p4NMmzuN1uoveCw9P3KDbqkzN4B89Ea7UCcrPRQIx0OVvBe7r_HU9GiDg"; //"1//09r1CN1DLpwlfCgYIARAAGAkSNgF-L9IrreZdYqUCtss3WqSA0Q7768osCRwFradnuuT5kKPH8OgcnAW_F-Cv1k4uNWbPxi7ZnQ";
+                const GMAIL_USER = fileCreds.GMAIL_USER || process.env.GMAIL_USER || process.env.EMAIL_FROM || 'no-reply@finestmiris.com';
+                if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
+                    console.log(fileCreds);
+                    console.log("CLIENT ID  " + CLIENT_ID + "CLIENT_SECRET  " + CLIENT_SECRET + "REFRESH_TOKEN " + REFRESH_TOKEN);
+                    console.warn('Gmail OAuth2 credentials not fully configured; skipping email send for order');
                     res.status(202).json({ message: 'order received; email delivery unavailable' });
                     return;
                 }
-                yield resend.emails.send({
-                    from: "FinestMiris <no-reply@resend.dev>",
-                    to: email,
-                    subject: 'Potvrda porudžbine – FinestMiris',
-                    html: htmlBody,
-                    //reply_to: "finestmirisbeograd@gmail.com"
-                    reply_to: "cirkovic32.mi@gmail.com"
+                const oauth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET);
+                oauth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
+                const gmail = google.gmail({ version: 'v1', auth: oauth2Client });
+                // Build raw MIME message
+                const subject = 'Potvrda porudžbine – FinestMiris';
+                const mimeLines = [];
+                mimeLines.push(`From: ${GMAIL_USER}`);
+                mimeLines.push(`To: ${email}`);
+                mimeLines.push(`Subject: ${subject}`);
+                mimeLines.push('Content-Type: text/html; charset=utf-8');
+                mimeLines.push('MIME-Version: 1.0');
+                mimeLines.push('');
+                mimeLines.push(htmlBody);
+                const mime = mimeLines.join('\r\n');
+                const encodedMessage = Buffer.from(mime).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+                yield gmail.users.messages.send({
+                    userId: 'me',
+                    requestBody: {
+                        raw: encodedMessage,
+                    }
                 });
-                console.log('order email sent successfully');
+                console.log('order email sent successfully to ' + email);
                 res.json({ message: 'order email sent' });
             }
             catch (error) {
