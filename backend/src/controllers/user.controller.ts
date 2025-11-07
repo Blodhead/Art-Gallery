@@ -237,9 +237,9 @@ export class UserController {
 
     sendMail = async (req: express.Request, res: express.Response) => {
         // Password reset helper using Resend if available
-    const { Resend } = require('resend');
-    const resendKey = fileCreds.RESEND_API_KEY || process.env.RESEND_API_KEY;
-    const resend = resendKey ? new Resend(resendKey) : null;
+        const { Resend } = require('resend');
+        const resendKey = fileCreds.RESEND_API_KEY || process.env.RESEND_API_KEY;
+        const resend = resendKey ? new Resend(resendKey) : null;
         var randomWords = require('random-words');
         var special = "!\"§$%&/()=?\u{20ac}";
 
@@ -311,9 +311,9 @@ export class UserController {
     // Request a short-lived numeric verification code sent to the user's email
     // POST { email }
     requestReset = async (req: express.Request, res: express.Response) => {
-    const { Resend } = require('resend');
-    const resendKey = fileCreds.RESEND_API_KEY || process.env.RESEND_API_KEY;
-    const resend = resendKey ? new Resend(resendKey) : null;
+        const { Resend } = require('resend');
+        const resendKey = fileCreds.RESEND_API_KEY || process.env.RESEND_API_KEY;
+        const resend = resendKey ? new Resend(resendKey) : null;
         const email = req.body.email || req.body.mail;
 
         if (!email) { res.status(400).json({ message: 'missing email' }); return; }
@@ -503,7 +503,7 @@ export class UserController {
                 <p style="margin-top: 30px; text-align: center; color: #777;">
                 Srdačan pozdrav,<br>
                 <strong>FinestMiris Team</strong><br>
-                <a href="emailto:no-reply@finestmiris.com" style="color: #136207; text-decoration: none;">no-reply@finestmiris.com</a>
+                <a href="emailto:no-reply@finestmiris.com" style="color: #136207; text-decoration: none;">finestmirisbeograd@no-reply.com</a>
                 </p>
             </div>
             </div>`;
@@ -512,41 +512,52 @@ export class UserController {
             const CLIENT_ID = fileCreds.web.client_id || process.env.GMAIL_CLIENT_ID;
             const CLIENT_SECRET = fileCreds.web.client_secret || process.env.GMAIL_CLIENT_SECRET;
             const REFRESH_TOKEN = fileCreds.web.refresh_token || process.env.GMAIL_REFRESH_TOKEN;
-            const GMAIL_USER = fileCreds.GMAIL_USER || process.env.GMAIL_USER || process.env.EMAIL_FROM || 'no-reply@finestmiris.com';
+            const GMAIL_USER = fileCreds.GMAIL_USER || process.env.GMAIL_USER || process.env.EMAIL_FROM || 'finestmirisbeograd@no-reply.com';
 
             if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
                 console.log(fileCreds);
-                console.log("CLIENT ID  " + CLIENT_ID + "CLIENT_SECRET  " +  CLIENT_SECRET + "REFRESH_TOKEN " + REFRESH_TOKEN);
+                console.log("CLIENT ID  " + CLIENT_ID + "CLIENT_SECRET  " + CLIENT_SECRET + "REFRESH_TOKEN " + REFRESH_TOKEN);
                 console.warn('Gmail OAuth2 credentials not fully configured; skipping email send for order');
                 res.status(202).json({ message: 'order received; email delivery unavailable' });
                 return;
             }
+
 
             const oauth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET);
             oauth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
             const gmail = google.gmail({ version: 'v1', auth: oauth2Client });
 
+            // Properly encode the subject using Base64 (RFC 2047)
+            const rawSubject = 'Potvrda porudžbine – FinestMiris';
+            const encodedSubject = `=?UTF-8?B?${Buffer.from(rawSubject).toString('base64')}?=`;
+
             // Build raw MIME message
-            const subject = 'Potvrda porudžbine – FinestMiris';
             const mimeLines = [];
             mimeLines.push(`From: ${GMAIL_USER}`);
             mimeLines.push(`To: ${email}`);
-            mimeLines.push(`Subject: ${subject}`);
-            mimeLines.push('Content-Type: text/html; charset=utf-8');
+            mimeLines.push(`Subject: ${encodedSubject}`);
+            mimeLines.push('Content-Type: text/html; charset=UTF-8');
             mimeLines.push('MIME-Version: 1.0');
             mimeLines.push('');
             mimeLines.push(htmlBody);
+
             const mime = mimeLines.join('\r\n');
 
-            const encodedMessage = Buffer.from(mime).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+            // Gmail API requires base64url encoding
+            const encodedMessage = Buffer.from(mime)
+                .toString('base64')
+                .replace(/\+/g, '-')
+                .replace(/\//g, '_')
+                .replace(/=+$/, '');
 
             await gmail.users.messages.send({
                 userId: 'me',
                 requestBody: {
                     raw: encodedMessage,
-                }
+                },
             });
+
 
             console.log('order email sent successfully to ' + email);
             res.json({ message: 'order email sent' });

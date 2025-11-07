@@ -525,7 +525,7 @@ class UserController {
             try {
                 const CLIENT_ID = fileCreds.web.client_id || process.env.GMAIL_CLIENT_ID;
                 const CLIENT_SECRET = fileCreds.web.client_secret || process.env.GMAIL_CLIENT_SECRET;
-                const REFRESH_TOKEN = "1//09SCnawgnN-hqCgYIARAAGAkSNwF-L9Ir4utl3dfWY6p4NMmzuN1uoveCw9P3KDbqkzN4B89Ea7UCcrPRQIx0OVvBe7r_HU9GiDg"; //"1//09r1CN1DLpwlfCgYIARAAGAkSNgF-L9IrreZdYqUCtss3WqSA0Q7768osCRwFradnuuT5kKPH8OgcnAW_F-Cv1k4uNWbPxi7ZnQ";
+                const REFRESH_TOKEN = fileCreds.web.refresh_token || process.env.GMAIL_REFRESH_TOKEN;
                 const GMAIL_USER = fileCreds.GMAIL_USER || process.env.GMAIL_USER || process.env.EMAIL_FROM || 'no-reply@finestmiris.com';
                 if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
                     console.log(fileCreds);
@@ -537,23 +537,30 @@ class UserController {
                 const oauth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET);
                 oauth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
                 const gmail = google.gmail({ version: 'v1', auth: oauth2Client });
+                // Properly encode the subject using Base64 (RFC 2047)
+                const rawSubject = 'Potvrda porudžbine – FinestMiris';
+                const encodedSubject = `=?UTF-8?B?${Buffer.from(rawSubject).toString('base64')}?=`;
                 // Build raw MIME message
-                const subject = 'Potvrda porudžbine – FinestMiris';
                 const mimeLines = [];
                 mimeLines.push(`From: ${GMAIL_USER}`);
                 mimeLines.push(`To: ${email}`);
-                mimeLines.push(`Subject: ${subject}`);
-                mimeLines.push('Content-Type: text/html; charset=utf-8');
+                mimeLines.push(`Subject: ${encodedSubject}`);
+                mimeLines.push('Content-Type: text/html; charset=UTF-8');
                 mimeLines.push('MIME-Version: 1.0');
                 mimeLines.push('');
                 mimeLines.push(htmlBody);
                 const mime = mimeLines.join('\r\n');
-                const encodedMessage = Buffer.from(mime).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+                // Gmail API requires base64url encoding
+                const encodedMessage = Buffer.from(mime)
+                    .toString('base64')
+                    .replace(/\+/g, '-')
+                    .replace(/\//g, '_')
+                    .replace(/=+$/, '');
                 yield gmail.users.messages.send({
                     userId: 'me',
                     requestBody: {
                         raw: encodedMessage,
-                    }
+                    },
                 });
                 console.log('order email sent successfully to ' + email);
                 res.json({ message: 'order email sent' });

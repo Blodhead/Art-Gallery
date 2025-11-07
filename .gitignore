@@ -1,5 +1,5 @@
 frontend/app/src/environments/environment.ts
-backend/dist
+backend/dist/
 backend/credentials.json
 backend/exchange_token.js
 backend/get_token.js
