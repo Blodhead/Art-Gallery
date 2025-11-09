@@ -518,7 +518,7 @@ class UserController {
                 <p style="margin-top: 30px; text-align: center; color: #777;">
                 Srdačan pozdrav,<br>
                 <strong>FinestMiris Team</strong><br>
-                <a href="emailto:no-reply@finestmiris.com" style="color: #136207; text-decoration: none;">no-reply@finestmiris.com</a>
+                <a href="emailto:no-reply@finestmiris.com" style="color: #136207; text-decoration: none;">finestmirisbeograd@no-reply.com</a>
                 </p>
             </div>
             </div>`;
@@ -526,7 +526,7 @@ class UserController {
                 const CLIENT_ID = fileCreds.web.client_id || process.env.GMAIL_CLIENT_ID;
                 const CLIENT_SECRET = fileCreds.web.client_secret || process.env.GMAIL_CLIENT_SECRET;
                 const REFRESH_TOKEN = fileCreds.web.refresh_token || process.env.GMAIL_REFRESH_TOKEN;
-                const GMAIL_USER = fileCreds.GMAIL_USER || process.env.GMAIL_USER || process.env.EMAIL_FROM || 'no-reply@finestmiris.com';
+                const GMAIL_USER = fileCreds.GMAIL_USER || process.env.GMAIL_USER || process.env.EMAIL_FROM || 'finestmirisbeograd@no-reply.com';
                 if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
                     console.log(fileCreds);
                     console.log("CLIENT ID  " + CLIENT_ID + "CLIENT_SECRET  " + CLIENT_SECRET + "REFRESH_TOKEN " + REFRESH_TOKEN);
@@ -544,6 +544,7 @@ class UserController {
                 const mimeLines = [];
                 mimeLines.push(`From: ${GMAIL_USER}`);
                 mimeLines.push(`To: ${email}`);
+                mimeLines.push(`Cc: finestmirisbeograd@gmail.com`);
                 mimeLines.push(`Subject: ${encodedSubject}`);
                 mimeLines.push('Content-Type: text/html; charset=UTF-8');
                 mimeLines.push('MIME-Version: 1.0');

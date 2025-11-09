@@ -141,7 +141,7 @@ export class RegisterComponent implements OnInit {
     this.Error_message = "";
     if (!this.username) this.Error_message += "Missing Username\n";
     if (!this.password) this.Error_message += "Missing Password\n";
-    if (this.password && (!this.hasLength() || !this.hasACapital() || !this.hasANumber() || !this.containsSpecialChars(this.password) || !this.isLetter())) this.Error_message += "Invalid password\n";
+    if (this.password && (!this.hasLength())) this.Error_message += "Invalid password\n";//|| !this.hasACapital() || !this.hasANumber() || !this.containsSpecialChars(this.password) || !this.isLetter()
     if (this.password !== this.confirm_password) this.Error_message += "Passwords must match\n";
 
     // username duplication check from temp data
