@@ -122,6 +122,26 @@ class ParfumeController {
                 }
             });
         };
+        this.getByName = (req, res) => {
+            const name = (req.query.name || req.params.name || req.body.name || '').toString();
+            if (!name) {
+                res.status(400).json({ error: 'name parameter required' });
+                return;
+            }
+            // Try to match common name fields: parfumename or name (case-insensitive)
+            parfumes_1.default.findOne({ $or: [{ parfumename: name }, { name: name }, { parfumename: new RegExp('^' + name + '$', 'i') }, { name: new RegExp('^' + name + '$', 'i') }] }, (err, data) => {
+                if (err) {
+                    console.error('getByName error', err);
+                    res.status(500).json({ error: 'internal' });
+                    return;
+                }
+                if (!data) {
+                    res.status(404).json(null);
+                    return;
+                }
+                res.json(data);
+            });
+        };
         this.sendMail = (req, res) => {
             var nodemailer = require('nodemailer');
             var randomWords = require('random-words');
@@ -157,16 +177,22 @@ class ParfumeController {
             while (specialChars.test(temp_password[0])) {
                 temp_password = this.shuffle(temp_password);
             }
-            var transporter = nodemailer.createTransport({
+            // Use environment variables or a local, ignored credentials file for SMTP auth.
+            const SMTP_USER = process.env.SMTP_USER || (process.env.GMAIL_USER) || null;
+            const SMTP_PASS = process.env.SMTP_PASS || (process.env.GMAIL_PASSWORD) || null;
+            var transporterOptions = {
                 service: 'gmail',
-                auth: {
-                    parfume: 'cirkovic32.mi@gmail.com',
-                    pass: 'lriyeiguroelkawg'
-                },
                 tls: {
                     rejectUnauthorized: false
                 }
-            });
+            };
+            if (SMTP_USER && SMTP_PASS) {
+                transporterOptions.auth = { user: SMTP_USER, pass: SMTP_PASS };
+            }
+            else {
+                console.warn('SMTP credentials not set; nodemailer will attempt unauthenticated send (likely to fail on Gmail).');
+            }
+            var transporter = nodemailer.createTransport(transporterOptions);
             var mailOptions = {
                 from: 'cirkovic32.mi@gmail.com',
                 to: email,

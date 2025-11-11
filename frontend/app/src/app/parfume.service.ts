@@ -98,6 +98,11 @@ export class ParfumeService {
     return this.http.get(`${this.url}/parfume/getAllParfumes`);
   }
 
+  getByName(name: string) {
+    const encoded = encodeURIComponent(name);
+    return this.http.get(`${this.url}/parfume/getByName?name=${encoded}`);
+  }
+
   sub(email, myParfumeDetail, arg) {
     let data = {
       email: email,

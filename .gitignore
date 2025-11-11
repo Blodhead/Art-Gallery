@@ -3,3 +3,4 @@ backend/dist/
 backend/credentials.json
 backend/exchange_token.js
 backend/get_token.js
+backend/credentials.example.json

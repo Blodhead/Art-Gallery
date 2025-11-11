@@ -1,4 +1,5 @@
 <div class="wrapper">
+    <script *ngIf="jsonLd" type="application/ld+json">{{ jsonLd }}</script>
     <gallery [items]="images" thumbPosition="left"></gallery>
     <div class="container-fluid">
 

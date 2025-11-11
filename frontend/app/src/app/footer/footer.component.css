@@ -33,6 +33,12 @@
     font-size: 0.9em;
     margin-top: 0.4rem;
 }
+/* Social icon styles */
+.socials{
+    margin-top:8px;
+}
+.instagram-link{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:4px;background:transparent;text-decoration:none}
+.instagram-link svg{display:block}
 .main-footer a {
     color: #bfa181;
     text-decoration: none;
