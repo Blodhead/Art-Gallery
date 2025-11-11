@@ -9,39 +9,28 @@ import Parfume from './models/parfumes';
 const app = express();
 
 // ✅ Middleware
-// Allow CORS from the frontend. In production you may want to restrict this to your domain(s).
-const allowedOrigins = [
-  process.env.FRONTEND_ORIGIN || 'https://finestmiris.kesug.com',
-  '*'
-];
-
-const corsOptions = {
-  origin: function (origin, callback) {
-    // allow requests with no origin (like mobile apps, curl)
-    if (!origin) return callback(null, true);
-    // allow if origin is in allowedOrigins or if '*' is present
-    if (allowedOrigins.indexOf('*') !== -1 || allowedOrigins.indexOf(origin) !== -1) {
-      return callback(null, true);
-    }
-    const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-    return callback(new Error(msg), false);
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'],
-  credentials: false,
-};
-
+// For now allow CORS from all origins to avoid blocking browser requests.
+// You can restrict this later by setting FRONTEND_ORIGIN in the environment.
 app.use(bodyParser.json());
-app.use(cors(corsOptions));
 
-// enable pre-flight across-the-board
-app.options('*', cors(corsOptions));
+// Use the simple cors() middleware which will set Access-Control-Allow-Origin.
+// If you need to restrict to one origin, set FRONTEND_ORIGIN and we can echo that.
+if (process.env.FRONTEND_ORIGIN) {
+  app.use(cors({ origin: process.env.FRONTEND_ORIGIN, methods: ['GET','POST','PUT','DELETE','OPTIONS'], allowedHeaders: ['Origin','X-Requested-With','Content-Type','Accept','Authorization'], credentials: false }));
+  app.options('*', cors({ origin: process.env.FRONTEND_ORIGIN }));
+} else {
+  app.use(cors());
+  app.options('*', cors());
+}
 
-// fallback headers for older clients
+// Ensure fallback headers are present for any response (keeps behavior consistent)
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  // If cors already set an explicit header, don't overwrite; otherwise allow all.
+  if (!res.getHeader('Access-Control-Allow-Origin')) {
+    res.setHeader('Access-Control-Allow-Origin', process.env.FRONTEND_ORIGIN || '*');
+  }
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   next();
 });
 
