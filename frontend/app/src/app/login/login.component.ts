@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
   }
   show: boolean = false;
   recovery: string;
-  change() {
+  forgotPassword() {
     this.show = !this.show;
   }
   reload() {

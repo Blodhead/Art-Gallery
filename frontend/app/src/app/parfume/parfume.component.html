@@ -66,10 +66,10 @@
         </div>
         <div class="pagination-controls"
             style="margin: 2rem 0; display: flex; justify-content: center; align-items: center; gap: 1rem;">
-            <button class="btn btn-outline-secondary" (click)="prevPage()" [disabled]="currentPage === 1"> < </button>
+            <button class="btn btn-outline-secondary" (click)="prevPage()" [disabled]="currentPage === 1"> &lt; </button>
             <span>{{currentPage}} of {{totalPages}}</span>
             <button class="btn btn-outline-secondary" (click)="nextPage()"
-                [disabled]="currentPage === totalPages"> > </button>
+                [disabled]="currentPage === totalPages"> &gt; </button>
         </div>
     </div>
 
