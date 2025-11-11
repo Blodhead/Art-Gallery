@@ -66,10 +66,10 @@
         </div>
         <div class="pagination-controls"
             style="margin: 2rem 0; display: flex; justify-content: center; align-items: center; gap: 1rem;">
-            <button class="btn btn-outline-secondary" (click)="prevPage()" [disabled]="currentPage === 1">Prethodna</button>
-            <span>Strana {{currentPage}} of {{totalPages}}</span>
+            <button class="btn btn-outline-secondary" (click)="prevPage()" [disabled]="currentPage === 1"> < </button>
+            <span>{{currentPage}} of {{totalPages}}</span>
             <button class="btn btn-outline-secondary" (click)="nextPage()"
-                [disabled]="currentPage === totalPages">Sledeća</button>
+                [disabled]="currentPage === totalPages"> > </button>
         </div>
     </div>
 

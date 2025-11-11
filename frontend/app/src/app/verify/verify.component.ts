@@ -134,8 +134,8 @@ export class VerifyComponent implements OnInit {
       return;
     }
 
-    if (!this.hasLength() || !this.hasACapital() || !this.hasANumber() || !this.containsSpecialChars(this.new_password) || !this.isLetter()) {
-      alert("New password not valid!");
+    if (!this.hasLength()) {
+      alert("Nova šifra nije validna!");
       return;
     }
 

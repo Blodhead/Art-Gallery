@@ -79,7 +79,7 @@ export class HeaderComponent implements OnInit {
       // navigate to shippment page
       window.location.href = '/shippment';
     } else {
-      alert('Your cart is empty');
+      alert('Korpa je prazna!');
     }
   }
 
