@@ -57,7 +57,7 @@ app.use('/', router);
 
 // ✅ Robots.txt - point crawlers to the sitemap
 app.get('/robots.txt', (req, res) => {
-  const origin = process.env.FRONTEND_ORIGIN || 'https://finestmiris.kesug.com';
+  const origin = process.env.FRONTEND_ORIGIN || 'https://finestmiris.rs';
   const lines = [
     'User-agent: *',
     'Disallow:',
@@ -69,7 +69,7 @@ app.get('/robots.txt', (req, res) => {
 // ✅ Sitemap - dynamically build sitemap.xml from parfumes
 app.get('/sitemap.xml', async (req, res) => {
   try {
-    const origin = (process.env.FRONTEND_ORIGIN || 'https://finestmiris.kesug.com').replace(/\/$/, '');
+    const origin = (process.env.FRONTEND_ORIGIN || 'https://finestmiris.rs').replace(/\/$/, '');
     // fetch parfumes (only name required for now)
     const parfumes = await Parfume.find({}, { name: 1 }).lean().exec();
 
